@@ -1,0 +1,15 @@
+이 폴더에 아래 파일명 그대로 사진을 넣어주세요.
+
+hero-main.jpg          센터 대표 사진 (4:3 비율 권장, 첫 화면 큰 사진)
+gallery-01.jpg          작품 갤러리 1
+gallery-02.jpg          작품 갤러리 2
+gallery-03.jpg          작품 갤러리 3
+gallery-04.jpg          작품 갤러리 4
+gallery-05.jpg          작품 갤러리 5
+gallery-06.jpg          작품 갤러리 6
+gallery-07.jpg          작품 갤러리 7
+gallery-08.jpg          작품 갤러리 8
+manager.jpg             담당자 프로필 사진 (1:1 정사각형 권장, 원형으로 표시됨)
+
+사진 비율이 원본과 달라도 자동으로 박스에 맞춰 잘려서 표시됩니다.
+자세한 설명은 상위 폴더의 "가이드.txt"를 참고하세요.

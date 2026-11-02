@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+ <head>
+ <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인터랙티브 사다리 게임</title>
+    <link rel="stylesheet" href="../common/css/pages/game/ladderGame.css">
+<link rel="stylesheet" href="../common/css/common.css">
+<script src="../common/js/auth.js"></script>
+<script src="../common/js/common.js"></script>
+</head>
+<body data-site-family="game">
+<h1> 사다리 게임</h1>
+<figure class="page-art-banner" aria-hidden="true"><img class="page-art" data-page-image src="../images/ladder-game-hero.png" alt="" width="1536" height="1024" decoding="async"></figure>
+
+    <div class="controls">
+        <label>참가자 수 (2~10):</label>
+        <input type="number" id="player-count" value="4" min="2" max="10">
+        <button onclick="initLadder()">입력칸 생성</button>
+        <button id="start-btn" onclick="startLadderGame()" disabled>사다리 타기 시작!</button>
+    </div>
+
+    <div class="game-wrapper" id="game-wrapper" style="display:none;">
+        <div id="top-inputs"></div>
+        <canvas id="ladder-canvas"></canvas>
+        <div id="bottom-inputs"></div>
+    </div>
+
+    <div id="result-summary">
+        <h3> 최종 결과 요약</h3>
+        <div id="summary-list"></div>
+    </div>
+
+    <script src="../common/js/pages/game/ladderGame.js"></script>
+</body>
+</html>

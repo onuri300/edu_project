@@ -1,0 +1,7 @@
+import type {JournalContext} from './journal-settings';
+export type LibrarySession={index:number;title:string;date:string;datePlanned:boolean;created:string|null;journal:string;completed:boolean};
+export type LibraryEntry={courseId:string;topic:string;audience:string;updated:string;context?:JournalContext;materials?:{plan:boolean;slides:boolean;journal:boolean};session:LibrarySession|null};
+export type LibraryPage={entries:LibraryEntry[];counts:{categoryId:string;courses:number;journals:number}[];nextOffset:number|null};
+export const librarySortExpressions={created:"COALESCE(json_extract(s.value,'$.journalCreatedAt'),c.updated)",date:"COALESCE(NULLIF(json_extract(s.value,'$.actual.date'),''),NULLIF(json_extract(c.payload,'$.input.plannedDate'),''))",topic:'c.topic COLLATE NOCASE',category:"COALESCE(cat.title,json_extract(c.payload,'$.journalContext.categoryTitle'),'') COLLATE NOCASE",status:"CASE WHEN TRIM(COALESCE(json_extract(s.value,'$.journal'),''))='' THEN 2 WHEN TRIM(COALESCE(json_extract(s.value,'$.actual.activities'),''))<>'' AND json_extract(s.value,'$.journal') NOT LIKE '수업일지 초안%' THEN 0 ELSE 1 END",updated:'c.updated'};
+export type LibrarySort=keyof typeof librarySortExpressions;
+export function librarySort(value:string|null,direction:string|null){const key=value||'date';if(!Object.hasOwn(librarySortExpressions,key)||direction&&!['asc','desc'].includes(direction))throw Error('정렬 기준과 순서를 확인해주세요.');return {key:key as LibrarySort,expression:librarySortExpressions[key as LibrarySort],direction:direction==='asc'?'ASC':'DESC'};}

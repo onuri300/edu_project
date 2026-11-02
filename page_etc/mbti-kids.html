@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나의 성격 탐험대 - 어린이 MBTI 테스트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../common/css/pages/mbti/mbti-kids.css">
+<link rel="stylesheet" href="../common/css/common.css">
+<script src="../common/js/auth.js"></script>
+<script src="../common/js/common.js"></script>
+</head>
+<body data-site-family="mbti">
+<div class="wrap">
+  <header class="top">
+    <h1>나의 성격 탐험대 🚀</h1>
+    <p>질문 8개로 알아보는 나만의 동물 캐릭터!</p>
+  </header>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <p class="progress-label" id="progressLabel">1 / 8</p>
+  </div>
+
+  <main>
+<figure class="page-art-banner" aria-hidden="true"><img class="page-art" data-page-image src="../images/mbti-kids-hero.png" alt="" width="1536" height="1024" decoding="async"></figure>
+    <section id="start" class="active">
+      <div class="card start-hero">
+        <span class="hero-emoji">🐾</span>
+        <h2>나는 어떤 동물 친구일까?</h2>
+        <p>쉬운 질문 8개에 답하면<br>나랑 닮은 동물 캐릭터를 알려줄게요!</p>
+        <div class="type-preview">
+          <span>🦁</span><span>🐰</span><span>🦊</span><span>🐬</span>
+        </div>
+        <button class="btn" id="startBtn">시작하기</button>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <div class="card">
+        <p class="q-number" id="qNumber">질문 1</p>
+        <p class="q-text" id="qText"></p>
+        <div class="options" id="options"></div>
+        <div class="quiz-nav">
+          <button id="backBtn" type="button">◀ 이전 질문</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="result">
+      <div class="card result-top">
+        <div class="mascot-badge" id="mascotBadge"></div>
+        <p class="result-code" id="resultCode"></p>
+        <h2 class="mascot-name" id="mascotName"></h2>
+        <p class="mascot-tag" id="mascotTag"></p>
+        <div class="traits" id="traits"></div>
+        <p class="result-desc" id="resultDesc"></p>
+        <div class="result-actions">
+          <button class="btn" id="retryBtn">다시 하기</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>친구들과 함께 해보고 결과를 비교해 보세요 🌈</footer>
+</div>
+
+<script src="../common/js/pages/mbti/mbti-kids.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        h1 { margin-bottom: 30px; color: var(--primary-color); }
+
+        /* 컨트롤 영역 */
+        .controls {
+            background: var(--card-bg);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid var(--line-color);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover { background-color: #357abd; transform: translateY(-2px); }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+
+        /* 사다리 게임 판 */
+        .game-wrapper {
+            position: relative;
+            background: var(--card-bg);
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            overflow: visible;
+        }
+
+        #ladder-canvas {
+            display: block;
+            border-radius: 10px;
+        }
+
+        /* 이름 및 결과 입력창 (Absolute) */
+        .input-container {
+            position: absolute;
+            width: 80px;
+            transform: translateX(-50%);
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--line-color);
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .input-container.top { top: 15px; }
+        .input-container.bottom { bottom: 15px; }
+
+        /* 결과 요약 영역 */
+        #result-summary {
+            width: 90%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        #result-summary h3 { border-bottom: 2px solid var(--bg-color); padding-bottom: 10px; }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    

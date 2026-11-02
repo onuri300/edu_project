@@ -1,0 +1,199 @@
+(() => {
+  "use strict";
+
+  /* ---------- 유틸 ---------- */
+  const $ = s => document.querySelector(s);
+  const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  async function deriveKey(id, pw, salt, iter) {
+    const enc = new TextEncoder();
+    const material = enc.encode(id.trim().toLowerCase() + "\u241F" + pw);
+    const base = await crypto.subtle.importKey("raw", material, "PBKDF2", false, ["deriveKey"]);
+    return crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt, iterations: iter, hash: "SHA-256" },
+      base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]
+    );
+  }
+
+  /* ---------- 상태 ---------- */
+  let DATA = null;          // 복호화된 메뉴 (메모리에만 존재)
+  let fails = 0, locked = 0;
+
+  /* ---------- 로그인 ---------- */
+  const gate = $("#gate"), msg = $("#gate-msg"), btn = $("#enter");
+
+  async function unlock() {
+    const id = $("#uid").value, pw = $("#upw").value;
+    if (!id || !pw) { msg.textContent = "아이디와 비밀번호를 모두 입력하세요."; return; }
+    if (Date.now() < locked) {
+      msg.textContent = `잠시 후 다시 시도하세요. (${Math.ceil((locked - Date.now())/1000)}초)`;
+      return;
+    }
+    if (!window.__ENC__) { msg.textContent = "데이터 파일(common/data/data.enc.js)을 찾을 수 없습니다."; return; }
+    if (!crypto.subtle) { msg.textContent = "https 또는 로컬 파일에서 열어 주세요."; return; }
+
+    btn.disabled = true; btn.textContent = "확인 중…"; msg.textContent = "";
+    try {
+      const p = window.__ENC__;
+      const key = await deriveKey(id, pw, b64d(p.salt), p.it);
+      const buf = await crypto.subtle.decrypt(
+        { name: "AES-GCM", iv: b64d(p.iv) }, key, b64d(p.ct)
+      );
+      DATA = JSON.parse(new TextDecoder().decode(buf));
+      window.eduAuth.setSession(DATA);
+      start();
+    } catch (e) {
+      fails++;
+      await wait(400);
+      if (fails >= 5) { locked = Date.now() + 30000; fails = 0; msg.textContent = "시도 횟수를 초과했습니다. 30초 후 다시 시도하세요."; }
+      else msg.textContent = "아이디 또는 비밀번호가 올바르지 않습니다.";
+    } finally {
+      btn.disabled = false; btn.textContent = "들어가기";
+    }
+  }
+
+  btn.addEventListener("click", unlock);
+  ["#uid", "#upw"].forEach(s => $(s).addEventListener("keydown", e => { if (e.key === "Enter") unlock(); }));
+
+  /* ---------- 메뉴 렌더링 ---------- */
+  let current = null;
+
+  function start() {
+    document.title = DATA.title || "자료실";
+    $("#brandName").textContent = DATA.title || "자료실";
+    $("#brandSub").textContent = DATA.subtitle || "";
+    $("#topTitle").textContent = DATA.title || "자료실";
+
+    const nav = $("#nav");
+    nav.textContent = "";
+    DATA.cats.forEach((cat, ci) => {
+      const wrap = document.createElement("div");
+      wrap.className = "cat";
+
+      const head = document.createElement("button");
+      head.type = "button";
+      head.setAttribute("aria-expanded", "false");
+      head.append(document.createTextNode(cat.name));
+      const caret = document.createElement("span");
+      caret.className = "caret"; caret.textContent = "▶";
+      head.append(caret);
+      head.addEventListener("click", () => {
+        const open = wrap.classList.toggle("open");
+        head.setAttribute("aria-expanded", String(open));
+      });
+
+      const sub = document.createElement("div");
+      sub.className = "sub";
+      cat.items.forEach((item, ii) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = item.name;
+        b.dataset.k = ci + "." + ii;   // 주소가 아닌 좌표만 DOM 에 남김
+        b.addEventListener("click", () => open(ci, ii, b));
+        sub.append(b);
+      });
+
+      wrap.append(head, sub);
+      nav.append(wrap);
+    });
+
+    gate.remove();
+    $("#app").classList.add("on");
+    const returnTo = new URL(location.href).searchParams.get("return");
+    if (returnTo) {
+      try {
+        const target = new URL(returnTo, document.baseURI);
+        DATA.cats.forEach((cat, ci) => cat.items.forEach((item, ii) => {
+          const page = new URL(item.url, document.baseURI);
+          if (target.origin === page.origin && target.pathname === page.pathname && target.pathname.includes("/page_newsletter/")) {
+            open(ci, ii, document.querySelector(`[data-k="${ci}.${ii}"]`));
+            $("#frame").src = page.href + target.hash;
+          }
+        }));
+      } catch {}
+      history.replaceState(null, "", location.pathname);
+    }
+  }
+
+  function open(ci, ii, el) {
+    const item = DATA.cats[ci].items[ii];
+    document.querySelectorAll('.sub button[aria-current]').forEach(b => b.removeAttribute("aria-current"));
+    el.setAttribute("aria-current", "true");
+    current = item;
+
+    $("#crumbTitle").textContent = item.name;
+    $("#crumbSub").textContent = DATA.cats[ci].name;
+    $("#openNew").hidden = false;
+    $("#welcome").style.display = "none";
+
+    const f = $("#frame");
+    // Chrome's PDF viewer cannot run in a popup that inherits an iframe sandbox.
+    // Only our local course library may open a user-clicked PDF outside that sandbox.
+    f.setAttribute('sandbox', window.eduResourcePolicy.sandboxFor(item.url, document.baseURI));
+    f.classList.add("on");
+    f.src = item.url;                 // 주소는 이 순간에만 사용
+    closeDrawer();
+  }
+
+  $("#openNew").addEventListener("click", () => {
+    if (current && !window.eduAuth.openPage(new URL(current.url, document.baseURI).href)) {
+      $("#crumbSub").textContent = "새 탭을 열 수 없습니다. 브라우저의 팝업 허용 설정을 확인하세요.";
+    }
+  });
+
+  function home() {
+    if (!DATA) return;
+    current = null;
+    const frame = $('#frame');
+    frame.classList.remove('on');
+    frame.removeAttribute('src');
+    $('#welcome').style.display = '';
+    $('#crumbTitle').textContent = '시작하기';
+    $('#crumbSub').textContent = '왼쪽에서 메뉴를 선택하세요';
+    $('#openNew').hidden = true;
+    document.querySelectorAll('.sub button[aria-current]').forEach(button => button.removeAttribute('aria-current'));
+    closeDrawer();
+  }
+  window.addEventListener('onuri:home', home);
+  window.addEventListener('message', event => {
+    if (event.source !== $('#frame').contentWindow) return;
+    if (event.data?.type === 'onuri:home') home();
+    if (event.data?.type === 'onuri:session-request' && DATA) {
+      const session = window.eduAuth.getSession();
+      if (session) event.source.postMessage({ type: 'onuri:session-response', nonce: event.data.nonce, session }, '*');
+    }
+  });
+
+  /* ---------- 모바일 서랍 ---------- */
+  const side = $("#sidebar"), scrim = $("#scrim"), sideToggle = $("#sidebar-toggle");
+  const mobile = window.matchMedia('(max-width:900px)');
+  let collapsed = false;
+  try { collapsed = localStorage.getItem('onuri-sidebar-collapsed') === 'true'; } catch {}
+  function syncSidebar() {
+    const expanded = mobile.matches ? side.classList.contains('open') : !collapsed;
+    $('#app').classList.toggle('sidebar-collapsed', !mobile.matches && collapsed);
+    $('#app').classList.toggle('sidebar-mobile-open', mobile.matches && expanded);
+    side.inert = !expanded;
+    sideToggle.textContent = expanded ? '‹' : '›';
+    sideToggle.setAttribute('aria-expanded', String(expanded));
+    sideToggle.setAttribute('aria-label', expanded ? '왼쪽 메뉴 접기' : '왼쪽 메뉴 펼치기');
+    $('#burger').setAttribute('aria-expanded', String(expanded));
+  }
+  function openDrawer(){ side.classList.add('open'); scrim.classList.add('on'); syncSidebar(); }
+  function closeDrawer(){ side.classList.remove('open'); scrim.classList.remove('on'); syncSidebar(); }
+  sideToggle.addEventListener('click', () => {
+    if (mobile.matches) { side.classList.contains('open') ? closeDrawer() : openDrawer(); }
+    else { collapsed = !collapsed; try { localStorage.setItem('onuri-sidebar-collapsed', String(collapsed)); } catch {} syncSidebar(); }
+  });
+  $('#burger').addEventListener('click', () => side.classList.contains('open') ? closeDrawer() : openDrawer());
+  scrim.addEventListener('click', closeDrawer);
+  mobile.addEventListener('change', closeDrawer);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+  syncSidebar();
+
+  /* ---------- 로그아웃 ---------- */
+  $("#logout").addEventListener("click", () => { window.eduAuth.clearSession(); DATA = null; location.reload(); });
+  const restored = window.eduAuth.getSession();
+  if (restored) { DATA = restored.menu; start(); }
+})();

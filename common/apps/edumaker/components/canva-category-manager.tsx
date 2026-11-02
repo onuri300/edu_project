@@ -1,0 +1,10 @@
+'use client';
+import {useState} from 'react';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+import type {CanvaLinkCategory} from '@/lib/canva-links';
+export default function CanvaCategoryManager({categories,disabled,onChanged}:{categories:CanvaLinkCategory[];disabled:boolean;onChanged:(deletedId?:string)=>void}){
+  const [id,setId]=useState(''),[title,setTitle]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
+  async function submit(remove=false){if(busy||disabled)return;if(remove&&!window.confirm('이 카테고리를 삭제할까요? 저장한 링크는 미분류로 보존됩니다.'))return;setBusy(true);setError('');setNotice('');try{const r=await fetch('/api/canva-link-categories',{method:remove?'DELETE':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(remove?{id}:{...(id?{id}:{}),title})});const data=await r.json() as {error?:string};if(!r.ok)throw Error(data.error||'카테고리를 저장하지 못했습니다.');onChanged(remove?id:undefined);setId('');setTitle('');setNotice(remove?'카테고리를 삭제했습니다. 링크는 미분류로 보존했습니다.':'카테고리를 저장했습니다.');}catch(e){setError((e as Error).message);}finally{setBusy(false);}}
+  return <details className="canva-category-manager"><summary>교안관리 카테고리 관리</summary><p className="muted">교안·뉴스레터 링크를 분류할 카테고리를 관리합니다.</p><form onSubmit={e=>{e.preventDefault();submit();}}><label>관리할 카테고리<select disabled={disabled||busy} value={id} onChange={e=>{setId(e.target.value);setTitle(categories.find(c=>c.id===e.target.value)?.title||'');setError('');setNotice('');}}><option value="">새 카테고리 추가</option>{categories.map(c=><option key={c.id} value={c.id}>{c.title}</option>)}</select></label><label>카테고리 이름<Input required maxLength={100} disabled={disabled||busy} value={title} onChange={e=>setTitle(e.target.value)} placeholder="예: 메이커 교안, 주간 뉴스레터"/></label><Button type="submit" disabled={disabled||busy}>{id?'이름 수정':'카테고리 추가'}</Button>{id&&<Button type="button" variant="destructive" disabled={disabled||busy} onClick={()=>submit(true)}>카테고리 삭제</Button>}</form>{error&&<p role="alert" className="error">{error}</p>}{notice&&<p role="status">{notice}</p>}</details>;
+}

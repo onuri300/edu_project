@@ -1,0 +1,18 @@
+{
+  "index": "learning",
+  "livinglab-library": "learning",
+  "menu-builder": "learning",
+  "onuri-maker": "maker",
+  "onuri-about": "maker",
+  "onuri-works": "maker",
+  "onuri-work-detail": "maker",
+  "onuri-process": "maker",
+  "onuri-contact": "maker",
+  "knu-makerspace": "maker",
+  "computer-quiz": "games",
+  "computer-flashcards": "games",
+  "ladder-game": "games",
+  "mbti-adult": "personality",
+  "mbti-kids": "personality",
+  "edumaker": "learning"
+}

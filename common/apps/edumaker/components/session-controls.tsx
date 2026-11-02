@@ -1,0 +1,11 @@
+'use client';
+import {useEffect,useState} from 'react';
+import {Button} from '@/components/ui/button';
+type Session={authenticated:boolean;displayName:string;local:boolean;signInPath:string};
+export default function SessionControls({onSignedIn}:{onSignedIn:()=>Promise<void>}){
+  const [session,setSession]=useState<Session|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
+  async function inspect(){const r=await fetch('/api/session',{cache:'no-store',credentials:'same-origin'});if(!r.ok)throw Error('로그인 상태를 확인하지 못했습니다.');const data=await r.json() as Session;setSession(data);return data;}
+  useEffect(()=>{let alive=true;fetch('/api/session',{cache:'no-store',credentials:'same-origin'}).then(async r=>{if(!r.ok)throw Error('로그인 상태를 확인하지 못했습니다.');const data=await r.json() as Session;if(alive)setSession(data);}).catch(e=>{if(alive)setError(e.message);});return()=>{alive=false;};},[]);
+  async function signIn(){setBusy(true);setError('');try{if(session?.local){const r=await fetch(session.signInPath,{credentials:'same-origin',cache:'no-store',redirect:'follow'});if(!r.ok)throw Error('로컬 로그인에 실패했습니다. 현재 화면 주소를 확인해주세요.');const current=await inspect();if(!current.authenticated)throw Error('로그인 쿠키를 사용할 수 없습니다. 브라우저의 쿠키 허용 상태를 확인해주세요.');await onSignedIn();window.dispatchEvent(new Event('studio-auth-changed'));}else{window.location.assign(session?.signInPath||'/signin-with-chatgpt?return_to=/');}}catch(e){setError((e as Error).message);}finally{setBusy(false);}}
+  return <section className="session-controls" aria-label="로그인 상태"><div><strong>{session?.authenticated?`${session.local?'로컬 개발용 계정':'계정'} 로그인됨`:session?'저장하려면 로그인해주세요.':'로그인 상태 확인 중…'}</strong><p>{session?.authenticated?'카테고리·수업·일지를 저장할 수 있습니다.':session?.local?'이 화면에서 로그인하면 작성 중인 내용은 유지됩니다.':'로그인 후 카테고리와 수업 자료를 저장할 수 있습니다.'}</p></div>{!session?.authenticated&&<Button type="button" disabled={busy||!session} onClick={signIn}>{busy?'로그인 중…':session?.local?'로컬 개발용 로그인':'로그인'}</Button>}<Button type="button" variant="outline" disabled={busy} onClick={()=>{setBusy(true);setError('');inspect().then(async s=>{if(s.authenticated){await onSignedIn();window.dispatchEvent(new Event('studio-auth-changed'));}}).catch(e=>setError(e.message)).finally(()=>setBusy(false));}}>로그인 상태 확인</Button>{error&&<p role="alert" className="error">{error}</p>}</section>;
+}

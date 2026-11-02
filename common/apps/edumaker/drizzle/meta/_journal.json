@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1791238578342,
+      "tag": "0000_certain_gamma_corps",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1791238643703,
+      "tag": "0001_sharp_cerebro",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791242510243,
+      "tag": "0002_canva_connections",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1793232565922,
+      "tag": "0003_journal_categories",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1793233782566,
+      "tag": "0004_category_reference_images",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1793278005852,
+      "tag": "0005_faithful_mockingbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1793279232479,
+      "tag": "0006_smooth_firestar",
+      "breakpoints": true
+    }
+  ]
+}

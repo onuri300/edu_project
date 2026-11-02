@@ -1,0 +1,2 @@
+import {db,owner,failure} from '@/lib/server';
+export async function GET(_req:Request,{params}:{params:Promise<{id:string}>}){try{const user=await owner();const {id}=await params;const row=await db().prepare('SELECT payload FROM courses WHERE id = ? AND owner = ?').bind(id,user).first<{payload:string}>();if(!row)return Response.json({error:'수업을 찾을 수 없습니다.'},{status:404});return Response.json(JSON.parse(row.payload));}catch(e){return failure(e);}}

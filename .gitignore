@@ -1,0 +1,14 @@
+_site/
+common/data/local-downloads/
+.work/
+
+# Local account notes and secrets (never upload)
+/사용매뉴얼_로그인정보.md
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+node_modules/
+*.log

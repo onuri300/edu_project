@@ -1,0 +1,1 @@
+CREATE INDEX `idx_courses_owner_updated` ON `courses` (`owner`,`updated`);
