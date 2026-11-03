@@ -34,6 +34,7 @@
     if (!crypto.subtle) { msg.textContent = "https 또는 로컬 파일에서 열어 주세요."; return; }
 
     btn.disabled = true; btn.textContent = "확인 중…"; msg.textContent = "";
+    let authenticated = false;
     try {
       const p = window.__ENC__;
       const key = await deriveKey(id, pw, b64d(p.salt), p.it);
@@ -41,9 +42,14 @@
         { name: "AES-GCM", iv: b64d(p.iv) }, key, b64d(p.ct)
       );
       DATA = JSON.parse(new TextDecoder().decode(buf));
+      authenticated = true;
       window.eduAuth.setSession(DATA);
       start();
     } catch (e) {
+      if (authenticated) {
+        msg.textContent = "로그인은 확인됐지만 화면을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.";
+        return;
+      }
       fails++;
       await wait(400);
       if (fails >= 5) { locked = Date.now() + 30000; fails = 0; msg.textContent = "시도 횟수를 초과했습니다. 30초 후 다시 시도하세요."; }

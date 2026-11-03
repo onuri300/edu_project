@@ -1,3 +1,4 @@
+import { versionAssets } from './version-assets.mjs';
 import { buildReports } from './build-reports.mjs';
 import { readdir, readFile, mkdir, copyFile, writeFile, stat, rm, cp } from 'node:fs/promises';
 import path from 'node:path';
@@ -88,6 +89,7 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   }
   for (const item of items) await copyFile(path.join(books, item.filename), path.join(output, 'books', item.filename));
   await writeFile(path.join(output, 'common/data/library-data.json'), JSON.stringify(items, null, 2) + '\n');
+  await versionAssets(output);
   console.log(`[자료실] ${items.length}개 교안 생성 완료 (작업 폴더·배포 폴더 동시 반영)`);
   return items;
 }

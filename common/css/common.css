@@ -187,3 +187,5 @@ html .welcome{padding-bottom:12px}
 }
 @media(max-width:600px){.footer-main{flex-direction:column;gap:30px}.footer-message{text-align:left}.footer-actions{justify-content:start}.footer-message>p{font-size:18px;margin-bottom:14px}.footer-bottom{flex-direction:column;gap:5px;padding:18px 0}.footer-identity strong{font-size:29px}}
 @media(max-width:400px){html header.onuri-header,html body:has(#app) header.onuri-header{padding-left:14px;padding-right:148px;gap:6px}html .onuri-home{gap:7px}html .onuri-home img{width:30px;height:30px}html .onuri-home .onuri-brand-text{font-size:21px}html .onuri-brand-text small{font-size:5.5px;letter-spacing:.06em}html .theme-switch{right:8px}}
+/* Always show only icons, including when an older script still adds label spans. */
+html .theme-switch [data-set-theme] span{display:none!important}
