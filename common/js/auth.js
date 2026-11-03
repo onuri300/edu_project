@@ -13,7 +13,7 @@
   const publicPaths = new Set(['page_classroom/livinglab-library.html', 'livinglab-library.html', 'library.html'].map(path => new URL(path, root).pathname));
   function isPublicPage(url) {
     const target = new URL(url, root);
-    return target.origin === root.origin && target.protocol === root.protocol && publicPaths.has(target.pathname);
+    return target.origin === root.origin && target.protocol === root.protocol && (publicPaths.has(target.pathname) || (target.pathname.startsWith(new URL('page_etc/', root).pathname) && target.pathname.endsWith('.html')));
   }
   const current = pageId(location.href);
   function valid(session) {

@@ -63,7 +63,7 @@ test('a clicked internal route is permitted once and manual path editing forces 
   assert.equal(child.document.documentElement.dataset.auth, 'ready');
   const reload = load(root, 'page_game/ladder-game.html', { storage: entry.storage, navigation: 'reload' });
   assert.equal(reload.document.documentElement.dataset.auth, 'ready');
-  assert.equal(load(root, 'page_etc/mbti-adult.html', { storage: entry.storage }).redirected(), root + 'index.html?login=required');
+  assert.equal(load(root, 'page_game/computer-flashcards.html', { storage: entry.storage }).redirected(), root + 'index.html?login=required');
 });
 test('normal internal links and logo home links preserve the authenticated session', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
@@ -77,7 +77,7 @@ test('normal internal links and logo home links preserve the authenticated sessi
 });
 test('new-tab approval is tied to the exact tab and target and cannot be reused after editing the path', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
-  const target = root + 'page_etc/knu-makerspace.html';
+  const target = root + 'page_game/computer-quiz.html';
   assert.equal(entry.window.eduAuth.openPage(target), true);
   const tab = entry.opened[0]; assert.equal(tab.url, target);
   const child = load(root, target, { opener: entry.window, windowObject: tab });
@@ -97,11 +97,19 @@ test('expired sessions and index login-required parameter clear the saved sessio
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
   assert.equal(load(root, 'index.html?login=required', { storage: entry.storage }).window.eduAuth.getSession(), null);
   const invalid = new Map([['onuri-session-v1', JSON.stringify({ expiresAt: Date.now() - 1, menu })]]);
-  assert.equal(load(root, 'page_etc/mbti-adult.html', { storage: invalid }).redirected(), root + 'index.html?login=required');
+  assert.equal(load(root, 'page_game/computer-flashcards.html', { storage: invalid }).redirected(), root + 'index.html?login=required');
 });
 test('isolated file iframe only accepts a valid parent response with matching nonce', () => {
   const result = load('file:///D:/project/edu_project/', 'page_game/ladder-game.html', { embedded: true });
   const data = { type: 'onuri:session-response', nonce: result.posted[0].nonce, session: { expiresAt: Date.now() + 10000, menu } };
   result.emit('message', { source: {}, data }); assert.equal(result.document.documentElement.dataset.auth, 'pending');
   result.emit('message', { source: result.parent, data }); assert.equal(result.document.documentElement.dataset.auth, 'ready');
+});
+
+test('all 기타 pages open publicly without login or opener, including reloads and local files', () => {
+ for(const base of [root,'file:///D:/project/edu_project/'])for(const page of ['knu-makerspace.html','mbti-adult.html','mbti-kids.html']){
+  const result=load(base,'page_etc/'+page);assert.equal(result.redirected(),undefined);assert.equal(result.document.documentElement.dataset.auth,'public');assert.equal(result.timers.length,0);assert.equal(result.window.eduAuth.openPage(new URL('page_etc/'+page,base).href),true);
+  assert.equal(load(base,'page_etc/'+page,{navigation:'reload'}).document.documentElement.dataset.auth,'public');
+ }
+ assert.ok(load(root,'page_game/ladder-game.html').redirected());
 });
