@@ -50,7 +50,8 @@
       const logo = document.createElement('img');
       logo.src = new URL('images/onuri-logo.png', root).href;
       logo.alt = ''; logo.width = 40; logo.height = 40;
-      const name = document.createElement('span'); name.textContent = 'Onuri.';
+      const name = document.createElement('span'); name.className = 'onuri-brand-text'; name.textContent = 'Onuri.';
+      const tagline = document.createElement('small'); tagline.textContent = 'LEARN · CREATE · SHARE'; name.append(tagline);
       link.append(logo, name); header.append(link); document.body.prepend(header);
       link.addEventListener('click', event => {
         if (window.self !== window.top) {

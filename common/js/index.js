@@ -171,6 +171,8 @@
     document.querySelectorAll('.sub button[aria-current]').forEach(button => button.removeAttribute('aria-current'));
     closeDrawer();
   }
+  $('#footer-home').addEventListener('click', () => { home(); document.querySelector('.stage').scrollTo({top:0,behavior:'smooth'}); });
+  $('#footer-top').addEventListener('click', () => { document.querySelector('.stage').scrollTo({top:0,behavior:'smooth'}); try { $('#frame').contentWindow.scrollTo({top:0,behavior:'smooth'}); } catch {} });
   window.addEventListener('onuri:home', home);
   window.addEventListener('message', event => {
     if (event.source !== $('#frame').contentWindow) return;

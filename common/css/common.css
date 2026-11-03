@@ -147,3 +147,43 @@ html .crumb{padding-right:28px}
  html .onuri-home span{font-size:23px}html .onuri-home img{width:32px;height:32px}
 }
 @media(max-width:400px){html body:has(#app) header.onuri-header{padding-left:14px;padding-right:148px;gap:6px}html .onuri-home{gap:6px}html .onuri-home span{font-size:21px}html .theme-switch{right:8px}html .theme-switch button{min-width:34px;width:34px}html .theme-switch .header-logout{width:37px;padding-left:9px;margin-left:2px}}
+
+/* Full-width site chrome: spacious header and a two-column editorial footer. */
+:root{--chrome-gutter:clamp(24px,3.2vw,88px);--footer-bg:#1c252d;--footer-ink:#f1f4f6;--footer-muted:#a7b2bb;--footer-line:#ffffff1c}
+:root[data-theme="dark"]{--footer-bg:#10161b;--footer-ink:#f1f4f6;--footer-muted:#a7b2bb;--footer-line:#ffffff1c}
+html header.onuri-header,html body:has(#app) header.onuri-header{height:80px;min-height:80px;padding-left:var(--chrome-gutter);padding-right:calc(var(--chrome-gutter) + 154px);gap:40px;background:var(--card);border-bottom:1px solid var(--line)}
+html .onuri-home{gap:12px;flex-shrink:0}
+html .onuri-home img{width:42px;height:42px}
+html .onuri-home .onuri-brand-text{display:block;font-size:27px;font-weight:800;line-height:1;letter-spacing:-.06em;color:var(--ink)}
+html .onuri-brand-text small{display:block;margin-top:8px;color:var(--ink-soft);font:500 8px/1.2 var(--font-ui);letter-spacing:.14em;white-space:nowrap}
+html #nav.header-nav{justify-content:flex-end;gap:clamp(6px,1.1vw,28px)}
+html #nav .cat>button{font-size:13px;letter-spacing:-.02em;padding:13px 12px}
+html .theme-switch{top:18px;right:var(--chrome-gutter)}
+html body:has(#app){padding-top:80px}
+html body:has(#app) #app{height:calc(100dvh - 80px)}
+html body:has(#app) #gate{top:80px}
+html .welcome{padding-bottom:12px}
+.onuri-footer{width:100%;box-sizing:border-box;background:var(--footer-bg);color:var(--footer-ink);margin-top:40px;padding:48px var(--chrome-gutter) 0;font:13px/1.7 var(--font-ui);border-top:1px solid var(--footer-line)}
+.footer-main{display:flex;align-items:start;justify-content:space-between;gap:40px;padding-bottom:38px}
+.footer-identity strong{display:block;font-size:32px;line-height:1.2;letter-spacing:-.06em;font-weight:750}
+.footer-identity>span{display:block;margin-top:12px;font-size:9px;letter-spacing:.18em;color:var(--footer-muted)}
+.footer-identity p{color:var(--footer-muted);font-size:12px;margin:20px 0 0}
+.footer-message{text-align:right}
+.footer-message>p{margin:0 0 20px;font-size:21px;line-height:1.6;letter-spacing:-.035em;color:var(--footer-ink)}
+.footer-actions{display:flex;justify-content:end;gap:22px}
+.footer-actions button{font:500 11px/1.7 var(--font-ui);padding:0;border:0;background:transparent;color:var(--footer-muted);cursor:pointer}
+.footer-actions button:hover{color:var(--footer-ink)}
+.footer-bottom{display:flex;justify-content:space-between;gap:20px;padding:20px 0;border-top:1px solid var(--footer-line);font-size:10px;color:var(--footer-muted);letter-spacing:.01em}
+@media(min-width:1800px){html #nav.header-nav{gap:32px}html #nav .cat>button{font-size:14px;padding:13px 18px}.onuri-footer{padding-top:58px}.footer-main{padding-bottom:48px}}
+@media(max-width:1100px) and (min-width:1001px){html header.onuri-header,html body:has(#app) header.onuri-header{gap:12px}html #nav.header-nav{gap:0}html #nav .cat>button{padding:12px 8px;font-size:12px}}
+@media(max-width:1000px){
+ :root{--chrome-gutter:20px}
+ html header.onuri-header,html body:has(#app) header.onuri-header{height:72px;min-height:72px;padding-left:20px;padding-right:160px;gap:12px}
+ html .onuri-home img{width:34px;height:34px}html .onuri-home .onuri-brand-text{font-size:23px}html .onuri-brand-text small{font-size:6px;letter-spacing:.1em;margin-top:6px}
+ html .theme-switch{top:14px;right:14px}
+ html #nav.header-nav{top:72px;max-height:calc(100dvh - 72px)}html #nav .cat>button{font-size:13px}
+ html body:has(#app){padding-top:72px}html body:has(#app) #app{height:calc(100dvh - 72px)}html body:has(#app) #gate{top:72px}
+ .onuri-footer{padding-top:34px}.footer-main{gap:24px;padding-bottom:28px}.footer-message>p{font-size:18px}
+}
+@media(max-width:600px){.footer-main{flex-direction:column;gap:30px}.footer-message{text-align:left}.footer-actions{justify-content:start}.footer-message>p{font-size:18px;margin-bottom:14px}.footer-bottom{flex-direction:column;gap:5px;padding:18px 0}.footer-identity strong{font-size:29px}}
+@media(max-width:400px){html header.onuri-header,html body:has(#app) header.onuri-header{padding-left:14px;padding-right:148px;gap:6px}html .onuri-home{gap:7px}html .onuri-home img{width:30px;height:30px}html .onuri-home .onuri-brand-text{font-size:21px}html .onuri-brand-text small{font-size:5.5px;letter-spacing:.06em}html .theme-switch{right:8px}}
