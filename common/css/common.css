@@ -198,3 +198,12 @@ html .theme-switch{right:max(24px,calc((100vw - 1280px)/2 + 24px))}
 @media(min-width:1800px){html #nav.header-nav{gap:8px}html #nav .cat>button{padding:13px 12px}}
 @media(max-width:1000px){html header.onuri-header,html body:has(#app) header.onuri-header{left:0;right:0;max-width:none;transform:none;padding-left:20px;padding-right:160px;gap:12px}html .theme-switch{right:14px}}
 @media(max-width:400px){html header.onuri-header,html body:has(#app) header.onuri-header{padding-left:14px;padding-right:148px;gap:6px}html .theme-switch{right:8px}}
+
+/* Full-width surfaces, with metadata and footer content aligned to the masthead. */
+html .crumb{padding-left:max(24px,calc((100vw - 1280px)/2 + 24px));padding-right:max(24px,calc((100vw - 1280px)/2 + 24px));box-sizing:border-box}
+html .onuri-footer{padding-left:max(24px,calc((100vw - 1280px)/2 + 24px));padding-right:max(24px,calc((100vw - 1280px)/2 + 24px))}
+@media(max-width:1000px){html .crumb,html .onuri-footer{padding-left:20px;padding-right:20px}}
+@media(max-width:400px){html .crumb,html .onuri-footer{padding-left:14px;padding-right:14px}}
+html .page-tab-tools{right:max(24px,calc((100vw - 1280px)/2 + 24px))}
+@media(max-width:1000px){html .page-tab-tools{right:20px}}
+@media(max-width:400px){html .page-tab-tools{right:14px}}
