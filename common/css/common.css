@@ -25,3 +25,89 @@ html[data-auth="pending"] body{visibility:hidden}header.onuri-header{position:fi
 .page-tab-tools{position:fixed;right:20px;bottom:max(20px,env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:column;align-items:flex-end;gap:8px;max-width:calc(100vw - 32px)}.page-open-tab{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border:1px solid var(--board-line);border-radius:28px;background:var(--card);color:var(--accent);box-shadow:var(--shadow);font:600 13px/1.5 var(--font-ui);cursor:pointer}.page-open-tab:hover{background:var(--lavender)}.page-tab-status{margin:0;padding:10px 14px;max-width:300px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink-soft);font-size:12px;box-shadow:var(--shadow)}@media(max-width:600px){.page-tab-tools{right:14px;bottom:max(14px,env(safe-area-inset-bottom))}.page-open-tab{font-size:12px;padding:10px 14px}}
 /* Category pages opened outside the portal show content without the shared masthead. */
 html[data-standalone="true"] .onuri-header,html[data-standalone="true"] .theme-switch{display:none}html[data-standalone="true"] body:not(:has(#app)){padding-top:0}
+
+/* Onuri UI / Bootstrap-inspired neutral foundation. Shared across every page. */
+:root{--paper:#f8f9fa;--card:#fff;--ink:#212529;--ink-soft:#6c757d;--line:#e4e7eb;--board:#fff;--board-deep:#f8f9fa;--board-line:#e9ecef;--chalk:#343a40;--chalk-dim:#6c757d;--brass:#355f9d;--accent:#355f9d;--accent-ink:#fff;--lavender:#f0f3f7;--mint:#f3f5f7;--peach:#f5f5f4;--muted-surface:#f8f9fa;--shadow:0 3px 16px #21252906;--hero:#fff;--brand-solid:#212529;--brand-deep:#16191d;--on-solid:#fff;--amber:#76684f;--rose:#785d66;--success:#487263;--success-light:#f1f5f3;--danger:#b34a50;--danger-light:#faf2f2;--sidebar-w:228px;--bs-body-bg:var(--paper);--bs-body-color:var(--ink);--bs-primary:var(--accent);--bs-border-color:var(--line);--bs-border-radius:.5rem}
+:root[data-theme="dark"]{--paper:#17191c;--card:#202327;--ink:#edf0f3;--ink-soft:#a3abb4;--line:#343a40;--board:#1c1f23;--board-deep:#202327;--board-line:#343a40;--chalk:#e2e6ea;--chalk-dim:#a3abb4;--accent:#9eb9df;--accent-ink:#142238;--brass:#9eb9df;--lavender:#292f37;--mint:#272d33;--peach:#2a2c2e;--muted-surface:#262a2f;--shadow:0 3px 16px #00000015;--hero:#202327;--brand-solid:#dce1e6;--brand-deep:#bfc7cf;--on-solid:#17191c;--amber:#c0b59f;--rose:#bba2ab;--success:#9cbeb0;--success-light:#26322d;--danger:#df989c;--danger-light:#38292b}
+html body{font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+html button,html input,html select,html textarea{font-family:var(--font-ui)}
+html :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),select,textarea){border-color:var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+html :is(input,select,textarea):focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 20%,transparent);outline-offset:1px;border-color:var(--accent)}
+html header.onuri-header{height:72px;border-bottom:1px solid var(--line);box-shadow:none;padding-left:30px}
+html .onuri-home span{font-size:26px;letter-spacing:-.055em;color:var(--ink)}
+html .theme-switch{box-shadow:none;border-color:var(--line);padding:3px;background:var(--card)}
+html .theme-switch button[aria-pressed=true]{background:var(--muted-surface);color:var(--ink)}
+html .page-open-tab{border-radius:8px;box-shadow:0 3px 12px #00000008;background:var(--card);color:var(--ink-soft);font-weight:500}
+html .page-art,html .page-art-banner,html .generated-hero-art .page-art{border-radius:12px;box-shadow:none}
+/* Portal navigation is a quiet contents rail, with an editorial landing page. */
+html #sidebar{background:var(--board);border-right:1px solid var(--line)}
+html #sidebar .brand{padding:27px 24px 22px;border-bottom:0}
+html #sidebar .brand h1{font-size:14px;color:var(--ink);font-weight:650}
+html #sidebar .brand p{font-size:11px;color:var(--ink-soft);margin-top:3px}
+html #nav{padding:8px 12px 24px}
+html .cat{margin:4px 0}
+html .cat>button{padding:12px;border-radius:7px;font-size:13px;font-weight:600;color:var(--ink)}
+html .cat>button:hover,html .cat.open>button{background:var(--muted-surface);color:var(--ink)}
+html .cat .caret{font-size:9px;color:var(--ink-soft)}
+html .sub{background:transparent}
+html .sub button{padding:10px 12px 10px 22px;margin:2px 0;border-left:0;border-radius:6px;font-size:12px;color:var(--ink-soft)}
+html .sub button[aria-current=true]{background:var(--lavender);color:var(--accent);border-left:0;font-weight:600}
+html .side-foot{border-color:var(--line);padding:18px 24px}
+html .side-foot button{border-color:var(--line);border-radius:7px;font-size:12px}
+html .crumb{background:var(--card);border-bottom:1px solid var(--line);min-height:64px;padding-left:28px}
+html .crumb h2{font-size:13px;font-weight:600}html .crumb span{font-size:11px}
+html .ghost{border-radius:6px;font-size:12px;color:var(--ink-soft)}
+html #sidebar-toggle{width:22px;min-height:44px;font-size:20px;border-radius:0 7px 7px 0;box-shadow:none;color:var(--ink-soft)}
+html #app main{padding-left:0}html .stage{background:var(--paper);overflow:auto}
+html .welcome{display:block;width:100%;max-width:1320px;height:auto;min-height:100%;margin:auto;padding:36px 40px 0}
+.home-hero{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;padding:40px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.home-eyebrow{font-size:10px;font-weight:650;letter-spacing:.17em;color:var(--ink-soft)}
+html .home-copy h3{font-size:clamp(28px,3.3vw,46px);line-height:1.35;letter-spacing:-.045em;color:var(--ink);margin:20px 0}
+html .home-copy p{font-size:14px;line-height:1.9;color:var(--ink-soft)}
+.home-explore{display:inline-flex;align-items:center;gap:30px;margin-top:24px;padding:11px 18px;border-radius:7px;background:var(--ink);color:var(--card);font-size:12px;text-decoration:none;font-weight:600}
+html .welcome-art{width:100%;max-width:none;margin:0}html .welcome-art .page-art{width:100%;height:auto;max-height:none;aspect-ratio:4/3;object-fit:cover;border-radius:9px}
+.home-collections{padding:44px 0}.home-section-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:24px}
+html .home-section-heading h3{font-size:23px;color:var(--ink);letter-spacing:-.04em;margin:8px 0 0}html .home-section-heading p{font-size:12px;margin:0}
+.home-category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.home-category-card{padding:26px;border:1px solid var(--line);border-radius:10px;background:var(--card);transition:border-color .15s,transform .15s}
+.home-category-card:hover{border-color:var(--ink-soft);transform:translateY(-2px)}
+.home-category-number{font-size:11px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.home-category-card h4{font-size:19px;letter-spacing:-.03em;margin:16px 0 10px}.home-category-card p{font-size:12px;min-height:42px}
+.home-category-links{display:flex;flex-direction:column;align-items:start;border-top:1px solid var(--line);margin-top:20px;padding-top:12px;gap:4px}
+.home-category-links button{font-size:12px;border:0;background:transparent;padding:6px 0;color:var(--ink-soft);cursor:pointer;text-align:left}.home-category-links button:hover{color:var(--accent)}
+.home-footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding:24px 0;color:var(--ink-soft);font-size:11px}.home-footer strong{color:var(--ink);font-size:16px}
+/* Login: restrained surface, clearer hierarchy. */
+html #gate{background:var(--paper)}html .gate-box{padding:30px;max-width:420px;border-radius:12px;box-shadow:0 8px 40px #21252906}
+html .login-art{margin:-10px -10px 26px;border-radius:8px}html .login-art .page-art{height:150px}
+.login-eyebrow{display:block;font-size:10px;letter-spacing:.16em;color:var(--ink-soft);margin-bottom:10px}
+html .gate-title{font-size:27px;letter-spacing:-.045em;margin-bottom:12px}html .gate-sub{font-size:12px;margin-bottom:28px}
+html .field label{font-size:12px;font-weight:500}html .field input{border-radius:7px;min-height:46px}
+html #enter,html #enter:hover{background:var(--ink);color:var(--card);border-radius:7px;font-size:13px;font-weight:600;min-height:46px}
+/* Shared content surfaces: image-led, neutral borders and one accent. */
+html :is(.library-hero,.edumaker-hero,.newsletter-hero){border-radius:12px;background:var(--card);box-shadow:none;border-color:var(--line)}
+html :is(.purpose-grid article,.workflow article,.course-card,.report-reader,.report-sidebar,.library-closing){border-radius:10px;box-shadow:none}
+html .purpose-grid article,html .purpose-grid article:nth-child(n){background:var(--card);border:1px solid var(--line)}
+html .course-card,html .course-card:nth-child(n){border:1px solid var(--line);border-top:1px solid var(--line);box-shadow:none}
+html .course-title{font-size:20px}html .pdf{background:var(--muted-surface);color:var(--ink-soft)}
+html :is(.button-primary,.launch,.course-actions :is(a,button)){border-radius:7px;font-weight:500}
+html .preview{background:var(--muted-surface);color:var(--ink)}
+html .newsletter{padding:28px 32px 72px;max-width:1440px}
+html .newsletter-hero-editorial{gap:32px;padding:32px 36px}
+html .newsletter-hero-editorial h1{font-size:clamp(28px,3.2vw,42px);letter-spacing:-.045em}
+html .newsletter .newsletter-lead{font-size:clamp(19px,1.9vw,24px);font-weight:600}
+html .newsletter-cover{border-radius:9px;box-shadow:none;border:0}
+html .newsletter-topics span{background:var(--muted-surface);color:var(--ink-soft);border:0;border-radius:5px}
+html .report-sidebar{background:var(--card);padding:20px}
+html .newsletter .report-item{border:0;border-bottom:1px solid var(--line);border-radius:0;margin:0;padding:14px 10px}
+html .report-item[aria-current=true]{box-shadow:none;background:var(--muted-surface);border-left:2px solid var(--ink)}
+html .report-date{font-size:11px;font-weight:600;color:var(--ink-soft)}
+html .report-reader{padding:32px}html .reader-tags span{border-radius:4px;background:var(--muted-surface);color:var(--ink-soft)}
+html .reader-toc{border-radius:8px;background:var(--muted-surface);border-color:var(--line)}
+html .reader-markdown blockquote{background:var(--muted-surface);border-left:3px solid var(--line)}
+html .reader-markdown th{background:var(--muted-surface)}
+html .newsletter .report-toggle{border-radius:5px;font-size:20px;color:var(--ink-soft)}
+@media(max-width:1100px){.home-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.home-hero{padding:28px;gap:24px}html .welcome{padding:28px}}
+@media(max-width:760px){.home-hero{grid-template-columns:1fr;padding:26px}.home-copy{order:1}.welcome-art{order:0}html .welcome-art .page-art{aspect-ratio:2/1}html .home-copy h3{font-size:32px}.home-section-heading{display:block}.home-section-heading p{margin-top:12px!important}html .welcome{padding:20px}.home-category-grid{grid-template-columns:1fr}.home-category-card p{min-height:0}.home-footer{flex-direction:column;gap:4px}html .newsletter{padding:20px 16px 64px}html .newsletter-hero-editorial{padding:24px;gap:22px}html .report-reader{padding:22px}html .report-sidebar{padding:16px}html .crumb{padding-left:20px}.home-collections{padding:32px 0}}
+/* Let the landing page lead with content rather than a workspace toolbar. */
+html #app:has(#welcome:not([style*="display: none"])) .crumb{display:none}
+@media(max-width:900px){html #sidebar:not(.open){box-shadow:none}}

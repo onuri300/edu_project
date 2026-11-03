@@ -49,7 +49,7 @@
       if (fails >= 5) { locked = Date.now() + 30000; fails = 0; msg.textContent = "시도 횟수를 초과했습니다. 30초 후 다시 시도하세요."; }
       else msg.textContent = "아이디 또는 비밀번호가 올바르지 않습니다.";
     } finally {
-      btn.disabled = false; btn.textContent = "들어가기";
+      btn.disabled = false; btn.textContent = "시작하기";
     }
   }
 
@@ -98,6 +98,18 @@
       nav.append(wrap);
     });
 
+    const collection = $('#home-categories');
+    collection.replaceChildren();
+    const introductions = { '바이브코딩': '아이디어를 웹과 디지털 경험으로 만들어보세요.', '게임': '즐겁게 도전하며 배우는 인터랙티브 콘텐츠.', '수업 자료실': '수업을 준비하고 함께 활용하는 교육 자료.', '기타': '만들기의 공간과 나를 알아가는 이야기.', '뉴스레터': 'AI와 메이킹의 변화를 읽는 새로운 시선.' };
+    DATA.cats.forEach((cat, ci) => {
+      const card = document.createElement('article'); card.className = 'home-category-card';
+      const number = document.createElement('span'); number.className = 'home-category-number'; number.textContent = String(ci + 1).padStart(2, '0');
+      const title = document.createElement('h4'); title.textContent = cat.name;
+      const description = document.createElement('p'); description.textContent = introductions[cat.name] || '관심 있는 콘텐츠를 골라 살펴보세요.';
+      const links = document.createElement('div'); links.className = 'home-category-links';
+      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.textContent = item.name + ' ↗'; link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
+      card.append(number, title, description, links); collection.append(card);
+    });
     gate.remove();
     $("#app").classList.add("on");
     const returnTo = new URL(location.href).searchParams.get("return");
