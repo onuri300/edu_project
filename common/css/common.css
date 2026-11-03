@@ -111,3 +111,39 @@ html .newsletter .report-toggle{border-radius:5px;font-size:20px;color:var(--ink
 /* Let the landing page lead with content rather than a workspace toolbar. */
 html #app:has(#welcome:not([style*="display: none"])) .crumb{display:none}
 @media(max-width:900px){html #sidebar:not(.open){box-shadow:none}}
+
+/* Header navigation replaces the former sidebar. Home remains the full content map. */
+html body:has(#app) #app main{margin-left:0;padding-left:0;height:100%}
+html body:has(#app) header.onuri-header{gap:32px;padding-right:190px}
+html #nav.header-nav{display:flex;align-items:center;justify-content:center;gap:6px;flex:1;overflow:visible;width:auto;padding:0;margin:0}
+html #nav .cat{position:relative;margin:0}
+html #nav .cat>button,html #nav .all-menu-link{display:flex;align-items:center;gap:9px;border:0;border-radius:6px;padding:10px 12px;background:transparent;color:var(--ink);font:600 13px/1.5 var(--font-ui);white-space:nowrap;cursor:pointer}
+html #nav .cat>button:hover,html #nav .all-menu-link:hover,html #nav .cat.open>button{background:var(--muted-surface)}
+html #nav .caret{font-size:13px;transform:none}html #nav .cat.open .caret{transform:rotate(180deg)}
+html #nav .sub{position:absolute;top:calc(100% + 10px);left:0;min-width:220px;padding:7px;background:var(--card);border:1px solid var(--line);border-radius:9px;box-shadow:0 8px 30px #0000000d;visibility:hidden;max-height:0;opacity:0;overflow:hidden;transition:opacity .12s}
+html #nav .cat.open .sub{visibility:visible;opacity:1;max-height:60vh;overflow:auto}
+html #nav .sub button{padding:11px 12px;font-size:13px;margin:0;border-radius:5px;white-space:nowrap}
+html #nav .sub button:hover{background:var(--muted-surface);color:var(--ink)}
+html #nav .all-menu-link{font-weight:500;color:var(--ink-soft);border-left:1px solid var(--line);border-radius:0;margin-left:8px;padding-left:18px}
+html .theme-switch{top:13px;right:24px;border:0;padding:0;gap:2px;background:transparent;box-shadow:none}
+html .theme-switch button,html .theme-switch .header-logout{display:inline-flex;align-items:center;justify-content:center;width:38px;height:44px;min-width:38px;min-height:44px;padding:8px;border:0;border-radius:7px;background:transparent;color:var(--ink-soft);cursor:pointer}
+html .theme-switch svg{width:18px;height:18px}
+html .theme-switch button:hover{background:var(--muted-surface)}
+html .theme-switch .header-logout{margin-left:6px;border-left:1px solid var(--line);border-radius:0;padding-left:13px;width:43px}
+html #logout[hidden]{display:none!important}
+.header-menu-toggle{display:none}
+html body:has(#app):not(.portal-authenticated) #nav,html body:has(#app):not(.portal-authenticated) #burger{display:none}
+html .crumb{padding-right:28px}
+@media(max-width:1000px){
+ html body:has(#app) header.onuri-header{gap:10px;padding-left:20px;padding-right:160px}
+ html .theme-switch{right:14px}
+ html .header-menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:44px;padding:8px;background:transparent;color:var(--ink);border:0;border-radius:6px;cursor:pointer;margin-left:auto}
+ html #nav.header-nav{display:none;position:absolute;left:0;right:0;top:72px;max-height:calc(100dvh - 72px);overflow:auto;padding:14px 18px 24px;background:var(--card);border-bottom:1px solid var(--line);box-shadow:0 12px 20px #00000008}
+ html #nav.header-nav.mobile-open{display:block}
+ html #nav .cat>button{width:100%;justify-content:space-between;padding:14px 12px}
+ html #nav .sub{position:static;border:0;box-shadow:none;background:var(--muted-surface);padding:0;margin:0;display:none;min-width:0}
+ html #nav .cat.open .sub{display:block;padding:6px;max-height:none}
+ html #nav .all-menu-link{border-left:0;border-top:1px solid var(--line);margin:12px 0 0;padding:16px 12px;width:100%}
+ html .onuri-home span{font-size:23px}html .onuri-home img{width:32px;height:32px}
+}
+@media(max-width:400px){html body:has(#app) header.onuri-header{padding-left:14px;padding-right:148px;gap:6px}html .onuri-home{gap:6px}html .onuri-home span{font-size:21px}html .theme-switch{right:8px}html .theme-switch button{min-width:34px;width:34px}html .theme-switch .header-logout{width:37px;padding-left:9px;margin-left:2px}}

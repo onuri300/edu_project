@@ -61,9 +61,9 @@
 
   function start() {
     document.title = DATA.title || "자료실";
-    $("#brandName").textContent = DATA.title || "자료실";
-    $("#brandSub").textContent = DATA.subtitle || "";
-    $("#topTitle").textContent = DATA.title || "자료실";
+
+
+
 
     const nav = $("#nav");
     nav.textContent = "";
@@ -76,11 +76,13 @@
       head.setAttribute("aria-expanded", "false");
       head.append(document.createTextNode(cat.name));
       const caret = document.createElement("span");
-      caret.className = "caret"; caret.textContent = "▶";
+      caret.className = "caret"; caret.textContent = "⌄";
       head.append(caret);
       head.addEventListener("click", () => {
-        const open = wrap.classList.toggle("open");
-        head.setAttribute("aria-expanded", String(open));
+        const wasOpen = wrap.classList.contains("open");
+        closeDropdowns();
+        wrap.classList.toggle("open", !wasOpen);
+        head.setAttribute("aria-expanded", String(!wasOpen));
       });
 
       const sub = document.createElement("div");
@@ -98,6 +100,8 @@
       nav.append(wrap);
     });
 
+    const overview = document.createElement('button'); overview.type = 'button'; overview.className = 'all-menu-link'; overview.textContent = '전체 메뉴'; overview.addEventListener('click', home); nav.append(overview);
+    $('#logout').hidden = false; document.body.classList.add('portal-authenticated');
     const collection = $('#home-categories');
     collection.replaceChildren();
     const introductions = { '바이브코딩': '아이디어를 웹과 디지털 경험으로 만들어보세요.', '게임': '즐겁게 도전하며 배우는 인터랙티브 콘텐츠.', '수업 자료실': '수업을 준비하고 함께 활용하는 교육 자료.', '기타': '만들기의 공간과 나를 알아가는 이야기.', '뉴스레터': 'AI와 메이킹의 변화를 읽는 새로운 시선.' };
@@ -162,7 +166,7 @@
     frame.removeAttribute('src');
     $('#welcome').style.display = '';
     $('#crumbTitle').textContent = '시작하기';
-    $('#crumbSub').textContent = '왼쪽에서 메뉴를 선택하세요';
+    $('#crumbSub').textContent = '상단 메뉴에서 콘텐츠를 선택하세요';
     $('#openNew').hidden = true;
     document.querySelectorAll('.sub button[aria-current]').forEach(button => button.removeAttribute('aria-current'));
     closeDrawer();
@@ -177,32 +181,17 @@
     }
   });
 
-  /* ---------- 모바일 서랍 ---------- */
-  const side = $("#sidebar"), scrim = $("#scrim"), sideToggle = $("#sidebar-toggle");
-  const mobile = window.matchMedia('(max-width:900px)');
-  let collapsed = false;
-  try { collapsed = localStorage.getItem('onuri-sidebar-collapsed') === 'true'; } catch {}
-  function syncSidebar() {
-    const expanded = mobile.matches ? side.classList.contains('open') : !collapsed;
-    $('#app').classList.toggle('sidebar-collapsed', !mobile.matches && collapsed);
-    $('#app').classList.toggle('sidebar-mobile-open', mobile.matches && expanded);
-    side.inert = !expanded;
-    sideToggle.textContent = expanded ? '‹' : '›';
-    sideToggle.setAttribute('aria-expanded', String(expanded));
-    sideToggle.setAttribute('aria-label', expanded ? '왼쪽 메뉴 접기' : '왼쪽 메뉴 펼치기');
-    $('#burger').setAttribute('aria-expanded', String(expanded));
-  }
-  function openDrawer(){ side.classList.add('open'); scrim.classList.add('on'); syncSidebar(); }
-  function closeDrawer(){ side.classList.remove('open'); scrim.classList.remove('on'); syncSidebar(); }
-  sideToggle.addEventListener('click', () => {
-    if (mobile.matches) { side.classList.contains('open') ? closeDrawer() : openDrawer(); }
-    else { collapsed = !collapsed; try { localStorage.setItem('onuri-sidebar-collapsed', String(collapsed)); } catch {} syncSidebar(); }
+  /* Header navigation shared by desktop and mobile. */
+  function closeDropdowns() { document.querySelectorAll('#nav .cat.open').forEach(cat => { cat.classList.remove('open'); cat.querySelector('button').setAttribute('aria-expanded', 'false'); }); }
+  function closeDrawer() { $('#nav').classList.remove('mobile-open'); $('#burger').setAttribute('aria-expanded', 'false'); closeDropdowns(); }
+  $('#burger').addEventListener('click', () => { const expanded = $('#nav').classList.toggle('mobile-open'); $('#burger').setAttribute('aria-expanded', String(expanded)); });
+  document.addEventListener('click', event => { if (!event.target.closest('#nav, #burger')) closeDrawer(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') { closeDrawer(); $('#burger').focus(); } });
+  window.matchMedia('(max-width:1000px)').addEventListener('change', closeDrawer);
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.onuri-header');
+    if (header) { header.append($('#burger'), $('#nav')); document.querySelector('.theme-switch').append($('#logout')); }
   });
-  $('#burger').addEventListener('click', () => side.classList.contains('open') ? closeDrawer() : openDrawer());
-  scrim.addEventListener('click', closeDrawer);
-  mobile.addEventListener('change', closeDrawer);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-  syncSidebar();
 
   /* ---------- 로그아웃 ---------- */
   $("#logout").addEventListener("click", () => { window.eduAuth.clearSession(); DATA = null; location.reload(); });
