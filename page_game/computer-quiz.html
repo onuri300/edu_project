@@ -4,7 +4,14 @@
 </head><body data-site-family="computer_quiz_100">
 <header><a href="#" id="homeBtn"><span class="logo">⌘</span><b>Computer Quiz</b></a><div><button id="adminBtn" class="admin">⚙ Admin Mode</button></div></header>
 <main>
-<section id="home" class="screen active"><div class="hero card"><div><small>COMPUTER GENERAL KNOWLEDGE · 100 QUESTIONS</small><h1>알고 보면 더 재미있는<br><strong>컴퓨터 탐험 퀴즈</strong></h1><p>AI부터 개인정보 보호, 코딩, 3D 프린팅까지<br>재미있게 풀면서 디지털 세상을 탐험해 보세요.</p><div class="tags"><span>🤖 AI</span><span>🔐 보안</span><span>💻 컴퓨터</span><span>🧩 코딩</span></div></div><img class="page-art" data-page-image src="../images/computer-quiz-hero.png" alt="" width="1536" height="1024" decoding="async"></div>
+<section id="home" class="screen active"><header class="game-hero">
+  <div>
+    <p class="game-hero-kicker">ONURI / PLAY TOGETHER</p>
+    <h1>컴퓨터 탐험 퀴즈</h1>
+    <p>AI, 개인정보 보호, 코딩, 3D 프린팅까지 100문제로 디지털 세상을 탐험해 보세요.</p>
+  </div>
+  <img class="page-art" data-page-image src="../images/computer-quiz-hero.png" alt="" width="1536" height="1024">
+</header>
 <div class="grid"><div class="card setup"><small>QUIZ SETUP</small><h2>오늘의 퀴즈 설정</h2><label>난이도</label><div class="levels"><label><input type="radio" name="difficulty" value="전체" checked><span><b>전체</b><em>100문제</em></span></label><label><input type="radio" name="difficulty" value="하" ><span><b>하</b><em>50문제</em></span></label><label><input type="radio" name="difficulty" value="중" ><span><b>중</b><em>30문제</em></span></label><label><input type="radio" name="difficulty" value="상" ><span><b>상</b><em>20문제</em></span></label></div><div class="countrow"><label for="countInput">출제할 문제 수</label><input id="countInput" type="number" min="1" max="100" value="10"> <span>문제</span></div><p id="limitNote"></p><button id="startBtn" class="primary">🚀 퀴즈 시작하기</button></div>
 <div class="features"><div class="mini"><img src="../common/images/computer_quiz_100/computer.svg"><b>컴퓨터 기초</b><small>하드웨어 · 인터넷 · 소프트웨어</small></div><div class="mini"><img src="../common/images/computer_quiz_100/security.svg"><b>디지털 안전</b><small>개인정보 · 피싱 · 보안 습관</small></div><div class="mini"><img src="../common/images/computer_quiz_100/robot.svg"><b>AI & 메이킹</b><small>AI · 코딩 · 3D 프린팅 · 레이저</small></div></div></div></section>
 <section id="quiz" class="screen"><div class="quiztop"><div><small>QUIZ IN PROGRESS</small><h2 id="progress">1 / 10</h2></div><b class="score">현재 점수 <span id="score">0</span></b></div><div class="bar"><i id="bar"></i></div><article class="card question"><div><span id="badge" class="badge"></span><span id="qid"></span></div><h1 id="question"></h1><div id="options" class="options"></div><div class="tools"><button id="hintBtn" class="ghost">💡 힌트 보기</button><button id="nextBtn" class="primary small" disabled>다음 문제 →</button></div><div id="hint" class="hint hidden"></div><div id="feedback" class="feedback hidden"></div></article></section>

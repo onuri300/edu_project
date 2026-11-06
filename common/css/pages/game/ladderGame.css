@@ -1,15 +1,12 @@
 body { margin: 0; }
 .ladder { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 28px 48px; }
-.ladder-hero, .ladder-panel {
+.ladder-panel {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: clamp(16px, 3vw, 32px);
 }
-.ladder-hero { display: grid; grid-template-columns: 1fr minmax(0, 320px); align-items: center; gap: 24px; }
-.ladder-hero img { height: 150px; object-fit: cover; }
-.ladder h1 { font-size: clamp(30px, 5vw, 48px); }
-.ladder h1, .ladder h2, .ladder-kicker { margin: 0; }
+.ladder h2, .ladder-kicker { margin: 0; }
 .ladder p { color: var(--ink-soft); }
 .ladder .ladder-kicker { color: var(--accent); font-size: .75rem; font-weight: 700; letter-spacing: .12em; }
 .ladder-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
@@ -37,8 +34,6 @@ body { margin: 0; }
 .ladder-results th, .ladder-results td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
 .ladder-results th { background: var(--muted-surface); }
 @media (max-width: 680px) {
-  .ladder-hero { grid-template-columns: 1fr; }
-  .ladder-hero img { height: 110px; }
 }
 
 .ladder-layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 1fr); align-items: start; gap: 16px; }
