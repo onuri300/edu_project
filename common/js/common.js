@@ -17,29 +17,6 @@
   apply(explicit ? saved : system.matches ? 'dark' : 'light');
   document.addEventListener('DOMContentLoaded', () => {
     const root = window.eduAuth?.root;
-    if (root && location.pathname !== new URL('index.html', root).pathname
-      && location.pathname !== new URL(root).pathname && !document.querySelector('.page-tab-tools')) {
-      const tools = document.createElement('div');
-      tools.className = 'page-tab-tools';
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'page-open-tab';
-      button.textContent = '새 탭에서 열기 ↗';
-      button.setAttribute('aria-label', '현재 페이지를 브라우저 새 탭에서 열기');
-      const status = document.createElement('p');
-      status.className = 'page-tab-status';
-      status.setAttribute('role', 'status');
-      status.hidden = true;
-      button.addEventListener('click', () => {
-        status.hidden = true;
-        if (!window.eduAuth.openPage(location.href)) {
-          status.textContent = '새 탭을 열 수 없습니다. 팝업 허용 설정을 확인하세요.';
-          status.hidden = false;
-        }
-      });
-      tools.append(status, button);
-      document.body.append(tools);
-    }
     if (root && !document.querySelector('.onuri-header')) {
       const header = document.createElement('header');
       header.className = 'onuri-header';

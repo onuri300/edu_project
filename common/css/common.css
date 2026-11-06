@@ -22,7 +22,6 @@ body[data-site-family="knu"] .site-nav{background:var(--card)}body[data-site-fam
 /* Onuri shared masthead and login guard. */
 html[data-auth="pending"] body{visibility:hidden}header.onuri-header{position:fixed;inset:0 0 auto;z-index:110;height:72px;min-height:72px;padding:0 200px 0 28px;display:flex;align-items:center;background:var(--card);border-bottom:1px solid var(--line);box-shadow:0 2px 18px #302d4006;color:var(--ink)}.onuri-home{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);min-height:48px}.onuri-home img{display:block;width:40px;height:40px;object-fit:contain;border-radius:9px;background:transparent}.onuri-home span{font-family:var(--font-ui);font-weight:800;font-size:25px;letter-spacing:-.06em}.onuri-home:hover span{color:var(--accent)}body:has(#app){padding-top:72px}body:has(#app) #app{height:calc(100dvh - 72px)}body:has(#app) #sidebar{top:72px}body:has(#app) #gate{top:72px}html[data-embedded="true"] .onuri-header{display:none}body:not(:has(#app)){padding-top:92px}html[data-embedded="true"] body:not(:has(#app)){padding-top:0}.theme-switch{z-index:160;top:9px}@media(max-width:600px){header.onuri-header{padding-left:18px;padding-right:120px}.onuri-home span{font-size:23px}.onuri-home img{width:36px;height:36px}.theme-switch{top:10px}}
 /* Shared current-page new-tab action, including embedded category pages. */
-.page-tab-tools{position:fixed;right:20px;bottom:max(20px,env(safe-area-inset-bottom));z-index:90;display:flex;flex-direction:column;align-items:flex-end;gap:8px;max-width:calc(100vw - 32px)}.page-open-tab{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border:1px solid var(--board-line);border-radius:28px;background:var(--card);color:var(--accent);box-shadow:var(--shadow);font:600 13px/1.5 var(--font-ui);cursor:pointer}.page-open-tab:hover{background:var(--lavender)}.page-tab-status{margin:0;padding:10px 14px;max-width:300px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink-soft);font-size:12px;box-shadow:var(--shadow)}@media(max-width:600px){.page-tab-tools{right:14px;bottom:max(14px,env(safe-area-inset-bottom))}.page-open-tab{font-size:12px;padding:10px 14px}}
 /* Category pages opened outside the portal show content without the shared masthead. */
 html[data-standalone="true"] .onuri-header,html[data-standalone="true"] .theme-switch{display:none}html[data-standalone="true"] body:not(:has(#app)){padding-top:0}
 
@@ -37,7 +36,6 @@ html header.onuri-header{height:72px;border-bottom:1px solid var(--line);box-sha
 html .onuri-home span{font-size:26px;letter-spacing:-.055em;color:var(--ink)}
 html .theme-switch{box-shadow:none;border-color:var(--line);padding:3px;background:var(--card)}
 html .theme-switch button[aria-pressed=true]{background:var(--muted-surface);color:var(--ink)}
-html .page-open-tab{border-radius:8px;box-shadow:0 3px 12px #00000008;background:var(--card);color:var(--ink-soft);font-weight:500}
 html .page-art,html .page-art-banner,html .generated-hero-art .page-art{border-radius:12px;box-shadow:none}
 /* Portal navigation is a quiet contents rail, with an editorial landing page. */
 html #sidebar{background:var(--board);border-right:1px solid var(--line)}
@@ -204,9 +202,6 @@ html .crumb{padding-left:max(24px,calc((100vw - 1280px)/2 + 24px));padding-right
 html .onuri-footer{padding-left:max(24px,calc((100vw - 1280px)/2 + 24px));padding-right:max(24px,calc((100vw - 1280px)/2 + 24px))}
 @media(max-width:1000px){html .crumb,html .onuri-footer{padding-left:20px;padding-right:20px}}
 @media(max-width:400px){html .crumb,html .onuri-footer{padding-left:14px;padding-right:14px}}
-html .page-tab-tools{right:max(24px,calc((100vw - 1280px)/2 + 24px))}
-@media(max-width:1000px){html .page-tab-tools{right:20px}}
-@media(max-width:400px){html .page-tab-tools{right:14px}}
 
 /* Full-width home banner with copy aligned to the header. */
 html .welcome.welcome-full-width {
