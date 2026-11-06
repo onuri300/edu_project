@@ -123,16 +123,6 @@
   }
   .mascot-name{ font-size: clamp(1.4rem, 4.4vw, 1.8rem); margin:6px 0 24px; }
 
-  .axis-graph{ text-align:left; margin-bottom: 22px; }
-  .axis-row{ margin-bottom: 16px; }
-  .axis-row:last-child{ margin-bottom:0; }
-  .axis-labels{ display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:6px; color:var(--sub); }
-  .axis-labels strong{ color:var(--ink); }
-  .axis-bar{
-    display:flex; width:100%; height:16px; border-radius:999px; overflow:hidden; background:var(--line);
-  }
-  .axis-bar .seg-a{ background: var(--accent-teal); }
-  .axis-bar .seg-b{ background: var(--accent-coral); }
 
   .section-title{
     font-family:'Gowun Sans', sans-serif; font-size:1.1rem; margin: 4px 0 14px; text-align:left;

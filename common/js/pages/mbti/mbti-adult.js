@@ -199,18 +199,7 @@
     const axisData = [
       {a:'E',b:'I', res:ei}, {a:'S',b:'N', res:sn}, {a:'T',b:'F', res:tf}, {a:'J',b:'P', res:jp}
     ];
-    const graphEl = document.getElementById('axisGraph');
-    graphEl.innerHTML = '';
-    axisData.forEach(d => {
-      const row = document.createElement('div');
-      row.className = 'axis-row';
-      row.innerHTML =
-        '<div class="axis-labels"><span><strong>' + d.a + '</strong> ' + d.res.pctA + '%</span>' +
-        '<span>' + d.res.pctB + '% <strong>' + d.b + '</strong></span></div>' +
-        '<div class="axis-bar"><div class="seg-a" style="flex-basis:' + d.res.pctA + '%"></div>' +
-        '<div class="seg-b" style="flex-basis:' + d.res.pctB + '%"></div></div>';
-      graphEl.appendChild(row);
-    });
+    window.eduMbtiGraph.render(axisData.map(({ a, b, res }) => ({ a, b, pctA: res.pctA })));
 
     const strengthsEl = document.getElementById('strengths');
     strengthsEl.innerHTML = '';

@@ -169,6 +169,10 @@
     const r = results[code];
 
     document.getElementById('resultCode').textContent = code;
+    window.eduMbtiGraph.render([['E','I'], ['S','N'], ['T','F'], ['J','P']].map(([a,b]) => {
+      const total = tally[a] + tally[b];
+      return { a, b, pctA: total ? Math.round(tally[a] / total * 100) : 50 };
+    }));
     document.getElementById('mascotName').textContent = r.name;
     document.getElementById('mascotTag').textContent = r.tag;
     document.getElementById('resultDesc').textContent = r.desc;

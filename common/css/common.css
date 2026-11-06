@@ -442,3 +442,18 @@ html body[data-site-family="mbti"] .page-art-banner { width: 100%; }
 .mbti-study-layout > .card { min-width: 0; }
 html .mbti-progress { margin: 0; }
 .mbti-progress #remainingQuestions { margin: 12px 0 0; color: var(--ink); font-weight: 700; }
+
+/* MBTI result detail and type graph. */
+.axis-graph{ text-align:left; margin-bottom: 22px; }
+.axis-row{ margin-bottom: 16px; }
+.axis-row:last-child{ margin-bottom:0; }
+.axis-labels{ display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:6px; color:var(--sub); }
+.axis-labels strong{ color:var(--ink); }
+.axis-bar{
+  display:flex; width:100%; height:16px; border-radius:999px; overflow:hidden; background:var(--line);
+}
+.axis-bar .seg-a{ background: var(--accent-teal); }
+.axis-bar .seg-b{ background: var(--accent-coral); }
+.mbti-result-layout > .card { min-width: 0; }
+.mbti-result-type .result-code { font-size: 1.3rem; font-weight: 800; margin: 0 0 16px; }
+.mbti-result-type .axis-graph { margin-bottom: 0; }

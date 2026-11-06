@@ -54,12 +54,10 @@
     </section>
 
     <section id="result">
+      <div class="game-study-layout mbti-result-layout">
       <div class="card result-top">
         <div class="mascot-badge" id="mascotBadge"></div>
-        <p class="result-code" id="resultCode"></p>
         <h2 class="mascot-name" id="mascotName"></h2>
-
-        <div class="axis-graph" id="axisGraph"></div>
 
         <h3 class="section-title">나의 강점</h3>
         <ul class="strengths" id="strengths"></ul>
@@ -71,12 +69,19 @@
         </div>
         <p class="disclaimer">이 진단은 자기 이해를 돕기 위한 참고 자료이며, 성격을 절대적으로 규정하지 않습니다. 결과는 그날의 기분이나 상황에 따라 달라질 수 있어요.</p>
       </div>
+        <aside class="game-score-panel mbti-result-type" aria-labelledby="result-type-title">
+          <h2 id="result-type-title">나의 성격 유형</h2>
+          <p class="result-code" id="resultCode"></p>
+          <div class="axis-graph" id="axisGraph" aria-label="네 가지 성향의 응답 비율"></div>
+        </aside>
+      </div>
     </section>
   </main>
 
   <footer>스스로를 더 깊이 이해하는 시간이 되었길 바라요 🌤️</footer>
 </div>
 
+<script src="../common/js/pages/mbti/result-graph.js"></script>
 <script src="../common/js/pages/mbti/mbti-adult.js"></script>
 </body>
 </html>
