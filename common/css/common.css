@@ -429,3 +429,16 @@ html body > .game-toolbar {
   border-radius: 999px;
   transition: width 0.3s ease;
 }
+
+/* More pages align their content with the portal masthead. */
+html :is(body[data-site-family="mbti"] > .wrap, .center-container, .manual) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--content-frame);
+  margin-inline: auto;
+  padding-inline: var(--content-gutter);
+}
+html body[data-site-family="mbti"] .page-art-banner { width: 100%; }
+.mbti-study-layout > .card { min-width: 0; }
+html .mbti-progress { margin: 0; }
+.mbti-progress #remainingQuestions { margin: 12px 0 0; color: var(--ink); font-weight: 700; }

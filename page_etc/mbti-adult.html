@@ -19,11 +19,6 @@
     <p>24개 문항으로 알아보는 심층 성격 유형 진단</p>
   </header>
 
-  <div class="progress-wrap" id="progressWrap">
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <p class="progress-label" id="progressLabel">1 / 24</p>
-  </div>
-
   <main>
 <figure class="page-art-banner" aria-hidden="true"><img class="page-art" data-page-image src="../images/mbti-adult-hero.png" alt="" width="1536" height="1024" decoding="async"></figure>
     <section id="start" class="active">
@@ -41,12 +36,20 @@
     </section>
 
     <section id="quiz">
+      <div class="game-study-layout mbti-study-layout">
       <div class="card">
         <span class="axis-tag" id="axisTag"></span>
         <p class="q-number" id="qNumber">문항 1 / 24</p>
         <p class="q-text" id="qText"></p>
         <div class="likert" id="likert"></div>
         <div class="quiz-nav"><button id="backBtn" type="button">◀ 이전 문항</button></div>
+      </div>
+  <aside class="progress-wrap game-score-panel mbti-progress" id="progressWrap" aria-labelledby="mbti-progress-title">
+    <h2 id="mbti-progress-title">진행 상황</h2>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <p class="progress-label" id="progressLabel">1 / 24</p>
+    <p id="remainingQuestions" aria-live="polite"></p>
+  </aside>
       </div>
     </section>
 

@@ -148,7 +148,10 @@
 
     backBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
 
-    const pct = Math.round((current / questions.length) * 100);
+    const answered = answers.filter(answer => answer !== null).length;
+    const pct = Math.round(answered / questions.length * 100);
+    document.getElementById('remainingQuestions').textContent =
+      '남은 문항 ' + (questions.length - answered) + '개';
     progressFill.style.width = pct + '%';
     progressLabel.textContent = (current + 1) + ' / ' + questions.length;
   }
