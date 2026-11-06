@@ -106,7 +106,7 @@
       nav.append(wrap);
     });
 
-    const overview = document.createElement('button'); overview.type = 'button'; overview.className = 'all-menu-link'; overview.textContent = '전체 메뉴'; overview.addEventListener('click', home); nav.append(overview);
+    const overview = document.createElement('button'); overview.type = 'button'; overview.className = 'all-menu-link'; overview.textContent = 'SiteMap'; overview.addEventListener('click', home); nav.append(overview);
     $('#logout').hidden = false; document.body.classList.add('portal-authenticated');
     const collection = $('#home-categories');
     collection.replaceChildren();

@@ -1,4 +1,4 @@
-# makelab — AI 디지털 메이킹 강사 포트폴리오
+# OnuriMakerLab — AI 디지털 메이킹 강사 포트폴리오
 
 3D 프린터 · 레이저 커터 · 생성형 AI를 함께 다루는 AI 디지털 메이킹 강사를 위한
 개인 포트폴리오 웹사이트입니다. 바닐라 HTML / CSS / JavaScript로만 만들어졌고,
@@ -107,7 +107,7 @@ About 페이지에 자동으로 반영됩니다.**
 4. **`contact.html`** — 이메일 주소와 SNS 링크(`href="#"`)를 실제 링크로 바꾸고,
    폼 제출은 현재 프론트엔드 데모용이라 Formspree, EmailJS 등 폼 전송 서비스나
    자체 백엔드를 연결해야 실제로 동작합니다.
-5. **브랜드명 "makelab"** — 각 HTML의 `.brand` 부분과 `<title>`을 함께 수정하세요.
+5. **브랜드명 "OnuriMakerLab"** — 각 HTML의 `.brand` 부분과 `<title>`을 함께 수정하세요.
 
 ## 실행 방법
 
