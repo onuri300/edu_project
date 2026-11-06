@@ -97,6 +97,19 @@
   }
 
   function start() {
+    for (const category of DATA.cats) {
+      for (const item of category.items) {
+        if (/^page_vibecoding\/onuri-[^/]+\.html$/.test(item.url)) {
+          item.url = item.url.replace('page_vibecoding/', 'page_vibecoding/onuriMakerLab/');
+        }
+      }
+      const additions = {
+        '바이브코딩': { name: 'Onyou Maker Card', url: 'page_vibecoding/onyou-maker-card/dist/index.html' },
+        '기타': { name: 'GPT Making Manual', url: 'page_etc/gpt-making-manual/index.html' }
+      };
+      const addition = additions[category.name];
+      if (addition && !category.items.some(item => item.url === addition.url)) category.items.push(addition);
+    }
     document.title = 'Onuri | Learning Portal';
 
 
@@ -174,10 +187,6 @@
     document.querySelectorAll('.sub button[aria-current]').forEach(b => b.removeAttribute("aria-current"));
     el.setAttribute("aria-current", "true");
     const pageUrl = new URL(item.url, document.baseURI);
-    if (pageUrl.pathname.endsWith('/page_vibecoding/onuri-maker.html')) {
-      // Request the corrected branding even if the browser cached the old page.
-      pageUrl.searchParams.set('v', '6f3d37b');
-    }
     current = { ...item, url: pageUrl.href };
 
     $("#crumbTitle").textContent = pageTitle(item);

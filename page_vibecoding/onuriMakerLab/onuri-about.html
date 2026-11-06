@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Process — OnuriMakerLab</title>
+<title>About — OnuriMakerLab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../common/css/pages/portfolio1/style.css" />
-<link rel="stylesheet" href="../common/css/common.css">
-<script src="../common/js/auth.js"></script>
-<script src="../common/js/common.js"></script>
+<link rel="stylesheet" href="../../common/css/pages/portfolio1/style.css" />
+<link rel="stylesheet" href="../../common/css/common.css">
+<script src="../../common/js/auth.js"></script>
+<script src="../../common/js/common.js"></script>
 </head>
-<body data-site-family="portfolio1" data-page="process">
+<body data-site-family="portfolio1" data-page="about">
 <header class="site-header">
   <div class="container">
     <a href="onuri-maker.html" class="brand">make<span>lab</span></a>
@@ -47,31 +47,34 @@
 </div>
 
 <main>
-<figure class="page-art-banner" aria-hidden="true"><img class="page-art" data-page-image src="../images/onuri-process-hero.png" alt="" width="1536" height="1024" decoding="async"></figure>
+<figure class="page-art-banner" aria-hidden="true"><img class="page-art" data-page-image src="../../images/onuri-about-hero.png" alt="" width="1536" height="1024" decoding="async"></figure>
   <section class="page-hero">
     <div class="container">
-      <h1>Process</h1>
-      <p>작업 종류(캐릭터 / 굿즈 / 디지털 문구)마다 조금씩 다르지만, 대부분 다음 네 단계를 거쳐 완성합니다. 각 작업의 상세 페이지에서 실제 제작 이미지를 함께 볼 수 있습니다.</p>
+      <h1>About</h1>
+      <p>만드는 방법을 가르치고, 직접 만들기도 하는 AI 디지털 메이킹 강사입니다.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container process-steps">
-      <div class="process-row reveal">
-        <span class="num">01</span>
-        <div><h3>Idea</h3><p>생성형 AI로 다양한 시안을 빠르게 뽑아보며 방향을 좁히는 단계입니다. 필요하면 손으로 그린 러프 스케치를 함께 참고합니다.</p></div>
+    <div class="container about-grid">
+      <div class="about-portrait reveal">
+        <img src="../../common/images/portfolio1/profile/portrait.jpg" alt="강사 프로필 사진" data-profile-portrait />
       </div>
-      <div class="process-row reveal">
-        <span class="num">02</span>
-        <div><h3>Design</h3><p>선택한 시안을 벡터·3D 모델링 프로그램으로 옮겨 실제 제작에 쓸 수 있는 형태로 다듬습니다. 재료와 장비 특성(두께, 출력 크기 등)을 함께 고려합니다.</p></div>
-      </div>
-      <div class="process-row reveal">
-        <span class="num">03</span>
-        <div><h3>Fabrication</h3><p>3D 프린터 또는 레이저 커터로 실제 결과물을 출력·재단합니다. 디지털 문구류는 이 단계에서 인쇄 대신 최종 파일 규격을 확정합니다.</p></div>
-      </div>
-      <div class="process-row reveal">
-        <span class="num">04</span>
-        <div><h3>Finishing</h3><p>후가공(사포질, 채색, 조립)이나 색 보정을 거쳐 완성합니다. 완성 전후 비교가 있는 작업은 상세 페이지의 Before / After 슬라이더에서 확인할 수 있습니다.</p></div>
+      <div class="about-copy">
+        <div class="detail-block reveal">
+          <h2 class="font-display" style="font-size:var(--step3);margin-bottom:1rem;" data-profile-role>강사 소개</h2>
+          <p style="color:var(--ink-soft);max-width:60ch;" data-profile-bio></p>
+        </div>
+
+        <div class="detail-block reveal">
+          <h2 class="font-display" style="font-size:var(--step2);margin-bottom:1rem;">주로 다루는 작업</h2>
+          <div class="skill-grid" data-profile-skills></div>
+        </div>
+
+        <div class="detail-block reveal">
+          <h2 class="font-display" style="font-size:var(--step2);margin-bottom:1rem;">사용 도구</h2>
+          <p style="color:var(--ink-soft);" data-profile-tools></p>
+        </div>
       </div>
     </div>
   </section>
@@ -79,10 +82,10 @@
   <section class="section section-alt">
     <div class="container">
       <div class="section-head reveal">
-        <h2 class="section-title">과정이 담긴 작품</h2>
-        <p class="section-note">아래 작품에서 단계별 작업 이미지를 직접 확인해 보세요.</p>
+        <h2 class="section-title">이력</h2>
+        <p class="section-note">경력을 추가하거나 수정하려면 <code>js/profile-data.js</code>의 CAREER 배열만 편집하면 됩니다.</p>
       </div>
-      <div class="related-grid" id="process-works"></div>
+      <div class="career-list reveal" data-career-list></div>
     </div>
   </section>
 </main>
@@ -98,9 +101,8 @@
 </footer>
 
 <button class="back-to-top" data-back-to-top aria-label="맨 위로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-
-<script src="../common/js/pages/portfolio1/works-data.js"></script>
-<script src="../common/js/pages/portfolio1/process.js"></script>
-<script src="../common/js/pages/portfolio1/main.js"></script>
+<script src="../../common/js/pages/portfolio1/profile-data.js"></script>
+<script src="../../common/js/pages/portfolio1/about.js"></script>
+<script src="../../common/js/pages/portfolio1/main.js"></script>
 </body>
 </html>

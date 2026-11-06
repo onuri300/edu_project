@@ -14,7 +14,8 @@ async function copyOptional(source, output, relative) {
     await mkdir(path.dirname(path.join(output, relative)), { recursive: true });
     await cp(path.join(source, relative), path.join(output, relative), {
       recursive: true,
-      filter: file => !['menu-builder-hero.png', 'README.md'].includes(path.basename(file)),
+      filter: file => !['menu-builder-hero.png', 'README.md', 'node_modules', '.git'].includes(path.basename(file))
+        && path.relative(source, file) !== path.join('page_etc', 'gpt-making-manual'),
     });
   } catch (error) { if (error.code !== 'ENOENT') throw error; }
 }
@@ -73,12 +74,13 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
     if (name.endsWith('.html') && name !== 'menu-builder.html') await copyFile(path.join(source, name), path.join(output, name));
   }
   for (const folder of ['page_vibecoding', 'page_game', 'page_classroom', 'page_etc', 'page_newsletter']) await copyOptional(source, output, folder);
+  await copyOptional(source, output, 'page_etc/gpt-making-manual/index.html');
   for (const relative of ['common/css', 'common/js']) {
     await cp(path.join(source, relative), path.join(output, relative), {
       recursive: true, filter: file => path.basename(file) !== 'builder.css' && path.basename(file) !== 'builder.js',
     });
   }
-  for (const relative of ['images', 'common/images', 'common/data/computer-quiz', 'common/data/data.enc.js', 'common/data/library-data.js', 'CNAME', '.nojekyll', '404.html', 'favicon.ico', 'robots.txt']) await copyOptional(source, output, relative);
+  for (const relative of ['images', 'common/images', 'common/data/computer-quiz', 'common/data/gpt-making-manual.json', 'common/data/data.enc.js', 'common/data/library-data.js', 'CNAME', '.nojekyll', '404.html', 'favicon.ico', 'robots.txt']) await copyOptional(source, output, relative);
   const routes = await readOptionalJson(path.join(source, 'common/data/page-routes.json'), {});
   for (const [oldPage, target] of Object.entries(routes)) {
     if (target === 'page_admin/menu-builder.html') continue;

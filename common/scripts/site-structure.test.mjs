@@ -5,20 +5,20 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const folders = ['', 'page_vibecoding', 'page_game', 'page_classroom', 'page_etc', 'page_newsletter', 'page_admin'];
+const folders = ['', 'page_vibecoding', 'page_vibecoding/onuriMakerLab', 'page_vibecoding/onyou-maker-card/dist', 'page_vibecoding/onyou-maker-card/dist/category', 'page_vibecoding/onyou-maker-card/dist/mobile', 'page_vibecoding/onyou-maker-card/dist/guide', 'page_etc/gpt-making-manual', 'page_game', 'page_classroom', 'page_etc', 'page_newsletter', 'page_admin'];
 test('every HTML uses shared assets with valid local CSS and script paths', async () => {
   let count = 0;
   for (const folder of folders) {
     for (const file of (await readdir(path.join(root, folder))).filter(file => file.endsWith('.html'))) {
       const page = path.join(root, folder, file);
       const html = await readFile(page, 'utf8');
-      assert.match(html, /href="(?:\.\.\/)?common\/css\/common\.css"/, page);
-      assert.match(html, /src="(?:\.\.\/)?common\/js\/common\.js"/, page);
+      assert.match(html, /href="(?:\.\.\/)*common\/css\/common\.css"/, page);
+      assert.match(html, /src="(?:\.\.\/)*common\/js\/common\.js"/, page);
       assert.match(html, /common\/js\/auth\.js/, page);
       assert.doesNotMatch(html, /<style\b/i, page);
       assert.doesNotMatch(html, /<script(?![^>]*\bsrc=)[^>]*>\s*[^<\s]/i, page);
       assert.doesNotMatch(html, /id="(?:themeToggle|themeBtn)"|data-theme-toggle/, page);
-      if (folder !== "page_newsletter") {
+      if (!["page_newsletter", "page_etc/gpt-making-manual"].includes(folder) && !folder.includes("/onyou-maker-card/")) {
       assert.match(html, /data-page-image/, page);
       const imageName = file.replace(/\.html$/, '-hero.png');
       await access(path.join(root, 'images', imageName));
@@ -30,7 +30,7 @@ test('every HTML uses shared assets with valid local CSS and script paths', asyn
       count++;
     }
   }
-  assert.equal(count, 18);
+  assert.equal(count, 23);
   const names = await readdir(root);
   assert.ok(names.includes('index.html'), 'Login entry page stays at index.html');
   const entry = await readFile(path.join(root, 'index.html'), 'utf8');

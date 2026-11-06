@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>About — OnuriMakerLab</title>
+<title>Works — OnuriMakerLab</title>
+<meta name="description" content="캐릭터, 굿즈, 디지털 문구 등 AI 디지털 메이킹 작업 갤러리." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../common/css/pages/portfolio1/style.css" />
-<link rel="stylesheet" href="../common/css/common.css">
-<script src="../common/js/auth.js"></script>
-<script src="../common/js/common.js"></script>
+<link rel="stylesheet" href="../../common/css/pages/portfolio1/style.css" />
+<link rel="stylesheet" href="../../common/css/common.css">
+<script src="../../common/js/auth.js"></script>
+<script src="../../common/js/common.js"></script>
 </head>
-<body data-site-family="portfolio1" data-page="about">
+<body data-site-family="portfolio1" data-page="works">
 <header class="site-header">
   <div class="container">
     <a href="onuri-maker.html" class="brand">make<span>lab</span></a>
@@ -47,45 +48,34 @@
 </div>
 
 <main>
-<figure class="page-art-banner" aria-hidden="true"><img class="page-art" data-page-image src="../images/onuri-about-hero.png" alt="" width="1536" height="1024" decoding="async"></figure>
+<figure class="page-art-banner" aria-hidden="true"><img class="page-art" data-page-image src="../../images/onuri-works-hero.png" alt="" width="1536" height="1024" decoding="async"></figure>
   <section class="page-hero">
     <div class="container">
-      <h1>About</h1>
-      <p>만드는 방법을 가르치고, 직접 만들기도 하는 AI 디지털 메이킹 강사입니다.</p>
+      <h1>Works</h1>
+      <p>완성작과 진행형 작업을 함께 모은 전시 공간입니다. 카테고리, 검색, 정렬로 원하는 작품을 찾아보세요.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container about-grid">
-      <div class="about-portrait reveal">
-        <img src="../common/images/portfolio1/profile/portrait.jpg" alt="강사 프로필 사진" data-profile-portrait />
-      </div>
-      <div class="about-copy">
-        <div class="detail-block reveal">
-          <h2 class="font-display" style="font-size:var(--step3);margin-bottom:1rem;" data-profile-role>강사 소개</h2>
-          <p style="color:var(--ink-soft);max-width:60ch;" data-profile-bio></p>
-        </div>
-
-        <div class="detail-block reveal">
-          <h2 class="font-display" style="font-size:var(--step2);margin-bottom:1rem;">주로 다루는 작업</h2>
-          <div class="skill-grid" data-profile-skills></div>
-        </div>
-
-        <div class="detail-block reveal">
-          <h2 class="font-display" style="font-size:var(--step2);margin-bottom:1rem;">사용 도구</h2>
-          <p style="color:var(--ink-soft);" data-profile-tools></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-alt">
     <div class="container">
-      <div class="section-head reveal">
-        <h2 class="section-title">이력</h2>
-        <p class="section-note">경력을 추가하거나 수정하려면 <code>js/profile-data.js</code>의 CAREER 배열만 편집하면 됩니다.</p>
+      <div class="gallery-toolbar">
+        <div class="filter-chips" data-filter-chips></div>
+        <div class="toolbar-right">
+          <label class="search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" placeholder="작품명, 태그로 검색" data-search-input aria-label="작품 검색" />
+          </label>
+          <select class="sort-select" data-sort-select aria-label="정렬 방식">
+            <option value="recent">최신순</option>
+            <option value="name">이름순</option>
+          </select>
+        </div>
       </div>
-      <div class="career-list reveal" data-career-list></div>
+      <p class="result-count" data-result-count></p>
+      <div class="gallery-viewport" data-gallery-viewport>
+        <div class="gallery-track" data-gallery-track></div>
+      </div>
+      <nav class="gallery-pagination" data-gallery-pagination aria-label="작품 페이지" hidden></nav>
     </div>
   </section>
 </main>
@@ -95,14 +85,16 @@
     <p>&copy; 2026 OnuriMakerLab. AI 디지털 메이킹 수업 · 캐릭터 · 굿즈 · 디지털 문구 작업실.</p>
     <div class="foot-links">
       <a href="onuri-contact.html">Contact</a>
-      <a href="onuri-works.html">Works</a>
+      <a href="onuri-maker.html">Home</a>
     </div>
   </div>
 </footer>
 
 <button class="back-to-top" data-back-to-top aria-label="맨 위로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-<script src="../common/js/pages/portfolio1/profile-data.js"></script>
-<script src="../common/js/pages/portfolio1/about.js"></script>
-<script src="../common/js/pages/portfolio1/main.js"></script>
+
+<script src="../../common/js/pages/portfolio1/works-data.js"></script>
+<script src="../../common/js/pages/portfolio1/lightbox.js"></script>
+<script src="../../common/js/pages/portfolio1/gallery.js"></script>
+<script src="../../common/js/pages/portfolio1/main.js"></script>
 </body>
 </html>
