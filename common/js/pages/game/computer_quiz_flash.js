@@ -118,8 +118,8 @@
     endArea.style.display = 'none';
 
     const card = currentCard();
-    document.getElementById('questionText').textContent = card.q;
-    document.getElementById('answerText').textContent = card.a;
+    document.getElementById('questionText').textContent = card.a;
+    document.getElementById('answerText').textContent = card.q;
     document.getElementById('catLabelFront').textContent = card.cat || "기타";
     document.getElementById('catLabelBack').textContent = card.cat || "기타";
 

@@ -124,7 +124,6 @@
       return { name, result: results[column], points: points.join(' '), color: colors[index] };
     });
     start.disabled = false;
-    status.textContent = '사다리를 생성했습니다. 결과 보기를 눌러 경로를 확인하세요.';
   });
 
   start.addEventListener('click', async () => {
