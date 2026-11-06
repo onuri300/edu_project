@@ -16,22 +16,28 @@ body { margin: 0; }
 .ladder-count { display: flex; align-items: center; gap: 8px; }
 .ladder input { box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid var(--line); }
 .ladder-count input { width: 76px; }
-.ladder-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 18px 0; }
-.ladder-input-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; }
-.ladder-input-row label { display: grid; gap: 4px; font-size: .85rem; }
 .ladder-primary { padding: 10px 18px; border: 0; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 700; cursor: pointer; }
 .ladder-primary:disabled { opacity: .55; cursor: default; }
 #ladder-status:empty { display: none; }
 .ladder-scroll { overflow-x: auto; margin-top: 16px; padding: 10px 0; }
-.ladder-labels { display: grid; grid-template-columns: repeat(var(--players), minmax(0, 1fr)); text-align: center; }
-.ladder-labels span { padding: 4px; font-size: .85rem; font-weight: 600; overflow-wrap: anywhere; }
-#ladder-svg { display: block; width: 100%; height: 300px; }
+.ladder-fields {
+  display: grid;
+  grid-template-columns: repeat(var(--players), minmax(0, 1fr));
+  gap: 6px;
+}
+.ladder-fields input { min-width: 0; padding-inline: 4px; text-align: center; }
+.ladder-fields input[aria-invalid="true"] { border-color: var(--danger); }
+#ladder-svg { display: block; width: 100%; height: 72px; transition: height 450ms ease; }
+.is-generated #ladder-svg { height: 300px; }
+@media (prefers-reduced-motion: reduce) {
+  #ladder-svg { transition: none; }
+}
 .ladder-trace { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
 .ladder-results { width: 100%; border-collapse: collapse; margin-top: 16px; table-layout: fixed; }
 .ladder-results th, .ladder-results td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
 .ladder-results th { background: var(--muted-surface); }
 @media (max-width: 680px) {
-  .ladder-hero, .ladder-inputs { grid-template-columns: 1fr; }
+  .ladder-hero { grid-template-columns: 1fr; }
   .ladder-hero img { height: 110px; }
 }
 

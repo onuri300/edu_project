@@ -1,6 +1,7 @@
 (() => {
   const count = document.getElementById('player-count');
-  const inputs = document.getElementById('ladder-inputs');
+  const players = document.getElementById('ladder-players');
+  const outcomes = document.getElementById('ladder-outcomes');
   const generate = document.getElementById('generate-btn');
   const start = document.getElementById('start-btn');
   const board = document.getElementById('ladder-board');
@@ -20,7 +21,7 @@
     for (const animation of animations) animation.cancel();
     animations = [];
     routes = [];
-    board.hidden = true;
+    board.classList.remove('is-generated');
     start.disabled = true;
     resultTable.hidden = true;
     placeholder.hidden = false;
@@ -33,32 +34,34 @@
     const total = count.valueAsNumber;
     const valid = Number.isInteger(total) && total >= 2 && total <= 10;
     generate.disabled = !valid;
+    board.hidden = !valid;
+    players.replaceChildren();
+    outcomes.replaceChildren();
     if (!valid) {
-      inputs.replaceChildren();
       status.textContent = '참가자 수를 2~10 사이의 정수로 입력해 주세요.';
       return;
     }
-    inputs.replaceChildren();
     for (let i = 0; i < total; i++) {
       values[i] ??= { player: '', result: '' };
-      const row = document.createElement('div');
-      row.className = 'ladder-input-row';
-      for (const [key, label] of [['player', '참가자'], ['result', '결과']]) {
-        const field = document.createElement('label');
-        field.textContent = `${label} ${i + 1}`;
+      for (const [key, label, container] of [
+        ['player', '참가자', players],
+        ['result', '결과', outcomes]
+      ]) {
         const input = document.createElement('input');
+        input.type = 'text';
         input.placeholder = `${label} ${i + 1}`;
+        input.setAttribute('aria-label', input.placeholder);
+        input.required = true;
         input.value = values[i][key];
         input.maxLength = 60;
         input.addEventListener('input', () => {
           values[i][key] = input.value;
+          input.removeAttribute('aria-invalid');
           reset();
           drawPreview();
         });
-        field.append(input);
-        row.append(field);
+        container.append(input);
       }
-      inputs.append(row);
     }
     drawPreview();
   }
@@ -71,38 +74,35 @@
     return element;
   }
 
-  function renderLabels(id, labels) {
-    const target = document.getElementById(id);
-    target.replaceChildren(...labels.map(label => {
-      const span = document.createElement('span');
-      span.textContent = label;
-      return span;
-    }));
-  }
-
   function drawPreview() {
     const total = count.valueAsNumber;
-    const names = values.slice(0, total).map((value, i) => value.player.trim() || `참가자 ${i + 1}`);
-    const results = values.slice(0, total).map((value, i) => value.result.trim() || `결과 ${i + 1}`);
     const x = column => column * 100 + 50;
     svg.replaceChildren();
     svg.setAttribute('viewBox', `0 0 ${total * 100} 300`);
     svg.setAttribute('preserveAspectRatio', 'none');
     diagram.style.setProperty('--players', total);
     diagram.style.minWidth = `${total * 72}px`;
-    renderLabels('ladder-players', names);
-    renderLabels('ladder-outcomes', results);
     for (let column = 0; column < total; column++) {
       draw('line', { x1: x(column), x2: x(column), y1: 12, y2: 288, stroke: colors[column] }, 'ladder-vertical');
     }
-    board.hidden = false;
-    return { names, results, x };
+    return x;
   }
 
   generate.addEventListener('click', () => {
     reset();
-    const { names, results, x } = drawPreview();
-    const total = names.length;
+    const fields = [...players.children, ...outcomes.children];
+    const blank = fields.find(input => !input.value.trim());
+    if (blank) {
+      status.textContent = '모든 참가자 이름과 결과를 입력해 주세요.';
+      blank.setAttribute('aria-invalid', 'true');
+      blank.focus();
+      return;
+    }
+    const total = count.valueAsNumber;
+    const names = Array.from(players.children, input => input.value.trim());
+    const results = Array.from(outcomes.children, input => input.value.trim());
+    const x = drawPreview();
+    board.classList.add('is-generated');
     const rowCount = total * 2 + 4;
     const rungs = Array.from({ length: rowCount }, (_, row) => ({
       left: Math.floor(Math.random() * (total - 1)),
@@ -124,7 +124,6 @@
       return { name, result: results[column], points: points.join(' '), color: colors[index] };
     });
     start.disabled = false;
-    board.hidden = false;
     status.textContent = '사다리를 생성했습니다. 결과 보기를 눌러 경로를 확인하세요.';
   });
 

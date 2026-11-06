@@ -27,8 +27,7 @@
           <div><h2 id="setup-title">참가자와 결과 입력</h2></div>
           <label class="ladder-count">참가자 수 <input type="number" id="player-count" value="4" min="2" max="10" step="1"></label>
         </div>
-        <p>2~10명이 참여할 수 있습니다. 빈 칸에는 기본 이름이 들어갑니다.</p>
-        <div id="ladder-inputs" class="ladder-inputs"></div>
+        <p>사다리 위에는 참가자 이름을, 아래에는 결과를 모두 입력해 주세요.</p>
         <button class="ladder-primary" id="generate-btn" type="button">사다리 생성</button>
         <p id="ladder-status" role="status"></p>
         <div id="ladder-board" class="ladder-board" aria-labelledby="board-title">
@@ -38,9 +37,9 @@
           </div>
           <div class="ladder-scroll" tabindex="0" aria-label="사다리. 화면이 좁으면 가로로 스크롤할 수 있습니다.">
             <div id="ladder-diagram">
-              <div id="ladder-players" class="ladder-labels"></div>
+              <div id="ladder-players" class="ladder-fields"></div>
               <svg id="ladder-svg" role="img" aria-label="사다리 경로"></svg>
-              <div id="ladder-outcomes" class="ladder-labels"></div>
+              <div id="ladder-outcomes" class="ladder-fields"></div>
             </div>
           </div>
         </div>
