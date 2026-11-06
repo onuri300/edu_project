@@ -1,36 +1,59 @@
 <!doctype html>
-<html>
- <head>
- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ladder Game</title>
-    <link rel="stylesheet" href="../common/css/pages/game/ladderGame.css">
-<link rel="stylesheet" href="../common/css/common.css">
-<script src="../common/js/auth.js"></script>
-<script src="../common/js/common.js"></script>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ladder Game</title>
+  <link rel="stylesheet" href="../common/css/common.css">
+  <link rel="stylesheet" href="../common/css/pages/game/ladderGame.css">
+  <script src="../common/js/auth.js"></script>
+  <script src="../common/js/common.js"></script>
+  <script src="../common/js/pages/game/ladderGame.js" defer></script>
 </head>
 <body data-site-family="game">
-<h1> 사다리 게임</h1>
-<figure class="page-art-banner" aria-hidden="true"><img class="page-art" data-page-image src="../images/ladder-game-hero.png" alt="" width="1536" height="1024" decoding="async"></figure>
+  <main class="game-shell ladder">
+    <header class="ladder-hero">
+      <div>
+        <p class="ladder-kicker">ONURI / PLAY TOGETHER</p>
+        <h1>사다리 게임</h1>
+        <p>이름과 결과를 입력하고, 각자 어떤 결과에 도착하는지 확인하세요.</p>
+      </div>
+      <img class="page-art" data-page-image src="../images/ladder-game-hero.png" alt="" width="1536" height="1024">
+    </header>
 
-    <div class="controls">
-        <label>참가자 수 (2~10):</label>
-        <input type="number" id="player-count" value="4" min="2" max="10">
-        <button onclick="initLadder()">입력칸 생성</button>
-        <button id="start-btn" onclick="startLadderGame()" disabled>사다리 타기 시작!</button>
-    </div>
+    <section class="ladder-panel" aria-labelledby="setup-title">
+      <div class="ladder-heading">
+        <div><p class="ladder-kicker">STEP 01</p><h2 id="setup-title">참가자와 결과 입력</h2></div>
+        <label class="ladder-count">참가자 수 <input type="number" id="player-count" value="4" min="2" max="10" step="1"></label>
+      </div>
+      <p>2~10명이 참여할 수 있습니다. 빈 칸에는 기본 이름이 들어갑니다.</p>
+      <div id="ladder-inputs" class="ladder-inputs"></div>
+      <button class="ladder-primary" id="generate-btn" type="button">사다리 생성</button>
+      <p id="ladder-status" role="status"></p>
+    </section>
 
-    <div class="game-wrapper" id="game-wrapper" style="display:none;">
-        <div id="top-inputs"></div>
-        <canvas id="ladder-canvas"></canvas>
-        <div id="bottom-inputs"></div>
-    </div>
+    <section class="ladder-panel" id="ladder-board" aria-labelledby="board-title" hidden>
+      <div class="ladder-heading">
+        <div><p class="ladder-kicker">STEP 02</p><h2 id="board-title">사다리 타기</h2></div>
+        <button class="ladder-primary" id="start-btn" type="button">시작</button>
+      </div>
+      <div class="ladder-scroll" tabindex="0" aria-label="사다리. 화면이 좁으면 가로로 스크롤할 수 있습니다.">
+        <div id="ladder-diagram">
+          <div id="ladder-players" class="ladder-labels"></div>
+          <svg id="ladder-svg" role="img" aria-label="사다리 경로"></svg>
+          <div id="ladder-outcomes" class="ladder-labels"></div>
+        </div>
+      </div>
+    </section>
 
-    <div id="result-summary">
-        <h3> 최종 결과 요약</h3>
-        <div id="summary-list"></div>
-    </div>
-
-    <script src="../common/js/pages/game/ladderGame.js"></script>
+    <section class="ladder-panel" id="result-summary" aria-labelledby="summary-title" hidden>
+      <p class="ladder-kicker">STEP 03</p>
+      <h2 id="summary-title" tabindex="-1">전체 결과</h2>
+      <table class="ladder-results">
+        <thead><tr><th scope="col">참가자</th><th scope="col">결과</th></tr></thead>
+        <tbody id="summary-list"></tbody>
+      </table>
+    </section>
+  </main>
 </body>
 </html>

@@ -189,7 +189,8 @@ html .welcome{padding-bottom:12px}
 html .theme-switch [data-set-theme] span{display:none!important}
 
 /* Reference-style centered masthead: one centered content row, full-width backdrop. */
-html header.onuri-header,html body:has(#app) header.onuri-header{left:50%;right:auto;width:100%;max-width:1280px;transform:translateX(-50%);box-sizing:border-box;padding-left:24px;padding-right:178px;gap:30px;border-bottom:0}
+:root { --content-frame: 1280px; }
+html header.onuri-header,html body:has(#app) header.onuri-header{left:50%;right:auto;width:100%;max-width:var(--content-frame);transform:translateX(-50%);box-sizing:border-box;padding-left:24px;padding-right:178px;gap:30px;border-bottom:0}
 html header.onuri-header::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);background:var(--card);border-bottom:1px solid var(--line)}
 html #nav.header-nav{justify-content:center;gap:8px}
 html .theme-switch{right:max(24px,calc((100vw - 1280px)/2 + 24px))}
@@ -250,7 +251,7 @@ html .welcome.welcome-full-width {
   color: #fff;
 }
 .welcome-full-width .home-collections {
-  max-width: 1280px;
+  max-width: var(--content-frame);
   margin-inline: auto;
   padding-inline: 24px;
 }
@@ -277,4 +278,19 @@ html .welcome.welcome-full-width {
   .welcome-full-width .home-collections {
     padding-inline: 20px;
   }
+}
+
+/* Game content shares the masthead frame. */
+html :is(.game-shell, body[data-site-family="game"] > .wrap, body[data-site-family="computer_quiz_100"] > main) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+@media (max-width: 1000px) {
+  html :is(.game-shell, body[data-site-family="game"] > .wrap, body[data-site-family="computer_quiz_100"] > main) { padding-inline: 20px; }
+}
+@media (max-width: 400px) {
+  html :is(.game-shell, body[data-site-family="game"] > .wrap, body[data-site-family="computer_quiz_100"] > main) { padding-inline: 14px; }
 }
