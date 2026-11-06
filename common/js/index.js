@@ -65,8 +65,39 @@
   /* ---------- 메뉴 렌더링 ---------- */
   let current = null;
 
+  const categoryTitles = {
+    '바이브코딩': 'Vibe Coding',
+    '게임': 'Games',
+    '수업 자료실': 'Class Resources',
+    '기타': 'More',
+    '뉴스레터': 'Newsletters'
+  };
+
+  const pageTitles = {
+    'onuri-maker.html': 'OnuriMakerLab',
+    'ladder-game.html': 'Ladder Game',
+    'computer-flashcards.html': 'IT Flashcards',
+    'computer-quiz.html': 'Computer Quiz',
+    'livinglab-library.html': 'Living Lab Library',
+    'edumaker.html': 'edumaker',
+    'knu-makerspace.html': 'Kyungnam University Makerspace',
+    'mbti-adult.html': 'Adult MBTI Test',
+    'mbti-kids.html': 'Kids’ MBTI Test',
+    'making.html': 'Making Newsletter',
+    'ai.html': 'AI Newsletter'
+  };
+
+  function categoryTitle(category) {
+    return categoryTitles[category.name] || category.name;
+  }
+
+  function pageTitle(item) {
+    const pathname = new URL(item.url, document.baseURI).pathname;
+    return pageTitles[pathname.split('/').pop()] || item.name;
+  }
+
   function start() {
-    document.title = DATA.title || "자료실";
+    document.title = 'Onuri | Learning Portal';
 
 
 
@@ -80,7 +111,7 @@
       const head = document.createElement("button");
       head.type = "button";
       head.setAttribute("aria-expanded", "false");
-      head.append(document.createTextNode(cat.name));
+      head.append(document.createTextNode(categoryTitle(cat)));
       const caret = document.createElement("span");
       caret.className = "caret"; caret.textContent = "⌄";
       head.append(caret);
@@ -96,7 +127,7 @@
       cat.items.forEach((item, ii) => {
         const b = document.createElement("button");
         b.type = "button";
-        b.textContent = item.name;
+        b.textContent = pageTitle(item);
         b.dataset.k = ci + "." + ii;   // 주소가 아닌 좌표만 DOM 에 남김
         b.addEventListener("click", () => open(ci, ii, b));
         sub.append(b);
@@ -106,7 +137,7 @@
       nav.append(wrap);
     });
 
-    const overview = document.createElement('button'); overview.type = 'button'; overview.className = 'all-menu-link'; overview.textContent = 'SiteMap'; overview.addEventListener('click', home); nav.append(overview);
+    const overview = document.createElement('button'); overview.type = 'button'; overview.className = 'all-menu-link'; overview.textContent = 'Site Map'; overview.addEventListener('click', home); nav.append(overview);
     $('#logout').hidden = false; document.body.classList.add('portal-authenticated');
     const collection = $('#home-categories');
     collection.replaceChildren();
@@ -114,10 +145,10 @@
     DATA.cats.forEach((cat, ci) => {
       const card = document.createElement('article'); card.className = 'home-category-card';
       const number = document.createElement('span'); number.className = 'home-category-number'; number.textContent = String(ci + 1).padStart(2, '0');
-      const title = document.createElement('h4'); title.textContent = cat.name;
+      const title = document.createElement('h4'); title.textContent = categoryTitle(cat);
       const description = document.createElement('p'); description.textContent = introductions[cat.name] || '관심 있는 콘텐츠를 골라 살펴보세요.';
       const links = document.createElement('div'); links.className = 'home-category-links';
-      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.textContent = item.name + ' ↗'; link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
+      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.textContent = pageTitle(item) + ' ↗'; link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
       card.append(number, title, description, links); collection.append(card);
     });
     gate.remove();
@@ -144,8 +175,8 @@
     el.setAttribute("aria-current", "true");
     current = item;
 
-    $("#crumbTitle").textContent = item.name;
-    $("#crumbSub").textContent = DATA.cats[ci].name;
+    $("#crumbTitle").textContent = pageTitle(item);
+    $("#crumbSub").textContent = categoryTitle(DATA.cats[ci]);
     $("#openNew").hidden = false;
     $("#welcome").style.display = "none";
 
@@ -171,7 +202,7 @@
     frame.classList.remove('on');
     frame.removeAttribute('src');
     $('#welcome').style.display = '';
-    $('#crumbTitle').textContent = '시작하기';
+    $('#crumbTitle').textContent = 'Home';
     $('#crumbSub').textContent = '상단 메뉴에서 콘텐츠를 선택하세요';
     $('#openNew').hidden = true;
     document.querySelectorAll('.sub button[aria-current]').forEach(button => button.removeAttribute('aria-current'));

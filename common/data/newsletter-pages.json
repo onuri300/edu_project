@@ -1,7 +1,7 @@
 [
   {
     "channel": "ai",
-    "title": "AI 뉴스레터",
+    "title": "AI Newsletter",
     "eyebrow": "ONURI / AI LETTER",
     "lead": "새로운 기술을 읽고,\n다음 수업의 영감을 발견하세요.",
     "description": "AI의 변화부터 교육과 일상에 연결되는 생각까지.\n날짜별로 모은 리포트를 차분히 살펴보세요.",
@@ -15,7 +15,7 @@
   },
   {
     "channel": "making",
-    "title": "메이킹 뉴스레터",
+    "title": "Making Newsletter",
     "eyebrow": "ONURI / MAKING LETTER",
     "lead": "아이디어를 발견하고,\n새로운 만들기를 시작하세요.",
     "description": "디지털 도구부터 재료와 제작의 이야기까지.\n다음 수업에 연결할 메이킹 리포트를 만나보세요.",
