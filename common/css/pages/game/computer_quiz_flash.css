@@ -146,28 +146,6 @@
   .face.back .face-hint { color: var(--accent-dark); opacity: 0.8;}
 
   /* 진행률 */
-  .progress-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-  }
-  .progress-bar {
-    flex: 1;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 999px;
-    transition: width 0.3s ease;
-  }
 
   /* 정답/오답 버튼 */
   .judge-row {

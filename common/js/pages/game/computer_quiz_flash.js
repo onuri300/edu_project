@@ -20,7 +20,6 @@
   let flipped = false;
   let scores = {}; // id -> 'correct' | 'wrong'
   let activeCategory = "전체";
-  let randomMode = false;
 
   function loadCards() {
     try {
@@ -51,14 +50,7 @@
   }
 
   function buildOrder() {
-    const list = filteredCards().map(c => c.id);
-    if (randomMode) {
-      for (let i = list.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [list[i], list[j]] = [list[j], list[i]];
-      }
-    }
-    order = list;
+    order = filteredCards().map(card => card.id);
     idx = 0;
   }
 
@@ -191,23 +183,6 @@
     scores[card.id] = 'wrong';
     renderCard();
     renderScore();
-  });
-
-  document.getElementById('btnRandom').addEventListener('click', function() {
-    randomMode = !randomMode;
-    this.classList.toggle('active-random', randomMode);
-    buildOrder();
-    flipped = false;
-    renderAll();
-    showToast(randomMode ? "랜덤 출제 켜짐" : "순서대로 출제");
-  });
-
-  document.getElementById('btnReset').addEventListener('click', () => {
-    scores = {};
-    buildOrder();
-    flipped = false;
-    renderAll();
-    showToast("처음부터 다시 시작해요");
   });
 
   document.getElementById('btnRestart').addEventListener('click', () => {
