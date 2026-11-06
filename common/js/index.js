@@ -173,7 +173,12 @@
     const item = DATA.cats[ci].items[ii];
     document.querySelectorAll('.sub button[aria-current]').forEach(b => b.removeAttribute("aria-current"));
     el.setAttribute("aria-current", "true");
-    current = item;
+    const pageUrl = new URL(item.url, document.baseURI);
+    if (pageUrl.pathname.endsWith('/page_vibecoding/onuri-maker.html')) {
+      // Request the corrected branding even if the browser cached the old page.
+      pageUrl.searchParams.set('v', '6f3d37b');
+    }
+    current = { ...item, url: pageUrl.href };
 
     $("#crumbTitle").textContent = pageTitle(item);
     $("#crumbSub").textContent = categoryTitle(DATA.cats[ci]);
@@ -185,7 +190,7 @@
     // Only our local course library may open a user-clicked PDF outside that sandbox.
     f.setAttribute('sandbox', window.eduResourcePolicy.sandboxFor(item.url, document.baseURI));
     f.classList.add("on");
-    f.src = item.url;                 // 주소는 이 순간에만 사용
+    f.src = current.url;
     closeDrawer();
   }
 
