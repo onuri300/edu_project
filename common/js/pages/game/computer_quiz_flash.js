@@ -19,7 +19,6 @@
   let idx = 0;
   let flipped = false;
   let scores = {}; // id -> 'correct' | 'wrong'
-  let activeCategory = "전체";
 
   function loadCards() {
     try {
@@ -44,13 +43,8 @@
     return ["전체", ...Array.from(set)];
   }
 
-  function filteredCards() {
-    if (activeCategory === "전체") return cards;
-    return cards.filter(c => (c.cat || "기타") === activeCategory);
-  }
-
   function buildOrder() {
-    order = filteredCards().map(card => card.id);
+    order = cards.map(card => card.id);
     idx = 0;
   }
 
@@ -67,25 +61,6 @@
   }
 
   // ---- 렌더링 ----
-  function renderCatFilter() {
-    const wrap = document.getElementById('catFilter');
-    const cats = getCategories();
-    wrap.innerHTML = "";
-    cats.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = 'cat-pill' + (cat === activeCategory ? ' active' : '');
-      btn.textContent = cat;
-      btn.addEventListener('click', () => {
-        activeCategory = cat;
-        document.getElementById('catBadge').textContent = cat;
-        buildOrder();
-        flipped = false;
-        renderAll();
-      });
-      wrap.appendChild(btn);
-    });
-  }
-
   function renderCard() {
     const endArea = document.getElementById('endArea');
     const cardArea = document.getElementById('cardArea');
@@ -112,8 +87,6 @@
     const card = currentCard();
     document.getElementById('questionText').textContent = card.a;
     document.getElementById('answerText').textContent = card.q;
-    document.getElementById('catLabelFront').textContent = card.cat || "기타";
-    document.getElementById('catLabelBack').textContent = card.cat || "기타";
 
     const fc = document.getElementById('flashcard');
     fc.classList.toggle('flipped', flipped);
@@ -146,7 +119,6 @@
   }
 
   function renderAll() {
-    renderCatFilter();
     renderCard();
     renderScore();
   }
@@ -284,8 +256,6 @@
     cards = DEFAULT_CARDS.map((c, i) => ({ ...c, id: "c" + i }));
     saveCards();
     scores = {};
-    activeCategory = "전체";
-    document.getElementById('catBadge').textContent = "전체";
     buildOrder();
     renderAll();
     renderAdmin();

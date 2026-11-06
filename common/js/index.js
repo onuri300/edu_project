@@ -187,6 +187,9 @@
     document.querySelectorAll('.sub button[aria-current]').forEach(b => b.removeAttribute("aria-current"));
     el.setAttribute("aria-current", "true");
     const pageUrl = new URL(item.url, document.baseURI);
+    if (pageUrl.pathname.endsWith('/page_game/computer-flashcards.html')) {
+      pageUrl.searchParams.set('v', 'study-clean');
+    }
     current = { ...item, url: pageUrl.href };
 
     $("#crumbTitle").textContent = pageTitle(item);
