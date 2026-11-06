@@ -326,3 +326,82 @@ html .game-hero img { width: 100%; height: 150px; object-fit: cover; }
   .game-hero { grid-template-columns: 1fr; }
   html .game-hero img { height: 110px; }
 }
+
+/* Shared toolbar and study layout for the two quiz games. */
+html body > .game-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  display: block;
+  height: auto;
+  padding: 0;
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+.game-toolbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 72px;
+  max-width: var(--content-frame);
+  margin-inline: auto;
+  padding: 8px var(--content-gutter);
+  box-sizing: border-box;
+}
+.game-toolbar a { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.game-toolbar-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 46px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 1.2rem;
+}
+.game-toolbar button, .game-admin-action {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.game-study-layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.game-study-main, .game-score-panel { min-width: 0; }
+.game-score-panel {
+  position: sticky;
+  top: 88px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+}
+.game-score-panel h2 { margin: 0 0 12px; font-size: 1.15rem; }
+.game-score-panel dl { display: grid; gap: 10px; margin: 0; }
+.game-score-panel dl div { padding: 12px; border: 1px solid var(--line); border-radius: 12px; text-align: center; }
+.game-score-panel dd { margin: 0; font-size: 1.4rem; font-weight: 800; }
+.game-admin-dialog {
+  box-sizing: border-box;
+  width: min(600px, calc(100% - 32px));
+  max-height: 85vh;
+  padding: 24px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  color: var(--ink);
+  background: var(--card);
+}
+.game-admin-dialog::backdrop { background: rgb(0 0 0 / 55%); }
+.game-admin-close { float: right; border: 0; background: transparent; color: inherit; font-size: 1.6rem; cursor: pointer; }
+.game-admin-dialog #login input { display: block; box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid var(--line); margin: 6px 0 12px; }
+.game-admin-dialog #error { color: var(--danger); }
+.game-admin-action { background: var(--accent); color: var(--accent-ink); }
+@media (max-width: 800px) {
+  .game-study-layout { grid-template-columns: 1fr; }
+  .game-score-panel { position: static; }
+  .game-score-panel dl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

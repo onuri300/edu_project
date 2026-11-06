@@ -217,24 +217,10 @@
     renderAll();
   });
 
-  // ---- 탭 전환 ----
-  const tabStudy = document.getElementById('tabStudy');
-  const tabAdmin = document.getElementById('tabAdmin');
-  const studyView = document.getElementById('studyView');
-  const adminView = document.getElementById('adminView');
-
-  tabStudy.addEventListener('click', () => {
-    tabStudy.classList.add('active');
-    tabAdmin.classList.remove('active');
-    studyView.style.display = 'block';
-    adminView.style.display = 'none';
-  });
-  tabAdmin.addEventListener('click', () => {
-    tabAdmin.classList.add('active');
-    tabStudy.classList.remove('active');
-    adminView.style.display = 'block';
-    studyView.style.display = 'none';
-    renderAdmin();
+  window.eduGameAdmin.bind(renderAdmin);
+  document.getElementById('homeBtn').addEventListener('click', event => {
+    event.preventDefault();
+    window.scrollTo(0, 0);
   });
 
   // ---- 관리자 모드 ----

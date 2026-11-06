@@ -10,6 +10,10 @@
 <script src="../common/js/common.js"></script>
 </head>
 <body data-site-family="game">
+<header class="game-toolbar"><div class="game-toolbar-inner">
+  <a href="#" id="homeBtn"><span class="game-toolbar-icon" aria-hidden="true">⌘</span><b>IT Flashcards</b></a>
+  <button id="adminBtn" type="button" aria-haspopup="dialog">⚙ Admin Mode</button>
+</div></header>
 <div class="wrap">
 
   <header class="game-hero">
@@ -31,8 +35,8 @@
       <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%"></div></div>
     </div>
 
-    <div class="flash-study-layout">
-    <div class="flash-study-main">
+    <div class="game-study-layout">
+    <div class="game-study-main">
     <div id="cardArea">
       <div class="card-stage">
         <div class="flashcard" id="flashcard">
@@ -77,7 +81,7 @@
     </div>
 
     </div>
-    <aside class="flash-results" aria-labelledby="flash-results-title">
+    <aside class="game-score-panel flash-results" aria-labelledby="flash-results-title">
       <h2 id="flash-results-title">학습 결과</h2>
       <div class="score-panel" aria-live="polite">
         <div class="score-box correct"><div class="num" id="scoreCorrect">0</div><div class="lbl">정답</div></div>
@@ -88,7 +92,17 @@
     </div>
   </main>
 
-  <div id="adminView" style="display:none;">
+  <dialog id="modal" class="game-admin-dialog" aria-label="Admin Mode">
+    <button id="close" class="game-admin-close" type="button" aria-label="닫기">×</button>
+    <form id="login">
+      <p class="game-hero-kicker">ADMIN MODE</p>
+      <h2 id="admin-login-title">관리자 로그인</h2>
+      <label for="password">관리자 비밀번호</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <p id="error" role="alert" hidden>비밀번호가 올바르지 않습니다.</p>
+      <button type="submit" class="game-admin-action">로그인</button>
+    </form>
+    <div id="panel" hidden>
     <div class="admin-panel">
       <h2>➕ 새 카드 추가</h2>
       <div class="form-grid">
@@ -120,17 +134,15 @@
         <button class="ghost-btn" id="btnResetAll">기본 데이터로 초기화</button>
       </div>
     </div>
-  </div>
-
-  <footer class="tabbar">
-    <button class="tab-btn active" id="tabStudy">📖 Study Mode</button>
-    <button class="tab-btn" id="tabAdmin">⚙️ Admin Mode</button>
-  </footer>
+      <button type="button" data-admin-lock class="ghost-btn">관리자 로그아웃</button>
+    </div>
+  </dialog>
 
 </div>
 
 <div class="toast" id="toast"></div>
 
+<script src="../common/js/pages/game/admin-mode.js"></script>
 <script src="../common/js/pages/game/computer_quiz_flash.js"></script>
 </body>
 </html>

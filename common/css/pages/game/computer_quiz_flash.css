@@ -388,25 +388,7 @@
     .wrap { padding-top: 40px; }
   }
 
-.flash-study-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
-  gap: 16px;
-  align-items: start;
-}
-.flash-study-main, .flash-results { min-width: 0; }
-.flash-results {
-  position: sticky;
-  top: 16px;
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--card);
-}
-.flash-results h2 { margin: 0 0 12px; font-size: 1.15rem; }
 .flash-results .score-panel { grid-template-columns: 1fr; margin-bottom: 0; }
 @media (max-width: 800px) {
-  .flash-study-layout { grid-template-columns: 1fr; }
-  .flash-results { position: static; }
   .flash-results .score-panel { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
