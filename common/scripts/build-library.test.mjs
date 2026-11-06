@@ -25,6 +25,8 @@ test('PDF discovery, names, bytes, URL encoding, additions, deletion, rename and
     await mkdir(path.dirname(path.join(source, file)), { recursive: true });
     await writeFile(path.join(source, file), 'fixture');
   }
+  await mkdir(path.join(source, 'page_etc'));
+  await writeFile(path.join(source, 'page_etc', '사용매뉴얼_로그인정보.md'), 'private fixture');
   const put = (name, content = pdfFixture()) => writeFile(path.join(source, 'books', name), content);
   await put('007_한글_추가 밑줄 & #.pdf');
   await put('001_AI 음악 만들기.pdf');
@@ -37,6 +39,7 @@ test('PDF discovery, names, bytes, URL encoding, additions, deletion, rename and
   let run = 0;
   const build = () => buildLibrary(source, path.join(source, `output-${run++}`));
   let items = await build();
+  await assert.rejects(access(path.join(source, 'output-0/page_etc/사용매뉴얼_로그인정보.md')), { code: 'ENOENT' });
   assert.deepEqual(JSON.parse(await readFile(path.join(source, 'output-0/common/data/library-data.json'), 'utf8')), items);
   assert.equal(await readFile(path.join(source, 'output-0/common/js/library.js'), 'utf8'), 'fixture');
   assert.match(await readFile(path.join(source, 'common/data/library-data.js'), 'utf8'), /window\.LIVING_LAB_BOOKS/);

@@ -14,7 +14,7 @@ async function copyOptional(source, output, relative) {
     await mkdir(path.dirname(path.join(output, relative)), { recursive: true });
     await cp(path.join(source, relative), path.join(output, relative), {
       recursive: true,
-      filter: file => !['menu-builder-hero.png', 'README.md', 'node_modules', '.git'].includes(path.basename(file))
+      filter: file => !['menu-builder-hero.png', 'README.md', 'node_modules', '.git', '사용매뉴얼_로그인정보.md'].includes(path.basename(file))
         && path.relative(source, file) !== path.join('page_etc', 'gpt-making-manual'),
     });
   } catch (error) { if (error.code !== 'ENOENT') throw error; }

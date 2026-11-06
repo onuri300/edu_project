@@ -71,7 +71,9 @@
       event.preventDefault(); openPage(link.href);
     } else allowNavigation(link.href);
   });
-  if (isPublicPage(location.href)) { document.documentElement.dataset.auth = 'public'; return; }
+  const localBuilder = location.protocol === 'file:' &&
+    location.pathname === new URL('page_admin/menu-builder.html', root).pathname;
+  if (localBuilder || isPublicPage(location.href)) { document.documentElement.dataset.auth = 'public'; return; }
   let grant = null;
   try { grant = JSON.parse(read(grantKey)); } catch {}
   remove(grantKey);
