@@ -1,5 +1,10 @@
 const root=document.body.dataset.root||'./';
-let mode=document.body.dataset.variant||'basic',works=[],page=1,filter='all';
+const sampleWorks = [
+  {"path":"images/3d/01_케이블_홀더.webp","category":"3d","title":"케이블 홀더"},
+  {"path":"images/laser/01_아크릴_키링.webp","category":"laser","title":"아크릴 키링"},
+  {"path":"images/resin/01_레진_플라워.webp","category":"resin","title":"레진 플라워"}
+];
+let mode=document.body.dataset.variant||'basic',works=sampleWorks,page=1,filter='all';
 const names={basic:'01 · 작가의 작업실',category:'02 · 굿즈 쇼룸',mobile:'03 · 메이킹 기록장'};
 const common='반응형, 웹표준, 갤러리 형태, 페이징 처리를 적용한 디지털 명함 웹페이지를 만들어줘. 이미지 폴더 안에 사진을 넣으면 갤러리에 자동으로 표시되도록 해줘. PC와 모바일에서 보기 편하게 구성하고, 이미지를 누르면 크게 볼 수 있게 해줘. 이미지가 많아지면 페이지 번호로 나눠 보여줘. 이미지 자동 반영에 필요한 설정은 네가 완성하고, 나는 사진을 넣는 방법만 알기 쉽게 안내해줘.';
 const prompts={basic:'민트와 크림색의 차분한 작가 포트폴리오로 디자인해줘. PC에서는 왼쪽에 이름, 한 줄 소개, 작업 분야, 연락처를 담은 세로 명함을 배치하고, 오른쪽에는 큰 대표 사진과 작품 갤러리를 배치해줘. 첫 작품 사진은 크게, 나머지는 작은 사진으로 구성해 잡지처럼 여백과 사진 크기에 변화를 줘. 모바일에서는 세로 명함 다음에 작품이 나오도록 해줘. 가상 작가 이름은 온유 메이커로 해줘.',category:'살구색과 테라코타 포인트의 작은 굿즈 쇼룸으로 디자인해줘. 상단에는 큰 사진과 짧은 브랜드 문구를 나란히 배치해줘. 그 아래에는 레이저 커팅, 3D 프린팅, 레진 아트를 선택하는 가로 카테고리 메뉴를 만들고, 작품을 정사각형 진열 사진과 제목으로 보여줘. 카테고리를 바꾸면 해당 작품만 표시하고 페이지 번호도 처음으로 돌아가게 해줘. 하단에는 주문 결제 대신 연락처를 담은 가로 디지털 명함을 넣어줘. 가상 브랜드는 온유 스튜디오로 해줘.',mobile:'라벤더와 연보라색을 사용하는 메이킹 기록장으로 디자인해줘. 상단에는 짧은 자기소개와 연락 버튼을 작게 넣고, 그 아래에 “생각을 손으로 옮기는 기록”이라는 큰 제목을 배치해줘. 작품을 같은 크기의 격자 대신 순서가 있는 사진 일지로 보여줘. PC에서는 사진과 설명을 좌우로 번갈아 배치하고, 모바일에서는 사진 아래에 설명이 이어지도록 해줘. 각 작품에는 번호, 제목, 제작 분야와 짧은 설명을 넣어줘. 작업 흐름을 보여주는 아이디어 → 제작 → 완성 안내도 추가해줘. 가상 이름은 온유 메이커로 해줘.'};
@@ -15,4 +20,20 @@ function renderStage(){const stage=document.getElementById('stage');const introd
 stage.className=mode;stage.innerHTML=introduction;document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;page=1;renderStage()});renderGallery();}
 function renderGallery(){const selected=filter==='all'?works:works.filter(w=>w.category===filter),total=Math.max(1,Math.ceil(selected.length/3)),slice=selected.slice((page-1)*3,page*3);document.getElementById('gallery').className='gallery';document.getElementById('gallery').innerHTML=slice.length?slice.map((w,i)=>`<article class="work"><button class="photo" data-path="${esc(w.path)}" aria-label="${esc(w.title)} 크게 보기"><img src="${img(w)}" alt="${esc(w.title)}" loading="lazy" width="800" height="470"><span>확대 ↗</span></button><div class="work-copy"><span class="work-no">${String((page-1)*3+i+1).padStart(2,'0')} / ${labels[w.category]||'WORK'}</span><h3>${esc(w.title)}</h3><p>${mode==='mobile'?'필요한 순간을 떠올리고, 모양을 다듬고, 나만의 색을 더했습니다. 작은 차이에서 시작한 오늘의 작업.':'일상에 작은 편리함과 즐거움을 더하는 나만의 작품.'}</p></div></article>`).join(''):'<p class="empty">이 분류에는 아직 작품이 없어요.</p>';document.getElementById('pages').innerHTML=`<span>${selected.length}개의 작품</span><button data-page="${page-1}" ${page===1?'disabled':''} aria-label="이전 페이지">←</button>${Array.from({length:total},(_,i)=>`<button data-page="${i+1}" ${page===i+1?'aria-current="page"':''}>${i+1}</button>`).join('')}<button data-page="${page+1}" ${page===total?'disabled':''} aria-label="다음 페이지">→</button>`;document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>{page=Number(b.dataset.page);renderGallery();document.getElementById('gallery').scrollIntoView({behavior:'smooth',block:'start'})});document.querySelectorAll('[data-path]').forEach(b=>b.onclick=()=>{const w=works.find(x=>x.path===b.dataset.path);const image=document.getElementById('photo-large');image.src=img(w);image.alt=w.title;document.getElementById('photo-title').textContent=w.title;document.getElementById('lightbox').showModal()});}
 function notify(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('visible');setTimeout(()=>e.classList.remove('visible'),2400)}
-mount();fetch(root+'gallery.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>{works=d;renderGallery()}).catch(()=>{document.getElementById('gallery').innerHTML='<p>사진을 불러오지 못했어요. 페이지를 새로 열어주세요.</p>'});
+mount();
+renderGallery();
+
+async function loadGallery() {
+  try {
+    const response = await fetch(root + 'gallery.json');
+    if (!response.ok) return;
+    const entries = await response.json();
+    if (!Array.isArray(entries) || !entries.length) return;
+    works = entries;
+    renderGallery();
+  } catch {
+    // Local file previews and temporary network failures retain the bundled samples.
+  }
+}
+
+loadGallery();
