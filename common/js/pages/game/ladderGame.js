@@ -6,9 +6,10 @@
   const board = document.getElementById('ladder-board');
   const diagram = document.getElementById('ladder-diagram');
   const svg = document.getElementById('ladder-svg');
-  const summary = document.getElementById('result-summary');
+  const resultTable = document.querySelector('.ladder-results');
+  const placeholder = document.getElementById('summary-placeholder');
   const status = document.getElementById('ladder-status');
-  const colors = ['#2775d2', '#c0473b', '#16805a', '#8a51bf', '#b96512', '#188795', '#d03483', '#5c6e20', '#624ac4', '#a33d59'];
+  const colors = ['#007bff', '#ff3d60', '#00a96e', '#a13bff', '#ff7900', '#00a4bc', '#ee2597', '#80aa00', '#584bff', '#eb4723'];
   const values = [];
   let routes = [];
   let animations = [];
@@ -20,7 +21,10 @@
     animations = [];
     routes = [];
     board.hidden = true;
-    summary.hidden = true;
+    start.disabled = true;
+    resultTable.hidden = true;
+    placeholder.hidden = false;
+    placeholder.textContent = '경로 재생이 끝나면 참가자별 결과가 여기에 표시됩니다.';
     status.textContent = '';
   }
 
@@ -49,12 +53,14 @@
         input.addEventListener('input', () => {
           values[i][key] = input.value;
           reset();
+          drawPreview();
         });
         field.append(input);
         row.append(field);
       }
       inputs.append(row);
     }
+    drawPreview();
   }
 
   function draw(tag, attributes, className) {
@@ -74,17 +80,11 @@
     }));
   }
 
-  generate.addEventListener('click', () => {
-    reset();
+  function drawPreview() {
     const total = count.valueAsNumber;
     const names = values.slice(0, total).map((value, i) => value.player.trim() || `참가자 ${i + 1}`);
     const results = values.slice(0, total).map((value, i) => value.result.trim() || `결과 ${i + 1}`);
     const x = column => column * 100 + 50;
-    const rowCount = total * 2 + 4;
-    const rungs = Array.from({ length: rowCount }, (_, row) => ({
-      left: Math.floor(Math.random() * (total - 1)),
-      y: 12 + (row + 1) * 276 / (rowCount + 1)
-    }));
     svg.replaceChildren();
     svg.setAttribute('viewBox', `0 0 ${total * 100} 300`);
     svg.setAttribute('preserveAspectRatio', 'none');
@@ -93,10 +93,23 @@
     renderLabels('ladder-players', names);
     renderLabels('ladder-outcomes', results);
     for (let column = 0; column < total; column++) {
-      draw('line', { x1: x(column), x2: x(column), y1: 12, y2: 288 }, 'ladder-rail');
+      draw('line', { x1: x(column), x2: x(column), y1: 12, y2: 288, stroke: colors[column] }, 'ladder-vertical');
     }
+    board.hidden = false;
+    return { names, results, x };
+  }
+
+  generate.addEventListener('click', () => {
+    reset();
+    const { names, results, x } = drawPreview();
+    const total = names.length;
+    const rowCount = total * 2 + 4;
+    const rungs = Array.from({ length: rowCount }, (_, row) => ({
+      left: Math.floor(Math.random() * (total - 1)),
+      y: 12 + (row + 1) * 276 / (rowCount + 1)
+    }));
     for (const rung of rungs) {
-      draw('line', { x1: x(rung.left), x2: x(rung.left + 1), y1: rung.y, y2: rung.y }, 'ladder-rail');
+      draw('line', { x1: x(rung.left), x2: x(rung.left + 1), y1: rung.y, y2: rung.y }, 'ladder-rung');
     }
     routes = names.map((name, index) => {
       let column = index;
@@ -112,13 +125,14 @@
     });
     start.disabled = false;
     board.hidden = false;
-    status.textContent = '사다리를 생성했습니다. 시작 버튼을 눌러 경로를 확인하세요.';
+    status.textContent = '사다리를 생성했습니다. 결과 보기를 눌러 경로를 확인하세요.';
   });
 
   start.addEventListener('click', async () => {
     if (!routes.length) return;
     const run = revision;
     start.disabled = true;
+    placeholder.textContent = '참가자들의 경로를 재생 중입니다…';
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     animations = routes.map((route, index) => {
       const line = draw('polyline', { points: route.points, stroke: route.color }, 'ladder-trace');
@@ -127,7 +141,7 @@
       return line.animate([
         { strokeDasharray: `0 ${length}` },
         { strokeDasharray: `${length} 0` }
-      ], { duration: 800, delay: index * 160, fill: 'both' });
+      ], { duration: 1900, delay: index * 360, fill: 'both' });
     }).filter(Boolean);
     await Promise.allSettled(animations.map(animation => animation.finished));
     if (run !== revision) return;
@@ -140,8 +154,8 @@
       row.style.borderInlineStart = `4px solid ${route.color}`;
       return row;
     }));
-    summary.hidden = false;
-    document.getElementById('summary-title').focus();
+    placeholder.hidden = true;
+    resultTable.hidden = false;
   });
 
   count.addEventListener('input', renderInputs);
