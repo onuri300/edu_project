@@ -110,6 +110,10 @@
       const addition = additions[category.name];
       if (addition && !category.items.some(item => item.url === addition.url)) category.items.push(addition);
     }
+    const moreCategory = DATA.cats.find(category => category.name === '기타');
+    if (moreCategory && !moreCategory.items.some(item => item.url === 'page_etc/announcements.html')) {
+      moreCategory.items.push({ name: 'Announcements', url: 'page_etc/announcements.html' });
+    }
     document.title = 'Onuri | Learning Portal';
 
 
