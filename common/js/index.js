@@ -80,6 +80,7 @@
     'computer-quiz.html': 'Computer Quiz',
     'livinglab-library.html': 'Living Lab Library',
     'edumaker.html': 'edumaker',
+    'edumaker-idea-card.html': 'edumaker idea card',
     'knu-makerspace.html': 'Kyungnam University Makerspace',
     'mbti-adult.html': 'Adult MBTI Test',
     'mbti-kids.html': 'Kids’ MBTI Test',
@@ -105,10 +106,11 @@
       }
       const additions = {
         '바이브코딩': { name: 'Onyou Maker Card', url: 'page_vibecoding/onyou-maker-card/dist/index.html' },
-        '기타': { name: 'GPT Making Manual', url: 'page_etc/gpt-making-manual/index.html' }
+        '기타': { name: 'GPT Making Manual', url: 'page_etc/gpt-making-manual/index.html' },
+        '수업 자료실': { name: 'edumaker idea card', url: 'page_classroom/edumaker-idea-card.html' }
       };
       const addition = additions[category.name];
-      if (addition && !category.items.some(item => item.url === addition.url)) category.items.push(addition);
+      if (addition && !category.items.some(item => new URL(item.url, document.baseURI).href === new URL(addition.url, document.baseURI).href)) category.items.push(addition);
     }
     const moreCategory = DATA.cats.find(category => category.name === '기타');
     if (moreCategory && !moreCategory.items.some(item => item.url === 'page_etc/announcements.html')) {
@@ -176,7 +178,8 @@
         const target = new URL(returnTo, document.baseURI);
         DATA.cats.forEach((cat, ci) => cat.items.forEach((item, ii) => {
           const page = new URL(item.url, document.baseURI);
-          if (target.origin === page.origin && target.pathname === page.pathname && target.pathname.includes("/page_newsletter/")) {
+          const ideaCardPath = new URL('page_classroom/edumaker-idea-card.html', document.baseURI).pathname;
+          if (target.origin === page.origin && target.pathname === page.pathname && (target.pathname.includes("/page_newsletter/") || target.pathname === ideaCardPath)) {
             open(ci, ii, document.querySelector(`[data-k="${ci}.${ii}"]`));
             $("#frame").src = page.href + target.hash;
           }

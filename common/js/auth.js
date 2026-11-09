@@ -91,7 +91,12 @@
     if (window.self === window.top) write(pageKey, current);
     document.documentElement.dataset.auth = 'ready';
   }
-  function reject() { clearSession(); const returnTo = location.pathname.startsWith(new URL('page_newsletter/',root).pathname) ? '&return=' + encodeURIComponent(location.href) : ''; location.replace(entry.href + '?login=required' + returnTo); }
+  function reject() {
+    clearSession();
+    const resumable = location.pathname.startsWith(new URL('page_newsletter/', root).pathname)
+      || location.pathname === new URL('page_classroom/edumaker-idea-card.html', root).pathname;
+    location.replace(entry.href + '?login=required' + (resumable ? '&return=' + encodeURIComponent(location.href) : ''));
+  }
   const session = getSession();
   if (window.self === window.top && session && (granted || reloaded)) { allow(session); return; }
   if (window.self !== window.top && session) { allow(session); return; }
