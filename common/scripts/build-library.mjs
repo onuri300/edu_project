@@ -94,7 +94,7 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   for (const [oldPage, target] of Object.entries(routes)) {
     if (target === 'page_admin/menu-builder.html') continue;
     const prefix = '../'.repeat(oldPage.split('/').length - 1);
-    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>페이지 이동</title><link rel="stylesheet" href="${prefix}common/css/common.css"><script src="${prefix}common/js/auth.js"></script><script src="${prefix}common/js/common.js"></script><script src="${prefix}common/js/redirect.js" defer></script></head><body data-site-family="portal"><p>페이지 주소가 변경되었습니다. <a data-redirect href="${prefix}${target}">새 페이지 열기</a></p></body></html>`;
+    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>페이지 이동</title><script src="${prefix}common/js/auth.js" data-route-alias="true" defer></script></head><body><p>페이지 주소가 변경되었습니다. <a data-redirect href="${prefix}${target}">새 페이지 열기</a></p></body></html>`;
     await mkdir(path.dirname(path.join(output, oldPage)), { recursive: true });
     await writeFile(path.join(output, oldPage), html);
   }

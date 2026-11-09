@@ -16,6 +16,14 @@
     return target.origin === root.origin && target.protocol === root.protocol && (publicPaths.has(target.pathname) || (target.pathname.startsWith(new URL('page_etc/', root).pathname) && target.pathname.endsWith('.html')));
   }
   const current = pageId(location.href);
+  const aliasLink = document.currentScript.dataset?.routeAlias === 'true'
+    ? document.querySelector('[data-redirect]') : null;
+  const aliasTarget = aliasLink ? new URL(aliasLink.href, root) : null;
+  if (aliasTarget) {
+    const source = new URL(location.href);
+    aliasTarget.search = source.search;
+    aliasTarget.hash = source.hash;
+  }
   function valid(session) {
     return session && Number.isFinite(session.expiresAt) && session.expiresAt > Date.now()
       && session.menu && Array.isArray(session.menu.cats)
@@ -73,6 +81,11 @@
   });
   const localBuilder = location.protocol === 'file:' &&
     location.pathname === new URL('page_admin/menu-builder.html', root).pathname;
+  if (aliasTarget && (isPublicPage(aliasTarget) || aliasTarget.pathname === entry.pathname)) {
+    document.documentElement.dataset.auth = 'public';
+    location.replace(aliasTarget.href);
+    return;
+  }
   if (localBuilder || isPublicPage(location.href)) { document.documentElement.dataset.auth = 'public'; return; }
   let grant = null;
   try { grant = JSON.parse(read(grantKey)); } catch {}
@@ -90,6 +103,10 @@
     write(key, JSON.stringify(session));
     if (window.self === window.top) write(pageKey, current);
     document.documentElement.dataset.auth = 'ready';
+    if (aliasTarget) {
+      allowNavigation(aliasTarget);
+      location.replace(aliasTarget.href);
+    }
   }
   function reject() {
     clearSession();

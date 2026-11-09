@@ -5,12 +5,17 @@ import vm from 'node:vm';
 const script = readFileSync(new URL('../js/auth.js', import.meta.url), 'utf8');
 const menu = { title: '자료실', cats: [{ name: '게임', items: [] }] };
 const root = 'https://example.org/repository/';
-function load(base, page, { storage = new Map(), embedded = false, opener = null, windowObject = {}, navigation = 'navigate', menuSignature } = {}) {
+function load(base, page, { storage = new Map(), embedded = false, opener = null, windowObject = {}, navigation = 'navigate', menuSignature, aliasTarget } = {}) {
   const listeners = {}, docListeners = {}, posted = [], opened = [], timers = [];
   let redirected;
   const url = new URL(page, base);
   const location = { href: url.href, pathname: url.pathname, replace: value => { redirected = value; } };
-  const document = { currentScript: { src: new URL('common/js/auth.js', base).href }, documentElement: { dataset: {} }, addEventListener: (name, fn) => { docListeners[name] = fn; } };
+  const document = {
+    currentScript: { src: new URL('common/js/auth.js', base).href, dataset: { routeAlias: String(Boolean(aliasTarget)) } },
+    documentElement: { dataset: {} },
+    querySelector: selector => selector === '[data-redirect]' && aliasTarget ? { href: new URL(aliasTarget, base).href } : null,
+    addEventListener: (name, fn) => { docListeners[name] = fn; },
+  };
   const parent = { postMessage: message => posted.push(message) };
   const window = Object.assign(windowObject, {
     ...(menuSignature ? { __ENC__: { ct: menuSignature } } : {}),
@@ -50,6 +55,24 @@ test('direct HTML URLs require credentials on HTTPS and file previews', () => {
   for (const base of [root, 'file:///D:/project/edu_project/']) {
     assert.equal(load(base, 'page_game/ladder-game.html').redirected(), new URL('index.html?login=required', base).href);
   }
+});
+test('public legacy paths reach the new page with query and fragment on HTTPS and local files', () => {
+  for (const base of [root, 'file:///D:/project/edu_project/']) {
+    const result = load(base, 'knu/index.html?preview=1#intro', { aliasTarget: 'page_etc/knu-makerspace.html' });
+    assert.equal(result.redirected(), new URL('page_etc/knu-makerspace.html?preview=1#intro', base).href);
+  }
+});
+test('protected legacy paths require approval and pass it to the new path after an authorized click', () => {
+  const path = 'game/ladderGame.html?preview=1';
+  const aliasTarget = 'page_game/ladder-game.html';
+  assert.equal(load(root, path, { aliasTarget }).redirected(), root + 'index.html?login=required');
+  const entry = load(root, 'index.html');
+  entry.window.eduAuth.setSession(menu);
+  entry.window.eduAuth.allowNavigation(root + path);
+  const result = load(root, path, { aliasTarget, storage: entry.storage });
+  const target = root + aliasTarget + '?preview=1';
+  assert.equal(result.redirected(), target);
+  assert.equal(load(root, target, { storage: entry.storage }).document.documentElement.dataset.auth, 'ready');
 });
 test('login session alone cannot authorize a manually entered path', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
