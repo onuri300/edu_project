@@ -36,7 +36,7 @@ index.html은 루트에 유지하고 나머지 HTML은 카테고리별 page_* �
     js/index.js              포털 로그인·메뉴·iframe 기능
     js/library.js            과목 소개·교안 카드 표시
     js/builder.js            관리자 메뉴 편집·암호화
-    js/redirect.js           이전 주소를 새 주소로 이동
+    js/auth.js               이전 주소와 새 주소의 접근 규칙 적용
     js/pages/                페이지별 기능
     images/                  사이트별 이미지
     data/data.enc.js         암호화된 포털 메뉴

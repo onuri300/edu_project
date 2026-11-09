@@ -13,7 +13,7 @@ function render(page, { embedded = false, canOpen = true } = {}) {
   });
   const document = {
     documentElement: { dataset: {} },
-    querySelector: selector => selector === '.page-tab-tools' ? nodes.find(node => node.className === 'page-tab-tools') : {},
+    querySelector: selector => ['.onuri-header', '.theme-switch'].includes(selector) ? {} : null,
     querySelectorAll: () => [], createElement: makeNode,
     body: { append: node => nodes.push(node), prepend: node => nodes.unshift(node) },
     addEventListener: (name, callback) => { callbacks[name] = callback; },

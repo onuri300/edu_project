@@ -8,7 +8,7 @@
 | `eduAuth.openPage(url)` | 공개·외부·보호 URL을 새 탭에서 여는 흐름을 시작하고 `boolean` 반환 | 포털 선택 자료. 보호 링크는 세션과 팝업 창 필요 |
 | `common/js/menu-crypto.js`의 `eduMenuCrypto.decodeBase64(value)` | Base64에서 `Uint8Array` 반환 | 포털·편집기. 잘못된 입력은 `atob` 예외 |
 | `eduMenuCrypto.deriveKey(id, password, salt, iterations, usages)` | Web Crypto의 AES-GCM `CryptoKey`를 반환하는 Promise. 기본 용도는 `['decrypt']` | 포털 및 편집기. 브라우저 암호화 API·입력 오류는 호출부에서 처리 |
-| `common/js/ui.js`의 `eduUI.bindMobileMenu(options)` | `button`, `menu`, `breakpoint`와 선택 `closeButton`·`overlay`. 반환값 없음 | KNU는 800px, 포트폴리오는 768px. 닫기·링크·Escape·크기 변경 연동 |
+| `common/js/common.js`의 `eduUI.bindMobileMenu(options)` | `button`, `menu`, `breakpoint`와 선택 `closeButton`·`overlay`. 반환값 없음 | KNU는 800px, 포트폴리오는 768px. 닫기·링크·Escape·크기 변경 연동 |
 | `eduUI.escapeHtml(value)` | 문자열을 HTML 텍스트·인용된 속성에 삽입 가능한 형태로 변환. 빈 값은 빈 문자열 | 메이커 카드·플래시카드 |
 | `common/js/downloads.js`의 `eduDownloads.save(url, filename)` | PDF를 파일명으로 저장하는 `Promise<void>` | 리빙랩. HTTP 오류나 로컬 데이터 부재는 reject |
 | `common/js/resource-policy.js`의 `eduResourcePolicy.sandboxFor(url, baseURI)` | iframe `sandbox` 속성 문자열 | 포털. 리빙랩 PDF 팝업만 제한 범위를 조정 |

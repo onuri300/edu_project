@@ -31,8 +31,7 @@ portfolio/
 │  ├─ main.js                  다크모드, 모바일 메뉴, 스크롤 리빌, 맨 위로
 │  ├─ gallery.js                갤러리 필터 · 검색 · 정렬 · 반응형 페이징(스와이프)
 │  ├─ detail.js                  작업 상세 페이지 렌더링
-│  ├─ cast-modal.js               캐릭터 소개 팝업 (작업에 characters가 있을 때만 사용)
-│  └─ lightbox.js                 이미지 확대 보기 (공용)
+│  └─ overlays.js                 캐릭터 소개와 이미지 확대 팝업
 └─ images/
    ├─ profile/                 hero.jpg, portrait.jpg — Home 대표 이미지 / About 프로필 사진
    └─ works/

@@ -9,16 +9,14 @@
   <link rel="stylesheet" href="../common/css/common.css">
   <script src="../common/js/auth.js"></script>
   <script src="../common/js/common.js"></script>
-  <script src="../common/js/ui.js" defer></script>
-<script src="../common/js/pages/knu/index.js" defer></script>
 </head>
 <body data-site-family="knu">
   <a class="knu-skip" href="#about">센터 소개로 바로가기</a>
   <nav class="center-nav" aria-label="3D창의공작센터 메뉴">
     <div class="center-container nav-inner">
       <a class="center-logo" href="#home" aria-label="경남대학교 3D창의공작센터 처음으로"><img src="../images/knu-center-logo.png" alt="UK 메이커스페이스 3D창의공작센터" width="540" height="185"></a>
-      <button class="nav-toggle" type="button" aria-label="센터 메뉴 열기" aria-expanded="false" aria-controls="center-links">Menu <span aria-hidden="true">☰</span></button>
-      <div class="center-links" id="center-links"><a href="#about">About</a><a href="#programs">Programs &amp; Support</a><a href="#equipment">Fabrication</a><a href="#visit">Visitor Guide</a><a href="#contact">Contact</a></div>
+      <button class="nav-toggle" data-menu-toggle data-menu-breakpoint="800" type="button" aria-label="센터 메뉴 열기" aria-expanded="false" aria-controls="center-links">Menu <span aria-hidden="true">☰</span></button>
+      <div class="center-links" data-mobile-menu id="center-links"><a href="#about">About</a><a href="#programs">Programs &amp; Support</a><a href="#equipment">Fabrication</a><a href="#visit">Visitor Guide</a><a href="#contact">Contact</a></div>
     </div>
   </nav>
   <main id="home">

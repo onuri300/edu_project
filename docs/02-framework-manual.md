@@ -33,4 +33,4 @@ node common/scripts/build-layout-pages.mjs --check
 
 색상은 `--paper`, `--card`, `--ink`, `--ink-soft`, `--line`, `--accent`를 사용합니다. 리빙랩은 `.button-primary`, 게임과 공지는 `.game-hero`, 게임은 `.game-toolbar`와 `.game-study-layout`을 사용합니다. 카드·표·폼은 [클래스 레퍼런스](03-css-reference.md)에서 적용 가능한 구조를 확인합니다. 페이지 고유 규칙은 해당 CSS에 두고 공용 스타일을 수정하면 좁은 화면과 밝고 어두운 테마를 함께 비교합니다.
 
-브라우저 공통 모듈은 `file://` 지원을 위해 로드 순서가 명시된 클래식 스크립트를 사용합니다. `ui.js`처럼 필요한 모듈만 페이지 로직보다 먼저 불러옵니다. Node 빌드는 `.mjs`의 `import`와 `export`를 사용합니다. 이벤트는 초기화 시 한 번 연결하고, 비동기 요청은 실패 상태를 사용자에게 표시합니다. 세션·다운로드·모바일 메뉴의 호출 계약은 [공통 함수 레퍼런스](04-javascript-reference.md)를 참고합니다.
+브라우저 공통 모듈은 `file://` 지원을 위해 클래식 스크립트를 사용합니다. 모바일 메뉴와 기본 UI는 `common.js`에서 초기화합니다. Node 빌드는 `.mjs`의 `import`와 `export`를 사용합니다. 이벤트는 초기화 시 한 번 연결하고, 비동기 요청은 실패 상태를 사용자에게 표시합니다. 세션·다운로드·모바일 메뉴의 호출 계약은 [공통 함수 레퍼런스](04-javascript-reference.md)를 참고합니다.

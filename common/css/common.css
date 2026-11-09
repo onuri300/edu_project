@@ -403,6 +403,15 @@ html body > .game-toolbar {
   .game-score-panel dl { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+/* Shared controls on content and editor surfaces. */
+.surface-controls :is(button, input:not([type="checkbox"]), select, textarea) {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+}
+.surface-controls button { cursor: pointer; }
+
 /* Shared progress display for game study screens. */
 .progress-row {
   display: flex;
