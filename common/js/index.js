@@ -3,18 +3,8 @@
 
   /* ---------- 유틸 ---------- */
   const $ = s => document.querySelector(s);
-  const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const { decodeBase64, deriveKey } = window.eduMenuCrypto;
   const wait = ms => new Promise(r => setTimeout(r, ms));
-
-  async function deriveKey(id, pw, salt, iter) {
-    const enc = new TextEncoder();
-    const material = enc.encode(id.trim().toLowerCase() + "\u241F" + pw);
-    const base = await crypto.subtle.importKey("raw", material, "PBKDF2", false, ["deriveKey"]);
-    return crypto.subtle.deriveKey(
-      { name: "PBKDF2", salt, iterations: iter, hash: "SHA-256" },
-      base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]
-    );
-  }
 
   /* ---------- 상태 ---------- */
   let DATA = null;          // 복호화된 메뉴 (메모리에만 존재)
@@ -37,9 +27,9 @@
     let authenticated = false;
     try {
       const p = window.__ENC__;
-      const key = await deriveKey(id, pw, b64d(p.salt), p.it);
+      const key = await deriveKey(id, pw, decodeBase64(p.salt), p.it);
       const buf = await crypto.subtle.decrypt(
-        { name: "AES-GCM", iv: b64d(p.iv) }, key, b64d(p.ct)
+        { name: "AES-GCM", iv: decodeBase64(p.iv) }, key, decodeBase64(p.ct)
       );
       DATA = JSON.parse(new TextDecoder().decode(buf));
       authenticated = true;
@@ -80,6 +70,7 @@
     'computer-quiz.html': 'Computer Quiz',
     'livinglab-library.html': 'Living Lab Library',
     'edumaker.html': 'edumaker',
+    'edumaker-idea-card.html': 'edumaker idea card',
     'knu-makerspace.html': 'Kyungnam University Makerspace',
     'mbti-adult.html': 'Adult MBTI Test',
     'mbti-kids.html': 'Kids’ MBTI Test',
@@ -105,10 +96,11 @@
       }
       const additions = {
         '바이브코딩': { name: 'Onyou Maker Card', url: 'page_vibecoding/onyou-maker-card/dist/index.html' },
-        '기타': { name: 'GPT Making Manual', url: 'page_etc/gpt-making-manual/index.html' }
+        '기타': { name: 'GPT Making Manual', url: 'page_etc/gpt-making-manual/index.html' },
+        '수업 자료실': { name: 'edumaker idea card', url: 'page_classroom/edumaker-idea-card.html' }
       };
       const addition = additions[category.name];
-      if (addition && !category.items.some(item => item.url === addition.url)) category.items.push(addition);
+      if (addition && !category.items.some(item => new URL(item.url, document.baseURI).href === new URL(addition.url, document.baseURI).href)) category.items.push(addition);
     }
     const moreCategory = DATA.cats.find(category => category.name === '기타');
     if (moreCategory && !moreCategory.items.some(item => item.url === 'page_etc/announcements.html')) {
@@ -176,7 +168,8 @@
         const target = new URL(returnTo, document.baseURI);
         DATA.cats.forEach((cat, ci) => cat.items.forEach((item, ii) => {
           const page = new URL(item.url, document.baseURI);
-          if (target.origin === page.origin && target.pathname === page.pathname && target.pathname.includes("/page_newsletter/")) {
+          const ideaCardPath = new URL('page_classroom/edumaker-idea-card.html', document.baseURI).pathname;
+          if (target.origin === page.origin && target.pathname === page.pathname && (target.pathname.includes("/page_newsletter/") || target.pathname === ideaCardPath)) {
             open(ci, ii, document.querySelector(`[data-k="${ci}.${ii}"]`));
             $("#frame").src = page.href + target.hash;
           }

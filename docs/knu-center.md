@@ -26,7 +26,7 @@
 - images/knu-center-logo.png: 사용자가 제공한 센터 로고 원본. 페이지 메뉴에 사용합니다.
 - images/knu-manager-character.png: 사용자가 제공한 캐릭터 원본. 센터장·문의 카드의 안내 이미지로 사용합니다.
 - 상반신 표시는 common/css/pages/knu/index.css의 .director-portrait에서 처리합니다. 원본 파일을 자르거나 변형하지 않고 화면에서만 상반신을 보여줍니다.
-- images/knu-makerspace-hero.png: 기존 메이킹 대표 일러스트. 같은 파일명으로 교체할 수 있습니다.
+- images/onuri-maker-hero.png: 기존 메이킹 대표 일러스트. 같은 파일명으로 교체할 수 있습니다.
 
 모든 공통 헤더·로그인·테마 기능은 유지합니다. 기타 → 경남대학교 메이커스페이스 메뉴로 접속합니다.
 

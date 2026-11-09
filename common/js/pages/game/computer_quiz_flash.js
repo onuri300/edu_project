@@ -208,11 +208,7 @@
     });
   }
 
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
+  const { escapeHtml } = window.eduUI;
 
   document.getElementById('btnAddCard').addEventListener('click', () => {
     const q = document.getElementById('inpQuestion').value.trim();

@@ -165,8 +165,8 @@ node common/scripts/build-library.mjs
 기존 페이지 소스와 자산을 재사용했으며 빈 MENU 자리표시자는 제거했습니다.
 리빙랩 자료실에서 클릭한 PDF 새 탭이 iframe sandbox를 상속하지 않도록 해당 로컬 자료실에만 팝업 예외를 적용했습니다.
 다른 메뉴의 외부 페이지에는 기본 sandbox를 유지합니다. Chrome 확장 프로그램 자체의 차단 여부는 별도 브라우저 검증이 필요합니다.
-대표 이미지는 루트 images 폴더에서 `페이지이름-hero.png` 파일로 관리합니다. 예: index-hero.png, livinglab-library-hero.png, onuri-maker-hero.png.
-파일명과 실제 PNG 형식을 유지해 교체하면 새로고침 시 로드됩니다. 전체 파일명 표는 [이미지 관리 안내](../images/README.md)를 확인하세요.
+대표 이미지는 루트 images 폴더의 테마별 공용 파일을 참조합니다. 예를 들어 포털 로그인과 리빙랩은 index-hero.png를 공유합니다.
+파일명과 실제 PNG 형식을 유지해 교체하면 같은 테마의 화면에 반영됩니다. 전체 파일명 표는 [이미지 관리 안내](../images/README.md)를 확인하세요.
 공통 추가 스타일은 common/css/common.css, PDF 팝업 정책은 common/js/resource-policy.js가 담당합니다.
 
 

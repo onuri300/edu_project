@@ -3,16 +3,7 @@
   const $ = s => document.querySelector(s);
   const ITER = 250000;
   const b64e = b => btoa(String.fromCharCode(...new Uint8Array(b)));
-  const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-
-  async function deriveKey(id, pw, salt, iter) {
-    const material = new TextEncoder().encode(id.trim().toLowerCase() + "\u241F" + pw);
-    const base = await crypto.subtle.importKey("raw", material, "PBKDF2", false, ["deriveKey"]);
-    return crypto.subtle.deriveKey(
-      { name: "PBKDF2", salt, iterations: iter, hash: "SHA-256" },
-      base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]
-    );
-  }
+  const { decodeBase64, deriveKey } = window.eduMenuCrypto;
 
   /* ---------- 편집 UI ---------- */
   const cats = $("#cats");
@@ -101,7 +92,7 @@
     try {
       const salt = crypto.getRandomValues(new Uint8Array(16));
       const iv = crypto.getRandomValues(new Uint8Array(12));
-      const key = await deriveKey(id, pw, salt, ITER);
+      const key = await deriveKey(id, pw, salt, ITER, ["encrypt"]);
       const plain = new TextEncoder().encode(JSON.stringify({
         title: $("#title").value.trim() || "자료실",
         subtitle: $("#subtitle").value.trim(),
@@ -133,8 +124,8 @@
       const m = txt.match(/window\.__ENC__\s*=\s*(\{[\s\S]*\})\s*;?/);
       if (!m) throw new Error("형식을 알 수 없는 파일입니다");
       const p = JSON.parse(m[1]);
-      const key = await deriveKey(id, pw, b64d(p.salt), p.it);
-      const buf = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64d(p.iv) }, key, b64d(p.ct));
+      const key = await deriveKey(id, pw, decodeBase64(p.salt), p.it);
+      const buf = await crypto.subtle.decrypt({ name: "AES-GCM", iv: decodeBase64(p.iv) }, key, decodeBase64(p.ct));
       fill(JSON.parse(new TextDecoder().decode(buf)));
       $("#pw2").value = pw;
       say("불러왔습니다. 수정한 뒤 다시 내려받으세요.", "ok");

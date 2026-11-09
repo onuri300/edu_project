@@ -1,5 +1,6 @@
 import { versionAssets } from './version-assets.mjs';
 import { buildReports } from './build-reports.mjs';
+import { buildLayoutPages } from './build-layout-pages.mjs';
 import { readdir, readFile, mkdir, copyFile, writeFile, stat, rm, cp } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,8 +15,15 @@ async function copyOptional(source, output, relative) {
     await mkdir(path.dirname(path.join(output, relative)), { recursive: true });
     await cp(path.join(source, relative), path.join(output, relative), {
       recursive: true,
-      filter: file => !['menu-builder-hero.png', 'README.md', 'node_modules', '.git', '사용매뉴얼_로그인정보.md'].includes(path.basename(file))
-        && path.relative(source, file) !== path.join('page_etc', 'gpt-making-manual'),
+      filter: file => {
+        const name = path.basename(file);
+        const relative = path.relative(source, file);
+        return !['README.md', 'node_modules', '.git', '사용매뉴얼_로그인정보.md'].includes(name)
+          && !/^\.(?:env|dev\.vars)(?:\.|$)/.test(name)
+          && relative !== path.join('page_etc', 'gpt-making-manual')
+          && relative !== path.join('page_vibecoding', 'onyou-maker-card', 'generate-gallery.mjs')
+          && relative !== path.join('common', 'images', 'knu', '여기에_사진을_넣으세요.txt');
+      },
     });
   } catch (error) { if (error.code !== 'ENOENT') throw error; }
 }
@@ -64,6 +72,7 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   await writeFile(path.join(source, 'common/data/library-data.js'), generated);
   if (!dataOnly) await mkdir(path.join(output, "common/data"), { recursive: true });
   await buildReports(source, dataOnly ? undefined : output);
+  await buildLayoutPages(source);
   if (dataOnly) {
     console.log(`[자료실] ${items.length}개 교안 목록 갱신 완료 (배포 폴더 생성 안 함)`);
     return items;
