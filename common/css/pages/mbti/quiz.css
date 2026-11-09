@@ -51,8 +51,7 @@
   overflow-x: hidden;
 }
 
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body { padding: 0; }
 body { min-height: 100vh; }
 h1, h2, h3, .btn {
   font-family: var(--mbti-heading);

@@ -24,24 +24,12 @@
   --header-h: 76px;
 }
 
-@media (prefers-reduced-motion: reduce){
-  *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-}
-
 /* ==========================================================================
    Reset
    ========================================================================== */
-*, *::before, *::after{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+*::before, *::after{ box-sizing: border-box; }
 html.no-scroll, body.no-scroll{ overflow: hidden; height: 100%; }
 body{
-  margin: 0;
-  background: var(--canvas);
-  color: var(--ink);
-  font-family: var(--font-ui);
-  font-size: var(--step0);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
   transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 img{ max-width: 100%; display: block; }

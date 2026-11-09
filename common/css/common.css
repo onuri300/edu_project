@@ -1,4 +1,11 @@
 body{background:var(--paper);color:var(--ink)}
+
+:where(.layout-reset, .layout-reset *) { box-sizing: border-box; }
+:where(.layout-reset, .flush-body) body { margin: 0; }
+html:where(.smooth-scroll) { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html:where(.smooth-scroll) { scroll-behavior: auto; }
+}
 .theme-switch{position:fixed;top:14px;right:18px;z-index:150;display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:30px;background:var(--card);box-shadow:var(--shadow);font:12px/1.2 "Malgun Gothic",system-ui,sans-serif}
 .theme-switch button{display:flex;align-items:center;justify-content:center;gap:5px;min-height:44px;min-width:44px;padding:7px 10px;border:0;border-radius:24px;background:transparent;color:var(--ink-soft);cursor:pointer;font:inherit}
 .theme-switch button[aria-pressed="true"]{background:var(--lavender);color:var(--accent);font-weight:700}.theme-switch button:hover{background:var(--muted-surface)}.theme-switch svg{width:19px;height:19px;flex:none}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
@@ -277,24 +284,28 @@ html .welcome.welcome-full-width {
   }
 }
 
-/* Game content shares the masthead frame. */
-html :is(.game-shell, body[data-site-family="game"] > .wrap, body[data-site-family="computer_quiz_100"] > main) {
+/* Content aligned to the masthead frame. */
+html :is(.game-shell, .center-container, .manual, .announcements,
+  body[data-site-family="game"] > .wrap,
+  body[data-site-family="mbti"] > .wrap,
+  body[data-site-family="computer_quiz_100"] > main) {
   box-sizing: border-box;
   width: 100%;
   max-width: var(--content-frame);
   margin-inline: auto;
   padding-inline: var(--content-gutter);
 }
-@media (max-width: 1000px) {
-  html :is(.game-shell, body[data-site-family="game"] > .wrap, body[data-site-family="computer_quiz_100"] > main) { padding-inline: 20px; }
-}
-@media (max-width: 400px) {
-  html :is(.game-shell, body[data-site-family="game"] > .wrap, body[data-site-family="computer_quiz_100"] > main) { padding-inline: 14px; }
-}
-
 html .newsletter { padding-inline: var(--content-gutter); }
 @media (max-width: 1000px) { :root { --content-gutter: 20px; } }
 @media (max-width: 400px) { :root { --content-gutter: 14px; } }
+
+/* Content panels and dialogs share the same surface. */
+:where(.surface-panel, .game-hero, .game-score-panel, .game-admin-dialog) {
+  padding: clamp(16px, 3vw, 32px);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
 
 /* Intro card shared by all game pages. */
 .game-hero {
@@ -303,10 +314,6 @@ html .newsletter { padding-inline: var(--content-gutter); }
   align-items: center;
   gap: 24px;
   margin-bottom: 20px;
-  padding: clamp(16px, 3vw, 32px);
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 16px;
 }
 .game-hero h1 { margin: 0; font-size: clamp(30px, 5vw, 48px); }
 .game-hero p { color: var(--ink-soft); }
@@ -318,7 +325,6 @@ html .newsletter { padding-inline: var(--content-gutter); }
   letter-spacing: .12em;
 }
 html .game-hero img { width: 100%; height: 150px; object-fit: cover; }
-.ladder .game-hero { margin-bottom: 0; }
 @media (max-width: 680px) {
   .game-hero { grid-template-columns: 1fr; }
   html .game-hero img { height: 110px; }
@@ -368,14 +374,11 @@ html body > .game-toolbar {
   cursor: pointer;
 }
 .game-study-layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 1fr); gap: 16px; align-items: start; }
-.game-study-main, .game-score-panel { min-width: 0; }
+.game-study-layout > * { min-width: 0; }
 .game-score-panel {
   position: sticky;
   top: 88px;
   padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--card);
 }
 .game-score-panel h2 { margin: 0 0 12px; font-size: 1.15rem; }
 .game-score-panel dl { display: grid; gap: 10px; margin: 0; }
@@ -387,10 +390,7 @@ html body > .game-toolbar {
   max-height: 85vh;
   padding: 24px;
   overflow-y: auto;
-  border: 1px solid var(--line);
-  border-radius: 16px;
   color: var(--ink);
-  background: var(--card);
 }
 .game-admin-dialog::backdrop { background: rgb(0 0 0 / 55%); }
 .game-admin-close { float: right; border: 0; background: transparent; color: inherit; font-size: 1.6rem; cursor: pointer; }
@@ -404,13 +404,13 @@ html body > .game-toolbar {
 }
 
 /* Shared controls on content and editor surfaces. */
-.surface-controls :is(button, input:not([type="checkbox"]), select, textarea) {
+:where(.surface-control), .surface-controls :is(button, input:not([type="checkbox"]), select, textarea) {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--card);
   color: var(--ink);
 }
-.surface-controls button { cursor: pointer; }
+.surface-controls button, :where(button.surface-control) { cursor: pointer; }
 
 /* Shared progress display for game study screens. */
 .progress-row {
@@ -436,16 +436,7 @@ html body > .game-toolbar {
   transition: width 0.3s ease;
 }
 
-/* More pages align their content with the portal masthead. */
-html :is(body[data-site-family="mbti"] > .wrap, .center-container, .manual) {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: var(--content-frame);
-  margin-inline: auto;
-  padding-inline: var(--content-gutter);
-}
 html body[data-site-family="mbti"] .page-art-banner { width: 100%; }
-.mbti-study-layout > .card { min-width: 0; }
 html .mbti-progress { margin: 0; }
 .mbti-progress #remainingQuestions { margin: 12px 0 0; color: var(--ink); font-weight: 700; }
 
@@ -460,6 +451,5 @@ html .mbti-progress { margin: 0; }
 }
 .axis-bar .seg-a{ background: var(--accent-teal); }
 .axis-bar .seg-b{ background: var(--accent-coral); }
-.mbti-result-layout > .card { min-width: 0; }
 .mbti-result-type .result-code { font-size: 1.3rem; font-weight: 800; margin: 0 0 16px; }
 .mbti-result-type .axis-graph { margin-bottom: 0; }

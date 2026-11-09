@@ -14,14 +14,14 @@
 <body>
 <main class="announcements surface-controls">
   <header class="game-hero"><div><p class="game-hero-kicker">ONURI / NEWS &amp; UPDATES</p><h1>Announcements</h1><p>새로운 소식과 수업 운영 안내를 확인하세요.</p></div><img class="page-art" data-page-image src="../images/index-hero.png" alt="" width="1536" height="1024"></header>
-  <section class="notice-panel" aria-label="공지사항 목록">
+  <section class="notice-panel surface-panel" aria-label="공지사항 목록">
     <div class="notice-heading"><h2>공지사항</h2><div class="notice-actions"><button id="refresh" type="button">새로고침</button><button id="admin-login" type="button">관리자 로그인</button><button id="new-notice" type="button" hidden>공지 작성</button><button id="admin-logout" type="button" hidden>로그아웃</button></div></div>
     <p id="admin-status" role="status" aria-live="polite"></p>
     <p id="notice-status" role="status" aria-live="polite">공지사항을 불러오는 중입니다.</p>
     <div id="notices"></div>
     <button id="more" type="button" hidden>더 보기</button>
   </section>
-  <dialog id="login-dialog" class="notice-dialog">
+  <dialog id="login-dialog" class="notice-dialog surface-panel">
     <form id="login-form">
       <h2>관리자 로그인</h2><p>Supabase에 등록된 관리자 계정으로 로그인하세요.</p>
       <label for="admin-email">이메일</label><input id="admin-email" type="email" autocomplete="username" required>
@@ -30,7 +30,7 @@
       <div class="notice-actions"><button type="button" data-close="login-dialog">취소</button><button type="submit">로그인</button></div>
     </form>
   </dialog>
-  <dialog id="editor-dialog" class="notice-dialog">
+  <dialog id="editor-dialog" class="notice-dialog surface-panel">
     <form id="editor-form">
       <h2 id="editor-heading">공지 작성</h2>
       <label for="notice-title">제목</label><input id="notice-title" maxlength="200" required>
@@ -40,7 +40,7 @@
       <div class="notice-actions"><button type="button" data-close="editor-dialog">취소</button><button type="submit">저장</button></div>
     </form>
   </dialog>
-  <dialog id="delete-dialog" class="notice-dialog">
+  <dialog id="delete-dialog" class="notice-dialog surface-panel">
     <h2>공지 삭제</h2><p id="delete-title"></p><p>삭제한 공지는 복구할 수 없습니다.</p>
     <p id="delete-status" role="status" aria-live="polite"></p>
     <div class="notice-actions"><button type="button" data-close="delete-dialog">취소</button><button type="button" id="confirm-delete">삭제</button></div>
