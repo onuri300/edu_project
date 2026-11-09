@@ -62,12 +62,10 @@
   search.addEventListener('input', render);
   category.addEventListener('change', render);
   document.getElementById('manual-copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(prompt.textContent);
-      copyStatus.textContent = '프롬프트를 복사했습니다.';
-    } catch {
-      copyStatus.textContent = '프롬프트를 선택하여 직접 복사해 주세요.';
-    }
+    const copied = await window.eduUI.copyText(prompt.textContent);
+    copyStatus.textContent = copied
+      ? '프롬프트를 복사했습니다.'
+      : '프롬프트를 선택하여 직접 복사해 주세요.';
   });
 
   fetch(new URL('common/data/gpt-making-manual.json', window.eduAuth.root))

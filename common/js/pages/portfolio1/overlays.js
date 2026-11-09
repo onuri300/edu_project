@@ -1,20 +1,3 @@
-function bindPortfolioOverlay(element, closeButton) {
-  function setOpen(open) {
-    element.classList.toggle("is-open", open);
-    document.body.style.overflow = open ? "hidden" : "";
-  }
-
-  const close = () => setOpen(false);
-  closeButton.addEventListener("click", close);
-  element.addEventListener("click", event => {
-    if (event.target === element) close();
-  });
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && element.classList.contains("is-open")) close();
-  });
-  return { open: () => setOpen(true), close };
-}
-
 /**
  * 이미지 확대 보기
  * Lightbox.open(items, startIndex) 형태로 사용한다.
@@ -41,7 +24,7 @@ const Lightbox = (function () {
     imgEl = el.querySelector("img");
     capEl = el.querySelector(".lightbox-caption");
 
-    overlay = bindPortfolioOverlay(el, el.querySelector(".lightbox-close"));
+    overlay = window.eduUI.bindPortfolioOverlay(el, el.querySelector(".lightbox-close"));
     el.querySelector(".lightbox-prev").addEventListener("click", () => show(index - 1));
     el.querySelector(".lightbox-next").addEventListener("click", () => show(index + 1));
     document.addEventListener("keydown", (e) => {
@@ -98,7 +81,7 @@ const CastModal = (function () {
       </div>
     `;
     document.body.appendChild(el);
-    overlay = bindPortfolioOverlay(el, el.querySelector(".cast-modal-close"));
+    overlay = window.eduUI.bindPortfolioOverlay(el, el.querySelector(".cast-modal-close"));
   }
 
   function open(character) {

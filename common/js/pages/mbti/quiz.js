@@ -264,7 +264,7 @@
     back.style.visibility = current === 0 ? 'hidden' : 'visible';
     const answered = answers.filter(answer => answer !== null).length;
     byId('remainingQuestions').textContent = '남은 문항 ' + (questions.length - answered) + '개';
-    progressFill.style.width = Math.round(answered / questions.length * 100) + '%';
+    progressFill.style.width = window.eduUI.roundedPercent(answered, questions.length) + '%';
     byId('progressLabel').textContent = (current + 1) + ' / ' + questions.length;
   }
 
@@ -278,7 +278,7 @@
 
     const graph = axes.map(([a, b]) => {
       const total = tally[a] + tally[b];
-      return { a, b, pctA: total ? Math.round(tally[a] / total * 100) : 50 };
+      return { a, b, pctA: window.eduUI.roundedPercent(tally[a], total, 50) };
     });
     // Adult results use rounded percentages to choose a letter, as in the original quiz.
     const code = graph.map(({ a, b, pctA }) => (kids ? tally[a] >= tally[b] : pctA >= 50) ? a : b).join('');

@@ -38,11 +38,6 @@
   cards = loadCards().map((c, i) => c.id ? c : { ...c, id: "c" + i });
   saveCards();
 
-  function getCategories() {
-    const set = new Set(cards.map(c => c.cat || "기타"));
-    return ["전체", ...Array.from(set)];
-  }
-
   function buildOrder() {
     order = cards.map(card => card.id);
     idx = 0;
@@ -53,11 +48,8 @@
     return cards.find(c => c.id === id);
   }
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 1600);
+  function showToast(message) {
+    window.eduUI.showToast(document.getElementById('toast'), message, 'show', 1600);
   }
 
   // ---- 렌더링 ----
@@ -115,7 +107,7 @@
     document.getElementById('scoreCorrect').textContent = correct;
     document.getElementById('scoreWrong').textContent = wrong;
     const total = correct + wrong;
-    document.getElementById('scorePercent').textContent = total ? Math.round((correct / total) * 100) + "%" : "0%";
+    document.getElementById('scorePercent').textContent = window.eduUI.roundedPercent(correct, total) + "%";
   }
 
   function renderAll() {
@@ -164,7 +156,7 @@
     renderAll();
   });
 
-  window.eduGameAdmin.bind(renderAdmin);
+  window.eduUI.bindGameAdmin(renderAdmin);
   document.getElementById('homeBtn').addEventListener('click', event => {
     event.preventDefault();
     window.scrollTo(0, 0);
@@ -201,7 +193,9 @@
 
     const catList = document.getElementById('catList');
     catList.innerHTML = "";
-    getCategories().filter(c => c !== "전체").forEach(cat => {
+    const categories = new Set(cards.map(card => card.cat || "기타"));
+    categories.delete("전체");
+    categories.forEach(cat => {
       const opt = document.createElement('option');
       opt.value = cat;
       catList.appendChild(opt);
@@ -237,14 +231,13 @@
     showToast("카드를 추가했어요");
   });
 
-  document.getElementById('btnExport').addEventListener('click', () => {
-    const json = JSON.stringify(cards, null, 2);
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(json).then(() => showToast("JSON이 클립보드에 복사됐어요"))
-        .catch(() => showToast("복사에 실패했어요"));
-    } else {
+  document.getElementById('btnExport').addEventListener('click', async () => {
+    if (!navigator.clipboard) {
       showToast("이 브라우저는 복사를 지원하지 않아요");
+      return;
     }
+    const copied = await window.eduUI.copyText(JSON.stringify(cards, null, 2));
+    showToast(copied ? "JSON이 클립보드에 복사됐어요" : "복사에 실패했어요");
   });
 
   document.getElementById('btnResetAll').addEventListener('click', () => {

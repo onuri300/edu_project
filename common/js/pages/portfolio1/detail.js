@@ -150,18 +150,7 @@
   const relatedBlock = root.querySelector('[data-block="related"]');
   const related = (work.related || []).map(getWorkById).filter(Boolean);
   if (related.length) {
-    relatedGrid.innerHTML = related
-      .map(
-        (w) => `
-      <a class="work-card" href="onuri-work-detail.html?id=${w.id}">
-        <div class="work-card-media"><img src="${w.thumb}" alt="${w.title}" loading="lazy" /></div>
-        <div class="work-card-body">
-          <h3 class="work-card-title">${w.title}</h3>
-          <p class="work-card-meta">${w.genre} · ${w.year}</p>
-        </div>
-      </a>`
-      )
-      .join("");
+    relatedGrid.replaceChildren(...related.map(work => window.eduUI.createPortfolioCard(work)));
   } else if (relatedBlock) {
     relatedBlock.style.display = "none";
   }

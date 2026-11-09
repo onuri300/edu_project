@@ -8,15 +8,15 @@ function renderScore() {
   const answeredCount = idx + Number(answered);
   $("score").textContent = score;
   $("scoreWrong").textContent = answeredCount - score;
-  $("scorePercent").textContent = answeredCount ? Math.round(score / answeredCount * 100) + "%" : "0%";
+  $("scorePercent").textContent = window.eduUI.roundedPercent(score, answeredCount) + "%";
 }
 function render(){let q=quiz[idx];answered=false;$("progress").textContent=`${idx+1} / ${quiz.length}`;renderScore();$("bar").style.width=`${(idx+1)/quiz.length*100}%`;$("badge").textContent=q.difficulty;$("qid").textContent=`Q.${q.id}`;$("question").textContent=q.question;$("hint").className="hint hidden";$("feedback").className="feedback hidden";$("nextBtn").disabled=true;$("nextBtn").textContent=idx===quiz.length-1?"결과 보기 →":"다음 문제 →";let arr=shuffle(q.options.map((text,i)=>({text,i}))),o=$("options");o.innerHTML="";arr.forEach((x,i)=>{let b=document.createElement("button");b.className="option";b.type="button";b.textContent=`${String.fromCharCode(65+i)}  ${x.text}`;b.onclick=()=>answer(x.i,b);o.appendChild(b)})}
 function answer(choice,clicked){if(answered)return;answered=true;let q=quiz[idx],bs=[...$("options").children];bs.forEach((b,i)=>{let original=quiz[idx].options.indexOf(b.textContent.slice(3));if(original===q.answer)b.classList.add("correct")});if(choice===q.answer){score++;$("feedback").textContent="✓ 정답이에요! "+q.explanation}else $("feedback").textContent="○ 아쉬워요. "+q.explanation;$("feedback").className="feedback";renderScore();$("nextBtn").disabled=false;if(choice!==q.answer)clicked.classList.add("wrong")}
 $("nextBtn").onclick=()=>{if(!answered)return;if(idx<quiz.length-1){idx++;render()}else result()};
-function result(){let pct=Math.round(score/quiz.length*100);$("finalScore").textContent=pct;$("correct").textContent=score;$("total").textContent=quiz.length;$("percent").textContent=pct+"%";$("resultMsg").textContent=pct===100?"100점! 완벽한 탐험이에요.":pct>=80?"멋진 결과예요! 조금 더 알아보면 더 강해질 수 있어요.":pct>=60?"좋아요! 틀린 문제를 다시 살펴보세요.":"괜찮아요. 다시 도전하며 하나씩 알아가면 됩니다.";show("result")}
+function result(){let pct=window.eduUI.roundedPercent(score, quiz.length);$("finalScore").textContent=pct;$("correct").textContent=score;$("total").textContent=quiz.length;$("percent").textContent=pct+"%";$("resultMsg").textContent=pct===100?"100점! 완벽한 탐험이에요.":pct>=80?"멋진 결과예요! 조금 더 알아보면 더 강해질 수 있어요.":pct>=60?"좋아요! 틀린 문제를 다시 살펴보세요.":"괜찮아요. 다시 도전하며 하나씩 알아가면 됩니다.";show("result")}
 $("hintBtn").onclick=()=>{$("hint").textContent="💡 힌트: "+quiz[idx].hint;$("hint").className="hint"};
 $("startBtn").onclick=start;$("retry").onclick=start;$("homeBtn").onclick=e=>{e.preventDefault();home()};$("resultHome").onclick=home;document.querySelectorAll('input[name="difficulty"]').forEach(x=>x.onchange=sync);
-window.eduGameAdmin.bind(() => {
+window.eduUI.bindGameAdmin(() => {
   $("st").textContent = QUESTION_BANK.length;
   $("se").textContent = pool("하").length;
   $("sm").textContent = pool("중").length;

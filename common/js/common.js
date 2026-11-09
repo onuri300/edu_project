@@ -27,7 +27,163 @@
     return String(value ?? '').replace(/[&<>"']/g, character => entities[character]);
   }
 
-  window.eduUI = Object.freeze({ bindMobileMenu, escapeHtml });
+
+  function roundedPercent(value, total, empty = 0) {
+    return total ? Math.round(value / total * 100) : empty;
+  }
+
+  async function copyText(text, { fallback = false } = {}) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      if (!fallback) return false;
+    }
+
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.style.cssText = 'position:fixed;opacity:0';
+    document.body.append(area);
+    try {
+      area.select();
+      return document.execCommand('copy');
+    } catch {
+      return false;
+    } finally {
+      area.remove();
+    }
+  }
+
+  function showToast(element, message, activeClass, duration) {
+    element.textContent = message;
+    element.classList.add(activeClass);
+    setTimeout(() => element.classList.remove(activeClass), duration);
+  }
+
+  function createPortfolioCard(work, { featured = false } = {}) {
+    const card = document.createElement('a');
+    card.className = 'work-card';
+    card.href = 'onuri-work-detail.html?id=' + encodeURIComponent(work.id);
+
+    const media = document.createElement('div');
+    media.className = 'work-card-media';
+    const image = document.createElement('img');
+    image.src = work.thumb;
+    image.alt = work.title;
+    image.loading = 'lazy';
+    media.append(image);
+
+    const body = document.createElement('div');
+    body.className = 'work-card-body';
+    const title = document.createElement('h3');
+    title.className = 'work-card-title';
+    title.textContent = work.title;
+    const meta = document.createElement('p');
+    meta.className = 'work-card-meta';
+    meta.textContent = work.genre + ' · ' + work.year;
+    body.append(title, meta);
+
+    if (featured) {
+      const category = document.createElement('span');
+      category.className = 'work-card-cat';
+      category.textContent = work.categoryLabel;
+      media.append(category);
+      const description = document.createElement('p');
+      description.className = 'work-card-desc';
+      description.textContent = work.tagline;
+      body.append(description);
+    }
+    card.append(media, body);
+    return card;
+  }
+
+  function initPortfolioPreviews() {
+    const recent = document.getElementById('home-recent');
+    const process = document.getElementById('process-works');
+    if (!recent && !process) return;
+
+    const works = recent
+      ? WORKS.slice().sort((a, b) => b.year - a.year).slice(0, 3)
+      : WORKS.filter(work => work.process?.length);
+    const container = recent || process;
+    for (const work of works) {
+      const card = createPortfolioCard(work, { featured: Boolean(recent) });
+      card.classList.add('reveal');
+      container.append(card);
+    }
+  }
+
+  // This password gates the classroom UI locally.
+  const password = '1234';
+
+  function bindGameAdmin(onUnlock) {
+    const dialog = document.getElementById('modal');
+    const login = document.getElementById('login');
+    const panel = document.getElementById('panel');
+    const input = document.getElementById('password');
+    const error = document.getElementById('error');
+
+    function lock() {
+      login.hidden = false;
+      panel.hidden = true;
+      input.value = '';
+      error.hidden = true;
+    }
+
+    document.getElementById('adminBtn').addEventListener('click', () => {
+      lock();
+      dialog.showModal();
+      input.focus();
+    });
+    document.getElementById('close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', lock);
+    dialog.querySelector('[data-admin-lock]').addEventListener('click', () => {
+      lock();
+      input.focus();
+    });
+    input.addEventListener('input', () => { error.hidden = true; });
+    login.addEventListener('submit', event => {
+      event.preventDefault();
+      if (input.value !== password) {
+        error.hidden = false;
+        input.focus();
+        return;
+      }
+      input.value = '';
+      login.hidden = true;
+      panel.hidden = false;
+      onUnlock();
+      panel.querySelector('input, button, select')?.focus();
+    });
+  }
+
+  function bindPortfolioOverlay(element, closeButton) {
+    function setOpen(open) {
+      element.classList.toggle("is-open", open);
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+
+    const close = () => setOpen(false);
+    closeButton.addEventListener("click", close);
+    element.addEventListener("click", event => {
+      if (event.target === element) close();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && element.classList.contains("is-open")) close();
+    });
+    return { open: () => setOpen(true), close };
+  }
+
+  window.eduUI = Object.freeze({
+    bindMobileMenu,
+    bindGameAdmin,
+    bindPortfolioOverlay,
+    copyText,
+    createPortfolioCard,
+    escapeHtml,
+    roundedPercent,
+    showToast,
+  });
 
   function initPageControls() {
     const button = document.querySelector('[data-menu-toggle]');
@@ -42,6 +198,7 @@
       });
     }
     if (document.body.dataset?.siteFamily !== 'portfolio1') return;
+    initPortfolioPreviews();
     /* ---------- Scroll reveal (one quiet effect, IntersectionObserver) ---------- */
     const revealEls = document.querySelectorAll(".reveal");
     if ("IntersectionObserver" in window && revealEls.length) {
