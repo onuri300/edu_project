@@ -1,5 +1,6 @@
 _site/
-common/data/local-downloads/
+common/file/local-downloads/
+common/file/backups/
 .work/
 
 # Local account notes and secrets (never upload)

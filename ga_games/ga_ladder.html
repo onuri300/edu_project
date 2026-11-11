@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko" class="flush-body">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ladder Game</title>
+  <link rel="stylesheet" href="../onuri.framework/css/common.css">
+  <link rel="stylesheet" href="../common/css/pages/ga_ladder.css">
+  <script src="../common/data/site-config.js"></script><script src="../onuri.framework/js/auth.js"></script>
+  <script src="../onuri.framework/js/common.js"></script>
+  <script src="../common/js/pages/ga_ladder.js" defer></script>
+</head>
+<body class="resource-page" data-site-family="game">
+  <main>
+<!-- layout:resource-hero -->
+<section class="resource-hero" aria-labelledby="resource-title">
+  <div class="resource-hero-copy">
+    <p class="resource-hero-kicker">ONURI / PLAY TOGETHER</p>
+    <h1 id="resource-title">사다리 게임</h1>
+    <p class="resource-hero-description">이름과 결과를 입력하고, 각자 어떤 결과에 도착하는지 확인하세요.</p>
+  </div>
+  <img class="page-art resource-hero-image" data-page-image src="../common/images/ga.image/computer-quiz-hero.png" width="1536" height="1024" decoding="async" alt="">
+</section>
+<!-- /layout:resource-hero -->
+    <div class="game-shell ladder">
+
+    <div class="game-study-layout">
+      <section class="surface-panel" aria-labelledby="setup-title">
+        <div class="ladder-heading">
+          <div><h2 id="setup-title">참가자와 결과 입력</h2></div>
+          <div class="ladder-actions">
+            <label class="ladder-count">참가자 수 <input type="number" id="player-count" value="4" min="2" max="10" step="1"></label>
+            <button class="ladder-primary" id="generate-btn" type="button">사다리 생성</button>
+          </div>
+        </div>
+        <p>사다리 위에는 참가자 이름을, 아래에는 결과를 모두 입력해 주세요.</p>
+        <p id="ladder-status" role="status"></p>
+        <div id="ladder-board" class="ladder-board" aria-labelledby="board-title">
+          <div class="ladder-heading">
+            <div><h2 id="board-title">사다리 타기</h2></div>
+            <button class="ladder-primary" id="start-btn" type="button" disabled>결과 보기</button>
+          </div>
+          <div class="ladder-scroll" tabindex="0" aria-label="사다리. 화면이 좁으면 가로로 스크롤할 수 있습니다.">
+            <div id="ladder-diagram">
+              <div id="ladder-players" class="ladder-fields"></div>
+              <svg id="ladder-svg" role="img" aria-label="사다리 경로"></svg>
+              <div id="ladder-outcomes" class="ladder-fields"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="surface-panel" id="result-summary" aria-labelledby="summary-title">
+
+        <h2 id="summary-title">전체 결과</h2>
+        <p id="summary-placeholder">경로 재생이 끝나면 참가자별 결과가 여기에 표시됩니다.</p>
+        <table class="ladder-results" hidden>
+          <thead><tr><th scope="col">참가자</th><th scope="col">결과</th></tr></thead>
+          <tbody id="summary-list"></tbody>
+        </table>
+      </aside>
+    </div>
+    </div>
+  </main>
+</body>
+</html>

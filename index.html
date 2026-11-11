@@ -9,16 +9,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="common/css/index.css">
-<link rel="stylesheet" href="common/css/common.css">
-<script src="common/js/auth.js"></script>
-<script src="common/js/common.js"></script>
+<link rel="stylesheet" href="common/css/pages/index.css">
+<link rel="stylesheet" href="onuri.framework/css/common.css">
+<script src="common/data/site-config.js"></script><script src="onuri.framework/js/auth.js"></script>
+<script src="onuri.framework/js/common.js"></script>
 </head>
 <body data-site-family="portal">
 <!-- 로그인 -->
 <div id="gate">
   <div class="gate-box">
-    <div class="login-art"><img class="page-art" data-page-image src="images/index-hero.png" alt="" width="1536" height="1024" decoding="async"></div>
+    <div class="login-art"><img class="page-art" data-page-image src="common/images/shared/index-hero.png" alt="" width="1536" height="1024" decoding="async"></div>
     <span class="login-eyebrow">WELCOME TO ONURI</span><h2 class="gate-title">배움의 시작, Onuri.</h2>
     <p class="gate-sub">아이디와 비밀번호로 나만의 배움 공간에 들어오세요.</p>
     <div class="field">
@@ -48,8 +48,8 @@
     </div>
     <div class="stage">
       <div class="welcome welcome-full-width" id="welcome">
-        <section class="home-hero"><div class="home-copy"><span class="home-eyebrow">ONURI · LEARN &amp; MAKE</span><h3>생각을 배우고,<br>직접 만드는 즐거움.</h3><p>수업 자료부터 새로운 기술의 이야기까지.<br>배움과 만들기를 이어주는 공간, Onuri.</p><a class="home-explore" href="#home-collections">콘텐츠 둘러보기 <span aria-hidden="true">↓</span></a></div><img class="home-banner" data-page-image src="images/index-banner.png" alt="" width="2172" height="398" decoding="async"></section>
-        <section id="home-collections" class="home-collections"><div class="home-section-heading"><div><span class="home-eyebrow">EXPLORE THE COLLECTION</span><h3>What Will You Explore Today?</h3></div><p>관심 있는 콘텐츠부터 가볍게 시작하세요.</p></div><div id="home-categories" class="home-category-grid"></div></section>
+        <section class="home-hero"><div class="content-frame home-hero-inner"><div class="home-copy"><span class="home-eyebrow">ONURI · LEARN &amp; MAKE</span><h3>생각을 배우고,<br>직접 만드는 즐거움.</h3><p>수업 자료부터 새로운 기술의 이야기까지.<br>배움과 만들기를 이어주는 공간, Onuri.</p><a class="home-explore" href="#home-collections">콘텐츠 둘러보기 <span aria-hidden="true">↓</span></a></div></div><img class="home-banner" data-page-image src="common/images/shared/index-banner.png" alt="" width="2172" height="398" decoding="async"></section>
+        <section id="home-collections" class="home-collections content-frame"><div class="home-section-heading"><div><span class="home-eyebrow">EXPLORE THE COLLECTION</span><h3>What Will You Explore Today?</h3></div><p>관심 있는 콘텐츠부터 가볍게 시작하세요.</p></div><div id="home-categories" class="home-category-grid"></div></section>
       </div>
       <iframe id="frame" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-downloads" title="자료 보기"></iframe>
       <!-- layout:portal-footer -->
@@ -61,9 +61,10 @@
 
 <!-- 암호화된 메뉴 데이터 (menu-builder.html 로 생성) -->
 <script src="common/data/data.enc.js"></script>
+<script src="common/data/page-routes.js"></script>
 
-<script src="common/js/resource-policy.js"></script>
-<script src="common/js/menu-crypto.js"></script>
-<script src="common/js/index.js"></script>
+<script src="common/js/pages/resource-policy.js"></script>
+<script src="onuri.framework/js/menu-crypto.js"></script>
+<script src="common/js/pages/index.js"></script>
 </body>
 </html>

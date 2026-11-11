@@ -1,6 +1,8 @@
-import { versionAssets } from './version-assets.mjs';
+import { versionAssets } from '../../onuri.framework/scripts/version-assets.mjs';
 import { buildReports } from './build-reports.mjs';
 import { buildLayoutPages } from './build-layout-pages.mjs';
+import { buildPageRoutes } from './build-page-routes.mjs';
+import { buildCodingManual } from './build-coding-manual.mjs';
 import { readdir, readFile, mkdir, copyFile, writeFile, stat, rm, cp } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,33 +12,33 @@ async function readOptionalJson(file, fallback) {
   try { return JSON.parse(await readFile(file, 'utf8')); }
   catch (error) { if (error.code === 'ENOENT') return fallback; throw error; }
 }
-async function copyOptional(source, output, relative) {
+async function copyOptional(source, output, relative, destination = relative) {
   try {
-    await mkdir(path.dirname(path.join(output, relative)), { recursive: true });
-    await cp(path.join(source, relative), path.join(output, relative), {
+    await mkdir(path.dirname(path.join(output, destination)), { recursive: true });
+    await cp(path.join(source, relative), path.join(output, destination), {
       recursive: true,
       filter: file => {
         const name = path.basename(file);
         const relative = path.relative(source, file);
         return !['README.md', 'node_modules', '.git', '사용매뉴얼_로그인정보.md'].includes(name)
           && !/^\.(?:env|dev\.vars)(?:\.|$)/.test(name)
-          && relative !== path.join('page_etc', 'gpt-making-manual')
-          && relative !== path.join('page_vibecoding', 'onyou-maker-card', 'generate-gallery.mjs')
-          && relative !== path.join('common', 'images', 'knu', '여기에_사진을_넣으세요.txt');
+          && relative !== path.join('mo_tools', 'docs')
+          && relative !== path.join('vi_vibe', 'vi_onyou', 'generate-gallery.mjs')
+          && relative !== path.join('common', 'images', 'vi.image', 'knu-여기에_사진을_넣으세요.txt');
       },
     });
   } catch (error) { if (error.code !== 'ENOENT') throw error; }
 }
 export async function buildLibrary(source = root, output = path.join(root, '_site'), { dataOnly = false } = {}) {
   if (!dataOnly && path.resolve(output) === path.join(root, '_site')) await rm(output, { recursive: true, force: true });
-  const books = path.join(source, 'books');
+  const books = path.join(source, 'common/file/cl.file');
   const entries = await readdir(books, { withFileTypes: true }).catch(error => {
     if (error.code === 'ENOENT') return [];
     throw error;
   });
   const descriptions = await readOptionalJson(path.join(source, 'common/data/course-descriptions.json'), {});
   // file:// cannot fetch PDFs. Small on-demand JS envelopes let local previews save Blob attachments too.
-  const localDownloads = path.join(source, 'common/data/local-downloads');
+  const localDownloads = path.join(source, 'common/file/local-downloads');
   await mkdir(localDownloads, { recursive: true });
   const items = [];
   for (const entry of entries) {
@@ -57,7 +59,7 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
     const details = descriptions[entry.name] || {};
     const text = key => typeof details[key] === 'string' ? details[key] : '';
     items.push({ number: match[1], title: match[2], filename: entry.name,
-      bytes: (await stat(file)).size, url: `books/${encodeURIComponent(entry.name)}`,
+      bytes: (await stat(file)).size, url: `common/file/cl.file/${encodeURIComponent(entry.name)}`,
       intro: text('intro'), audience: text('audience'), duration: text('duration'),
       outcomes: Array.isArray(details.outcomes) ? details.outcomes.filter(value => typeof value === 'string' && value.trim()) : [] });
   }
@@ -73,32 +75,41 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   if (!dataOnly) await mkdir(path.join(output, "common/data"), { recursive: true });
   await buildReports(source, dataOnly ? undefined : output);
   await buildLayoutPages(source);
+  if ((await readdir(path.join(source, 'mo_tools')).catch(error => {
+    if (error.code === 'ENOENT') return [];
+    throw error;
+  })).includes('mo_coding.html')) await buildCodingManual(source);
   if (dataOnly) {
+    await buildPageRoutes(source);
     console.log(`[자료실] ${items.length}개 교안 목록 갱신 완료 (배포 폴더 생성 안 함)`);
     return items;
   }
   await mkdir(path.join(output, 'common/data'), { recursive: true });
+  await mkdir(path.join(output, 'common/file/cl.file'), { recursive: true });
   await mkdir(path.join(output, 'books'), { recursive: true });
   for (const name of await readdir(source)) {
     if (name.endsWith('.html') && name !== 'menu-builder.html') await copyFile(path.join(source, name), path.join(output, name));
   }
-  for (const folder of ['page_vibecoding', 'page_game', 'page_classroom', 'page_etc', 'page_newsletter']) await copyOptional(source, output, folder);
-  await copyOptional(source, output, 'page_etc/gpt-making-manual/index.html');
+  for (const folder of ['vi_vibe', 'ga_games', 'cl_class', 'mo_tools', 'ne_news']) await copyOptional(source, output, folder);
   for (const relative of ['common/css', 'common/js']) {
     await cp(path.join(source, relative), path.join(output, relative), {
-      recursive: true, filter: file => path.basename(file) !== 'builder.css' && path.basename(file) !== 'builder.js',
+      recursive: true,
     });
   }
-  for (const relative of ['images', 'common/images', 'common/data/computer-quiz', 'common/data/gpt-making-manual.json', 'common/data/data.enc.js', 'common/data/library-data.js', 'CNAME', '.nojekyll', '404.html', 'favicon.ico', 'robots.txt']) await copyOptional(source, output, relative);
-  const routes = await readOptionalJson(path.join(source, 'common/data/page-routes.json'), {});
-  for (const [oldPage, target] of Object.entries(routes)) {
-    if (target === 'page_admin/menu-builder.html') continue;
-    const prefix = '../'.repeat(oldPage.split('/').length - 1);
-    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>페이지 이동</title><script src="${prefix}common/js/auth.js" data-route-alias="true" defer></script></head><body><p>페이지 주소가 변경되었습니다. <a data-redirect href="${prefix}${target}">새 페이지 열기</a></p></body></html>`;
-    await mkdir(path.dirname(path.join(output, oldPage)), { recursive: true });
-    await writeFile(path.join(output, oldPage), html);
+  for (const relative of ['onuri.framework/css', 'onuri.framework/js', 'onuri.framework/images',
+    'onuri.framework/db_connect/browser', 'common/file/browser', 'common/file/vi.file', 'common/data/site-config.js']) {
+    await copyOptional(source, output, relative);
   }
-  for (const item of items) await copyFile(path.join(books, item.filename), path.join(output, 'books', item.filename));
+  await copyOptional(source, output, 'common/file/vi.file', 'vi_vibe/vi_onyou/downloads');
+  for (const relative of ['common/images', 'common/data/computer-quiz', 'common/data/gpt-making-manual.json', 'common/data/data.enc.js', 'common/data/library-data.js', 'CNAME', '.nojekyll', '404.html', 'favicon.ico', 'robots.txt']) await copyOptional(source, output, relative);
+  await buildPageRoutes(source, output);
+  await copyOptional(source, output, 'common/data/coding-manual.js');
+  await copyOptional(source, output, 'common/data/gpt-making-manual.js');
+  for (const item of items) {
+    for (const folder of ['common/file/cl.file', 'books']) {
+      await copyFile(path.join(books, item.filename), path.join(output, folder, item.filename));
+    }
+  }
   await writeFile(path.join(output, 'common/data/library-data.json'), JSON.stringify(items, null, 2) + '\n');
   await versionAssets(output);
   console.log(`[자료실] ${items.length}개 교안 생성 완료 (작업 폴더·배포 폴더 동시 반영)`);

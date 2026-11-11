@@ -3,28 +3,26 @@
     "channel": "ai",
     "title": "AI Newsletter",
     "eyebrow": "ONURI / AI LETTER",
-    "lead": "새로운 기술을 읽고,\n다음 수업의 영감을 발견하세요.",
-    "description": "AI의 변화부터 교육과 일상에 연결되는 생각까지.\n날짜별로 모은 리포트를 차분히 살펴보세요.",
+    "description": "AI의 변화와 교육·일상 속 활용을 살펴보고, 다음 수업의 영감을 발견하세요.",
     "topics": [
       "AI 트렌드",
       "교육과 활용",
       "새로운 관점"
     ],
-    "image": "../images/ai-newsletter-hero.png",
+    "image": "common/images/ne.image/ai-newsletter-hero.png",
     "imageAlt": "책과 지식 카드가 연결된 파스텔톤 일러스트"
   },
   {
     "channel": "making",
     "title": "Making Newsletter",
     "eyebrow": "ONURI / MAKING LETTER",
-    "lead": "아이디어를 발견하고,\n새로운 만들기를 시작하세요.",
-    "description": "디지털 도구부터 재료와 제작의 이야기까지.\n다음 수업에 연결할 메이킹 리포트를 만나보세요.",
+    "description": "디지털 도구와 재료, 제작 사례를 살펴보고 다음 수업의 만들기 아이디어를 찾아보세요.",
     "topics": [
       "디지털 메이킹",
       "도구와 재료",
       "수업 아이디어"
     ],
-    "image": "../images/ai-newsletter-hero.png",
+    "image": "common/images/ne.image/ai-newsletter-hero.png",
     "imageAlt": "열린 책과 아이디어 카드, 입체 오브제가 어우러진 파스텔톤 일러스트"
   }
 ]

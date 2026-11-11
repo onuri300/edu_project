@@ -20,15 +20,15 @@ function pdfFixture() {
 
 test('PDF discovery, names, bytes, URL encoding, additions, deletion, rename and empty state', async () => {
   const source = await mkdtemp(path.join(tmpdir(), 'livinglab-test-'));
-  await mkdir(path.join(source, 'books'));
-  for (const file of ['index.html', 'livinglab-library.html', 'common/data/data.enc.js', 'common/css/index.css', 'common/css/library.css', 'common/js/index.js', 'common/js/library.js', 'common/css/common.css', 'common/js/common.js']) {
+  await mkdir(path.join(source, 'common/file/cl.file'), { recursive: true });
+  for (const file of ['index.html', 'livinglab-library.html', 'common/data/data.enc.js', 'common/css/pages/index.css', 'common/css/pages/cl_library.css', 'common/js/pages/index.js', 'common/js/pages/cl_library.js', 'onuri.framework/css/common.css', 'onuri.framework/js/common.js']) {
     await mkdir(path.dirname(path.join(source, file)), { recursive: true });
     await writeFile(path.join(source, file), 'fixture');
   }
-  await mkdir(path.join(source, 'page_etc'));
-  await writeFile(path.join(source, 'page_etc', '사용매뉴얼_로그인정보.md'), 'private fixture');
-  await writeFile(path.join(source, 'page_etc', '.dev.vars.local'), 'private fixture');
-  const put = (name, content = pdfFixture()) => writeFile(path.join(source, 'books', name), content);
+  await mkdir(path.join(source, 'mo_tools'));
+  await writeFile(path.join(source, 'mo_tools', '사용매뉴얼_로그인정보.md'), 'private fixture');
+  await writeFile(path.join(source, 'mo_tools', '.dev.vars.local'), 'private fixture');
+  const put = (name, content = pdfFixture()) => writeFile(path.join(source, 'common/file/cl.file', name), content);
   await put('007_한글_추가 밑줄 & #.pdf');
   await put('001_AI 음악 만들기.pdf');
   await put('002_우리말 클리커.pdf');
@@ -40,33 +40,33 @@ test('PDF discovery, names, bytes, URL encoding, additions, deletion, rename and
   let run = 0;
   const build = () => buildLibrary(source, path.join(source, `output-${run++}`));
   let items = await build();
-  await assert.rejects(access(path.join(source, 'output-0/page_etc/사용매뉴얼_로그인정보.md')), { code: 'ENOENT' });
-  await assert.rejects(access(path.join(source, 'output-0/page_etc/.dev.vars.local')), { code: 'ENOENT' });
+  await assert.rejects(access(path.join(source, 'output-0/mo_tools/사용매뉴얼_로그인정보.md')), { code: 'ENOENT' });
+  await assert.rejects(access(path.join(source, 'output-0/mo_tools/.dev.vars.local')), { code: 'ENOENT' });
   assert.deepEqual(JSON.parse(await readFile(path.join(source, 'output-0/common/data/library-data.json'), 'utf8')), items);
-  assert.equal(await readFile(path.join(source, 'output-0/common/js/library.js'), 'utf8'), 'fixture');
+  assert.equal(await readFile(path.join(source, 'output-0/common/js/pages/cl_library.js'), 'utf8'), 'fixture');
   assert.match(await readFile(path.join(source, 'common/data/library-data.js'), 'utf8'), /window\.LIVING_LAB_BOOKS/);
   assert.equal(await readFile(path.join(source, 'common/data/library-data.js'), 'utf8'), await readFile(path.join(source, 'output-0/common/data/library-data.js'), 'utf8'));
   assert.deepEqual(items.map(x => x.number), ['001', '002', '007']);
   assert.equal(items[2].title, '한글_추가 밑줄 & #');
   assert.equal(items[0].bytes, pdfFixture().length);
   const localPayload = { window: {} };
-  vm.runInNewContext(await readFile(path.join(source, 'common/data/local-downloads', items[0].filename + '.js'), 'utf8'), localPayload);
+  vm.runInNewContext(await readFile(path.join(source, 'common/file/local-downloads', items[0].filename + '.js'), 'utf8'), localPayload);
   assert.deepEqual(Buffer.from(localPayload.window.__ONURI_LOCAL_PDFS[items[0].filename], 'base64'), pdfFixture());
   assert.equal(items[0].intro, '교사가 확인한 수업 소개');
   assert.equal(items[1].intro, '');
   for (const item of items) {
     const url = new URL(item.url, 'https://example.org/repository/library.html');
-    assert.ok(url.pathname.startsWith('/repository/books/'));
+    assert.ok(url.pathname.startsWith('/repository/common/file/cl.file/'));
     assert.equal(decodeURIComponent(url.pathname.split('/').at(-1)), item.filename);
-    assert.deepEqual(await readFile(path.join(source, 'output-0', 'books', item.filename)), pdfFixture());
+    assert.deepEqual(await readFile(path.join(source, 'output-0', 'common/file/cl.file', item.filename)), pdfFixture());
   }
   await put('004_새 교안.pdf');
   assert.equal((await build()).length, 4);
-  await unlink(path.join(source, 'books', '001_AI 음악 만들기.pdf'));
-  await rename(path.join(source, 'books', '004_새 교안.pdf'), path.join(source, 'books', '008_이름 변경.pdf'));
+  await unlink(path.join(source, 'common/file/cl.file', '001_AI 음악 만들기.pdf'));
+  await rename(path.join(source, 'common/file/cl.file', '004_새 교안.pdf'), path.join(source, 'common/file/cl.file', '008_이름 변경.pdf'));
   items = await build();
   assert.deepEqual(items.map(x => x.number), ['002', '007', '008']);
-  for (const item of items) await unlink(path.join(source, 'books', item.filename));
+  for (const item of items) await unlink(path.join(source, 'common/file/cl.file', item.filename));
   assert.deepEqual(await build(), []);
   const dataOnlyOutput = path.join(source, 'must-not-be-created');
   await buildLibrary(source, dataOnlyOutput, { dataOnly: true });

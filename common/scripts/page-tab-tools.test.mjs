@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
-const script = readFileSync(new URL('../js/common.js', import.meta.url), 'utf8');
+const script = readFileSync(new URL('../../onuri.framework/js/common.js', import.meta.url), 'utf8');
 const root = 'https://example.org/repo/';
 function render(page, { embedded = false, canOpen = true } = {}) {
   const nodes = [], opened = [], callbacks = {};
@@ -28,7 +28,7 @@ function render(page, { embedded = false, canOpen = true } = {}) {
   return { nodes, opened, document, ready: callbacks.DOMContentLoaded };
 }
 test('standalone category pages hide the masthead while the login portal keeps it', () => {
-  for (const page of ['page_newsletter/ai.html#report=one', 'page_newsletter/making.html', 'page_classroom/livinglab-library.html', 'page_game/typing-game.html']) {
+  for (const page of ['ne_news/ne_ai.html#report=one', 'ne_news/ne_making.html', 'cl_class/cl_library.html', 'ga_games/typing-game.html']) {
     assert.equal(render(page).document.documentElement.dataset.standalone, 'true');
     assert.equal(render(page, { embedded: true }).document.documentElement.dataset.standalone, 'false');
   }

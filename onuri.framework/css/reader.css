@@ -1,0 +1,50 @@
+/* Shared document reader: manuals and newsletters. */
+.reading-page { --reading-text: var(--ink); --reading-muted: var(--ink-soft); font-family: var(--font-ui); font-size: 15px; line-height: 1.7; }
+html .reading-content :is(#manual-title,#reader-title) { margin: 8px 0 14px; font-size: clamp(24px, 2.5vw, 32px); line-height: 1.4; letter-spacing: -.03em; font-weight: 700; color: var(--ink); }
+html .reading-content :is(#manual-keyword,#reader-meta) { margin: 0 0 8px; font-size: 13px; line-height: 1.6; font-weight: 500; letter-spacing: .02em; color: var(--accent); }
+html .reading-content :is(#manual-description,#reader-summary) { margin: 0 0 14px; font-size: 16px; line-height: 1.8; font-weight: 400; color: var(--ink-soft); }
+html .reading-sidebar { font-family: var(--font-ui); font-size: 14px; line-height: 1.6; color: var(--ink); }
+html .reading-sidebar :is(#manual-status,#report-count) { margin: 0; font-size: 12px; font-weight: 400; color: var(--ink-soft); }
+html .reading-sidebar #report-count { margin-block: 20px 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+html .reading-sidebar :is(.manual-tree-branch > summary,.report-date) { font: 600 14px/1.6 var(--font-ui); color: var(--ink-soft); }
+html .reading-sidebar .report-date { margin: 16px 0 6px; }
+html .reading-sidebar :is(#manual-list button,.report-item) { display: block; width: 100%; margin: 0; padding: 8px; border: 0; border-radius: 0; box-shadow: none; background: transparent; color: var(--ink); font: 400 14px/1.6 var(--font-ui); text-align: left; overflow-wrap: anywhere; cursor: pointer; }
+html .reading-sidebar :is(#manual-list button,.report-item):hover { background: var(--muted-surface); }
+html .reading-sidebar :is(#manual-list button,.report-item)[aria-current="true"] { background: var(--muted-surface); color: var(--accent); font-weight: 600; }
+html .reading-sidebar .report-item strong { font: inherit; }
+html .reading-sidebar .report-item small { margin-top: 4px; font: 400 12px/1.6 var(--font-ui); color: var(--ink-soft); }
+html .reading-content :is(.manual-document,.reader-markdown,#manual-prompt,#reader-text) { font-family: var(--font-ui); font-size: 16px; line-height: 1.9; }
+html .reading-content :is(.manual-document,.reader-markdown) h1 { font-size: 28px; line-height: 1.4; }
+html .reading-content :is(.manual-document,.reader-markdown) h2 { font-size: 24px; line-height: 1.4; margin-top: 32px; }
+html .reading-content :is(.manual-document,.reader-markdown) h3 { font-size: 20px; line-height: 1.5; margin-top: 24px; }
+html .reading-page { padding-block: 28px 64px; }
+html .reading-layout { display: grid; grid-template-columns: 260px 28px minmax(0,1fr); column-gap: 16px; row-gap: 0; align-items: stretch; margin-top: 0; min-height: 65vh; padding-top: 0; }
+html .reading-layout:is(.manual-sidebar-collapsed,.list-collapsed) { grid-template-columns: 28px minmax(0,1fr); }
+html .reading-sidebar { position: static; min-width: 0; max-height: none; overflow: visible; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+html .reading-layout:is(.manual-sidebar-collapsed,.list-collapsed) .reading-sidebar { display: none; }
+html .reading-sidebar :is(.manual-filters,.report-search-label) { display: grid; gap: 8px; font-size: 13px; }
+html .reading-sidebar .manual-filters { margin-bottom: 20px; gap: 14px; }
+html .reading-sidebar .manual-filters label { display: grid; gap: 8px; }
+html .reading-sidebar :is(input,select) { box-sizing: border-box; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); font: inherit; }
+html .reading-sidebar #manual-list { max-height: none; overflow: visible; }
+html .reading-divider { position: relative; min-height: 180px; }
+html .reading-divider::before { content: ''; position: absolute; inset: 0 auto 0 50%; border-left: 1px solid var(--line); }
+html .reading-divider :is(.manual-sidebar-toggle,.report-toggle) { position: sticky; top: 24px; left: auto; width: 28px; min-width: 0; min-height: 0; margin: 4px 0 0; padding: 8px 0; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--accent); font-size: 20px; line-height: 1.2; z-index: 1; }
+html .reading-content { grid-column: auto; min-width: 0; margin: 0; padding: 0 32px 28px; background: transparent; color: var(--reading-text); border: 0; border-radius: 0; box-shadow: none; overflow-wrap: anywhere; }
+html .reading-content p { color: var(--reading-muted); }
+html .reading-content :is(h1,h2,h3,h4,h5,h6) { color: var(--reading-text); }
+html .reading-content .manual-prompt { background: transparent; }
+html .reading-content :is(.manual-detail-heading,.reader-heading) { padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+html .reading-content .reader-toc { padding: 0 0 20px; margin: 24px 0; background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; }
+@media(max-width:760px) {
+  html .reading-page { padding-block: 20px 48px; }
+  html .reading-layout { grid-template-columns: 210px 28px minmax(0,1fr); column-gap: 10px; }
+  html .reading-content { padding: 0 20px 20px; }
+}
+@media(max-width:600px) {
+  html .reading-layout { grid-template-columns: minmax(0,1fr) 28px; row-gap: 16px; }
+  html .reading-layout .reading-content { grid-column: 1 / -1; }
+  html .reading-layout:is(.manual-sidebar-collapsed,.list-collapsed) { grid-template-columns: 28px minmax(0,1fr); }
+  html .reading-layout:is(.manual-sidebar-collapsed,.list-collapsed) .reading-content { grid-column: 2; }
+  html .reading-content { padding: 0 18px 18px; }
+}

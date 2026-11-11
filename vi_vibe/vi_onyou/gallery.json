@@ -1,0 +1,32 @@
+[
+  {
+    "path": "../../common/images/vi.image/onyou-3d-01_케이블_홀더.webp",
+    "category": "3d",
+    "title": "케이블 홀더"
+  },
+  {
+    "path": "../../common/images/vi.image/onyou-3d-02_네임택.webp",
+    "category": "3d",
+    "title": "네임택"
+  },
+  {
+    "path": "../../common/images/vi.image/onyou-laser-01_아크릴_키링.webp",
+    "category": "laser",
+    "title": "아크릴 키링"
+  },
+  {
+    "path": "../../common/images/vi.image/onyou-laser-02_우드_네임판.webp",
+    "category": "laser",
+    "title": "우드 네임판"
+  },
+  {
+    "path": "../../common/images/vi.image/onyou-resin-01_레진_플라워.webp",
+    "category": "resin",
+    "title": "레진 플라워"
+  },
+  {
+    "path": "../../common/images/vi.image/onyou-resin-02_데코_참.webp",
+    "category": "resin",
+    "title": "데코 참"
+  }
+]

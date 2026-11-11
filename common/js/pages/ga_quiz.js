@@ -1,0 +1,36 @@
+(()=>{const $=id=>document.getElementById(id);let s=JSON.parse(localStorage.getItem("quizSettings")||"null")||{count:10,difficulty:"전체",theme:"light"},quiz=[],idx=0,score=0,answered=false;
+const pool=d=>d==="전체"?QUESTION_BANK:QUESTION_BANK.filter(q=>q.difficulty===d);const shuffle=a=>{a=[...a];for(let i=a.length-1;i;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function save(){localStorage.setItem("quizSettings",JSON.stringify(s))}
+function home(){show("home");sync()}
+function show(id) {
+  document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
+  const screen = $(id);
+  screen.classList.add("active");
+  if (id === "home") window.scrollTo(0, 0);
+  else screen.scrollIntoView({ block: "start" });
+}
+function sync(){let d=document.querySelector('input[name="difficulty"]:checked').value,p=pool(d),i=$("countInput");i.max=p.length;if(+i.value>p.length)i.value=p.length;$("limitNote").textContent=`현재 난이도에서 최대 ${p.length}문제까지 선택할 수 있어요.`}
+function start(){let d=document.querySelector('input[name="difficulty"]:checked').value,p=pool(d),n=+$("countInput").value;if(!Number.isInteger(n)||n<1||n>p.length)return alert(`문제 수는 1~${p.length} 사이로 입력해 주세요.`);quiz=shuffle(p).slice(0,n);idx=0;score=0;show("quiz");render()}
+function renderScore() {
+  const answeredCount = idx + Number(answered);
+  $("score").textContent = score;
+  $("scoreWrong").textContent = answeredCount - score;
+  $("scorePercent").textContent = window.eduUI.roundedPercent(score, answeredCount) + "%";
+}
+function render(){let q=quiz[idx];answered=false;$("progress").textContent=`${idx+1} / ${quiz.length}`;renderScore();$("bar").style.width=`${(idx+1)/quiz.length*100}%`;$("badge").textContent=q.difficulty;$("qid").textContent=`Q.${q.id}`;$("question").textContent=q.question;$("hint").className="hint hidden";$("feedback").className="feedback hidden";$("nextBtn").disabled=true;$("nextBtn").textContent=idx===quiz.length-1?"결과 보기 →":"다음 문제 →";let arr=shuffle(q.options.map((text,i)=>({text,i}))),o=$("options");o.innerHTML="";arr.forEach((x,i)=>{let b=document.createElement("button");b.className="option";b.type="button";b.textContent=`${String.fromCharCode(65+i)}  ${x.text}`;b.onclick=()=>answer(x.i,b);o.appendChild(b)})}
+function answer(choice,clicked){if(answered)return;answered=true;let q=quiz[idx],bs=[...$("options").children];bs.forEach((b,i)=>{let original=quiz[idx].options.indexOf(b.textContent.slice(3));if(original===q.answer)b.classList.add("correct")});if(choice===q.answer){score++;$("feedback").textContent="✓ 정답이에요! "+q.explanation}else $("feedback").textContent="○ 아쉬워요. "+q.explanation;$("feedback").className="feedback";renderScore();$("nextBtn").disabled=false;if(choice!==q.answer)clicked.classList.add("wrong")}
+$("nextBtn").onclick=()=>{if(!answered)return;if(idx<quiz.length-1){idx++;render()}else result()};
+function result(){let pct=window.eduUI.roundedPercent(score, quiz.length);$("finalScore").textContent=pct;$("correct").textContent=score;$("total").textContent=quiz.length;$("percent").textContent=pct+"%";$("resultMsg").textContent=pct===100?"100점! 완벽한 탐험이에요.":pct>=80?"멋진 결과예요! 조금 더 알아보면 더 강해질 수 있어요.":pct>=60?"좋아요! 틀린 문제를 다시 살펴보세요.":"괜찮아요. 다시 도전하며 하나씩 알아가면 됩니다.";show("result")}
+$("hintBtn").onclick=()=>{$("hint").textContent="💡 힌트: "+quiz[idx].hint;$("hint").className="hint"};
+$("startBtn").onclick=start;$("retry").onclick=start;$("homeBtn").onclick=e=>{e.preventDefault();home()};$("resultHome").onclick=home;document.querySelectorAll('input[name="difficulty"]').forEach(x=>x.onchange=sync);
+window.eduGameAdmin.bindGameAdmin(() => {
+  $("st").textContent = QUESTION_BANK.length;
+  $("se").textContent = pool("하").length;
+  $("sm").textContent = pool("중").length;
+  $("sh").textContent = pool("상").length;
+  $("adminCount").value = s.count;
+  $("adminDifficulty").value = s.difficulty;
+});
+$("saveAdmin").onclick=()=>{let d=$("adminDifficulty").value,n=Math.min(+$("adminCount").value||10,pool(d).length);s={...s,count:Math.max(1,n),difficulty:d};save();document.querySelector(`input[name="difficulty"][value="${d}"]`).checked=true;$("countInput").value=s.count;sync();$("saved").classList.remove("hidden");setTimeout(()=>$("saved").classList.add("hidden"),1500)};
+let r=document.querySelector(`input[name="difficulty"][value="${s.difficulty}"]`);if(r)r.checked=true;$("countInput").value=s.count;sync()
+})()

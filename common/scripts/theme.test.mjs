@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 
-const code = readFileSync(new URL('../js/common.js', import.meta.url), 'utf8');
+const code = readFileSync(new URL('../../onuri.framework/js/common.js', import.meta.url), 'utf8');
 function setup({ saved = null, dark = false, blocked = false } = {}) {
   const listeners = {};
   const buttons = ['light', 'dark'].map(theme => ({
@@ -17,7 +17,7 @@ function setup({ saved = null, dark = false, blocked = false } = {}) {
     querySelector: () => toolbarInserted ? {} : null,
     createElement: () => ({ firstElementChild: {} }),
     body: { prepend: () => { toolbarInserted = true; } },
-    querySelectorAll: () => buttons,
+    querySelectorAll: selector => selector === '[data-set-theme]' ? buttons : [],
     addEventListener: (name, callback) => { listeners[name] = callback; },
   };
   const media = { matches: dark, addEventListener: (_, callback) => { listeners.system = callback; } };
