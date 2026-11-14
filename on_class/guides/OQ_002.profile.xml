@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+  <item>스톱워치</item>
+  <role>일정 관리·수업 운영</role>
+  <image>studio-004-profile.png</image>
+  <duties>
+    <duty>수업일을 기준으로 기획·샘플·교안·검수 마감일을 정합니다.</duty>
+    <duty>팀 간 의존 일정과 지연 영향을 파트장에게 공유합니다.</duty>
+    <duty>리허설을 진행해 활동 시간을 재고 확정 일정표를 배포합니다.</duty>
+  </duties>
+  <outfit>청록 헤드폰, 청바지 멜빵, 색색의 메모</outfit>
+  <review>자기 속도로 연습하기 쉽습니다. 초보자 기준으로 시간을 재고 여유 시간을 둡니다.</review>
+  <mission>수업일에 맞춰 팀별 산출물이 준비되도록 일정과 리허설을 관리합니다.</mission>
+  <identity>마감과 리허설을 조율하는 운영자</identity>
+  <birthDate></birthDate>
+  <strengths>시연, 개인 작업, 질문 시간을 현실적으로 배분합니다.</strengths>
+  <deliverable>전체 마감표를 관리하고 리허설 시간과 지연 요인을 공유한다.</deliverable>
+  <personality>집중력이 높고 전환 시점을 잘 읽습니다.</personality>
+  <name>박자</name>
+  <rank>1</rank>
+</employee>

@@ -13,6 +13,7 @@
   <script src="../onuri.framework/js/common.js"></script>
   <script src="../onuri.framework/db_connect/browser/supabase-2.119.0.js" defer></script>
   <script src="../onuri.framework/db_connect/browser/notice-client.js" defer></script>
+  <script src="../common/js/pages/mk_xml.js" defer></script>
   <script src="../common/js/pages/mk_people.js" defer></script>
 </head>
 <body class="resource-page" data-site-family="portal">
@@ -109,16 +110,11 @@
                 </dl>
               </div>
             </div>
-            <details class="staff-section staff-extra">
-              <summary>캐릭터 설정과 업무 보완점</summary>
-              <dl>
-                <dt>캐릭터 의상과 소품</dt>
-                <dd id="staff-outfit"></dd>
-                <dt>업무 소품</dt>
-                <dd id="staff-item"></dd>
-              </dl>
-            </details>
-            <section class="staff-section" aria-labelledby="staff-evaluation-title">
+            <div class="staff-detail-tabs" role="tablist" aria-label="직원 기록">
+              <button class="onuri-button" id="staff-evaluation-tab" type="button" role="tab" aria-selected="true" aria-controls="staff-evaluation-panel">업무평가</button>
+              <button class="onuri-button" id="staff-guide-tab" type="button" role="tab" aria-selected="false" aria-controls="staff-guide-panel" tabindex="-1">지침서</button>
+            </div>
+            <section id="staff-evaluation-panel" class="staff-record-panel" role="tabpanel" aria-labelledby="staff-evaluation-tab">
               <div class="staff-evaluation-heading">
                 <h3 id="staff-evaluation-title">업무 평가</h3>
                 <div class="staff-edit-actions">
@@ -145,6 +141,21 @@
                 <thead><tr><th scope="col">평가내용</th><th scope="col">별점</th><th scope="col">평가일시</th></tr></thead>
                 <tbody id="staff-evaluations"></tbody>
               </table></div>
+            </section>
+            <section id="staff-guide-panel" class="staff-record-panel" role="tabpanel" aria-labelledby="staff-guide-tab" hidden>
+              <div class="staff-evaluation-heading">
+                <h3>지침서</h3>
+                <div class="staff-edit-actions">
+                  <button class="onuri-button" type="submit" form="staff-guide-form" disabled>저장</button>
+                  <button class="onuri-button onuri-button-danger" id="staff-guide-delete" type="button" disabled>삭제</button>
+                </div>
+              </div>
+              <form id="staff-guide-form" class="staff-evaluation-form">
+                <label for="staff-guide-prompt">캐릭터 지침 프롬프트
+                  <textarea id="staff-guide-prompt" rows="12" maxlength="16000" required></textarea>
+                </label>
+                <p id="staff-guide-status" role="status"></p>
+              </form>
             </section>
           </article>
         </section>

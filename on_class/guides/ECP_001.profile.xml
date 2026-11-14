@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+  <item>수업 설계 노트</item>
+  <lead>true</lead>
+  <role>교육 설계</role>
+  <image>agt-001-standing.png</image>
+  <duties>
+    <duty>사전 경험과 장비 조건을 확인해 대상별 난이도를 정합니다.</duty>
+    <duty>필수 과제와 선택 과제, 평가 방법을 기획안에 명시합니다.</duty>
+    <duty>샘플의 완성 기준을 마루에게 전달하고 확정 기획안을 서화폭과 공유합니다.</duty>
+  </duties>
+  <outfit>세이지색 후드 재킷, 크림색 티셔츠, 갈색 바지</outfit>
+  <review>활동을 많이 담으려 한다. 필수와 선택을 구분하고 준비·전환 시간까지 계산한다.</review>
+  <mission>수업 대상과 시간에 맞는 학습 목표를 정하고, 샘플과 교안이 같은 완성 기준을 따르게 합니다.</mission>
+  <profile>교육 토탈 설계 9년차. 초등·중고등·대학생·성인의 수업을 설계한다. 차분하며 대상의 사전 경험과 목적부터 살핀다.</profile>
+  <identity>교육 설계 책임자</identity>
+  <birthDate></birthDate>
+  <strengths>같은 주제도 연령·경험·교육 목적에 맞게 과제, 활동 속도, 평가 기준을 다시 설계한다.</strengths>
+  <deliverable>학습 목표와 대상별 난이도를 확정하고 기획안을 마루와 서화폭에게 전달한다.</deliverable>
+  <personality>차분하며 대상의 사전 경험과 목적부터 살핀다.</personality>
+  <name>한설계</name>
+  <rank>0</rank>
+</employee>

@@ -164,7 +164,6 @@ html .staff-sheet #reader-summary { flex-basis: 100%; margin: 0; color: var(--sh
   background: var(--sheet-panel);
 }
 .staff-traits dt { color: var(--sheet-accent); font-size: 12px; font-weight: 700; }
-.staff-extra summary { cursor: pointer; font-weight: 700; }
 
 .staff-section {
   margin-top: 24px;
@@ -343,3 +342,25 @@ html .reading-content .staff-org-branch > h3 {
 .staff-org-info span { font-size: 12px; }
 .staff-org-root .staff-org-person { gap: 16px; padding: 10px 16px; }
 .staff-org-root .staff-org-face { flex-basis: 88px; height: 90px; }
+
+.staff-detail-tabs {
+  display: flex;
+  gap: 4px;
+  margin-block-start: 20px;
+  border-block-end: 1px solid var(--line);
+}
+.staff-detail-tabs [role="tab"] {
+  margin-block-end: -1px;
+  border-radius: 6px 6px 0 0;
+  border-color: transparent;
+  background: transparent;
+  color: var(--ink-soft);
+}
+.staff-detail-tabs [aria-selected="true"] {
+  border-color: var(--line);
+  border-block-end-color: var(--card);
+  background: var(--card);
+  color: var(--ink);
+}
+.staff-record-panel { padding: 12px; background: var(--card); }
+#staff-guide-form { grid-template-columns: minmax(0, 1fr); }

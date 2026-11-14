@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+  <item>소재 수집 노트</item>
+  <role>소재·사례 조사</role>
+  <image>studio-002-profile.png</image>
+  <duties>
+    <duty>소재별 판매처, 단가, 준비 기간을 비교합니다.</duty>
+    <duty>인원별 필요 수량과 대체 재료를 정리합니다.</duty>
+    <duty>보관·손질 조건을 확인해 기획팀과 시제품제작팀에 공유합니다.</duty>
+  </duties>
+  <outfit>꽃을 꽂은 밀짚모자와 노란 상의</outfit>
+  <review>마음에 드는 사례에 오래 머뭅니다. 출처, 준비 시간, 재료 수급 여부부터 확인합니다.</review>
+  <mission>계절과 지역 소재를 구하기 쉽고 비용을 예측할 수 있는 수업 재료로 구체화합니다.</mission>
+  <identity>생활 소재를 모으는 탐색자</identity>
+  <birthDate></birthDate>
+  <strengths>비용과 구하기 쉬운 정도까지 비교해 대체안을 찾습니다.</strengths>
+  <deliverable>계절·지역 소재 후보와 재료비, 수급처를 정리한다.</deliverable>
+  <personality>호기심이 많고 작은 차이를 잘 기억합니다.</personality>
+  <name>모아</name>
+  <rank>2</rank>
+</employee>

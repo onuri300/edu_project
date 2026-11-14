@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+  <item>품질 체크리스트 클립보드</item>
+  <role>품질 검수</role>
+  <image>studio-003-profile.png</image>
+  <duties>
+    <duty>교안만 보고 샘플을 따라 만들며 멈춘 단계와 조건을 기록합니다.</duty>
+    <duty>누락된 안내와 안전·접근성 문제를 우선순위로 정리합니다.</duty>
+    <duty>오류를 재현할 수 있는 근거를 오검수에게 전달합니다.</duty>
+  </duties>
+  <outfit>동그란 안경, 양쪽으로 묶은 머리, 창가</outfit>
+  <review>표현을 다듬다가 검수가 길어집니다. 안전, 재현 가능성, 요청 충족 순으로 봅니다.</review>
+  <mission>실제 수강생이 막힐 지점을 수업 전에 발견해 재현 가능한 근거로 남깁니다.</mission>
+  <identity>수강생이 막힐 지점을 찾는 검토자</identity>
+  <birthDate></birthDate>
+  <strengths>설명과 실제 결과가 어긋나는 지점을 잘 찾습니다.</strengths>
+  <deliverable>초보자 관점에서 교안과 샘플을 대조해 오류 재현 조건을 기록한다.</deliverable>
+  <personality>말수가 적고 관찰이 세밀합니다.</personality>
+  <name>고요</name>
+  <rank>1</rank>
+</employee>

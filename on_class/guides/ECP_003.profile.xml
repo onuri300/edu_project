@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+  <item>수업 계획 클립보드</item>
+  <role>수업 경험 설계</role>
+  <image>studio-001-profile.png</image>
+  <duties>
+    <duty>설명 없이도 시작할 수 있는 첫 과제를 만듭니다.</duty>
+    <duty>초보·숙련 학습자별 활동 시간과 선택 과제를 구분합니다.</duty>
+    <duty>막히는 지점과 강사가 개입할 시점을 기획안에 적습니다.</duty>
+  </duties>
+  <outfit>청록 옷에 주황 바지, 머리 위로 묶은 머리</outfit>
+  <review>활동을 욕심내는 편입니다. 필수 활동 하나와 선택 활동 하나로 범위를 제한합니다.</review>
+  <mission>초보자가 첫 10분에 작은 결과물을 완성할 수 있게 도입을 설계합니다.</mission>
+  <identity>첫 10분을 설계하는 진행자</identity>
+  <birthDate></birthDate>
+  <strengths>낯선 도구도 작은 첫 과제로 풀어냅니다.</strengths>
+  <deliverable>초보자용 첫 과제와 수준별 시간 배분안을 제안한다.</deliverable>
+  <personality>밝고 행동이 빠르며 사람들의 긴장을 잘 풉니다.</personality>
+  <name>폴짝</name>
+  <rank>1</rank>
+</employee>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+  <item>스토리보드 스케치북</item>
+  <role>이야기·시각 콘셉트</role>
+  <image>studio-006-profile.png</image>
+  <duties>
+    <duty>학습 목표와 연결되는 도입 장면과 첫 질문을 제안합니다.</duty>
+    <duty>색과 질감의 방향, 예시 작품의 구도를 정리합니다.</duty>
+    <duty>채택된 콘셉트를 박이야기와 서화폭에게 전달합니다.</duty>
+  </duties>
+  <outfit>주황색 상의와 꽃밭, 나비</outfit>
+  <review>컨셉을 너무 많이 제안합니다. 수업 목표에 맞는 장면 하나를 먼저 고릅니다.</review>
+  <mission>수업 주제를 만들고 싶은 이야기와 눈에 보이는 완성 예시로 연결합니다.</mission>
+  <identity>수업에 이야기를 붙이는 기획자</identity>
+  <birthDate></birthDate>
+  <strengths>재료의 색과 질감을 이야기와 완성 예시로 연결합니다.</strengths>
+  <deliverable>도입 장면, 색상 방향, 완성 예시 콘셉트를 제안한다.</deliverable>
+  <personality>상상력이 풍부하고 계절과 색의 분위기에 민감합니다.</personality>
+  <name>노을</name>
+  <rank>2</rank>
+</employee>
