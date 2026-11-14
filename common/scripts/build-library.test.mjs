@@ -25,9 +25,9 @@ test('PDF discovery, names, bytes, URL encoding, additions, deletion, rename and
     await mkdir(path.dirname(path.join(source, file)), { recursive: true });
     await writeFile(path.join(source, file), 'fixture');
   }
-  await mkdir(path.join(source, 'mo_tools'));
-  await writeFile(path.join(source, 'mo_tools', '사용매뉴얼_로그인정보.md'), 'private fixture');
-  await writeFile(path.join(source, 'mo_tools', '.dev.vars.local'), 'private fixture');
+  await mkdir(path.join(source, 'do_docs'), { recursive: true });
+  await writeFile(path.join(source, 'do_docs', '사용매뉴얼_로그인정보.md'), 'private fixture');
+  await writeFile(path.join(source, 'do_docs', '.dev.vars.local'), 'private fixture');
   const put = (name, content = pdfFixture()) => writeFile(path.join(source, 'common/file/cl.file', name), content);
   await put('007_한글_추가 밑줄 & #.pdf');
   await put('001_AI 음악 만들기.pdf');
@@ -40,8 +40,8 @@ test('PDF discovery, names, bytes, URL encoding, additions, deletion, rename and
   let run = 0;
   const build = () => buildLibrary(source, path.join(source, `output-${run++}`));
   let items = await build();
-  await assert.rejects(access(path.join(source, 'output-0/mo_tools/사용매뉴얼_로그인정보.md')), { code: 'ENOENT' });
-  await assert.rejects(access(path.join(source, 'output-0/mo_tools/.dev.vars.local')), { code: 'ENOENT' });
+  await assert.rejects(access(path.join(source, 'output-0/do_docs/사용매뉴얼_로그인정보.md')), { code: 'ENOENT' });
+  await assert.rejects(access(path.join(source, 'output-0/do_docs/.dev.vars.local')), { code: 'ENOENT' });
   assert.deepEqual(JSON.parse(await readFile(path.join(source, 'output-0/common/data/library-data.json'), 'utf8')), items);
   assert.equal(await readFile(path.join(source, 'output-0/common/js/pages/cl_library.js'), 'utf8'), 'fixture');
   assert.match(await readFile(path.join(source, 'common/data/library-data.js'), 'utf8'), /window\.LIVING_LAB_BOOKS/);

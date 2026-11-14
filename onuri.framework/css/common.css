@@ -336,6 +336,14 @@ html .resource-hero-image {
   background: linear-gradient(90deg, var(--hero) 38%, color-mix(in srgb, var(--hero) 90%, transparent) max(49%, calc(var(--banner-copy-width) + var(--content-gutter))), transparent max(68%, 520px));
   pointer-events: none;
 }
+.resource-hero-compact {
+  min-height: 180px;
+  padding-block: 20px;
+  align-items: center;
+}
+.resource-hero-compact .resource-hero-copy h1 {
+  font-size: clamp(26px, 3vw, 38px);
+}
 @media (max-width: 760px) {
   .resource-hero {
     min-height: 0;
@@ -355,6 +363,15 @@ html .resource-hero-image {
     height: clamp(112px, 22vw, 160px);
   }
   .resource-hero::after { content: none; }
+  .resource-hero-compact,
+  .resource-hero-compact:has(.resource-hero-topics) {
+    grid-template-rows: auto auto;
+    padding: 0;
+  }
+  .resource-hero-compact .resource-hero-copy { padding-block: 14px; }
+  html .resource-hero-compact .resource-hero-image {
+    height: clamp(56px, 11vw, 80px);
+  }
 }
 .resource-actions {
   display: flex;
@@ -545,12 +562,57 @@ html .mbti-progress { margin: 0; }
 /* The portal stage owns vertical scrolling; embedded documents grow with content. */
 html:has(body > #app), html body:has(> #app) { overflow: hidden; }
 html body:has(> #app) #app main { min-height: 0; }
-html body:has(> #app) .crumb { flex-shrink: 0; }
-html body:has(> #app) .stage { overflow-y: auto; overflow-x: hidden; }
+html body:has(> #app) .crumb { flex-shrink: 0; overflow: hidden; scrollbar-gutter: stable; }
+html body:has(> #app) .stage {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+html body:has(> #app) .stage > :is(#welcome, .onuri-footer) { flex-shrink: 0; }
+html body:has(> #app) .stage > .onuri-footer {
+  margin-block-start: auto;
+  border-block-start: 40px solid var(--paper);
+}
 html body:has(> #app) #frame { flex-shrink: 0; }
+html:not([data-embedded="true"]) body:not(:has(> #app)):has(> footer) {
+  box-sizing: border-box;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+html:not([data-embedded="true"]) body:not(:has(> #app)):has(> footer) > main {
+  flex: 1 0 auto;
+  min-width: 0;
+}
 html[data-portal-autoheight="true"], html[data-portal-autoheight="true"] body {
   height: auto !important;
   min-height: 0 !important;
   overflow: hidden !important;
 }
 html[data-portal-autoheight="true"] #manual-list { max-height: none; overflow-y: visible; }
+
+/* Shared form and action buttons */
+.onuri-button {
+  min-height: 34px;
+  padding: 6px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--muted-surface);
+  color: var(--accent);
+  font: 600 13px/1.4 var(--font-ui);
+  cursor: pointer;
+}
+.onuri-button:hover:enabled { background: var(--card); }
+.onuri-button:disabled { opacity: .5; cursor: default; }
+.onuri-button-danger { background: var(--card); border-color: var(--line); color: var(--ink); }
+.onuri-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

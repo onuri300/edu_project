@@ -7,7 +7,7 @@ const context = { window: {}, URL };
 vm.runInNewContext(readFileSync(new URL('../js/pages/resource-policy.js', import.meta.url), 'utf8'), context);
 test('PDF popups from the local library escape the sandbox on Pages and local file previews', () => {
   for (const base of ['https://example.org/repository/index.html', 'file:///D:/project/edu_project/index.html']) {
-    const sandbox = context.window.eduResourcePolicy.sandboxFor('./cl_class/cl_library.html', base);
+    const sandbox = context.window.eduResourcePolicy.sandboxFor('./vi_vibe/vi_library.html', base);
     assert.ok(sandbox.split(' ').includes('allow-popups-to-escape-sandbox'));
     assert.ok(sandbox.split(' ').includes('allow-downloads'));
   }

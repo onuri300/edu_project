@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko" class="layout-reset">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Flashcards</title>
+<link rel="stylesheet" href="../../common/css/pages/ga_cards.css">
+<link rel="stylesheet" href="../../onuri.framework/css/common.css">
+<script src="../../common/data/site-config.js"></script><script src="../../onuri.framework/js/auth.js"></script>
+<script src="../../onuri.framework/js/common.js"></script>
+<script src="../../common/js/pages/ga_admin.js"></script>
+</head>
+<body class="resource-page" data-site-family="game">
+<header class="game-toolbar"><div class="game-toolbar-inner">
+  <a href="#" id="homeBtn"><span class="game-toolbar-icon" aria-hidden="true">⌘</span><b>IT Flashcards</b></a>
+  <button id="adminBtn" type="button" aria-haspopup="dialog">⚙ Admin Mode</button>
+</div></header>
+<!-- layout:resource-hero -->
+<section class="resource-hero resource-hero-compact" aria-labelledby="resource-title">
+  <div class="resource-hero-copy">
+    <p class="resource-hero-kicker">ONURI / PLAY TOGETHER</p>
+    <h1 id="resource-title">IT 플래시카드</h1>
+    <p class="resource-hero-description">설명을 읽고 키워드를 떠올려 보세요. 카드를 클릭하면 키워드가 나타납니다.</p>
+  </div>
+  <img class="page-art resource-hero-image" data-page-image src="../../common/images/ga.image/computer-quiz-hero.png" width="1536" height="1024" decoding="async" alt="">
+</section>
+<!-- /layout:resource-hero -->
+<div class="wrap">
+
+  <main id="studyView">
+
+
+    <div class="progress-row">
+      <span id="progressText">1 / 10</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:10%"></div></div>
+    </div>
+
+    <div class="game-study-layout">
+    <div class="game-study-main">
+    <div id="cardArea">
+      <div class="card-stage">
+        <div class="flashcard" id="flashcard">
+          <div class="face front">
+            <span class="face-label">설명</span>
+            <div class="face-text" id="questionText">문제 텍스트</div>
+            <div class="face-hint">카드를 클릭하면 키워드가 보여요</div>
+          </div>
+          <div class="face back">
+            <span class="face-label">키워드</span>
+            <div class="face-text" id="answerText">정답 텍스트</div>
+            <div class="face-hint">다시 클릭하면 설명으로 돌아가요</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="judge-row">
+        <button class="judge-btn correct" id="btnCorrect">✅ 정답이었어요</button>
+        <button class="judge-btn wrong" id="btnWrong">❌ 틀렸어요</button>
+      </div>
+
+      <div class="nav-row">
+        <button class="nav-btn" id="btnPrev">◀ 이전 문제</button>
+        <button class="nav-btn" id="btnNext">다음 문제 ▶</button>
+      </div>
+
+
+
+    </div>
+
+    <div id="endArea" style="display:none;" class="end-screen">
+      <h2>🎉 학습 완료!</h2>
+      <p>모든 카드를 다 풀었어요</p>
+      <div class="end-score" id="endScore">0 / 0</div>
+      <button class="primary-btn" id="btnRestart">다시 풀기</button>
+    </div>
+
+    </div>
+    <aside class="game-score-panel flash-results" aria-labelledby="flash-results-title">
+      <h2 id="flash-results-title">학습 결과</h2>
+      <div class="score-panel" aria-live="polite">
+        <div class="score-box correct"><div class="num" id="scoreCorrect">0</div><div class="lbl">정답</div></div>
+        <div class="score-box wrong"><div class="num" id="scoreWrong">0</div><div class="lbl">오답</div></div>
+        <div class="score-box"><div class="num" id="scorePercent">0%</div><div class="lbl">정답률</div></div>
+      </div>
+    </aside>
+    </div>
+  </main>
+
+  <dialog id="modal" class="game-admin-dialog" aria-label="Admin Mode">
+    <button id="close" class="game-admin-close" type="button" aria-label="닫기">×</button>
+    <form id="login">
+      <p>ADMIN MODE</p>
+      <h2 id="admin-login-title">관리자 로그인</h2>
+      <label for="password">관리자 비밀번호</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <p id="error" role="alert" hidden>비밀번호가 올바르지 않습니다.</p>
+      <button type="submit" class="game-admin-action">로그인</button>
+    </form>
+    <div id="panel" hidden>
+    <div class="admin-panel">
+      <h2>➕ 새 카드 추가</h2>
+      <div class="form-grid">
+        <div>
+          <label for="inpQuestion">문제 (키워드)</label>
+          <input type="text" id="inpQuestion" placeholder="예: API">
+        </div>
+        <div>
+          <label for="inpAnswer">정답 (설명)</label>
+          <textarea id="inpAnswer" placeholder="예: 서로 다른 프로그램이 데이터를 주고받기 위한 규칙과 방법"></textarea>
+        </div>
+        <div class="form-row-2">
+          <div>
+            <label for="inpCategory">카테고리</label>
+            <input type="text" id="inpCategory" placeholder="예: 개발 기초" list="catList">
+            <datalist id="catList"></datalist>
+          </div>
+          <div></div>
+        </div>
+        <div class="error-msg" id="formError" style="display:none;"></div>
+        <button class="primary-btn" id="btnAddCard">카드 추가하기</button>
+      </div>
+
+      <h2>📋 전체 카드 (<span id="cardCount">0</span>개)</h2>
+      <div class="card-list" id="cardListArea"></div>
+
+      <div style="margin-top:18px; display:flex; gap:10px;">
+        <button class="ghost-btn" id="btnExport">내보내기(JSON 복사)</button>
+        <button class="ghost-btn" id="btnResetAll">기본 데이터로 초기화</button>
+      </div>
+    </div>
+      <button type="button" data-admin-lock class="ghost-btn">관리자 로그아웃</button>
+    </div>
+  </dialog>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../../common/js/pages/ga_cards.js"></script>
+</body>
+</html>

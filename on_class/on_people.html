@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>인사관리 · Onuri.</title>
+  <link rel="stylesheet" href="../onuri.framework/css/common.css">
+  <link rel="stylesheet" href="../common/css/pages/ne_reader.css">
+  <link rel="stylesheet" href="../onuri.framework/css/reader.css">
+  <link rel="stylesheet" href="../common/css/pages/mk_people.css">
+  <script src="../common/data/site-config.js"></script>
+  <script src="../onuri.framework/js/auth.js"></script>
+  <script src="../onuri.framework/js/common.js"></script>
+  <script src="../onuri.framework/db_connect/browser/supabase-2.119.0.js" defer></script>
+  <script src="../onuri.framework/db_connect/browser/notice-client.js" defer></script>
+  <script src="../common/js/pages/mk_people.js" defer></script>
+</head>
+<body class="resource-page" data-site-family="portal">
+  <main>
+<!-- layout:resource-hero -->
+<section class="resource-hero resource-hero-compact" aria-labelledby="resource-title">
+  <div class="resource-hero-copy">
+    <p class="resource-hero-kicker">ONURI / onuriClass</p>
+    <h1 id="resource-title">인사관리</h1>
+    <p class="resource-hero-description">오누리 프로젝트 에이전트의 역할과 담당 업무를 확인하세요.</p>
+  </div>
+  <img class="page-art resource-hero-image" data-page-image src="../common/images/shared/index-hero.png" width="1536" height="1024" decoding="async" alt="">
+</section>
+<!-- /layout:resource-hero -->
+    <div class="newsletter reading-page">
+      <section class="staff-world" aria-labelledby="staff-world-title">
+        <h2 id="staff-world-title">오누리 작업실</h2>
+        <p>동네에서 발견한 소재를 누구나 손으로 만들어 볼 수 있는 수업으로 바꿉니다.</p>
+        <details>
+          <summary>파트장과 단계별 전달 순서</summary>
+          <p>사용자는 전체 총괄 오누리에게 요청합니다. 오누리는 대상, 일정, 산출물, 완료 기준을 정리해 필요한 팀의 파트장에게 배정합니다. 파트장은 팀원에게 업무를 나누고, 결과물과 남은 쟁점을 다음 파트장과 오누리에게 공유합니다.</p>
+          <ol>
+            <li><strong>사용자 → 오누리 → 각 파트장</strong> · 오누리가 요청을 접수하고 한설계, 마루, 서화폭, 오검수에게 필요한 업무와 마감일을 배정합니다.</li>
+            <li><strong>한설계 → 마루</strong> · 교육·콘텐츠기획팀이 정한 수업 대상, 학습 목표, 콘텐츠 방향과 샘플의 완성 기준을 전달합니다. 교안제작팀장 서화폭도 확정 기획안을 공유받습니다.</li>
+            <li><strong>마루 → 서화폭</strong> · 시제품제작팀이 검증한 샘플, 사진, 재료 목록, 조작 순서, 소요 시간과 주의점을 전달합니다.</li>
+            <li><strong>서화폭 → 오검수</strong> · 교안제작팀이 맞춰 본 슬라이드, 활동지, 음성 안내와 강사 진행안을 전달합니다. 설명과 샘플이 어긋나면 마루와 먼저 확인합니다.</li>
+            <li><strong>오검수 → 담당 파트장</strong> · 리허설과 최종 검수에서 나온 수정 사항에 수정 위치와 통과 기준을 붙여 돌려보냅니다. 재검수 후 박자는 확정 일정을 공유하고, 정기록은 승인본과 수업 후 개선점을 기록합니다.</li>
+            <li><strong>오검수 → 오누리 → 사용자</strong> · 오누리가 검수된 결과물, 채택된 아이디어의 제안자, 다음 교안에 적용할 개선점을 모아 사용자에게 보고합니다.</li>
+          </ol>
+        </details>
+      </section>
+      <form id="staff-db-login" class="staff-evaluation-form" method="post" autocomplete="on">
+        <label for="staff-username">아이디 (관리자 이메일)
+          <input id="staff-username" name="username" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+        </label>
+        <label for="staff-password">비밀번호
+          <input id="staff-password" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="onuri-button" type="submit">인사관리 DB 로그인</button>
+        <button id="staff-login-new-tab" class="onuri-button" type="button" hidden>새 탭에서 로그인</button>
+      </form>
+      <p id="staff-db-status" role="status"></p>
+      <div class="reading-layout" id="staff-workspace" hidden>
+        <aside id="staff-sidebar" class="reading-sidebar" aria-label="직원 검색과 목록">
+          <label class="report-search-label">직원 검색
+            <input id="staff-search" type="search" placeholder="이름·소속 팀·역할 검색">
+          </label>
+          <button id="staff-org-toggle" class="onuri-button staff-org-toggle" type="button" aria-controls="staff-org">조직도</button>
+          <div class="staff-list-toolbar">
+            <p id="report-count" role="status"></p>
+            <div class="staff-list-actions" role="group" aria-label="팀 목록 전체 제어">
+              <button id="staff-expand-all" type="button" aria-label="전체 펼치기" title="전체 펼치기">+</button>
+              <button id="staff-collapse-all" type="button" aria-label="전체 접기" title="전체 접기">−</button>
+            </div>
+          </div>
+          <div id="staff-list" aria-label="팀별 직원 목록"></div>
+        </aside>
+        <div class="reading-divider">
+          <button id="staff-toggle" class="report-toggle" type="button" aria-controls="staff-sidebar" aria-expanded="true" aria-label="직원 목록 접기">‹</button>
+        </div>
+        <section class="reading-content" aria-label="인사카드">
+          <p id="staff-placeholder">왼쪽 목록에서 직원을 선택하세요.</p>
+          <section id="staff-org" hidden aria-labelledby="staff-org-title">
+            <h2 id="staff-org-title" tabindex="-1">오누리 작업실 조직도</h2>
+            <div id="staff-org-teams" class="staff-org-teams"></div>
+          </section>
+          <article id="staff-card" hidden aria-labelledby="reader-title">
+            <div class="staff-profile">
+              <div class="staff-portrait">
+                <img id="staff-image" alt="" decoding="async">
+              </div>
+              <div class="staff-sheet">
+                <header class="staff-sheet-heading">
+                  <h2 id="reader-title" tabindex="-1"></h2>
+                  <p id="reader-meta"></p>
+                  <span id="staff-code"></span>
+                  <p id="reader-summary"></p>
+                <div class="staff-rating"><span id="staff-rating-stars" class="staff-rating-stars" aria-hidden="true"></span><span id="staff-rating-label"></span></div>
+                </header>
+                <section class="staff-sheet-section">
+                  <h3>핵심 미션</h3>
+                  <p id="staff-mission"></p>
+                </section>
+                <section class="staff-sheet-section">
+                  <h3>담당 업무</h3>
+                  <p id="staff-deliverable"></p>
+                  <ul id="staff-duties"></ul>
+                </section>
+                <dl class="staff-traits">
+                  <dt>핵심 성향</dt>
+                  <dd id="staff-personality"></dd>
+                  <dt>장점</dt><dd id="staff-strengths"></dd>
+                  <dt>단점과 보완 방법</dt><dd id="staff-review"></dd>
+                </dl>
+              </div>
+            </div>
+            <details class="staff-section staff-extra">
+              <summary>캐릭터 설정과 업무 보완점</summary>
+              <dl>
+                <dt>캐릭터 의상과 소품</dt>
+                <dd id="staff-outfit"></dd>
+                <dt>업무 소품</dt>
+                <dd id="staff-item"></dd>
+              </dl>
+            </details>
+            <section class="staff-section" aria-labelledby="staff-evaluation-title">
+              <div class="staff-evaluation-heading">
+                <h3 id="staff-evaluation-title">업무 평가</h3>
+                <div class="staff-edit-actions">
+                  <button class="onuri-button" type="submit" form="staff-work-form">저장</button>
+                  <button class="onuri-button onuri-button-danger" id="staff-delete-record" type="button" disabled>삭제</button>
+                </div>
+              </div>
+              <form id="staff-work-form" class="staff-evaluation-form">
+                <label>평가 <textarea name="assessment" required maxlength="2000" rows="3"></textarea></label>
+                <fieldset class="staff-star-picker">
+                  <legend>별점</legend>
+                  <label><input type="radio" name="rating" value="1" required><span aria-hidden="true">☆</span><span class="onuri-visually-hidden">1점</span></label>
+                  <label><input type="radio" name="rating" value="2" required><span aria-hidden="true">☆</span><span class="onuri-visually-hidden">2점</span></label>
+                  <label><input type="radio" name="rating" value="3" required><span aria-hidden="true">☆</span><span class="onuri-visually-hidden">3점</span></label>
+                  <label><input type="radio" name="rating" value="4" required><span aria-hidden="true">☆</span><span class="onuri-visually-hidden">4점</span></label>
+                  <label><input type="radio" name="rating" value="5" required><span aria-hidden="true">☆</span><span class="onuri-visually-hidden">5점</span></label>
+                </fieldset>
+              </form>
+              <div id="staff-work-context" hidden></div>
+              <p id="staff-evaluation-status" role="status"></p>
+              <p id="staff-evaluation-empty">등록된 평가가 없습니다.</p>
+              <div class="staff-history"><table>
+                <colgroup><col class="staff-review-column"><col><col></colgroup>
+                <thead><tr><th scope="col">평가내용</th><th scope="col">별점</th><th scope="col">평가일시</th></tr></thead>
+                <tbody id="staff-evaluations"></tbody>
+              </table></div>
+            </section>
+          </article>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -22,7 +22,7 @@ async function copyOptional(source, output, relative, destination = relative) {
         const relative = path.relative(source, file);
         return !['README.md', 'node_modules', '.git', '사용매뉴얼_로그인정보.md'].includes(name)
           && !/^\.(?:env|dev\.vars)(?:\.|$)/.test(name)
-          && relative !== path.join('mo_tools', 'docs')
+          && relative !== path.join('do_docs', 'docs')
           && relative !== path.join('vi_vibe', 'vi_onyou', 'generate-gallery.mjs')
           && relative !== path.join('common', 'images', 'vi.image', 'knu-여기에_사진을_넣으세요.txt');
       },
@@ -75,10 +75,10 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   if (!dataOnly) await mkdir(path.join(output, "common/data"), { recursive: true });
   await buildReports(source, dataOnly ? undefined : output);
   await buildLayoutPages(source);
-  if ((await readdir(path.join(source, 'mo_tools')).catch(error => {
+  if ((await readdir(path.join(source, 'do_docs')).catch(error => {
     if (error.code === 'ENOENT') return [];
     throw error;
-  })).includes('mo_coding.html')) await buildCodingManual(source);
+  })).includes('do_dev.html')) await buildCodingManual(source);
   if (dataOnly) {
     await buildPageRoutes(source);
     console.log(`[자료실] ${items.length}개 교안 목록 갱신 완료 (배포 폴더 생성 안 함)`);
@@ -90,7 +90,7 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   for (const name of await readdir(source)) {
     if (name.endsWith('.html') && name !== 'menu-builder.html') await copyFile(path.join(source, name), path.join(output, name));
   }
-  for (const folder of ['vi_vibe', 'ga_games', 'cl_class', 'mo_tools', 'ne_news']) await copyOptional(source, output, folder);
+  for (const folder of ['vi_vibe', 'ga_games', 'do_docs', 'on_class']) await copyOptional(source, output, folder);
   for (const relative of ['common/css', 'common/js']) {
     await cp(path.join(source, relative), path.join(output, relative), {
       recursive: true,

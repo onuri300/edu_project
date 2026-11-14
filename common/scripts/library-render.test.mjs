@@ -15,7 +15,7 @@ function run(items, root = 'https://example.org/repo/') {
     setAttribute(name, value) { this.attrs[name] = value; },
   });
   const status = node(), cards = node(), count = node();
-  const document = { baseURI: 'https://example.org/repo/cl_class/cl_library.html', createElement: node, querySelector: selector => ({ '#status': status, '#cards': cards, '#count': count })[selector] };
+  const document = { baseURI: 'https://example.org/repo/vi_vibe/vi_library.html', createElement: node, querySelector: selector => ({ '#status': status, '#cards': cards, '#count': count })[selector] };
   // No fetch API: rendering must also work when opened directly through file://.
   vm.runInNewContext(render, { window: { LIVING_LAB_BOOKS: items, eduAuth: { root }, eduDownloads: { save: async (url, filename) => { saved.push({ url, filename }); } } }, document, console, URL });
   return { cards, status, count, saved };

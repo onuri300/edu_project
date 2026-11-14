@@ -28,7 +28,7 @@ function render(page, { embedded = false, canOpen = true } = {}) {
   return { nodes, opened, document, ready: callbacks.DOMContentLoaded };
 }
 test('standalone category pages hide the masthead while the login portal keeps it', () => {
-  for (const page of ['ne_news/ne_ai.html#report=one', 'ne_news/ne_making.html', 'cl_class/cl_library.html', 'ga_games/typing-game.html']) {
+  for (const page of ['do_docs/do_ai.html#report=one', 'do_docs/do_making.html', 'vi_vibe/vi_library.html', 'ga_games/typing-game.html']) {
     assert.equal(render(page).document.documentElement.dataset.standalone, 'true');
     assert.equal(render(page, { embedded: true }).document.documentElement.dataset.standalone, 'false');
   }

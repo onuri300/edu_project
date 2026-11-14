@@ -45,7 +45,7 @@ test('changed menu data invalidates cached login menus so newly added links are 
 });
 test('living-lab handouts and legacy library URLs are public without a session on HTTPS and local files', () => {
   for (const base of [root, 'file:///D:/project/edu_project/']) {
-    for (const page of ['cl_class/cl_library.html', 'livinglab-library.html', 'library.html']) {
+    for (const page of ['vi_vibe/vi_library.html', 'livinglab-library.html', 'library.html']) {
       const result = load(base, page);
       assert.equal(result.redirected(), undefined);
       assert.equal(result.document.documentElement.dataset.auth, 'public');
@@ -105,7 +105,7 @@ test('a clicked internal route is permitted once and manual path editing forces 
   assert.equal(child.document.documentElement.dataset.auth, 'ready');
   const reload = load(root, 'ga_games/ga_ladder.html', { storage: entry.storage, navigation: 'reload' });
   assert.equal(reload.document.documentElement.dataset.auth, 'ready');
-  assert.equal(load(root, 'ga_games/ga_cards.html', { storage: entry.storage }).redirected(), root + 'index.html?login=required');
+  assert.equal(load(root, 'on_class/on_quiz/on_cards.html', { storage: entry.storage }).redirected(), root + 'index.html?login=required');
 });
 test('normal internal links and logo home links preserve the authenticated session', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
@@ -119,7 +119,7 @@ test('normal internal links and logo home links preserve the authenticated sessi
 });
 test('new-tab approval is tied to the exact tab and target and cannot be reused after editing the path', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
-  const target = root + 'ga_games/ga_quiz.html';
+  const target = root + 'on_class/on_quiz/on_quiz.html';
   assert.equal(entry.window.eduAuth.openPage(target), true);
   const tab = entry.opened[0]; assert.equal(tab.url, target);
   const child = load(root, target, { opener: entry.window, windowObject: tab });
@@ -139,7 +139,7 @@ test('expired sessions and index login-required parameter clear the saved sessio
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
   assert.equal(load(root, 'index.html?login=required', { storage: entry.storage }).window.eduAuth.getSession(), null);
   const invalid = new Map([['onuri-session-v1', JSON.stringify({ expiresAt: Date.now() - 1, menu })]]);
-  assert.equal(load(root, 'ga_games/ga_cards.html', { storage: invalid }).redirected(), root + 'index.html?login=required');
+  assert.equal(load(root, 'on_class/on_quiz/on_cards.html', { storage: invalid }).redirected(), root + 'index.html?login=required');
 });
 test('isolated file iframe only accepts a valid parent response with matching nonce', () => {
   const result = load('file:///D:/project/edu_project/', 'ga_games/ga_ladder.html', { embedded: true });

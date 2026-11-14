@@ -16,7 +16,7 @@ export const templateSamples = [
     description: '전체 너비 배너로 주제를 소개하고 바로 아래에 해당 페이지의 작업 화면을 둡니다.',
     areas: [
       ['hero', '공통 소개 배너', ['컴퓨터 탐험 퀴즈', 'AI와 코딩 기초를 문제로 익혀요.'], '제목·설명·이미지는 build-layout-pages.mjs의 해당 페이지 설정에서 바꿉니다.', 'common/images/ga.image/computer-quiz-hero.png'],
-      ['sidebar', '입력과 설정', ['난이도 선택', '출제 문제 수', '퀴즈 시작'], '페이지 고유 입력과 실행 버튼입니다. 게임의 경우 ga_games/ga_quiz.html에서 편집합니다.'],
+      ['sidebar', '입력과 설정', ['난이도 선택', '출제 문제 수', '퀴즈 시작'], '페이지 고유 입력과 실행 버튼입니다. 게임의 경우 on_class/on_quiz/on_quiz.html에서 편집합니다.'],
       ['body', '작업 및 결과', ['컴퓨터 기초', '디지털 안전', 'AI와 메이킹'], '선택한 기능의 본문이나 결과가 표시됩니다. 개별 게임과 도구의 스크립트가 담당합니다.'],
     ],
   },

@@ -21,7 +21,7 @@ export async function buildCodingManual(source) {
     'window.ONURI_GPT_MANUAL = ' + JSON.stringify(gptManual) + ';\n');
   const database = await buildDatabaseManual(source);
   const entries = await Promise.all(documents.map(async ([category, label, file, keyword]) => {
-    const markdown = await readFile(path.join(source, 'mo_tools', 'docs', file), 'utf8');
+    const markdown = await readFile(path.join(source, 'do_docs', 'docs', file), 'utf8');
     const title = /^# (.+)\r?$/m.exec(markdown)?.[1].trim();
     if (!title) throw Error('문서 제목 누락: ' + file);
     return {

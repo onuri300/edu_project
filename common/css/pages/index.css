@@ -154,3 +154,13 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 /* Persistent split navigation: applies to every page displayed in the portal. */
 #sidebar-toggle{position:fixed;top:calc(72px + 45%);left:calc(var(--sidebar-w) - 1px);z-index:45;width:24px;min-height:58px;border:1px solid var(--line);border-left:0;border-radius:0 12px 12px 0;background:var(--card);color:var(--accent);font-size:28px;cursor:pointer;box-shadow:4px 2px 12px #302d4010}#app main{padding-left:23px}#app.sidebar-collapsed #sidebar{transform:translateX(-100%);visibility:hidden}#app.sidebar-collapsed main{margin-left:0}#app.sidebar-collapsed #sidebar-toggle{left:0}@media(max-width:900px){#sidebar-toggle{left:0}#app.sidebar-mobile-open #sidebar-toggle{left:min(84vw,300px)}#app main{padding-left:23px}}
+
+#nav .menu-subgroup summary {
+  padding: 11px 12px;
+  border-radius: 5px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  cursor: pointer;
+}
+#nav .menu-subgroup summary:hover { background: var(--muted-surface); color: var(--ink); }
+html #nav .menu-subgroup button { padding-inline-start: 26px; }

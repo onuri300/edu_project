@@ -2,12 +2,13 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const names = {
-  board_posts: '게시판 글', canva_connections: 'Canva 연결', canva_jobs: 'Canva 작업',
+  tbl_comcode: '공통코드', tbl_dept: '부서', tbl_emp: '사원', tbl_evalu: '업무 평가',
+  board_posts: '게시판 글', tbl_board: '게시판 글', canva_connections: 'Canva 연결', canva_jobs: 'Canva 작업',
   canva_link_categories: 'Canva 링크 분류', canva_links: 'Canva 링크',
   category_images: '분류 이미지', courses: '강좌', journal_categories: '수업 일지 분류',
   journals: '수업 일지', news_articles: '뉴스 기사', sessions: '차시',
   slide_sources: '슬라이드 출처', slides: '슬라이드', storage_credentials: '저장소 자격 정보',
-  admin_users: '관리자 계정', users: '사용자', identities: '인증 식별 정보',
+  tbl_users: '관리자 계정', users: '사용자', identities: '인증 식별 정보',
   audit_log_entries: '인증 감사 기록', custom_oauth_providers: '사용자 지정 OAuth 공급자',
   flow_state: '인증 흐름 상태', instances: '인증 인스턴스', mfa_amr_claims: '다중 인증 방식 클레임',
   mfa_challenges: '다중 인증 검증 요청', mfa_factors: '다중 인증 수단',
@@ -27,6 +28,10 @@ const names = {
   secrets: '보안 저장 항목', decrypted_secrets: '보안 저장 항목 조회 뷰',
 };
 const columns = {
+  emp_code: '사원코드', department_code: '부서코드', code_group: '코드 그룹',
+  code: '코드', name: '이름', public_read: '공개 조회 여부', sort_order: '표시 순서',
+  member_id: '평가 대상 사원코드', assessment: '평가 내용', rating: '별점',
+  evaluated_at: '평가 일시', import_key: '이관 중복 방지 키',
   id: '식별자', owner: '소유자', user_id: '사용자 식별자', title: '제목', content: '내용',
   published: '공개 여부', author_id: '작성자 식별자', created_at: '생성 시각', updated_at: '수정 시각',
   board_type: '게시판 구분', updated_by: '수정자 식별자', tokens: '연결 토큰',
@@ -58,7 +63,7 @@ export async function buildDatabaseManual(source) {
   const lines = [
     '# 운영 데이터베이스 전체 스키마',
     '',
-    '운영 PostgreSQL 카탈로그를 읽기 전용으로 조회한 스냅샷입니다. 조회 시각은 ' + snapshot.captured_at + '입니다.',
+    'public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 ' + snapshot.captured_at + '입니다. Supabase 관리 스키마는 이전 스냅샷을 참고용으로 포함합니다.',
     '',
     '한글명은 문서에서 사용하는 설명 이름입니다. DB 코멘트가 있으면 별도로 표시합니다. 일반 테이블, 뷰, Supabase 관리 스키마를 함께 수록합니다.',
     '',
@@ -95,6 +100,6 @@ export async function buildDatabaseManual(source) {
   lines.push('', '## RLS 정책', '', '| 테이블 | 정책 | 역할 | 동작 | USING | WITH CHECK |', '|---|---|---|---|---|---|');
   for (const policy of data.policies || []) lines.push('| ' + [policy.schema + '.' + policy.table, policy.name,
     policy.roles.join(', '), policy.command, policy.using, policy.check].map(cell).join(' | ') + ' |');
-  await writeFile(path.join(source, 'mo_tools/docs/08-database-schema.md'), lines.join('\n') + '\n');
+  await writeFile(path.join(source, 'do_docs/docs/08-database-schema.md'), lines.join('\n') + '\n');
   return data;
 }

@@ -22,8 +22,10 @@ test('schema explorer renders actual relations, all tables and columns, filters 
   const window = {};
   vm.runInNewContext(bundle, { window });
   const data = window.ONURI_CODING_MANUAL.entries.find(entry => entry.database).database;
-  assert.equal(data.tables.length, 61);
-  assert.equal(data.columns.length, 555);
+  assert.ok(data.constraints.some(key => key.schema === 'public' && key.table === 'tbl_emp'
+    && key.kind === 'p' && key.columns.join(',') === 'emp_code'));
+  assert.ok(data.constraints.some(key => key.table === 'tbl_evalu' && key.target_table === 'tbl_emp'
+    && key.target_columns.join(',') === 'emp_code'));
   const document = { createElement: tag => new Element(tag), createElementNS: (_, tag) => new Element(tag) };
   const Option = function(text, value) { const option = new Element('option'); option.textContent = text; option.value = value; return option; };
   vm.runInNewContext(source, { window, document, Option });
@@ -31,11 +33,11 @@ test('schema explorer renders actual relations, all tables and columns, filters 
   window.renderDatabaseSchema(root, data);
   const [scope, selection] = root.descendants().filter(element => element.tag === 'select');
   const search = root.descendants().find(element => element.type === 'search');
-  assert.equal(selection.options.length, 16);
+  assert.equal(selection.options.length, data.tables.filter(table => ['public', 'edumaker'].includes(table.schema)).length);
   assert.ok(root.descendants().some(element => element.attributes['data-table'] === 'auth.users'));
   assert.ok(root.descendants().some(element => element.attributes.class?.includes('schema-view-edge')));
   scope.value = 'all'; scope.events.change();
-  assert.equal(selection.options.length, 61);
+  assert.equal(selection.options.length, data.tables.length);
   for (const table of data.tables) {
     selection.value = table.schema + '.' + table.name; selection.events.change();
     const detail = root.children.at(-1);
@@ -44,7 +46,7 @@ test('schema explorer renders actual relations, all tables and columns, filters 
   }
   search.value = '관리자 계정'; search.events.input();
   assert.equal(selection.options.length, 1);
-  assert.equal(selection.value, 'public.admin_users');
+  assert.equal(selection.value, 'public.tbl_users');
   search.value = 'no_matching_table'; search.events.input();
   assert.equal(selection.disabled, true);
   assert.match(root.children.at(-1).children[0].textContent, /없습니다/);

@@ -51,22 +51,29 @@
       { name: "바이브코딩", items: [
         { name: "온유 메이커", url: "./vi_vibe/vi_onuri/vi_onuri.html" },
         { name: "경남대학교 메이커스페이스", url: "./vi_vibe/vi_knu.html" },
+        { name: "Living Lab Library", url: "./vi_vibe/vi_library.html" },
       ] },
       { name: "게임", items: [
         { name: "사다리 게임", url: "./ga_games/ga_ladder.html" },
-        { name: "컴퓨터 플래시카드", url: "./ga_games/ga_cards.html" },
-        { name: "컴퓨터 탐험 퀴즈", url: "./ga_games/ga_quiz.html" },
+        { name: "컴퓨터 플래시카드", url: "./on_class/on_quiz/on_cards.html" },
+        { name: "컴퓨터 탐험 퀴즈", url: "./on_class/on_quiz/on_quiz.html" },
         { name: "성인 MBTI 테스트", url: "./ga_games/ga_mbti-a.html" },
         { name: "어린이 MBTI 테스트", url: "./ga_games/ga_mbti-k.html" },
+        { name: "Edumaker Idea Card", url: "./ga_games/ga_idea.html" },
       ] },
-      { name: "수업 자료실", items: [
-        { name: "리빙랩 수업 자료실", url: "./cl_class/cl_library.html" },
-        { name: "edumaker", url: "./cl_class/cl_edumkr.html" },
+
+      { name: "Manual", items: [
+        { name: "GPT Manual", url: "./do_docs/do_gpt.html" },
+        { name: "Dev Manual", url: "./do_docs/do_dev.html" },
       ] },
-      { name: "기타", items: [
-        { name: "Announcements", url: "./mo_tools/mo_notice.html" },
-        { name: "GPT Making Manual", url: "./mo_tools/mo_manual.html" },
-        { name: "Coding Manual", url: "./mo_tools/mo_coding.html" },
+      { name: "뉴스레터", items: [
+        { name: "Making Newsletter", url: "./do_docs/do_making.html" },
+        { name: "AI Newsletter", url: "./do_docs/do_ai.html" },
+      ] },
+      { name: "onuriClass", items: [
+        { name: "Announcements", url: "./on_class/on_notice.html" },
+        { name: "인사관리", url: "./on_class/on_people.html" },
+        { name: "edumaker", url: "./on_class/on_edumkr.html" },
       ] },
     ];
     defaults.forEach(cat => cats.append(catBlock(cat.name, cat.items)));

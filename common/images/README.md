@@ -18,4 +18,4 @@
 
 대표 일러스트는 가로 3:2를 권장합니다. 화면에 따라 잘리는 영역이 달라 중요한 요소는 가운데에 둡니다. 이미지 형식과 파일 확장자를 일치시키고 작은 화면에서 확인합니다. 뉴스레터의 대표 이미지 경로는 `common/data/newsletter-pages.json`에서 관리합니다.
 
-KNU의 로고와 담당자 안내 캐릭터는 각각 `knu-center-logo.png`, `knu-manager-character.png`입니다. [이미지 생성 기록](../../mo_tools/docs/image-prompts.md)과 [KNU 이미지 안내](../../mo_tools/docs/knu-center.md)도 참고합니다.
+KNU의 로고와 담당자 안내 캐릭터는 각각 `knu-center-logo.png`, `knu-manager-character.png`입니다. [이미지 생성 기록](../../ma_manual/docs/image-prompts.md)과 [KNU 이미지 안내](../../ma_manual/docs/knu-center.md)도 참고합니다.

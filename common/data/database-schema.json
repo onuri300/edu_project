@@ -1,8 +1,8 @@
 {
   "views": [
     {
-      "name": "board_posts",
       "schema": "public",
+      "name": "tbl_board",
       "definition": " SELECT id,\n    board_type,\n    title,\n    content,\n    published,\n    created_at,\n    updated_at\n   FROM edumaker.board_posts;"
     }
   ],
@@ -197,101 +197,101 @@
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "board_posts",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "canva_connections",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "canva_jobs",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "canva_link_categories",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "canva_links",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "category_images",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "courses",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "journal_categories",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "journals",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "news_articles",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "sessions",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "slide_sources",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
+      "schema": "edumaker",
       "name": "slides",
-      "schema": "edumaker",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
-      "name": "storage_credentials",
       "schema": "edumaker",
+      "name": "storage_credentials",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
@@ -309,17 +309,45 @@
       "comment": null
     },
     {
-      "rls": true,
-      "kind": "r",
-      "name": "admin_users",
       "schema": "public",
+      "name": "tbl_board",
+      "kind": "v",
+      "rls": false,
       "comment": null
     },
     {
-      "rls": false,
-      "kind": "v",
-      "name": "board_posts",
       "schema": "public",
+      "name": "tbl_comcode",
+      "kind": "r",
+      "rls": true,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "name": "tbl_dept",
+      "kind": "r",
+      "rls": true,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "name": "tbl_emp",
+      "kind": "r",
+      "rls": true,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "name": "tbl_evalu",
+      "kind": "r",
+      "rls": true,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "name": "tbl_users",
+      "kind": "r",
+      "rls": true,
       "comment": null
     },
     {
@@ -3689,1060 +3717,1072 @@
       "generated": ""
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "id",
       "type": "bigint",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "d",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "title",
       "type": "text",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "content",
       "type": "text",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "published",
       "type": "boolean",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": "false",
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "author_id",
       "type": "uuid",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": "auth.uid()",
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "created_at",
       "type": "timestamp with time zone",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": "now()",
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 6,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "updated_at",
       "type": "timestamp with time zone",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": "now()",
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 7,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "board_type",
       "type": "text",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": "'notice'::text",
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 8,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "updated_by",
       "type": "uuid",
-      "table": "board_posts",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 9,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
+      "name": "code_group",
+      "type": "text",
+      "nullable": true,
+      "default": "'BOARD'::text",
+      "identity": "",
+      "generated": "s",
+      "position": 10,
+      "comment": null
+    },
+    {
+      "schema": "edumaker",
+      "table": "canva_connections",
       "name": "owner",
       "type": "text",
-      "table": "canva_connections",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_connections",
       "name": "tokens",
       "type": "text",
-      "table": "canva_connections",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_connections",
       "name": "updated",
       "type": "text",
-      "table": "canva_connections",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_jobs",
       "name": "owner",
       "type": "text",
-      "table": "canva_jobs",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_jobs",
       "name": "id",
       "type": "text",
-      "table": "canva_jobs",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_jobs",
       "name": "course_id",
       "type": "text",
-      "table": "canva_jobs",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_jobs",
       "name": "created",
       "type": "text",
-      "table": "canva_jobs",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_link_categories",
       "name": "owner",
       "type": "text",
-      "table": "canva_link_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_link_categories",
       "name": "id",
       "type": "text",
-      "table": "canva_link_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_link_categories",
       "name": "title",
       "type": "text",
-      "table": "canva_link_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_links",
       "name": "owner",
       "type": "text",
-      "table": "canva_links",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_links",
       "name": "id",
       "type": "text",
-      "table": "canva_links",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_links",
       "name": "category_id",
       "type": "text",
-      "table": "canva_links",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_links",
       "name": "title",
       "type": "text",
-      "table": "canva_links",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_links",
       "name": "date",
       "type": "text",
-      "table": "canva_links",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_links",
       "name": "url",
       "type": "text",
-      "table": "canva_links",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 6,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "canva_links",
       "name": "created",
       "type": "text",
-      "table": "canva_links",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 7,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "category_images",
       "name": "owner",
       "type": "text",
-      "table": "category_images",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "category_images",
       "name": "category_id",
       "type": "text",
-      "table": "category_images",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "category_images",
       "name": "slot",
       "type": "integer",
-      "table": "category_images",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "category_images",
       "name": "mime",
       "type": "text",
-      "table": "category_images",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "category_images",
       "name": "data",
       "type": "bytea",
-      "table": "category_images",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "category_images",
       "name": "caption",
       "type": "text",
-      "table": "category_images",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 6,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "category_images",
       "name": "updated",
       "type": "text",
-      "table": "category_images",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 7,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "owner",
       "type": "text",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "id",
       "type": "text",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "topic",
       "type": "text",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "audience",
       "type": "text",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "planned_date",
       "type": "text",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "input_options",
       "type": "jsonb",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 6,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "metadata",
       "type": "jsonb",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 7,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "category_id",
       "type": "text",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 8,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "journal_defaults",
       "type": "jsonb",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 9,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "updated",
       "type": "text",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 10,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "courses",
       "name": "version",
       "type": "uuid",
-      "table": "courses",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": "gen_random_uuid()",
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 11,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "owner",
       "type": "text",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "id",
       "type": "text",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "title",
       "type": "text",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "start_date",
       "type": "text",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "end_date",
       "type": "text",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "guidance",
       "type": "text",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 6,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "goal_count",
       "type": "integer",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 7,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "topic_count",
       "type": "integer",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 8,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "detail_count",
       "type": "integer",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 9,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journal_categories",
       "name": "updated",
       "type": "text",
-      "table": "journal_categories",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 10,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "owner",
       "type": "text",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "course_id",
       "type": "text",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "session_position",
       "type": "integer",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "body",
       "type": "text",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "class_date",
       "type": "text",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "activities",
       "type": "text",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 6,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "actual_details",
       "type": "jsonb",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 7,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "outline",
       "type": "jsonb",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 8,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "created_at",
       "type": "text",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 9,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "journals",
       "name": "deleted_at",
       "type": "text",
-      "table": "journals",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 10,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "news_articles",
       "name": "owner",
       "type": "text",
-      "table": "news_articles",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "news_articles",
       "name": "course_id",
       "type": "text",
-      "table": "news_articles",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "news_articles",
       "name": "position",
       "type": "integer",
-      "table": "news_articles",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "news_articles",
       "name": "article",
       "type": "jsonb",
-      "table": "news_articles",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "sessions",
       "name": "owner",
       "type": "text",
-      "table": "sessions",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "sessions",
       "name": "course_id",
       "type": "text",
-      "table": "sessions",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "sessions",
       "name": "position",
       "type": "integer",
-      "table": "sessions",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "sessions",
       "name": "title",
       "type": "text",
-      "table": "sessions",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "sessions",
       "name": "plan",
       "type": "jsonb",
-      "table": "sessions",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slide_sources",
       "name": "owner",
       "type": "text",
-      "table": "slide_sources",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slide_sources",
       "name": "course_id",
       "type": "text",
-      "table": "slide_sources",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slide_sources",
       "name": "slide_position",
       "type": "integer",
-      "table": "slide_sources",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slide_sources",
       "name": "position",
       "type": "integer",
-      "table": "slide_sources",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slide_sources",
       "name": "article",
       "type": "jsonb",
-      "table": "slide_sources",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "owner",
       "type": "text",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "course_id",
       "type": "text",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "position",
       "type": "integer",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "session_number",
       "type": "integer",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "kind",
       "type": "text",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "title",
       "type": "text",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 6,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "body",
       "type": "text",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 7,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "notes",
       "type": "text",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 8,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "slides",
       "name": "extra",
       "type": "jsonb",
-      "table": "slides",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 9,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "edumaker",
+      "table": "storage_credentials",
       "name": "key_hash",
       "type": "bytea",
-      "table": "storage_credentials",
-      "schema": "edumaker",
-      "comment": null,
+      "nullable": false,
       "default": null,
       "identity": "",
-      "nullable": false,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
       "name": "userid",
@@ -5357,112 +5397,352 @@
       "generated": ""
     },
     {
-      "name": "user_id",
-      "type": "uuid",
-      "table": "admin_users",
       "schema": "public",
-      "comment": null,
-      "default": null,
-      "identity": "",
-      "nullable": false,
-      "position": 1,
-      "generated": ""
-    },
-    {
-      "name": "created_at",
-      "type": "timestamp with time zone",
-      "table": "admin_users",
-      "schema": "public",
-      "comment": null,
-      "default": "now()",
-      "identity": "",
-      "nullable": false,
-      "position": 2,
-      "generated": ""
-    },
-    {
+      "table": "tbl_board",
       "name": "id",
       "type": "bigint",
-      "table": "board_posts",
-      "schema": "public",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 1,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "public",
+      "table": "tbl_board",
       "name": "board_type",
       "type": "text",
-      "table": "board_posts",
-      "schema": "public",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 2,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "public",
+      "table": "tbl_board",
       "name": "title",
       "type": "text",
-      "table": "board_posts",
-      "schema": "public",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 3,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "public",
+      "table": "tbl_board",
       "name": "content",
       "type": "text",
-      "table": "board_posts",
-      "schema": "public",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 4,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "public",
+      "table": "tbl_board",
       "name": "published",
       "type": "boolean",
-      "table": "board_posts",
-      "schema": "public",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 5,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "public",
+      "table": "tbl_board",
       "name": "created_at",
       "type": "timestamp with time zone",
-      "table": "board_posts",
-      "schema": "public",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 6,
-      "generated": ""
+      "comment": null
     },
     {
+      "schema": "public",
+      "table": "tbl_board",
       "name": "updated_at",
       "type": "timestamp with time zone",
-      "table": "board_posts",
-      "schema": "public",
-      "comment": null,
+      "nullable": true,
       "default": null,
       "identity": "",
-      "nullable": true,
+      "generated": "",
       "position": 7,
-      "generated": ""
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 1,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "code_group",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 2,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "name",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 3,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "public_read",
+      "type": "boolean",
+      "nullable": false,
+      "default": "false",
+      "identity": "",
+      "generated": "",
+      "position": 4,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_dept",
+      "name": "code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 1,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_dept",
+      "name": "sort_order",
+      "type": "integer",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 3,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_dept",
+      "name": "code_group",
+      "type": "text",
+      "nullable": true,
+      "default": "'DEPT'::text",
+      "identity": "",
+      "generated": "s",
+      "position": 4,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "department_code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 2,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "emp_code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 3,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "name",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 4,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "rank",
+      "type": "integer",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 5,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "sort_order",
+      "type": "integer",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 6,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "profile",
+      "type": "jsonb",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 7,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "id",
+      "type": "uuid",
+      "nullable": false,
+      "default": "gen_random_uuid()",
+      "identity": "",
+      "generated": "",
+      "position": 1,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "member_id",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 2,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "assessment",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 3,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "rating",
+      "type": "smallint",
+      "nullable": true,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 4,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "evaluated_at",
+      "type": "timestamp with time zone",
+      "nullable": false,
+      "default": "now()",
+      "identity": "",
+      "generated": "",
+      "position": 5,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "details",
+      "type": "jsonb",
+      "nullable": false,
+      "default": "'{}'::jsonb",
+      "identity": "",
+      "generated": "",
+      "position": 6,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "import_key",
+      "type": "text",
+      "nullable": true,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 7,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_users",
+      "name": "user_id",
+      "type": "uuid",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 1,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_users",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "nullable": false,
+      "default": "now()",
+      "identity": "",
+      "generated": "",
+      "position": 2,
+      "comment": null
     },
     {
       "name": "topic",
@@ -7765,154 +8045,202 @@
       "definition": "CREATE INDEX webauthn_credentials_user_id_idx ON auth.webauthn_credentials USING btree (user_id)"
     },
     {
-      "name": "board_posts_author_idx",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_author_idx",
       "definition": "CREATE INDEX board_posts_author_idx ON edumaker.board_posts USING btree (author_id)"
     },
     {
-      "name": "board_posts_pkey",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_pkey",
       "definition": "CREATE UNIQUE INDEX board_posts_pkey ON edumaker.board_posts USING btree (id)"
     },
     {
-      "name": "board_posts_type_created_idx",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_type_created_idx",
       "definition": "CREATE INDEX board_posts_type_created_idx ON edumaker.board_posts USING btree (board_type, created_at DESC, id DESC)"
     },
     {
-      "name": "board_posts_type_published_idx",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_type_published_idx",
       "definition": "CREATE INDEX board_posts_type_published_idx ON edumaker.board_posts USING btree (board_type, created_at DESC, id DESC) WHERE published"
     },
     {
-      "name": "board_posts_updater_idx",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_updater_idx",
       "definition": "CREATE INDEX board_posts_updater_idx ON edumaker.board_posts USING btree (updated_by) WHERE (updated_by IS NOT NULL)"
     },
     {
-      "name": "canva_connections_pkey",
-      "table": "canva_connections",
       "schema": "edumaker",
+      "table": "canva_connections",
+      "name": "canva_connections_pkey",
       "definition": "CREATE UNIQUE INDEX canva_connections_pkey ON edumaker.canva_connections USING btree (owner)"
     },
     {
-      "name": "canva_jobs_pkey",
-      "table": "canva_jobs",
       "schema": "edumaker",
+      "table": "canva_jobs",
+      "name": "canva_jobs_pkey",
       "definition": "CREATE UNIQUE INDEX canva_jobs_pkey ON edumaker.canva_jobs USING btree (owner, id)"
     },
     {
-      "name": "canva_link_categories_owner_title_key",
-      "table": "canva_link_categories",
       "schema": "edumaker",
+      "table": "canva_link_categories",
+      "name": "canva_link_categories_owner_title_key",
       "definition": "CREATE UNIQUE INDEX canva_link_categories_owner_title_key ON edumaker.canva_link_categories USING btree (owner, title)"
     },
     {
-      "name": "canva_link_categories_pkey",
-      "table": "canva_link_categories",
       "schema": "edumaker",
+      "table": "canva_link_categories",
+      "name": "canva_link_categories_pkey",
       "definition": "CREATE UNIQUE INDEX canva_link_categories_pkey ON edumaker.canva_link_categories USING btree (owner, id)"
     },
     {
-      "name": "canva_links_by_category",
-      "table": "canva_links",
       "schema": "edumaker",
+      "table": "canva_links",
+      "name": "canva_links_by_category",
       "definition": "CREATE INDEX canva_links_by_category ON edumaker.canva_links USING btree (owner, category_id)"
     },
     {
-      "name": "canva_links_by_date",
-      "table": "canva_links",
       "schema": "edumaker",
+      "table": "canva_links",
+      "name": "canva_links_by_date",
       "definition": "CREATE INDEX canva_links_by_date ON edumaker.canva_links USING btree (owner, date DESC, created DESC, id)"
     },
     {
-      "name": "canva_links_pkey",
-      "table": "canva_links",
       "schema": "edumaker",
+      "table": "canva_links",
+      "name": "canva_links_pkey",
       "definition": "CREATE UNIQUE INDEX canva_links_pkey ON edumaker.canva_links USING btree (owner, id)"
     },
     {
-      "name": "category_images_pkey",
-      "table": "category_images",
       "schema": "edumaker",
+      "table": "category_images",
+      "name": "category_images_pkey",
       "definition": "CREATE UNIQUE INDEX category_images_pkey ON edumaker.category_images USING btree (owner, category_id, slot)"
     },
     {
-      "name": "courses_owner_category",
-      "table": "courses",
       "schema": "edumaker",
+      "table": "courses",
+      "name": "courses_owner_category",
       "definition": "CREATE INDEX courses_owner_category ON edumaker.courses USING btree (owner, category_id)"
     },
     {
-      "name": "courses_owner_updated",
-      "table": "courses",
       "schema": "edumaker",
+      "table": "courses",
+      "name": "courses_owner_updated",
       "definition": "CREATE INDEX courses_owner_updated ON edumaker.courses USING btree (owner, updated DESC, id)"
     },
     {
-      "name": "courses_pkey",
-      "table": "courses",
       "schema": "edumaker",
+      "table": "courses",
+      "name": "courses_pkey",
       "definition": "CREATE UNIQUE INDEX courses_pkey ON edumaker.courses USING btree (owner, id)"
     },
     {
-      "name": "journal_categories_pkey",
-      "table": "journal_categories",
       "schema": "edumaker",
+      "table": "journal_categories",
+      "name": "journal_categories_pkey",
       "definition": "CREATE UNIQUE INDEX journal_categories_pkey ON edumaker.journal_categories USING btree (owner, id)"
     },
     {
-      "name": "journals_pkey",
-      "table": "journals",
       "schema": "edumaker",
+      "table": "journals",
+      "name": "journals_pkey",
       "definition": "CREATE UNIQUE INDEX journals_pkey ON edumaker.journals USING btree (owner, course_id, session_position)"
     },
     {
-      "name": "news_articles_pkey",
-      "table": "news_articles",
       "schema": "edumaker",
+      "table": "news_articles",
+      "name": "news_articles_pkey",
       "definition": "CREATE UNIQUE INDEX news_articles_pkey ON edumaker.news_articles USING btree (owner, course_id, \"position\")"
     },
     {
-      "name": "sessions_pkey",
-      "table": "sessions",
       "schema": "edumaker",
+      "table": "sessions",
+      "name": "sessions_pkey",
       "definition": "CREATE UNIQUE INDEX sessions_pkey ON edumaker.sessions USING btree (owner, course_id, \"position\")"
     },
     {
-      "name": "slide_sources_pkey",
-      "table": "slide_sources",
       "schema": "edumaker",
+      "table": "slide_sources",
+      "name": "slide_sources_pkey",
       "definition": "CREATE UNIQUE INDEX slide_sources_pkey ON edumaker.slide_sources USING btree (owner, course_id, slide_position, \"position\")"
     },
     {
-      "name": "slides_by_session",
-      "table": "slides",
       "schema": "edumaker",
+      "table": "slides",
+      "name": "slides_by_session",
       "definition": "CREATE INDEX slides_by_session ON edumaker.slides USING btree (owner, course_id, session_number) WHERE (kind = 'lesson'::text)"
     },
     {
-      "name": "slides_pkey",
-      "table": "slides",
       "schema": "edumaker",
+      "table": "slides",
+      "name": "slides_pkey",
       "definition": "CREATE UNIQUE INDEX slides_pkey ON edumaker.slides USING btree (owner, course_id, \"position\")"
     },
     {
-      "name": "storage_credentials_pkey",
-      "table": "storage_credentials",
       "schema": "edumaker",
+      "table": "storage_credentials",
+      "name": "storage_credentials_pkey",
       "definition": "CREATE UNIQUE INDEX storage_credentials_pkey ON edumaker.storage_credentials USING btree (key_hash)"
     },
     {
-      "name": "admin_users_pkey",
-      "table": "admin_users",
       "schema": "public",
-      "definition": "CREATE UNIQUE INDEX admin_users_pkey ON public.admin_users USING btree (user_id)"
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_code_group_code_key",
+      "definition": "CREATE UNIQUE INDEX tbl_comcode_code_group_code_key ON public.tbl_comcode USING btree (code_group, code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_pkey",
+      "definition": "CREATE UNIQUE INDEX tbl_comcode_pkey ON public.tbl_comcode USING btree (code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_dept",
+      "name": "staff_departments_pkey",
+      "definition": "CREATE UNIQUE INDEX staff_departments_pkey ON public.tbl_dept USING btree (code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_members_department_idx",
+      "definition": "CREATE INDEX staff_members_department_idx ON public.tbl_emp USING btree (department_code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "tbl_emp_pkey",
+      "definition": "CREATE UNIQUE INDEX tbl_emp_pkey ON public.tbl_emp USING btree (emp_code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "staff_evaluations_member_date_idx",
+      "definition": "CREATE INDEX staff_evaluations_member_date_idx ON public.tbl_evalu USING btree (member_id, evaluated_at DESC)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "staff_evaluations_member_id_import_key_key",
+      "definition": "CREATE UNIQUE INDEX staff_evaluations_member_id_import_key_key ON public.tbl_evalu USING btree (member_id, import_key)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "staff_evaluations_pkey",
+      "definition": "CREATE UNIQUE INDEX staff_evaluations_pkey ON public.tbl_evalu USING btree (id)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_users",
+      "name": "admin_users_pkey",
+      "definition": "CREATE UNIQUE INDEX admin_users_pkey ON public.tbl_users USING btree (user_id)"
     },
     {
       "name": "messages_pkey",
@@ -8179,150 +8507,206 @@
   ],
   "policies": [
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "admin create announcements",
-      "check": "((board_type = 'notice'::text) AND (author_id = ( SELECT auth.uid() AS uid)) AND (EXISTS ( SELECT 1\n   FROM admin_users\n  WHERE (admin_users.user_id = ( SELECT auth.uid() AS uid)))))",
       "roles": [
         "authenticated"
       ],
-      "table": "board_posts",
+      "command": "INSERT",
       "using": null,
-      "schema": "edumaker",
-      "command": "INSERT"
+      "check": "((author_id = ( SELECT auth.uid() AS uid)) AND (EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))))"
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "admin delete announcements",
-      "check": null,
       "roles": [
         "authenticated"
       ],
-      "table": "board_posts",
-      "using": "((board_type = 'notice'::text) AND (EXISTS ( SELECT 1\n   FROM admin_users\n  WHERE (admin_users.user_id = ( SELECT auth.uid() AS uid)))))",
-      "schema": "edumaker",
-      "command": "DELETE"
+      "command": "DELETE",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "admin edit announcements",
-      "check": "((board_type = 'notice'::text) AND (EXISTS ( SELECT 1\n   FROM admin_users\n  WHERE (admin_users.user_id = ( SELECT auth.uid() AS uid)))))",
       "roles": [
         "authenticated"
       ],
-      "table": "board_posts",
-      "using": "((board_type = 'notice'::text) AND (EXISTS ( SELECT 1\n   FROM admin_users\n  WHERE (admin_users.user_id = ( SELECT auth.uid() AS uid)))))",
-      "schema": "edumaker",
-      "command": "UPDATE"
+      "command": "UPDATE",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))"
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "administrators read all notices",
-      "check": null,
       "roles": [
         "authenticated"
       ],
-      "table": "board_posts",
-      "using": "((board_type = 'notice'::text) AND (EXISTS ( SELECT 1\n   FROM admin_users\n  WHERE (admin_users.user_id = ( SELECT auth.uid() AS uid)))))",
-      "schema": "edumaker",
-      "command": "SELECT"
+      "command": "SELECT",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": null
     },
     {
+      "schema": "edumaker",
+      "table": "board_posts",
       "name": "everyone read published notices",
-      "check": null,
       "roles": [
         "anon",
         "authenticated"
       ],
-      "table": "board_posts",
-      "using": "((board_type = 'notice'::text) AND published)",
-      "schema": "edumaker",
-      "command": "SELECT"
+      "command": "SELECT",
+      "using": "(published AND (EXISTS ( SELECT 1\n   FROM tbl_comcode c\n  WHERE ((c.code_group = 'BOARD'::text) AND (c.code = board_posts.board_type) AND c.public_read))))",
+      "check": null
     },
     {
-      "name": "admins see own membership",
-      "check": null,
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "admins read common codes",
       "roles": [
         "authenticated"
       ],
-      "table": "admin_users",
-      "using": "(user_id = ( SELECT auth.uid() AS uid))",
+      "command": "SELECT",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": null
+    },
+    {
       "schema": "public",
-      "command": "SELECT"
+      "table": "tbl_comcode",
+      "name": "read public board codes",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "((code_group = 'BOARD'::text) AND public_read)",
+      "check": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_dept",
+      "name": "staff_admin_access",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "ALL",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_admin_access",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "ALL",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "staff_admin_access",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "ALL",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_users",
+      "name": "admins see own membership",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(user_id = ( SELECT auth.uid() AS uid))",
+      "check": null
     }
   ],
   "triggers": [
     {
-      "name": "board_posts_stamp_update",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_stamp_update",
       "definition": "CREATE TRIGGER board_posts_stamp_update BEFORE UPDATE OF title, content, published, board_type ON edumaker.board_posts FOR EACH ROW EXECUTE FUNCTION edumaker.stamp_board_post_update()"
     }
   ],
   "functions": [
     {
+      "schema": "edumaker",
       "name": "canva_link_page",
-      "result": "jsonb",
-      "schema": "edumaker",
-      "arguments": "p_owner text, args jsonb"
+      "arguments": "p_owner text, args jsonb",
+      "result": "jsonb"
     },
     {
+      "schema": "edumaker",
       "name": "category_doc",
-      "result": "jsonb",
-      "schema": "edumaker",
-      "arguments": "c edumaker.journal_categories"
+      "arguments": "c edumaker.journal_categories",
+      "result": "jsonb"
     },
     {
+      "schema": "edumaker",
       "name": "course_context",
-      "result": "jsonb",
-      "schema": "edumaker",
-      "arguments": "c edumaker.courses"
+      "arguments": "c edumaker.courses",
+      "result": "jsonb"
     },
     {
+      "schema": "edumaker",
       "name": "course_doc",
-      "result": "jsonb",
-      "schema": "edumaker",
-      "arguments": "c edumaker.courses"
+      "arguments": "c edumaker.courses",
+      "result": "jsonb"
     },
     {
+      "schema": "edumaker",
       "name": "dispatch",
-      "result": "jsonb",
-      "schema": "edumaker",
-      "arguments": "p_owner text, p_operation text, p_args jsonb"
+      "arguments": "p_owner text, p_operation text, p_args jsonb",
+      "result": "jsonb"
     },
     {
+      "schema": "edumaker",
       "name": "journal_selection",
-      "result": "jsonb",
-      "schema": "edumaker",
-      "arguments": "p_owner text, args jsonb"
+      "arguments": "p_owner text, args jsonb",
+      "result": "jsonb"
     },
     {
+      "schema": "edumaker",
       "name": "library_page",
-      "result": "jsonb",
-      "schema": "edumaker",
-      "arguments": "p_owner text, args jsonb"
+      "arguments": "p_owner text, args jsonb",
+      "result": "jsonb"
     },
     {
+      "schema": "edumaker",
       "name": "save_category",
-      "result": "jsonb",
-      "schema": "edumaker",
-      "arguments": "p_owner text, args jsonb"
+      "arguments": "p_owner text, args jsonb",
+      "result": "jsonb"
     },
     {
+      "schema": "edumaker",
       "name": "save_course",
-      "result": "void",
-      "schema": "edumaker",
-      "arguments": "p_owner text, doc jsonb, saved_at text, expected_version uuid"
+      "arguments": "p_owner text, doc jsonb, saved_at text, expected_version uuid",
+      "result": "void"
     },
     {
+      "schema": "edumaker",
       "name": "stamp_board_post_update",
-      "result": "trigger",
-      "schema": "edumaker",
-      "arguments": ""
+      "arguments": "",
+      "result": "trigger"
     },
     {
-      "name": "edumaker_storage",
-      "result": "jsonb",
       "schema": "public",
-      "arguments": "p_owner text, p_operation text, p_args jsonb"
+      "name": "edumaker_storage",
+      "arguments": "p_owner text, p_operation text, p_args jsonb",
+      "result": "jsonb"
     }
   ],
-  "captured_at": "2026-11-11T03:01:44.912119+00:00",
+  "captured_at": "2026-11-14T13:50:33.581Z",
   "constraints": [
     {
       "kind": "p",
@@ -9816,465 +10200,482 @@
       ]
     },
     {
-      "kind": "f",
-      "name": "board_posts_author_id_fkey",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_author_id_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (author_id) REFERENCES auth.users(id)",
+      "target_schema": "auth",
+      "target_table": "users",
       "columns": [
         "author_id"
       ],
-      "definition": "FOREIGN KEY (author_id) REFERENCES auth.users(id)",
-      "target_table": "users",
-      "target_schema": "auth",
       "target_columns": [
         "id"
       ]
     },
     {
-      "kind": "c",
-      "name": "board_posts_board_type_check",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_board_type_check",
+      "kind": "c",
+      "definition": "CHECK ((board_type ~ '^[a-z][a-z0-9_]{0,39}$'::text))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "board_type"
       ],
-      "definition": "CHECK (board_type ~ '^[a-z][a-z0-9_]{0,39}$'::text)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "board_posts_content_check",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_content_check",
+      "kind": "c",
+      "definition": "CHECK (((char_length(TRIM(BOTH FROM content)) >= 1) AND (char_length(TRIM(BOTH FROM content)) <= 20000)))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "content"
       ],
-      "definition": "CHECK (char_length(TRIM(BOTH FROM content)) >= 1 AND char_length(TRIM(BOTH FROM content)) <= 20000)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "p",
-      "name": "board_posts_pkey",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (id)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "id"
       ],
-      "definition": "PRIMARY KEY (id)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "board_posts_title_check",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_title_check",
+      "kind": "c",
+      "definition": "CHECK (((char_length(TRIM(BOTH FROM title)) >= 1) AND (char_length(TRIM(BOTH FROM title)) <= 200)))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "title"
       ],
-      "definition": "CHECK (char_length(TRIM(BOTH FROM title)) >= 1 AND char_length(TRIM(BOTH FROM title)) <= 200)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "f",
-      "name": "board_posts_updated_by_fkey",
-      "table": "board_posts",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "board_posts_updated_by_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (updated_by) REFERENCES auth.users(id) ON DELETE SET NULL",
+      "target_schema": "auth",
+      "target_table": "users",
       "columns": [
         "updated_by"
       ],
-      "definition": "FOREIGN KEY (updated_by) REFERENCES auth.users(id) ON DELETE SET NULL",
-      "target_table": "users",
-      "target_schema": "auth",
       "target_columns": [
         "id"
       ]
     },
     {
-      "kind": "p",
-      "name": "canva_connections_pkey",
-      "table": "canva_connections",
       "schema": "edumaker",
+      "table": "board_posts",
+      "name": "tbl_board_comcode_fk",
+      "kind": "f",
+      "definition": "FOREIGN KEY (code_group, board_type) REFERENCES tbl_comcode(code_group, code)",
+      "target_schema": "public",
+      "target_table": "tbl_comcode",
+      "columns": [
+        "code_group",
+        "board_type"
+      ],
+      "target_columns": [
+        "code_group",
+        "code"
+      ]
+    },
+    {
+      "schema": "edumaker",
+      "table": "canva_connections",
+      "name": "canva_connections_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner"
       ],
-      "definition": "PRIMARY KEY (owner)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "p",
-      "name": "canva_jobs_pkey",
-      "table": "canva_jobs",
       "schema": "edumaker",
+      "table": "canva_jobs",
+      "name": "canva_jobs_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, id)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "id"
       ],
-      "definition": "PRIMARY KEY (owner, id)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "u",
-      "name": "canva_link_categories_owner_title_key",
-      "table": "canva_link_categories",
       "schema": "edumaker",
+      "table": "canva_link_categories",
+      "name": "canva_link_categories_owner_title_key",
+      "kind": "u",
+      "definition": "UNIQUE (owner, title)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "title"
       ],
-      "definition": "UNIQUE (owner, title)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "p",
-      "name": "canva_link_categories_pkey",
-      "table": "canva_link_categories",
       "schema": "edumaker",
+      "table": "canva_link_categories",
+      "name": "canva_link_categories_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, id)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "id"
       ],
-      "definition": "PRIMARY KEY (owner, id)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "f",
-      "name": "canva_links_owner_category_id_fkey",
-      "table": "canva_links",
       "schema": "edumaker",
+      "table": "canva_links",
+      "name": "canva_links_owner_category_id_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (owner, category_id) REFERENCES edumaker.canva_link_categories(owner, id) ON DELETE SET NULL (category_id)",
+      "target_schema": "edumaker",
+      "target_table": "canva_link_categories",
       "columns": [
         "owner",
         "category_id"
       ],
-      "definition": "FOREIGN KEY (owner, category_id) REFERENCES edumaker.canva_link_categories(owner, id) ON DELETE SET NULL (category_id)",
-      "target_table": "canva_link_categories",
-      "target_schema": "edumaker",
       "target_columns": [
         "owner",
         "id"
       ]
     },
     {
-      "kind": "p",
-      "name": "canva_links_pkey",
-      "table": "canva_links",
       "schema": "edumaker",
+      "table": "canva_links",
+      "name": "canva_links_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, id)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "id"
       ],
-      "definition": "PRIMARY KEY (owner, id)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "category_images_data_check",
-      "table": "category_images",
       "schema": "edumaker",
+      "table": "category_images",
+      "name": "category_images_data_check",
+      "kind": "c",
+      "definition": "CHECK (((octet_length(data) >= 1) AND (octet_length(data) <= 524288)))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "data"
       ],
-      "definition": "CHECK (octet_length(data) >= 1 AND octet_length(data) <= 524288)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "category_images_mime_check",
-      "table": "category_images",
       "schema": "edumaker",
+      "table": "category_images",
+      "name": "category_images_mime_check",
+      "kind": "c",
+      "definition": "CHECK ((mime = ANY (ARRAY['image/jpeg'::text, 'image/png'::text, 'image/webp'::text])))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "mime"
       ],
-      "definition": "CHECK (mime = ANY (ARRAY['image/jpeg'::text, 'image/png'::text, 'image/webp'::text]))",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "f",
-      "name": "category_images_owner_category_id_fkey",
-      "table": "category_images",
       "schema": "edumaker",
+      "table": "category_images",
+      "name": "category_images_owner_category_id_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (owner, category_id) REFERENCES edumaker.journal_categories(owner, id) ON DELETE CASCADE",
+      "target_schema": "edumaker",
+      "target_table": "journal_categories",
       "columns": [
         "owner",
         "category_id"
       ],
-      "definition": "FOREIGN KEY (owner, category_id) REFERENCES edumaker.journal_categories(owner, id) ON DELETE CASCADE",
-      "target_table": "journal_categories",
-      "target_schema": "edumaker",
       "target_columns": [
         "owner",
         "id"
       ]
     },
     {
-      "kind": "p",
-      "name": "category_images_pkey",
-      "table": "category_images",
       "schema": "edumaker",
+      "table": "category_images",
+      "name": "category_images_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, category_id, slot)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "category_id",
         "slot"
       ],
-      "definition": "PRIMARY KEY (owner, category_id, slot)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "category_images_slot_check",
-      "table": "category_images",
       "schema": "edumaker",
+      "table": "category_images",
+      "name": "category_images_slot_check",
+      "kind": "c",
+      "definition": "CHECK ((slot = ANY (ARRAY[1, 2])))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "slot"
       ],
-      "definition": "CHECK (slot = ANY (ARRAY[1, 2]))",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "f",
-      "name": "courses_owner_category_id_fkey",
-      "table": "courses",
       "schema": "edumaker",
+      "table": "courses",
+      "name": "courses_owner_category_id_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (owner, category_id) REFERENCES edumaker.journal_categories(owner, id) ON DELETE SET NULL (category_id)",
+      "target_schema": "edumaker",
+      "target_table": "journal_categories",
       "columns": [
         "owner",
         "category_id"
       ],
-      "definition": "FOREIGN KEY (owner, category_id) REFERENCES edumaker.journal_categories(owner, id) ON DELETE SET NULL (category_id)",
-      "target_table": "journal_categories",
-      "target_schema": "edumaker",
       "target_columns": [
         "owner",
         "id"
       ]
     },
     {
-      "kind": "p",
-      "name": "courses_pkey",
-      "table": "courses",
       "schema": "edumaker",
+      "table": "courses",
+      "name": "courses_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, id)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "id"
       ],
-      "definition": "PRIMARY KEY (owner, id)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "journal_categories_detail_count_check",
-      "table": "journal_categories",
       "schema": "edumaker",
+      "table": "journal_categories",
+      "name": "journal_categories_detail_count_check",
+      "kind": "c",
+      "definition": "CHECK (((detail_count >= 1) AND (detail_count <= 8)))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "detail_count"
       ],
-      "definition": "CHECK (detail_count >= 1 AND detail_count <= 8)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "journal_categories_goal_count_check",
-      "table": "journal_categories",
       "schema": "edumaker",
+      "table": "journal_categories",
+      "name": "journal_categories_goal_count_check",
+      "kind": "c",
+      "definition": "CHECK (((goal_count >= 1) AND (goal_count <= 8)))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "goal_count"
       ],
-      "definition": "CHECK (goal_count >= 1 AND goal_count <= 8)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "p",
-      "name": "journal_categories_pkey",
-      "table": "journal_categories",
       "schema": "edumaker",
+      "table": "journal_categories",
+      "name": "journal_categories_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, id)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "id"
       ],
-      "definition": "PRIMARY KEY (owner, id)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "journal_categories_topic_count_check",
-      "table": "journal_categories",
       "schema": "edumaker",
+      "table": "journal_categories",
+      "name": "journal_categories_topic_count_check",
+      "kind": "c",
+      "definition": "CHECK (((topic_count >= 1) AND (topic_count <= 10)))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "topic_count"
       ],
-      "definition": "CHECK (topic_count >= 1 AND topic_count <= 10)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "f",
+      "schema": "edumaker",
+      "table": "journals",
       "name": "journals_owner_course_id_session_position_fkey",
-      "table": "journals",
-      "schema": "edumaker",
-      "columns": [
-        "owner",
-        "course_id",
-        "session_position"
-      ],
+      "kind": "f",
       "definition": "FOREIGN KEY (owner, course_id, session_position) REFERENCES edumaker.sessions(owner, course_id, \"position\") ON DELETE CASCADE",
-      "target_table": "sessions",
       "target_schema": "edumaker",
-      "target_columns": [
-        "owner",
-        "course_id",
-        "position"
-      ]
-    },
-    {
-      "kind": "p",
-      "name": "journals_pkey",
-      "table": "journals",
-      "schema": "edumaker",
+      "target_table": "sessions",
       "columns": [
         "owner",
         "course_id",
         "session_position"
       ],
+      "target_columns": [
+        "owner",
+        "course_id",
+        "position"
+      ]
+    },
+    {
+      "schema": "edumaker",
+      "table": "journals",
+      "name": "journals_pkey",
+      "kind": "p",
       "definition": "PRIMARY KEY (owner, course_id, session_position)",
-      "target_table": null,
       "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "owner",
+        "course_id",
+        "session_position"
+      ],
       "target_columns": null
     },
     {
-      "kind": "f",
+      "schema": "edumaker",
+      "table": "news_articles",
       "name": "news_articles_owner_course_id_fkey",
-      "table": "news_articles",
-      "schema": "edumaker",
+      "kind": "f",
+      "definition": "FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE",
+      "target_schema": "edumaker",
+      "target_table": "courses",
       "columns": [
         "owner",
         "course_id"
       ],
-      "definition": "FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE",
-      "target_table": "courses",
-      "target_schema": "edumaker",
       "target_columns": [
         "owner",
         "id"
       ]
     },
     {
-      "kind": "p",
+      "schema": "edumaker",
+      "table": "news_articles",
       "name": "news_articles_pkey",
-      "table": "news_articles",
-      "schema": "edumaker",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, course_id, \"position\")",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "course_id",
         "position"
       ],
-      "definition": "PRIMARY KEY (owner, course_id, \"position\")",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "news_articles_position_check",
-      "table": "news_articles",
       "schema": "edumaker",
+      "table": "news_articles",
+      "name": "news_articles_position_check",
+      "kind": "c",
+      "definition": "CHECK ((\"position\" >= 0))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "position"
       ],
-      "definition": "CHECK (\"position\" >= 0)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "f",
-      "name": "sessions_owner_course_id_fkey",
-      "table": "sessions",
       "schema": "edumaker",
+      "table": "sessions",
+      "name": "sessions_owner_course_id_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE",
+      "target_schema": "edumaker",
+      "target_table": "courses",
       "columns": [
         "owner",
         "course_id"
       ],
-      "definition": "FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE",
-      "target_table": "courses",
-      "target_schema": "edumaker",
       "target_columns": [
         "owner",
         "id"
       ]
     },
     {
-      "kind": "p",
-      "name": "sessions_pkey",
-      "table": "sessions",
       "schema": "edumaker",
+      "table": "sessions",
+      "name": "sessions_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, course_id, \"position\")",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "course_id",
         "position"
       ],
-      "definition": "PRIMARY KEY (owner, course_id, \"position\")",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "sessions_position_check",
-      "table": "sessions",
       "schema": "edumaker",
+      "table": "sessions",
+      "name": "sessions_position_check",
+      "kind": "c",
+      "definition": "CHECK ((\"position\" >= 0))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "position"
       ],
-      "definition": "CHECK (\"position\" >= 0)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "f",
-      "name": "slide_sources_owner_course_id_slide_position_fkey",
-      "table": "slide_sources",
       "schema": "edumaker",
+      "table": "slide_sources",
+      "name": "slide_sources_owner_course_id_slide_position_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (owner, course_id, slide_position) REFERENCES edumaker.slides(owner, course_id, \"position\") ON DELETE CASCADE",
+      "target_schema": "edumaker",
+      "target_table": "slides",
       "columns": [
         "owner",
         "course_id",
         "slide_position"
       ],
-      "definition": "FOREIGN KEY (owner, course_id, slide_position) REFERENCES edumaker.slides(owner, course_id, \"position\") ON DELETE CASCADE",
-      "target_table": "slides",
-      "target_schema": "edumaker",
       "target_columns": [
         "owner",
         "course_id",
@@ -10282,129 +10683,348 @@
       ]
     },
     {
-      "kind": "p",
-      "name": "slide_sources_pkey",
-      "table": "slide_sources",
       "schema": "edumaker",
+      "table": "slide_sources",
+      "name": "slide_sources_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, course_id, slide_position, \"position\")",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "course_id",
         "slide_position",
         "position"
       ],
-      "definition": "PRIMARY KEY (owner, course_id, slide_position, \"position\")",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "slide_sources_position_check",
-      "table": "slide_sources",
       "schema": "edumaker",
+      "table": "slide_sources",
+      "name": "slide_sources_position_check",
+      "kind": "c",
+      "definition": "CHECK ((\"position\" >= 0))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "position"
       ],
-      "definition": "CHECK (\"position\" >= 0)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "f",
-      "name": "slides_owner_course_id_fkey",
-      "table": "slides",
       "schema": "edumaker",
+      "table": "slides",
+      "name": "slides_owner_course_id_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE",
+      "target_schema": "edumaker",
+      "target_table": "courses",
       "columns": [
         "owner",
         "course_id"
       ],
-      "definition": "FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE",
-      "target_table": "courses",
-      "target_schema": "edumaker",
       "target_columns": [
         "owner",
         "id"
       ]
     },
     {
-      "kind": "p",
-      "name": "slides_pkey",
-      "table": "slides",
       "schema": "edumaker",
+      "table": "slides",
+      "name": "slides_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (owner, course_id, \"position\")",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "owner",
         "course_id",
         "position"
       ],
-      "definition": "PRIMARY KEY (owner, course_id, \"position\")",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
-      "name": "slides_position_check",
-      "table": "slides",
       "schema": "edumaker",
+      "table": "slides",
+      "name": "slides_position_check",
+      "kind": "c",
+      "definition": "CHECK ((\"position\" >= 0))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "position"
       ],
-      "definition": "CHECK (\"position\" >= 0)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "c",
+      "schema": "edumaker",
+      "table": "storage_credentials",
       "name": "storage_credentials_key_hash_check",
-      "table": "storage_credentials",
-      "schema": "edumaker",
+      "kind": "c",
+      "definition": "CHECK ((octet_length(key_hash) = 32))",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "key_hash"
       ],
-      "definition": "CHECK (octet_length(key_hash) = 32)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
-      "kind": "p",
+      "schema": "edumaker",
+      "table": "storage_credentials",
       "name": "storage_credentials_pkey",
-      "table": "storage_credentials",
-      "schema": "edumaker",
+      "kind": "p",
+      "definition": "PRIMARY KEY (key_hash)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "key_hash"
       ],
-      "definition": "PRIMARY KEY (key_hash)",
-      "target_table": null,
-      "target_schema": null,
       "target_columns": null
     },
     {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_check",
+      "kind": "c",
+      "definition": "CHECK (((NOT public_read) OR (code_group = 'BOARD'::text)))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "public_read",
+        "code_group"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_code_group_check",
+      "kind": "c",
+      "definition": "CHECK ((code_group = ANY (ARRAY['DEPT'::text, 'BOARD'::text])))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "code_group"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_code_group_code_key",
+      "kind": "u",
+      "definition": "UNIQUE (code_group, code)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "code_group",
+        "code"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_name_check",
+      "kind": "c",
+      "definition": "CHECK ((length(TRIM(BOTH FROM name)) > 0))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "name"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_pkey",
       "kind": "p",
-      "name": "admin_users_pkey",
-      "table": "admin_users",
-      "schema": "public",
-      "columns": [
-        "user_id"
-      ],
-      "definition": "PRIMARY KEY (user_id)",
-      "target_table": null,
+      "definition": "PRIMARY KEY (code)",
       "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "code"
+      ],
       "target_columns": null
     },
     {
-      "kind": "f",
-      "name": "admin_users_user_id_fkey",
-      "table": "admin_users",
       "schema": "public",
+      "table": "tbl_dept",
+      "name": "staff_departments_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (code)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "code"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_dept",
+      "name": "tbl_dept_comcode_fk",
+      "kind": "f",
+      "definition": "FOREIGN KEY (code_group, code) REFERENCES tbl_comcode(code_group, code)",
+      "target_schema": "public",
+      "target_table": "tbl_comcode",
+      "columns": [
+        "code_group",
+        "code"
+      ],
+      "target_columns": [
+        "code_group",
+        "code"
+      ]
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_members_department_code_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (department_code) REFERENCES tbl_dept(code)",
+      "target_schema": "public",
+      "target_table": "tbl_dept",
+      "columns": [
+        "department_code"
+      ],
+      "target_columns": [
+        "code"
+      ]
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_members_profile_check",
+      "kind": "c",
+      "definition": "CHECK ((jsonb_typeof(profile) = 'object'::text))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "profile"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_members_rank_check",
+      "kind": "c",
+      "definition": "CHECK (((rank >= '-1'::integer) AND (rank <= 2)))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "rank"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "tbl_emp_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (emp_code)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "emp_code"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "staff_evaluations_assessment_check",
+      "kind": "c",
+      "definition": "CHECK ((length(TRIM(BOTH FROM assessment)) > 0))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "assessment"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "staff_evaluations_member_id_import_key_key",
+      "kind": "u",
+      "definition": "UNIQUE (member_id, import_key)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "member_id",
+        "import_key"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "staff_evaluations_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (id)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "id"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "staff_evaluations_rating_check",
+      "kind": "c",
+      "definition": "CHECK (((rating >= 0) AND (rating <= 5)))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "rating"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_evalu",
+      "name": "tbl_evalu_emp_code_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (member_id) REFERENCES tbl_emp(emp_code)",
+      "target_schema": "public",
+      "target_table": "tbl_emp",
+      "columns": [
+        "member_id"
+      ],
+      "target_columns": [
+        "emp_code"
+      ]
+    },
+    {
+      "schema": "public",
+      "table": "tbl_users",
+      "name": "admin_users_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (user_id)",
+      "target_schema": null,
+      "target_table": null,
       "columns": [
         "user_id"
       ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_users",
+      "name": "admin_users_user_id_fkey",
+      "kind": "f",
       "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
-      "target_table": "users",
       "target_schema": "auth",
+      "target_table": "users",
+      "columns": [
+        "user_id"
+      ],
       "target_columns": [
         "id"
       ]

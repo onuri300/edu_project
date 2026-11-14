@@ -19,7 +19,7 @@
 - GitHub Pages 파일 자체는 공개되므로 개인정보·기밀을 배포하지 마세요.
 
 ## 파일 역할
-- `ne_news/ne_making.html`, `ne_news/ne_ai.html`: 채널별 날짜 목록·전문 화면.
+- `do_docs/do_making.html`, `do_docs/do_ai.html`: 채널별 날짜 목록·전문 화면.
 - `common/css/pages/ne_reader.css`, `common/js/pages/ne_reader.js`: 두 페이지의 공통 레이아웃·목록·본문·보관 기능.
 - `common/scripts/build-reports.mjs`: reports 스캔·목록 생성.
 - `common/data/newsletter-data.js`: 자동 생성 목록.
@@ -42,7 +42,7 @@ node common/file/scripts/import-reports.mjs "D:/download/EDU_PROJECT_Reports_202
 - 검색은 제목·요약·태그·본문을 포함합니다. 일일/주간 필터와 날짜 목록은 함께 적용됩니다.
 - Markdown은 공통 로컬 markdown-it 렌더러로 표시합니다. HTML 실행과 외부 이미지 자동 요청은 비활성화합니다. 출처·영상·Canva는 원문 링크로 연결하며 원문을 복제하지 않습니다.
 - 본문 목차·가로 스크롤 표·조사 기간·예상 읽기 시간·원본 Markdown 다운로드를 지원합니다.
-- 상세 주소 예: `ne_news/ne_making.html#report=weekly-2026-11-02-ai-making`. 기존 로그인 정책에 따라 직접 접속하면 먼저 로그인하고 해당 리포트로 돌아갑니다. 새 탭의 상세 새로고침도 유지됩니다.
+- 상세 주소 예: `do_docs/do_making.html#report=weekly-2026-11-02-ai-making`. 기존 로그인 정책에 따라 직접 접속하면 먼저 로그인하고 해당 리포트로 돌아갑니다. 새 탭의 상세 새로고침도 유지됩니다.
 - 자료 없음·없는 ID·목록/렌더러 로드 오류는 화면에 안내합니다.
 
 ### 추가 파일 역할
@@ -52,7 +52,7 @@ node common/file/scripts/import-reports.mjs "D:/download/EDU_PROJECT_Reports_202
 
 ## AI 뉴스레터 화면 운영
 AI 페이지는 리포트 가져오기·브라우저 보관 기능 없이 소스로 등록한 리포트만 표시합니다. `common/file/ne.file/ai/`에 원본을 저장하고 빌드·업로드하세요. 메이킹 페이지의 기존 가져오기 기능은 유지합니다.
-대표 이미지: `common/images/ne.image/ai-newsletter-hero.png`. 같은 파일명으로 이미지를 교체하면 반영됩니다. 이미지 설정·생성 프롬프트는 `mo_tools/docs/ai-newsletter-image.md`를 참고하세요.
+대표 이미지: `common/images/ne.image/ai-newsletter-hero.png`. 같은 파일명으로 이미지를 교체하면 반영됩니다. 이미지 설정·생성 프롬프트는 `do_docs/docs/ai-newsletter-image.md`를 참고하세요.
 
 ## 두 뉴스레터 공통 UI 관리
 AI·메이킹 모두 가져오기/브라우저 보관 기능 없이 소스로 등록한 리포트만 표시합니다.
@@ -60,6 +60,6 @@ AI·메이킹 모두 가져오기/브라우저 보관 기능 없이 소스로 �
 - 채널별 제목·소개·주제·이미지: `common/data/newsletter-pages.json`
 - 공통 스타일·동작: `common/css/pages/ne_reader.css`, `common/js/pages/ne_reader.js`
 - 생성: `node common/scripts/build-newsletter-pages.mjs`. 기존 리포트/배포 빌드에서도 자동 호출됩니다.
-- `ne_news/ne_ai.html`, `ne_news/ne_making.html`은 생성된 페이지입니다. UI 수정은 템플릿에서 하세요. 페이지 주소는 유지됩니다.
+- `do_docs/do_ai.html`, `do_docs/do_making.html`은 생성된 페이지입니다. UI 수정은 템플릿에서 하세요. 페이지 주소는 유지됩니다.
 - 두 페이지는 기존 파스텔 일러스트를 공유합니다. 채널별 이미지를 따로 쓰려면 설정 파일의 image와 imageAlt를 수정하세요.
 - 기존 Markdown 자료·ID·검색·필터·목차·다운로드는 유지됩니다. 과거 브라우저에 가져온 자료는 삭제하지 않으며 화면에서는 사용하지 않습니다.

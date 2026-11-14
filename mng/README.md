@@ -24,12 +24,12 @@ node common/scripts/build-library.mjs --deploy
 
 ## 개발 문서
 
-1. [시스템 개발명세서](mo_tools/docs/01-system-specification.md)
-2. [공통 프레임워크 사용 매뉴얼](mo_tools/docs/02-framework-manual.md)
-3. [CSS 클래스 레퍼런스](mo_tools/docs/03-css-reference.md)
-4. [JavaScript 공통 함수 레퍼런스](mo_tools/docs/04-javascript-reference.md)
-5. [데이터베이스·API 개발명세서](mo_tools/docs/05-data-api-specification.md)
-6. [개발 규칙·신규 페이지 가이드](mo_tools/docs/06-development-guide.md)
-7. [메뉴 그룹과 기본 템플릿](mo_tools/docs/07-menu-layout-guide.md)
+1. [시스템 개발명세서](do_docs/docs/01-system-specification.md)
+2. [공통 프레임워크 사용 매뉴얼](do_docs/docs/02-framework-manual.md)
+3. [CSS 클래스 레퍼런스](do_docs/docs/03-css-reference.md)
+4. [JavaScript 공통 함수 레퍼런스](do_docs/docs/04-javascript-reference.md)
+5. [데이터베이스·API 개발명세서](do_docs/docs/05-data-api-specification.md)
+6. [개발 규칙·신규 페이지 가이드](do_docs/docs/06-development-guide.md)
+7. [메뉴 그룹과 기본 템플릿](do_docs/docs/07-menu-layout-guide.md)
 
-[교안 파일 규칙](common/file/cl.file/README.md), [대표 이미지 관리](common/images/README.md), [뉴스레터 입력 규칙](common/file/ne.file/README.md), [edumaker 운영 연동](mo_tools/docs/edumaker-integration.md)은 해당 운영 문서를 참고합니다.
+[교안 파일 규칙](common/file/cl.file/README.md), [대표 이미지 관리](common/images/README.md), [뉴스레터 입력 규칙](common/file/ne.file/README.md), [edumaker 운영 연동](do_docs/docs/edumaker-integration.md)은 해당 운영 문서를 참고합니다.
