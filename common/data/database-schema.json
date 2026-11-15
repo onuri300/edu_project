@@ -213,21 +213,7 @@
     },
     {
       "schema": "public",
-      "name": "tbl_comcode",
-      "kind": "r",
-      "rls": true,
-      "comment": null
-    },
-    {
-      "schema": "public",
       "name": "tbl_dept",
-      "kind": "r",
-      "rls": true,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "name": "tbl_emp",
       "kind": "r",
       "rls": true,
       "comment": null
@@ -357,6 +343,27 @@
       "name": "secrets",
       "schema": "vault",
       "comment": "Table with encrypted `secret` column for storing sensitive information on disk."
+    },
+    {
+      "schema": "public",
+      "name": "tbl_comcode",
+      "kind": "r",
+      "rls": true,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "name": "tbl_emp",
+      "kind": "r",
+      "rls": true,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "name": "tbl_menu",
+      "kind": "r",
+      "rls": true,
+      "comment": null
     }
   ],
   "columns": [
@@ -4346,54 +4353,6 @@
     },
     {
       "schema": "public",
-      "table": "tbl_comcode",
-      "name": "code",
-      "type": "text",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 1,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "code_group",
-      "type": "text",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 2,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "name",
-      "type": "text",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 3,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "public_read",
-      "type": "boolean",
-      "nullable": false,
-      "default": "false",
-      "identity": "",
-      "generated": "",
-      "position": 4,
-      "comment": null
-    },
-    {
-      "schema": "public",
       "table": "tbl_dept",
       "name": "code",
       "type": "text",
@@ -4426,78 +4385,6 @@
       "identity": "",
       "generated": "s",
       "position": 4,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "department_code",
-      "type": "text",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 2,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "emp_code",
-      "type": "text",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 3,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "name",
-      "type": "text",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 4,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "rank",
-      "type": "integer",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 5,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "sort_order",
-      "type": "integer",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 6,
-      "comment": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "profile_file",
-      "type": "text",
-      "nullable": false,
-      "default": null,
-      "identity": "",
-      "generated": "",
-      "position": 8,
       "comment": null
     },
     {
@@ -6251,6 +6138,270 @@
       "nullable": false,
       "position": 8,
       "generated": ""
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 1,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "code_group",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 2,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "name",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 3,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "public_read",
+      "type": "boolean",
+      "nullable": false,
+      "default": "false",
+      "identity": "",
+      "generated": "",
+      "position": 4,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "name_group",
+      "type": "text",
+      "nullable": true,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 5,
+      "comment": "그룹코드명"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "dept_code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 2,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "emp_code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 3,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "name",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 4,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "rank",
+      "type": "integer",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 5,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "sort_order",
+      "type": "integer",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 6,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "profile_file",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 8,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "menu_id",
+      "type": "bigint",
+      "nullable": false,
+      "default": null,
+      "identity": "a",
+      "generated": "",
+      "position": 1,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "group_order",
+      "type": "integer",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 3,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "page_path",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 6,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "menu_order",
+      "type": "integer",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 7,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "worker_id",
+      "type": "uuid",
+      "nullable": false,
+      "default": "auth.uid()",
+      "identity": "",
+      "generated": "",
+      "position": 8,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "worked_at",
+      "type": "timestamp with time zone",
+      "nullable": false,
+      "default": "now()",
+      "identity": "",
+      "generated": "",
+      "position": 9,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "group_code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 10,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "menu_code",
+      "type": "text",
+      "nullable": false,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 11,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "subgroup_code",
+      "type": "text",
+      "nullable": true,
+      "default": null,
+      "identity": "",
+      "generated": "",
+      "position": 12,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "group_code_type",
+      "type": "text",
+      "nullable": true,
+      "default": "'MENU_GROUP'::text",
+      "identity": "",
+      "generated": "s",
+      "position": 13,
+      "comment": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "menu_code_type",
+      "type": "text",
+      "nullable": true,
+      "default": "'MENU'::text",
+      "identity": "",
+      "generated": "s",
+      "position": 14,
+      "comment": null
     }
   ],
   "indexes": [
@@ -6952,39 +7103,9 @@
     },
     {
       "schema": "public",
-      "table": "tbl_comcode",
-      "name": "tbl_comcode_code_group_code_key",
-      "definition": "CREATE UNIQUE INDEX tbl_comcode_code_group_code_key ON public.tbl_comcode USING btree (code_group, code)"
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "tbl_comcode_pkey",
-      "definition": "CREATE UNIQUE INDEX tbl_comcode_pkey ON public.tbl_comcode USING btree (code)"
-    },
-    {
-      "schema": "public",
       "table": "tbl_dept",
       "name": "staff_departments_pkey",
       "definition": "CREATE UNIQUE INDEX staff_departments_pkey ON public.tbl_dept USING btree (code)"
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "staff_members_department_idx",
-      "definition": "CREATE INDEX staff_members_department_idx ON public.tbl_emp USING btree (department_code)"
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "tbl_emp_pkey",
-      "definition": "CREATE UNIQUE INDEX tbl_emp_pkey ON public.tbl_emp USING btree (emp_code)"
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "tbl_emp_profile_file_unique",
-      "definition": "CREATE UNIQUE INDEX tbl_emp_profile_file_unique ON public.tbl_emp USING btree (profile_file)"
     },
     {
       "schema": "public",
@@ -7225,6 +7346,60 @@
       "table": "secrets",
       "schema": "vault",
       "definition": "CREATE UNIQUE INDEX secrets_pkey ON vault.secrets USING btree (id)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_pkey",
+      "definition": "CREATE UNIQUE INDEX tbl_menu_pkey ON public.tbl_menu USING btree (menu_id)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_page_path_key",
+      "definition": "CREATE UNIQUE INDEX tbl_menu_page_path_key ON public.tbl_menu USING btree (page_path)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_group_order_menu_order_key",
+      "definition": "CREATE UNIQUE INDEX tbl_menu_group_order_menu_order_key ON public.tbl_menu USING btree (group_order, menu_order)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_menu_code_unique",
+      "definition": "CREATE UNIQUE INDEX tbl_menu_menu_code_unique ON public.tbl_menu USING btree (menu_code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_pkey",
+      "definition": "CREATE UNIQUE INDEX tbl_comcode_pkey ON public.tbl_comcode USING btree (code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_code_group_code_key",
+      "definition": "CREATE UNIQUE INDEX tbl_comcode_code_group_code_key ON public.tbl_comcode USING btree (code_group, code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_members_department_idx",
+      "definition": "CREATE INDEX staff_members_department_idx ON public.tbl_emp USING btree (dept_code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "tbl_emp_pkey",
+      "definition": "CREATE UNIQUE INDEX tbl_emp_pkey ON public.tbl_emp USING btree (emp_code)"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "tbl_emp_profile_file_unique",
+      "definition": "CREATE UNIQUE INDEX tbl_emp_profile_file_unique ON public.tbl_emp USING btree (profile_file)"
     }
   ],
   "schemas": [
@@ -7328,41 +7503,7 @@
     },
     {
       "schema": "public",
-      "table": "tbl_comcode",
-      "name": "admins read common codes",
-      "roles": [
-        "authenticated"
-      ],
-      "command": "SELECT",
-      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
-      "check": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "read public board codes",
-      "roles": [
-        "anon",
-        "authenticated"
-      ],
-      "command": "SELECT",
-      "using": "((code_group = 'BOARD'::text) AND public_read)",
-      "check": null
-    },
-    {
-      "schema": "public",
       "table": "tbl_dept",
-      "name": "staff_admin_access",
-      "roles": [
-        "authenticated"
-      ],
-      "command": "ALL",
-      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
-      "check": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
       "name": "staff_admin_access",
       "roles": [
         "authenticated"
@@ -7403,6 +7544,64 @@
       "command": "ALL",
       "using": "((bucket_id = 'staff-guides'::text) AND (EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))))",
       "check": "((bucket_id = 'staff-guides'::text) AND (EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))))"
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "portal_menu_read",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "true",
+      "check": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "admins read common codes",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "portal_menu_code_read",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "(code_group = ANY (ARRAY['MENU_GROUP'::text, 'MENU'::text]))",
+      "check": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "read public board codes",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "command": "SELECT",
+      "using": "((code_group = 'BOARD'::text) AND public_read)",
+      "check": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_admin_access",
+      "roles": [
+        "authenticated"
+      ],
+      "command": "ALL",
+      "using": "(EXISTS ( SELECT 1\n   FROM tbl_users\n  WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))",
+      "check": null
     }
   ],
   "triggers": [
@@ -9027,73 +9226,6 @@
     },
     {
       "schema": "public",
-      "table": "tbl_comcode",
-      "name": "tbl_comcode_check",
-      "kind": "c",
-      "definition": "CHECK (((NOT public_read) OR (code_group = 'BOARD'::text)))",
-      "target_schema": null,
-      "target_table": null,
-      "columns": [
-        "public_read",
-        "code_group"
-      ],
-      "target_columns": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "tbl_comcode_code_group_check",
-      "kind": "c",
-      "definition": "CHECK ((code_group = ANY (ARRAY['DEPT'::text, 'BOARD'::text])))",
-      "target_schema": null,
-      "target_table": null,
-      "columns": [
-        "code_group"
-      ],
-      "target_columns": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "tbl_comcode_code_group_code_key",
-      "kind": "u",
-      "definition": "UNIQUE (code_group, code)",
-      "target_schema": null,
-      "target_table": null,
-      "columns": [
-        "code_group",
-        "code"
-      ],
-      "target_columns": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "tbl_comcode_name_check",
-      "kind": "c",
-      "definition": "CHECK ((length(TRIM(BOTH FROM name)) > 0))",
-      "target_schema": null,
-      "target_table": null,
-      "columns": [
-        "name"
-      ],
-      "target_columns": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_comcode",
-      "name": "tbl_comcode_pkey",
-      "kind": "p",
-      "definition": "PRIMARY KEY (code)",
-      "target_schema": null,
-      "target_table": null,
-      "columns": [
-        "code"
-      ],
-      "target_columns": null
-    },
-    {
-      "schema": "public",
       "table": "tbl_dept",
       "name": "staff_departments_pkey",
       "kind": "p",
@@ -9121,60 +9253,6 @@
         "code_group",
         "code"
       ]
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "staff_members_department_code_fkey",
-      "kind": "f",
-      "definition": "FOREIGN KEY (department_code) REFERENCES tbl_dept(code)",
-      "columns": [
-        "department_code"
-      ],
-      "target_columns": [
-        "code"
-      ],
-      "target_schema": "public",
-      "target_table": "tbl_dept"
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "staff_members_rank_check",
-      "kind": "c",
-      "definition": "CHECK (((rank >= '-1'::integer) AND (rank <= 2)))",
-      "columns": [
-        "rank"
-      ],
-      "target_columns": null,
-      "target_schema": null,
-      "target_table": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "tbl_emp_pkey",
-      "kind": "p",
-      "definition": "PRIMARY KEY (emp_code)",
-      "columns": [
-        "emp_code"
-      ],
-      "target_columns": null,
-      "target_schema": null,
-      "target_table": null
-    },
-    {
-      "schema": "public",
-      "table": "tbl_emp",
-      "name": "tbl_emp_profile_file_unique",
-      "kind": "u",
-      "definition": "UNIQUE (profile_file)",
-      "columns": [
-        "profile_file"
-      ],
-      "target_columns": null,
-      "target_schema": null,
-      "target_table": null
     },
     {
       "schema": "public",
@@ -9746,6 +9824,285 @@
       "target_table": null,
       "target_schema": null,
       "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_check",
+      "kind": "c",
+      "definition": "CHECK (((NOT public_read) OR (code_group = 'BOARD'::text)))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "public_read",
+        "code_group"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_code_group_check",
+      "kind": "c",
+      "definition": "CHECK ((code_group = ANY (ARRAY['DEPT'::text, 'BOARD'::text, 'MENU_GROUP'::text, 'MENU'::text])))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "code_group"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_code_group_code_key",
+      "kind": "u",
+      "definition": "UNIQUE (code_group, code)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "code_group",
+        "code"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_name_check",
+      "kind": "c",
+      "definition": "CHECK ((length(TRIM(BOTH FROM name)) > 0))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "name"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_comcode",
+      "name": "tbl_comcode_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (code)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "code"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_members_department_code_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (dept_code) REFERENCES tbl_dept(code)",
+      "target_schema": "public",
+      "target_table": "tbl_dept",
+      "columns": [
+        "dept_code"
+      ],
+      "target_columns": [
+        "code"
+      ]
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "staff_members_rank_check",
+      "kind": "c",
+      "definition": "CHECK (((rank >= '-1'::integer) AND (rank <= 2)))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "rank"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "tbl_emp_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (emp_code)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "emp_code"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_emp",
+      "name": "tbl_emp_profile_file_unique",
+      "kind": "u",
+      "definition": "UNIQUE (profile_file)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "profile_file"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_group_code_fk",
+      "kind": "f",
+      "definition": "FOREIGN KEY (group_code_type, group_code) REFERENCES tbl_comcode(code_group, code)",
+      "target_schema": "public",
+      "target_table": "tbl_comcode",
+      "columns": [
+        "group_code_type",
+        "group_code"
+      ],
+      "target_columns": [
+        "code_group",
+        "code"
+      ]
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_group_order_check",
+      "kind": "c",
+      "definition": "CHECK ((group_order > 0))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "group_order"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_group_order_menu_order_key",
+      "kind": "u",
+      "definition": "UNIQUE (group_order, menu_order)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "group_order",
+        "menu_order"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_menu_code_fk",
+      "kind": "f",
+      "definition": "FOREIGN KEY (menu_code_type, menu_code) REFERENCES tbl_comcode(code_group, code)",
+      "target_schema": "public",
+      "target_table": "tbl_comcode",
+      "columns": [
+        "menu_code_type",
+        "menu_code"
+      ],
+      "target_columns": [
+        "code_group",
+        "code"
+      ]
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_menu_code_unique",
+      "kind": "u",
+      "definition": "UNIQUE (menu_code)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "menu_code"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_menu_order_check",
+      "kind": "c",
+      "definition": "CHECK ((menu_order > 0))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "menu_order"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_page_path_check",
+      "kind": "c",
+      "definition": "CHECK ((page_path ~ '^[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*[.]html$'::text))",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "page_path"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_page_path_key",
+      "kind": "u",
+      "definition": "UNIQUE (page_path)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "page_path"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_pkey",
+      "kind": "p",
+      "definition": "PRIMARY KEY (menu_id)",
+      "target_schema": null,
+      "target_table": null,
+      "columns": [
+        "menu_id"
+      ],
+      "target_columns": null
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_subgroup_code_fk",
+      "kind": "f",
+      "definition": "FOREIGN KEY (group_code_type, subgroup_code) REFERENCES tbl_comcode(code_group, code)",
+      "target_schema": "public",
+      "target_table": "tbl_comcode",
+      "columns": [
+        "group_code_type",
+        "subgroup_code"
+      ],
+      "target_columns": [
+        "code_group",
+        "code"
+      ]
+    },
+    {
+      "schema": "public",
+      "table": "tbl_menu",
+      "name": "tbl_menu_worker_id_fkey",
+      "kind": "f",
+      "definition": "FOREIGN KEY (worker_id) REFERENCES tbl_users(user_id)",
+      "target_schema": "public",
+      "target_table": "tbl_users",
+      "columns": [
+        "worker_id"
+      ],
+      "target_columns": [
+        "user_id"
+      ]
     }
   ],
   "staff_verified_at": "2026-11-15T01:12:08.831Z",

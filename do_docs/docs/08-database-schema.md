@@ -13,7 +13,7 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 | graphql | 0 |
 | graphql_public | 0 |
 | pgbouncer | 0 |
-| public | 6 |
+| public | 7 |
 | realtime | 3 |
 | storage | 10 |
 | supabase_migrations | 1 |
@@ -1029,31 +1029,6 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 | dealloc |  | bigint | 예 |  |  |
 | stats_reset |  | timestamp with time zone | 예 |  |  |
 
-### public.tbl_comcode · 공통코드
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| code | 코드 | text | 아니오 |  | UNIQUE, PK |
-| code_group | 코드 그룹 | text | 아니오 |  | UNIQUE |
-| name | 이름 | text | 아니오 |  |  |
-| public_read | 공개 조회 여부 | boolean | 아니오 | false |  |
-
-- tbl_comcode_check — CHECK (((NOT public_read) OR (code_group = 'BOARD'::text)))
-
-- tbl_comcode_code_group_check — CHECK ((code_group = ANY (ARRAY['DEPT'::text, 'BOARD'::text])))
-
-- tbl_comcode_code_group_code_key — UNIQUE (code_group, code)
-
-- tbl_comcode_name_check — CHECK ((length(TRIM(BOTH FROM name)) > 0))
-
-- tbl_comcode_pkey — PRIMARY KEY (code)
-
-- 인덱스 tbl_comcode_code_group_code_key — CREATE UNIQUE INDEX tbl_comcode_code_group_code_key ON public.tbl_comcode USING btree (code_group, code)
-
-- 인덱스 tbl_comcode_pkey — CREATE UNIQUE INDEX tbl_comcode_pkey ON public.tbl_comcode USING btree (code)
-
 ### public.tbl_dept · 부서
 
 종류 테이블 · RLS 사용
@@ -1069,33 +1044,6 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 - tbl_dept_comcode_fk — FOREIGN KEY (code_group, code) REFERENCES tbl_comcode(code_group, code)
 
 - 인덱스 staff_departments_pkey — CREATE UNIQUE INDEX staff_departments_pkey ON public.tbl_dept USING btree (code)
-
-### public.tbl_emp · 사원
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| department_code | 부서코드 | text | 아니오 |  | FK |
-| emp_code | 사원코드 | text | 아니오 |  | PK |
-| name | 이름 | text | 아니오 |  |  |
-| rank |  | integer | 아니오 |  |  |
-| sort_order | 표시 순서 | integer | 아니오 |  |  |
-| profile_file | 직원별 인사카드·지침서 XML 파일명 | text | 아니오 |  | UNIQUE |
-
-- staff_members_department_code_fkey — FOREIGN KEY (department_code) REFERENCES tbl_dept(code)
-
-- staff_members_rank_check — CHECK (((rank >= '-1'::integer) AND (rank <= 2)))
-
-- tbl_emp_pkey — PRIMARY KEY (emp_code)
-
-- tbl_emp_profile_file_unique — UNIQUE (profile_file)
-
-- 인덱스 staff_members_department_idx — CREATE INDEX staff_members_department_idx ON public.tbl_emp USING btree (department_code)
-
-- 인덱스 tbl_emp_pkey — CREATE UNIQUE INDEX tbl_emp_pkey ON public.tbl_emp USING btree (emp_code)
-
-- 인덱스 tbl_emp_profile_file_unique — CREATE UNIQUE INDEX tbl_emp_profile_file_unique ON public.tbl_emp USING btree (profile_file)
 
 ### public.tbl_evalu · 업무 평가
 
@@ -1533,6 +1481,107 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 
 - 인덱스 secrets_pkey — CREATE UNIQUE INDEX secrets_pkey ON vault.secrets USING btree (id)
 
+### public.tbl_comcode · 공통코드
+
+종류 테이블 · RLS 사용
+
+| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
+|---|---|---|---|---|---|
+| code | 코드 | text | 아니오 |  | UNIQUE, PK |
+| code_group | 코드 그룹 | text | 아니오 |  | UNIQUE |
+| name | 이름 | text | 아니오 |  |  |
+| public_read | 공개 조회 여부 | boolean | 아니오 | false |  |
+| name_group | 그룹코드명 / 그룹코드명 | text | 예 |  |  |
+
+- tbl_comcode_check — CHECK (((NOT public_read) OR (code_group = 'BOARD'::text)))
+
+- tbl_comcode_code_group_check — CHECK ((code_group = ANY (ARRAY['DEPT'::text, 'BOARD'::text, 'MENU_GROUP'::text, 'MENU'::text])))
+
+- tbl_comcode_code_group_code_key — UNIQUE (code_group, code)
+
+- tbl_comcode_name_check — CHECK ((length(TRIM(BOTH FROM name)) > 0))
+
+- tbl_comcode_pkey — PRIMARY KEY (code)
+
+- 인덱스 tbl_comcode_pkey — CREATE UNIQUE INDEX tbl_comcode_pkey ON public.tbl_comcode USING btree (code)
+
+- 인덱스 tbl_comcode_code_group_code_key — CREATE UNIQUE INDEX tbl_comcode_code_group_code_key ON public.tbl_comcode USING btree (code_group, code)
+
+### public.tbl_emp · 사원
+
+종류 테이블 · RLS 사용
+
+| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
+|---|---|---|---|---|---|
+| dept_code | 부서코드 | text | 아니오 |  | FK |
+| emp_code | 사원코드 | text | 아니오 |  | PK |
+| name | 이름 | text | 아니오 |  |  |
+| rank |  | integer | 아니오 |  |  |
+| sort_order | 표시 순서 | integer | 아니오 |  |  |
+| profile_file | 직원별 인사카드·지침서 XML 파일명 | text | 아니오 |  | UNIQUE |
+
+- staff_members_department_code_fkey — FOREIGN KEY (dept_code) REFERENCES tbl_dept(code)
+
+- staff_members_rank_check — CHECK (((rank >= '-1'::integer) AND (rank <= 2)))
+
+- tbl_emp_pkey — PRIMARY KEY (emp_code)
+
+- tbl_emp_profile_file_unique — UNIQUE (profile_file)
+
+- 인덱스 staff_members_department_idx — CREATE INDEX staff_members_department_idx ON public.tbl_emp USING btree (dept_code)
+
+- 인덱스 tbl_emp_pkey — CREATE UNIQUE INDEX tbl_emp_pkey ON public.tbl_emp USING btree (emp_code)
+
+- 인덱스 tbl_emp_profile_file_unique — CREATE UNIQUE INDEX tbl_emp_profile_file_unique ON public.tbl_emp USING btree (profile_file)
+
+### public.tbl_menu · tbl_menu
+
+종류 테이블 · RLS 사용
+
+| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
+|---|---|---|---|---|---|
+| menu_id |  | bigint | 아니오 | IDENTITY | PK |
+| group_order |  | integer | 아니오 |  | UNIQUE |
+| page_path |  | text | 아니오 |  | UNIQUE |
+| menu_order |  | integer | 아니오 |  | UNIQUE |
+| worker_id |  | uuid | 아니오 | auth.uid() | FK |
+| worked_at |  | timestamp with time zone | 아니오 | now() |  |
+| group_code |  | text | 아니오 |  | FK |
+| menu_code |  | text | 아니오 |  | FK, UNIQUE |
+| subgroup_code |  | text | 예 |  | FK |
+| group_code_type |  | text | 예 | 'MENU_GROUP'::text | FK, FK |
+| menu_code_type |  | text | 예 | 'MENU'::text | FK |
+
+- tbl_menu_group_code_fk — FOREIGN KEY (group_code_type, group_code) REFERENCES tbl_comcode(code_group, code)
+
+- tbl_menu_group_order_check — CHECK ((group_order > 0))
+
+- tbl_menu_group_order_menu_order_key — UNIQUE (group_order, menu_order)
+
+- tbl_menu_menu_code_fk — FOREIGN KEY (menu_code_type, menu_code) REFERENCES tbl_comcode(code_group, code)
+
+- tbl_menu_menu_code_unique — UNIQUE (menu_code)
+
+- tbl_menu_menu_order_check — CHECK ((menu_order > 0))
+
+- tbl_menu_page_path_check — CHECK ((page_path ~ '^[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*[.]html$'::text))
+
+- tbl_menu_page_path_key — UNIQUE (page_path)
+
+- tbl_menu_pkey — PRIMARY KEY (menu_id)
+
+- tbl_menu_subgroup_code_fk — FOREIGN KEY (group_code_type, subgroup_code) REFERENCES tbl_comcode(code_group, code)
+
+- tbl_menu_worker_id_fkey — FOREIGN KEY (worker_id) REFERENCES tbl_users(user_id)
+
+- 인덱스 tbl_menu_pkey — CREATE UNIQUE INDEX tbl_menu_pkey ON public.tbl_menu USING btree (menu_id)
+
+- 인덱스 tbl_menu_page_path_key — CREATE UNIQUE INDEX tbl_menu_page_path_key ON public.tbl_menu USING btree (page_path)
+
+- 인덱스 tbl_menu_group_order_menu_order_key — CREATE UNIQUE INDEX tbl_menu_group_order_menu_order_key ON public.tbl_menu USING btree (group_order, menu_order)
+
+- 인덱스 tbl_menu_menu_code_unique — CREATE UNIQUE INDEX tbl_menu_menu_code_unique ON public.tbl_menu USING btree (menu_code)
+
 ## 애플리케이션 함수와 트리거
 
 | 스키마·함수 | 인자 | 반환형 |
@@ -1554,10 +1603,12 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 | public.tbl_board | admin edit announcements | authenticated | UPDATE | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |
 | public.tbl_board | administrators read all notices | authenticated | SELECT | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
 | public.tbl_board | everyone read published notices | anon, authenticated | SELECT | (published AND (EXISTS ( SELECT 1    FROM tbl_comcode c   WHERE ((c.code_group = 'BOARD'::text) AND (c.code = board_posts.board_type) AND c.public_read)))) |  |
-| public.tbl_comcode | admins read common codes | authenticated | SELECT | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
-| public.tbl_comcode | read public board codes | anon, authenticated | SELECT | ((code_group = 'BOARD'::text) AND public_read) |  |
 | public.tbl_dept | staff_admin_access | authenticated | ALL | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
-| public.tbl_emp | staff_admin_access | authenticated | ALL | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
 | public.tbl_evalu | staff_admin_access | authenticated | ALL | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
 | public.tbl_users | admins see own membership | authenticated | SELECT | (user_id = ( SELECT auth.uid() AS uid)) |  |
 | storage.objects | staff_guide_file_admin | authenticated | ALL | ((bucket_id = 'staff-guides'::text) AND (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))) | ((bucket_id = 'staff-guides'::text) AND (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))) |
+| public.tbl_menu | portal_menu_read | anon, authenticated | SELECT | true |  |
+| public.tbl_comcode | admins read common codes | authenticated | SELECT | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
+| public.tbl_comcode | portal_menu_code_read | anon, authenticated | SELECT | (code_group = ANY (ARRAY['MENU_GROUP'::text, 'MENU'::text])) |  |
+| public.tbl_comcode | read public board codes | anon, authenticated | SELECT | ((code_group = 'BOARD'::text) AND public_read) |  |
+| public.tbl_emp | staff_admin_access | authenticated | ALL | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |

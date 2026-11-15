@@ -36,7 +36,7 @@
 
 ## 인사관리 페이지 전용 클래스
 
-`on_class/on_people.html`은 위 공통 레이아웃과 버튼을 재사용합니다. 다음 클래스는 `common/css/pages/mk_people.css`에서 관리합니다.
+`on_class/on_people.html`은 위 공통 레이아웃과 버튼을 재사용합니다. 다음 클래스는 `common/css/pages/on_people.css`에서 관리합니다.
 
 | 클래스 | 적용 위치 | 동작과 배치 |
 |---|---|---|

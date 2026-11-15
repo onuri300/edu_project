@@ -1,7 +1,6 @@
 import { versionAssets } from '../../onuri.framework/scripts/version-assets.mjs';
 import { buildReports } from './build-reports.mjs';
 import { buildLayoutPages } from './build-layout-pages.mjs';
-import { buildPageRoutes } from './build-page-routes.mjs';
 import { buildCodingManual } from './build-coding-manual.mjs';
 import { readdir, readFile, mkdir, copyFile, writeFile, stat, rm, cp } from 'node:fs/promises';
 import path from 'node:path';
@@ -80,7 +79,6 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
     throw error;
   })).includes('do_dev.html')) await buildCodingManual(source);
   if (dataOnly) {
-    await buildPageRoutes(source);
     console.log(`[자료실] ${items.length}개 교안 목록 갱신 완료 (배포 폴더 생성 안 함)`);
     return items;
   }
@@ -88,7 +86,7 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   await mkdir(path.join(output, 'common/file/cl.file'), { recursive: true });
   await mkdir(path.join(output, 'books'), { recursive: true });
   for (const name of await readdir(source)) {
-    if (name.endsWith('.html') && name !== 'menu-builder.html') await copyFile(path.join(source, name), path.join(output, name));
+    if (name.endsWith('.html')) await copyFile(path.join(source, name), path.join(output, name));
   }
   for (const folder of ['vi_vibe', 'ga_games', 'do_docs', 'on_class']) await copyOptional(source, output, folder);
   for (const relative of ['common/css', 'common/js']) {
@@ -102,7 +100,6 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   }
   await copyOptional(source, output, 'common/file/vi.file', 'vi_vibe/vi_onyou/downloads');
   for (const relative of ['common/images', 'common/data/computer-quiz', 'common/data/gpt-making-manual.json', 'common/data/data.enc.js', 'common/data/library-data.js', 'CNAME', '.nojekyll', '404.html', 'favicon.ico', 'robots.txt']) await copyOptional(source, output, relative);
-  await buildPageRoutes(source, output);
   await copyOptional(source, output, 'common/data/coding-manual.js');
   await copyOptional(source, output, 'common/data/gpt-making-manual.js');
   for (const item of items) {

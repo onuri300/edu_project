@@ -7,7 +7,7 @@
   const wait = ms => new Promise(r => setTimeout(r, ms));
 
   /* ---------- 상태 ---------- */
-  let DATA = null;          // 복호화된 메뉴 (메모리에만 존재)
+  let DATA = null;
   let fails = 0, locked = 0;
 
   /* ---------- 로그인 ---------- */
@@ -39,23 +39,22 @@
           await clearDbSession();
           throw error;
         }
-        DATA = databasePortalMenu();
       } else {
         const p = window.__ENC__;
         const key = await deriveKey(id, pw, decodeBase64(p.salt), p.it);
-        const buf = await crypto.subtle.decrypt(
+        await crypto.subtle.decrypt(
           { name: "AES-GCM", iv: decodeBase64(p.iv) }, key, decodeBase64(p.ct)
         );
-        DATA = JSON.parse(new TextDecoder().decode(buf));
         await clearDbSession();
       }
       authenticated = true;
       $("#upw").value = "";
+      DATA = await loadMenu();
       window.eduAuth.setSession(DATA);
       start();
     } catch (e) {
       if (authenticated) {
-        msg.textContent = "로그인은 확인됐지만 화면을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.";
+        msg.textContent = "로그인은 확인됐지만 DB 메뉴를 불러오지 못했습니다. 연결 상태를 확인하고 다시 시도해 주세요.";
         return;
       }
       fails++;
@@ -80,133 +79,36 @@
   /* ---------- 메뉴 렌더링 ---------- */
   let current = null;
 
-  const categoryTitles = {
-    '바이브코딩': 'Vibe Coding',
-    '게임': 'Games',
-    '뉴스레터': 'Newsletters'
-  };
-
-  const pageTitles = {
-    'vi_onuri.html': 'OnuriMakerLab',
-    'ga_ladder.html': 'Ladder Game',
-    'on_cards.html': 'IT Flashcards',
-    'on_quiz.html': 'Computer Quiz',
-    'vi_library.html': 'Living Lab Library',
-    'ga_idea.html': 'Edumaker Idea Card',
-    'vi_knu.html': 'Kyungnam University Makerspace',
-    'ga_mbti-a.html': 'Adult MBTI Test',
-    'ga_mbti-k.html': 'Kids’ MBTI Test',
-    'ne_making.html': 'Making Newsletter',
-    'ne_ai.html': 'AI Newsletter'
-  };
-
-  function categoryTitle(category) {
-    return categoryTitles[category.name] || category.name;
-  }
-
-  function pageTitle(item) {
-    const pathname = new URL(item.url, document.baseURI).pathname;
-    return pageTitles[pathname.split('/').pop()] || item.name;
-  }
-
+  const categoryTitle = category => category.name;
+  const pageTitle = item => item.name;
   const siteRoot = new URL('./', document.baseURI);
-  const arrangedMenus = {
-    '바이브코딩': [
-      ['Onyou Maker Card', 'vi_vibe/vi_onyou/vi_onyou.html'],
-      ['Living Lab Library', 'vi_vibe/vi_library.html'],
-    ],
-    '게임': [['Edumaker Idea Card', 'ga_games/ga_idea.html']],
-    Document: [
-      ['GPT Manual', 'do_docs/do_gpt.html'],
-      ['Dev Manual', 'do_docs/do_dev.html'],
-      ['Making Newsletter', 'do_docs/do_making.html'],
-      ['AI Newsletter', 'do_docs/do_ai.html'],
-    ],
-    onuriClass: [
-      ['Announcements', 'on_class/on_notice.html'],
-      ['인사관리', 'on_class/on_people.html'],
-      ['IT Flashcards', 'on_class/on_quiz/on_cards.html', 'Quiz'],
-      ['Computer Quiz', 'on_class/on_quiz/on_quiz.html', 'Quiz'],
-    ],
-  };
-  function databasePortalMenu() {
-    const groups = {
-      '바이브코딩': [
-        ['OnuriMakerLab', 'vi_vibe/vi_onuri/vi_onuri.html'],
-        ['Kyungnam University Makerspace', 'vi_vibe/vi_knu.html'],
-      ],
-      '게임': [
-        ['Ladder Game', 'ga_games/ga_ladder.html'],
-        ['Adult MBTI Test', 'ga_games/ga_mbti-a.html'],
-        ['Kids’ MBTI Test', 'ga_games/ga_mbti-k.html'],
-      ],
-    };
-    return { cats: Object.entries(groups).map(([name, items]) => ({
-      name, items: items.map(([name, url]) => ({ name, url })),
-    })) };
+
+  async function loadMenu() {
+    const { data, error } = await window.eduNoticeClient.from('tbl_menu')
+      .select('group_code,group_order,menu_order,page_path,group:tbl_comcode!tbl_menu_group_code_fk(name),menu:tbl_comcode!tbl_menu_menu_code_fk(name),subgroup:tbl_comcode!tbl_menu_subgroup_code_fk(name)')
+      .order('group_order').order('menu_order');
+    if (error || !data?.length) throw Error('DB menu unavailable');
+
+    const groups = new Map();
+    for (const row of data) {
+      if (!/^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*[.]html$/.test(row.page_path)) {
+        throw Error('Invalid menu path');
+      }
+      if (!row.group?.name || !row.menu?.name) throw Error('Missing menu code name');
+      if (!groups.has(row.group_code)) groups.set(row.group_code, { name: row.group.name, items: [] });
+      groups.get(row.group_code).items.push({ name: row.menu.name, url: row.page_path, subgroup: row.subgroup?.name });
+    }
+    return { cats: [...groups.values()] };
   }
-  const returnPaths = new Set([...Object.values(window.eduPageAliases || {}),
-    ...Object.values(arrangedMenus).flat().map(([, route]) => route)]
+
+  const returnPaths = new Set((window.eduSiteConfig.resumablePaths || [])
     .map(path => new URL(path, siteRoot).pathname));
 
   function sameSite(url) {
     return url.protocol === siteRoot.protocol && url.host === siteRoot.host;
   }
 
-  function moveMenuItem(cats, route, destination) {
-    const target = new URL(route, siteRoot);
-    const matches = item => {
-      const url = new URL(item.url, document.baseURI);
-      return sameSite(url) && url.pathname === target.pathname;
-    };
-
-    const more = cats.find(category => category.name === '기타');
-    const item = more?.items.find(matches);
-    if (!item) return;
-
-    let group = cats.find(category => category.name === destination);
-    if (!group) {
-      group = { name: destination, items: [] };
-      cats.unshift(group);
-    }
-    more.items = more.items.filter(item => !matches(item));
-    if (!group.items.some(matches)) {
-      group.items.push(item);
-    }
-  }
-
   function start() {
-    const removedPages = new Set(["on_class/on_edumkr.html","page_classroom/edumaker.html","cl_class/cl_edumkr.html","mk_class/mk_edumkr.html"].map(path => new URL(path, siteRoot).pathname));
-    for (const category of DATA.cats) {
-      category.items = category.items.filter(item => {
-        const url = new URL(item.url, siteRoot);
-        return !sameSite(url) || !removedPages.has(url.pathname);
-      });
-      for (const item of category.items) item.url = window.eduAuth.canonicalMenuUrl(item.url);
-    }
-    moveMenuItem(DATA.cats, 'vi_vibe/vi_knu.html', '바이브코딩');
-    moveMenuItem(DATA.cats, 'ga_games/ga_mbti-a.html', '게임');
-    moveMenuItem(DATA.cats, 'ga_games/ga_mbti-k.html', '게임');
-    const retired = new Set(['수업 자료실', 'Class Resources', '기타', 'More', 'Manual', '뉴스레터', 'Newsletters', 'NewsLetters', 'Document', 'makeClass', 'onuriClass']);
-    const moved = new Set(Object.values(arrangedMenus).flat().map(([, route]) => new URL(route, siteRoot).pathname));
-    DATA.cats = DATA.cats.filter(category => !retired.has(category.name));
-    for (const category of DATA.cats) {
-      category.items = category.items.filter(item => {
-        const url = new URL(item.url, siteRoot);
-        return !sameSite(url) || !moved.has(url.pathname);
-      });
-    }
-    for (const [name, items] of Object.entries(arrangedMenus)) {
-      let group = DATA.cats.find(category => category.name === name);
-      if (!group) {
-        group = { name, items: [] };
-        const games = DATA.cats.findIndex(category => category.name === '게임');
-        if (name === 'Document' && games >= 0) DATA.cats.splice(games + 1, 0, group);
-        else DATA.cats.push(group);
-      }
-      group.items.push(...items.map(([name, url, subgroup]) => ({ name, url, subgroup })));
-    }
-    DATA.cats = DATA.cats.filter(category => category.items.length);
     document.title = 'Onuri | Learning Portal';
 
 
@@ -265,7 +167,7 @@
     $('#logout').hidden = false; document.body.classList.add('portal-authenticated');
     const collection = $('#home-categories');
     collection.replaceChildren();
-    const introductions = { '바이브코딩': '아이디어를 웹과 디지털 경험으로 만들어보세요.', '게임': '즐겁게 도전하며 배우는 인터랙티브 콘텐츠.', '수업 자료실': '수업을 준비하고 함께 활용하는 교육 자료.', '기타': '만들기의 공간과 나를 알아가는 이야기.', '뉴스레터': 'AI와 메이킹의 변화를 읽는 새로운 시선.' };
+    const introductions = { 'Vibe Coding': '아이디어를 웹과 디지털 경험으로 만들어보세요.', 'Games': '즐겁게 도전하며 배우는 인터랙티브 콘텐츠.', 'Document': '매뉴얼과 뉴스레터를 읽어보세요.', 'onuriClass': '수업 운영과 작업실 자료를 확인하세요.' };
     DATA.cats.forEach((cat, ci) => {
       const card = document.createElement('article'); card.className = 'home-category-card';
       const number = document.createElement('span'); number.className = 'home-category-number'; number.textContent = String(ci + 1).padStart(2, '0');
@@ -280,7 +182,7 @@
     const returnTo = new URL(location.href).searchParams.get("return");
     if (returnTo) {
       try {
-        const target = new URL(window.eduAuth.canonicalMenuUrl(returnTo), siteRoot);
+        const target = new URL(returnTo, siteRoot);
         if (sameSite(target) && returnPaths.has(target.pathname)) {
           const ci = DATA.cats.findIndex(cat => cat.items.some(item => {
             const page = new URL(item.url, siteRoot);
@@ -386,5 +288,14 @@
     }
   });
   const restored = window.eduAuth.getSession();
-  if (restored) { DATA = restored.menu; start(); }
+  if (restored) {
+    btn.disabled = true;
+    loadMenu().then(menu => {
+      DATA = menu;
+      window.eduAuth.setSession(DATA, restored.expiresAt);
+      start();
+    }).catch(() => {
+      msg.textContent = 'DB 메뉴를 불러오지 못했습니다. 연결 상태를 확인하고 새로고침하세요.';
+    }).finally(() => { btn.disabled = false; });
+  }
 })();

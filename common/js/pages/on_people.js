@@ -192,7 +192,7 @@
         const role = document.createElement('span');
         button.type = 'button';
         button.className = 'staff-org-person';
-        image.src = '../common/images/mk.image/' + person.image;
+        image.src = '../common/images/on.image/' + person.image;
         image.alt = '';
         image.loading = 'lazy';
         name.textContent = person.name;
@@ -372,7 +372,7 @@
       get('staff-review').textContent = person.review;
       const image = get('staff-image');
       image.alt = person.name + ' 캐릭터';
-      image.src = '../common/images/mk.image/' + person.image;
+      image.src = '../common/images/on.image/' + person.image;
       try {
         const records = await readEvaluations(person);
         if (selected === person) {

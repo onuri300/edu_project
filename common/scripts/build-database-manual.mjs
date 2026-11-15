@@ -29,7 +29,7 @@ const names = {
 };
 const columns = {
   profile_file: '직원별 인사카드·지침서 XML 파일명',
-  emp_code: '사원코드', department_code: '부서코드', code_group: '코드 그룹',
+  emp_code: '사원코드', dept_code: '부서코드', code_group: '코드 그룹',
   code: '코드', name: '이름', public_read: '공개 조회 여부', sort_order: '표시 순서',
   member_id: '평가 대상 사원코드', assessment: '평가 내용', rating: '별점',
   evaluated_at: '평가 일시', import_key: '이관 중복 방지 키',

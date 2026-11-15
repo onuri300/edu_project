@@ -10,9 +10,9 @@
 | Document | `do_docs/` | AI 뉴스레터, 메이킹 뉴스레터 | `common/file/ne.file/`의 원본, 채널 정보, 뉴스레터 템플릿 |
 | onuriClass | `on_class/` | Announcements, 인사관리, Quiz (`on_quiz/`) | 공지, 인사카드, 수업 관리 |
 
-루트의 `index.html`은 로그인과 그룹 메뉴, 홈 화면을 담당합니다. `mng/menu-builder.html`은 암호화 메뉴 파일을 만드는 로컬 관리 화면입니다. 저장된 메뉴 주소를 바꿀 때는 `common/data/page-routes.json`에 이전 주소와 새 주소의 대응을 유지합니다.
+루트의 `index.html`은 로그인과 그룹 메뉴, 홈 화면을 담당합니다. 메뉴를 이동할 때는 `tbl_menu.page_path`를 갱신합니다.
 
-메뉴 편집기는 같은 폴더의 `builder.css`와 `builder.js`를 읽습니다. 편집기에서 내보낸 `data.enc.js`는 `common/data/`에 저장합니다. 이미지 원본은 `common/images/<그룹 코드>.image/` 바로 아래에 두고, 작품이나 용도를 파일명으로 구분합니다. 다운로드 원본은 `common/file/<그룹 코드>.file/`에서 관리합니다.
+이미지 원본은 `common/images/<그룹 코드>.image/` 바로 아래에 두고, 작품이나 용도를 파일명으로 구분합니다. 다운로드 원본은 `common/file/<그룹 코드>.file/`에서 관리합니다.
 
 ## 수정 범위
 
@@ -29,7 +29,7 @@
 ## 일반 콘텐츠 수정에서 보호할 부분
 
 - `onuri.framework/js/auth.js`, `menu-crypto.js`, `common/data/site-config.js`는 인증·공개 정책 변경 시에만 수정합니다. 일반 문구 편집은 해당 페이지나 데이터에서 처리합니다.
-- `common/data/data.enc.js`는 로컬 메뉴 편집기로 생성합니다. `common/file/backups/`와 `common/file/local-downloads/`는 각각 백업과 로컬 다운로드용 생성 데이터를 보관합니다.
+- `common/data/data.enc.js`는 일반 로그인에 사용합니다. `common/file/backups/`와 `common/file/local-downloads/`는 각각 백업과 로컬 다운로드용 생성 데이터를 보관합니다.
 - Supabase 권한과 마이그레이션은 `onuri.framework/db_connect/`에서 관리합니다. 공지 문구는 관리자 화면에서 수정합니다.
 - `_site/`, `layout:` 주석 사이의 생성된 HTML, `common/data/coding-manual.js`는 빌드 결과입니다. 원본 템플릿과 문서를 수정하고 다시 생성합니다.
 - 기존 주소를 바꿀 때는 대응표와 페이지 링크를 함께 갱신합니다. 파일명만 바꾸면 저장된 메뉴나 기존 북마크가 끊길 수 있습니다.

@@ -13,7 +13,6 @@
 | common/file/browser/, common/file/scripts/ | PDF 다운로드와 뉴스레터 파일 가져오기 |
 | common/file/local-downloads/, common/file/backups/ | 로컬 PDF 데이터와 메뉴 백업 |
 | cl_class/, ga_games/, ne_news/, ma_manual/, vi_vibe/ | 수업 자료, 게임, 뉴스레터, 공지·도구, 바이브코딩 |
-| mng/menu-builder.html | 로컬 메뉴 편집기 |
 | _site/ | GitHub Pages 배포 빌드 결과 |
 
 
@@ -80,11 +79,7 @@ index.html에서 발급받은 계정으로 로그인합니다.
 수업 자료실 대메뉴의 첫 항목은 리빙랩 수업 자료실이며 vi_vibe/vi_library.html을 엽니다.
 기존 메뉴의 내부 페이지 주소는 새 파일명으로 수정되어 있습니다.
 
-1. 관리자 PC에서 mng/menu-builder.html을 엽니다. common 폴더도 함께 있어야 합니다.
-2. 기존 계정으로 common/data/data.enc.js를 불러옵니다.
-3. 메뉴·주소·계정을 수정하고 data.enc.js를 다운로드합니다.
-4. common/data/data.enc.js를 새 파일로 교체합니다. 루트에 넣지 않습니다.
-5. 빌드 또는 GitHub 업로드로 반영합니다. 계정 변경 시 루트 로그인 정보 요약도 갱신합니다.
+메뉴 경로와 순서는 `tbl_menu`에서, 그룹명과 메뉴명은 `tbl_comcode`에서 관리합니다.
 
 로그인한 이용자는 브라우저 도구로 링크를 볼 수 있습니다. 원본 서비스의 접근 제한이 필요한 경우 해당 서비스에도 권한을 설정하세요.
 
@@ -100,7 +95,7 @@ node common/scripts/build-library.mjs
 배포용 --deploy 빌드는 _site를 비운 뒤 다시 만들므로 삭제한 PDF와 이전 자산이 남지 않습니다.
 공개 HTML·공개 CSS/JS·이미지·퀴즈 데이터·교안을 배포하고 관리자 편집기·관리자 CSS/JS·백업·문서·스크립트는 제외합니다.
 루트 index.html은 비밀번호 입력 시작 페이지이며 배포 결과에도 그대로 복사합니다.
-기존 루트와 이전 하위 HTML 주소는 새 페이지로 이동하며 쿼리와 해시를 보존합니다. 관리자 편집기의 이전 주소는 공개하지 않습니다.
+메뉴는 현재 HTML 주소를 사용합니다.
 기존 CNAME·도메인·Pages 설정을 유지하면 기존 주소·QR 목적지도 유지할 수 있습니다.
 공개 자료실의 새 주소는 **기존 사이트 기본 경로 + vi_vibe/vi_library.html**입니다.
 
@@ -136,8 +131,7 @@ node common/scripts/build-library.mjs
 
 공통 헤더에 첨부 로고(onuri.framework/images/onuri-logo.png)와 Onuri.를 표시합니다. 클릭하면 로그인 후 시작하기 화면으로 돌아갑니다.
 index.html은 비밀번호 입력 시작 페이지로 루트에 유지합니다. 바이브코딩은 vi_vibe, 게임은 ga_games, 수업 자료실은 cl_class, 기타는 ma_manual에 있습니다.
-관리자 편집기는 mng/menu-builder.html이며 공개 배포에서 제외합니다. 메뉴의 내부 링크도 새 경로로 수정했습니다.
-로그인하지 않고 내부 HTML 주소를 직접 열면 index.html로 이동합니다. 기존 이전 주소도 배포 시 이동 페이지를 거쳐 같은 규칙을 적용합니다.
+로그인하지 않고 내부 HTML 주소를 직접 열면 index.html로 이동합니다.
 로그인 상태와 복호화된 메뉴는 탭의 sessionStorage에 최대 8시간 보관하며 비밀번호는 저장하지 않습니다. 로그아웃하면 해당 탭의 상태를 지웁니다.
 저장소 접근이 제한된 로컬 파일 iframe은 부모 포털과 메시지로 로그인 상태를 확인합니다.
 이 기능은 정적 사이트의 화면 접근 제어입니다. GitHub Pages는 HTML·PDF 원본에 서버 인증을 적용하지 않으므로 비공개 파일 보호가 필요하면 인증 서버 또는 접근 제어가 있는 저장소가 필요합니다.

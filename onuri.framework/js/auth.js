@@ -20,14 +20,6 @@
       (publicPaths.has(target.pathname) || (target.pathname.endsWith('.html') && publicFolders.some(folder => target.pathname.startsWith(folder))));
   }
   const current = pageId(location.href);
-  const aliasLink = document.currentScript.dataset?.routeAlias === 'true'
-    ? document.querySelector('[data-redirect]') : null;
-  const aliasTarget = aliasLink ? new URL(aliasLink.href, root) : null;
-  if (aliasTarget) {
-    const source = new URL(location.href);
-    aliasTarget.search = source.search;
-    aliasTarget.hash = source.hash;
-  }
   function valid(session) {
     return session && Number.isFinite(session.expiresAt) && session.expiresAt > Date.now()
       && session.menu && Array.isArray(session.menu.cats)
@@ -38,8 +30,8 @@
     try { const stored = JSON.parse(read(key)); if (valid(stored)) return (memory = stored); } catch {}
     return null;
   }
-  function setSession(menu) {
-    memory = { expiresAt: Date.now() + lifetime, menu, menuSignature: window.__ENC__?.ct };
+  function setSession(menu, expiresAt = Date.now() + lifetime) {
+    memory = { expiresAt, menu, menuSignature: window.__ENC__?.ct };
     write(key, JSON.stringify(memory));
     write(pageKey, current);
     return memory;
@@ -66,19 +58,7 @@
     tab.location.replace(target);
     return true;
   }
-  function canonicalMenuUrl(url) {
-    let page;
-    try { page = new URL(url, root); } catch { return url; }
-    if (page.protocol !== root.protocol || page.host !== root.host || !page.pathname.startsWith(root.pathname)) return url;
-    const relative = page.pathname.slice(root.pathname.length).toLowerCase();
-    const directory = relative.replace(/\/$/, '') + '/index.html';
-    const target = Object.entries(window.eduPageAliases || {}).find(([previous, current]) => {
-      const key = previous.toLowerCase();
-      return key === relative || key === directory || current === relative;
-    })?.[1];
-    return target ? './' + target + page.search + page.hash : url;
-  }
-  window.eduAuth = Object.freeze({ root: root.href, entry: entry.href, getSession, setSession, clearSession, allowNavigation, openPage, canonicalMenuUrl });
+  window.eduAuth = Object.freeze({ root: root.href, entry: entry.href, getSession, setSession, clearSession, allowNavigation, openPage });
   window.addEventListener('message', event => {
     if (event.data?.type !== 'onuri:tab-request') return;
     const permit = tabs.get(event.source);
@@ -96,11 +76,6 @@
     } else allowNavigation(link.href);
   });
   const localPageAllowed = location.protocol === 'file:' && resolvePaths(config.localPaths).includes(location.pathname);
-  if (aliasTarget && (isPublicPage(aliasTarget) || aliasTarget.pathname === entry.pathname)) {
-    document.documentElement.dataset.auth = 'public';
-    location.replace(aliasTarget.href);
-    return;
-  }
   if (localPageAllowed || isPublicPage(location.href)) { document.documentElement.dataset.auth = 'public'; return; }
   let grant = null;
   try { grant = JSON.parse(read(grantKey)); } catch {}
@@ -118,16 +93,12 @@
     write(key, JSON.stringify(session));
     if (window.self === window.top) write(pageKey, current);
     document.documentElement.dataset.auth = 'ready';
-    if (aliasTarget) {
-      allowNavigation(aliasTarget);
-      location.replace(aliasTarget.href);
-    }
   }
   function reject() {
     clearSession();
-    const resumable = aliasTarget || resolvePaths(config.resumablePaths).includes(location.pathname)
+    const resumable = resolvePaths(config.resumablePaths).includes(location.pathname)
       || resolvePaths(config.resumableFolders).some(folder => location.pathname.startsWith(folder));
-    const destination = aliasTarget?.href || location.href;
+    const destination = location.href;
     location.replace(entry.href + '?login=required' + (resumable ? '&return=' + encodeURIComponent(destination) : ''));
   }
   const session = getSession();

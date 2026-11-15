@@ -6,15 +6,14 @@ const script = readFileSync(new URL('../../onuri.framework/js/auth.js', import.m
 const siteConfig = readFileSync(new URL('../data/site-config.js', import.meta.url), 'utf8');
 const menu = { title: '자료실', cats: [{ name: '게임', items: [] }] };
 const root = 'https://example.org/repository/';
-function load(base, page, { storage = new Map(), embedded = false, opener = null, windowObject = {}, navigation = 'navigate', menuSignature, aliasTarget } = {}) {
+function load(base, page, { storage = new Map(), embedded = false, opener = null, windowObject = {}, navigation = 'navigate', menuSignature } = {}) {
   const listeners = {}, docListeners = {}, posted = [], opened = [], timers = [];
   let redirected;
   const url = new URL(page, base);
   const location = { href: url.href, pathname: url.pathname, replace: value => { redirected = value; } };
   const document = {
-    currentScript: { src: new URL('onuri.framework/js/auth.js', base).href, dataset: { routeAlias: String(Boolean(aliasTarget)) } },
+    currentScript: { src: new URL('onuri.framework/js/auth.js', base).href },
     documentElement: { dataset: {} },
-    querySelector: selector => selector === '[data-redirect]' && aliasTarget ? { href: new URL(aliasTarget, base).href } : null,
     addEventListener: (name, fn) => { docListeners[name] = fn; },
   };
   const parent = { postMessage: message => posted.push(message) };
@@ -43,9 +42,9 @@ test('changed menu data invalidates cached login menus so newly added links are 
   assert.ok(load(root, 'index.html', { storage: entry.storage, menuSignature: 'old-menu' }).window.eduAuth.getSession());
   assert.equal(load(root, 'index.html', { storage: entry.storage, menuSignature: 'new-menu' }).window.eduAuth.getSession(), null);
 });
-test('living-lab handouts and legacy library URLs are public without a session on HTTPS and local files', () => {
+test('living-lab handouts are public without a session on HTTPS and local files', () => {
   for (const base of [root, 'file:///D:/project/edu_project/']) {
-    for (const page of ['vi_vibe/vi_library.html', 'livinglab-library.html', 'library.html']) {
+    for (const page of ['vi_vibe/vi_library.html']) {
       const result = load(base, page);
       assert.equal(result.redirected(), undefined);
       assert.equal(result.document.documentElement.dataset.auth, 'public');
@@ -57,41 +56,6 @@ test('direct HTML URLs require credentials on HTTPS and file previews', () => {
   for (const base of [root, 'file:///D:/project/edu_project/']) {
     assert.equal(load(base, 'ga_games/ga_ladder.html').redirected(), new URL('index.html?login=required', base).href);
   }
-});
-test('public legacy paths reach the new page with query and fragment on HTTPS and local files', () => {
-  for (const base of [root, 'file:///D:/project/edu_project/']) {
-    for (const oldPage of ['knu/index.html', 'page_etc/knu-makerspace.html', 'page_vibecoding/knu-makerspace.html', 'knu-makerspace.html']) {
-      const result = load(base, oldPage + '?preview=1#intro', { aliasTarget: 'vi_vibe/vi_knu.html' });
-      assert.equal(result.redirected(), new URL('vi_vibe/vi_knu.html?preview=1#intro', base).href);
-    }
-  }
-});
-
-test('saved menu paths normalize to current routes without rewriting external sites', () => {
-  const eduPageAliases = {
-    'page_vibecoding/onuriMakerLab/onuri-maker.html': 'vi_vibe/vi_onuri/vi_onuri.html',
-    'page_vibecoding/onyou-maker-card/dist/index.html': 'vi_vibe/vi_onyou/vi_onyou.html',
-  };
-  for (const base of [root, 'file:///D:/project/edu_project/']) {
-    const { canonicalMenuUrl } = load(base, 'index.html', { windowObject: { eduPageAliases } }).window.eduAuth;
-    assert.equal(canonicalMenuUrl('./page_vibecoding/onurimakerlab/onuri-maker.html?x=1#intro'), './vi_vibe/vi_onuri/vi_onuri.html?x=1#intro');
-    assert.equal(canonicalMenuUrl('page_vibecoding/onyou-maker-card/dist/'), './vi_vibe/vi_onyou/vi_onyou.html');
-    assert.equal(canonicalMenuUrl('vi_vibe/vi_onuri/vi_onuri.html'), './vi_vibe/vi_onuri/vi_onuri.html');
-    const external = 'https://example.com/page_vibecoding/onuriMakerLab/onuri-maker.html';
-    assert.equal(canonicalMenuUrl(external), external);
-  }
-});
-test('protected legacy paths require approval and pass it to the new path after an authorized click', () => {
-  const path = 'game/ladderGame.html?preview=1';
-  const aliasTarget = 'ga_games/ga_ladder.html';
-  assert.equal(load(root, path, { aliasTarget }).redirected(), root + 'index.html?login=required&return=' + encodeURIComponent(root + aliasTarget + '?preview=1'));
-  const entry = load(root, 'index.html');
-  entry.window.eduAuth.setSession(menu);
-  entry.window.eduAuth.allowNavigation(root + path);
-  const result = load(root, path, { aliasTarget, storage: entry.storage });
-  const target = root + aliasTarget + '?preview=1';
-  assert.equal(result.redirected(), target);
-  assert.equal(load(root, target, { storage: entry.storage }).document.documentElement.dataset.auth, 'ready');
 });
 test('login session alone cannot authorize a manually entered path', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);

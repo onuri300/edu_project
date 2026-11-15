@@ -54,8 +54,16 @@ UI는 쓰기 직전에 관리자를 다시 검증하고, 동시 변경으로 응
 
 ## 정적 데이터
 
-- `common/data/data.enc.js`는 `window.__ENC__`에 `v`, `it`, `salt`, `iv`, `ct`를 제공합니다. PBKDF2-SHA-256과 AES-GCM으로 복호화된 `cats` 배열은 포털 메뉴의 입력입니다.
+- `common/data/data.enc.js`는 일반 로그인 검증에 사용합니다. 로그인 후 메뉴 경로는 `tbl_menu`에서, 그룹명과 메뉴명은 `tbl_comcode`에서 조회합니다.
 - `common/file/cl.file/`와 `course-descriptions.json`으로 `library-data.js`를 생성합니다. `filename`, `bytes`, URL 인코딩된 `url`로 미리보기·다운로드를 제공합니다.
 - `common/file/ne.file/`에서 `newsletter-data.js`를 생성합니다. HTML 본문은 sandbox iframe, Markdown은 로컬 markdown-it, PDF는 문서 뷰어를 사용합니다.
 - `node common/scripts/build-coding-manual.mjs`는 `do_docs/docs/`와 GPT 매뉴얼 JSON을 각각 `coding-manual.js`, `gpt-making-manual.js`로 생성합니다. 두 페이지는 정적 스크립트에서 본문을 읽으므로 로컬 파일로 열 수 있습니다.
 - 메이커 카드 `vi_vibe/vi_onyou/gallery.json`은 작품 경로·분류·제목을 제공합니다. 가져오기에 실패하면 내장 샘플로 표시합니다.
+
+
+### 포털 메뉴 DB
+
+- `tbl_menu.menu_id`는 기본키입니다. 경로는 `page_path`, 표시는 `group_order`와 `menu_order`로 관리합니다. 작업자는 `worker_id`, 작업일시는 `worked_at`에 기록합니다.
+- `group_code`와 선택형 `subgroup_code`는 `tbl_comcode`의 `MENU_GROUP`, `menu_code`는 `MENU`를 참조합니다. 화면 표시명은 `name`을 사용합니다.
+- `tbl_comcode.name_group`은 코드 구분의 한글명입니다. DEPT는 부서, BOARD는 게시판, MENU_GROUP은 메뉴 그룹, MENU는 메뉴입니다.
+- 일반 로그인 검증이 끝나면 DB에서 메뉴를 조회합니다. 페이지 이동 시 `tbl_menu.page_path`를 갱신하세요.
