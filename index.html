@@ -17,21 +17,20 @@
 <body data-site-family="portal">
 <!-- 로그인 -->
 <div id="gate">
-  <div class="gate-box">
-    <div class="login-art"><img class="page-art" data-page-image src="common/images/shared/index-hero.png" alt="" width="1536" height="1024" decoding="async"></div>
-    <span class="login-eyebrow">WELCOME TO ONURI</span><h2 class="gate-title">배움의 시작, Onuri.</h2>
-    <p class="gate-sub">아이디와 비밀번호로 나만의 배움 공간에 들어오세요.</p>
+  <form id="gate-form" class="gate-box" method="post" autocomplete="on" aria-labelledby="gate-title">
+    <h2 class="gate-title" id="gate-title">배움의 시작, Onuri.</h2>
     <div class="field">
       <label for="uid">아이디</label>
-      <input id="uid" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="아이디">
+      <input id="uid" name="username" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" required>
     </div>
     <div class="field">
       <label for="upw">비밀번호</label>
-      <input id="upw" type="password" autocomplete="off" placeholder="비밀번호">
+      <input id="upw" name="password" type="password" autocomplete="current-password" required>
     </div>
-    <button id="enter">시작하기</button>
+    <label class="gate-admin"><input id="gate-admin" type="checkbox"> 관리자</label>
+    <button id="enter" type="submit">시작하기</button>
     <p id="gate-msg" role="status" aria-live="polite"></p>
-  </div>
+  </form>
 </div>
 
 <!-- 본문 -->

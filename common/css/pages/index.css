@@ -164,3 +164,22 @@
 }
 #nav .menu-subgroup summary:hover { background: var(--muted-surface); color: var(--ink); }
 html #nav .menu-subgroup button { padding-inline-start: 26px; }
+
+/* Keep the login form inside the space below the fixed masthead. */
+html body:has(#app) #gate {
+  overflow-y: auto;
+  align-items: safe center;
+  padding: 12px 20px;
+  background: linear-gradient(color-mix(in srgb, var(--paper) 65%, transparent),
+    color-mix(in srgb, var(--paper) 65%, transparent)),
+    url("../../images/shared/index-hero.png") center / cover no-repeat;
+}
+html #gate .gate-box { padding: clamp(16px, 4dvh, 28px); }
+#gate .gate-title { margin-bottom: 14px; font-size: clamp(24px, 4dvh, 32px); }
+#gate .field { margin-bottom: 10px; }
+#gate .field label { margin-bottom: 3px; }
+#gate .field input { padding-block: 8px; }
+.gate-admin { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+#gate #enter { margin-top: 10px; padding-block: 9px; }
+#gate-msg { margin: 6px 0 0; }
+#gate-msg:empty { display: none; }

@@ -13,26 +13,44 @@
   /* ---------- 로그인 ---------- */
   const gate = $("#gate"), msg = $("#gate-msg"), btn = $("#enter");
 
-  async function unlock() {
+  async function unlock(event) {
+    event.preventDefault();
+    if (btn.disabled) return;
     const id = $("#uid").value, pw = $("#upw").value;
+    const dbLogin = $("#gate-admin").checked;
     if (!id || !pw) { msg.textContent = "아이디와 비밀번호를 모두 입력하세요."; return; }
     if (Date.now() < locked) {
       msg.textContent = `잠시 후 다시 시도하세요. (${Math.ceil((locked - Date.now())/1000)}초)`;
       return;
     }
-    if (!window.__ENC__) { msg.textContent = "데이터 파일(common/data/data.enc.js)을 찾을 수 없습니다."; return; }
-    if (!crypto.subtle) { msg.textContent = "https 또는 로컬 파일에서 열어 주세요."; return; }
+    if (!dbLogin && !window.__ENC__) { msg.textContent = "데이터 파일(common/data/data.enc.js)을 찾을 수 없습니다."; return; }
+    if (!dbLogin && !crypto.subtle) { msg.textContent = "https 또는 로컬 파일에서 열어 주세요."; return; }
 
     btn.disabled = true; btn.textContent = "확인 중…"; msg.textContent = "";
     let authenticated = false;
     try {
-      const p = window.__ENC__;
-      const key = await deriveKey(id, pw, decodeBase64(p.salt), p.it);
-      const buf = await crypto.subtle.decrypt(
-        { name: "AES-GCM", iv: decodeBase64(p.iv) }, key, decodeBase64(p.ct)
-      );
-      DATA = JSON.parse(new TextDecoder().decode(buf));
+      if (dbLogin) {
+        const client = window.eduNoticeClient;
+        const { error } = await client.auth.signInWithPassword({ email: id.trim(), password: pw });
+        if (error) throw error;
+        try {
+          await window.eduDbAdmin();
+        } catch (error) {
+          await clearDbSession();
+          throw error;
+        }
+        DATA = databasePortalMenu();
+      } else {
+        const p = window.__ENC__;
+        const key = await deriveKey(id, pw, decodeBase64(p.salt), p.it);
+        const buf = await crypto.subtle.decrypt(
+          { name: "AES-GCM", iv: decodeBase64(p.iv) }, key, decodeBase64(p.ct)
+        );
+        DATA = JSON.parse(new TextDecoder().decode(buf));
+        await clearDbSession();
+      }
       authenticated = true;
+      $("#upw").value = "";
       window.eduAuth.setSession(DATA);
       start();
     } catch (e) {
@@ -49,8 +67,15 @@
     }
   }
 
-  btn.addEventListener("click", unlock);
-  ["#uid", "#upw"].forEach(s => $(s).addEventListener("keydown", e => { if (e.key === "Enter") unlock(); }));
+  $("#gate-form").addEventListener("submit", unlock);
+
+  async function clearDbSession() {
+    try {
+      await window.eduNoticeClient?.auth.signOut({ scope: 'local' });
+    } finally {
+      try { localStorage.removeItem('onuri-db-session-v1'); } catch {}
+    }
+  }
 
   /* ---------- 메뉴 렌더링 ---------- */
   let current = null;
@@ -106,6 +131,22 @@
       ['Computer Quiz', 'on_class/on_quiz/on_quiz.html', 'Quiz'],
     ],
   };
+  function databasePortalMenu() {
+    const groups = {
+      '바이브코딩': [
+        ['OnuriMakerLab', 'vi_vibe/vi_onuri/vi_onuri.html'],
+        ['Kyungnam University Makerspace', 'vi_vibe/vi_knu.html'],
+      ],
+      '게임': [
+        ['Ladder Game', 'ga_games/ga_ladder.html'],
+        ['Adult MBTI Test', 'ga_games/ga_mbti-a.html'],
+        ['Kids’ MBTI Test', 'ga_games/ga_mbti-k.html'],
+      ],
+    };
+    return { cats: Object.entries(groups).map(([name, items]) => ({
+      name, items: items.map(([name, url]) => ({ name, url })),
+    })) };
+  }
   const returnPaths = new Set([...Object.values(window.eduPageAliases || {}),
     ...Object.values(arrangedMenus).flat().map(([, route]) => route)]
     .map(path => new URL(path, siteRoot).pathname));
@@ -334,9 +375,8 @@
     const button = $("#logout");
     button.disabled = true;
     try {
-      await window.eduNoticeClient?.auth.signOut({ scope: 'local' });
+      await clearDbSession();
     } finally {
-      try { localStorage.removeItem('onuri-db-session-v1'); } catch {}
       window.eduAuth.clearSession();
       DATA = null;
       location.reload();

@@ -72,11 +72,18 @@
   }
 
   async function readEmployee(row) {
-    const root = await readXmlFile('guides/' + encodeURIComponent(row.profile_file), 'employee');
+    let root;
+    if (row.profile_file.includes('/')) {
+      const { data, error } = await client.storage.from('staff-guides').download(row.profile_file);
+      if (error) throw Error('저장된 직원 XML을 불러올 수 없습니다.');
+      root = parseXml(await data.text(), 'employee');
+    } else {
+      root = await readXmlFile('guides/' + encodeURIComponent(row.profile_file), 'employee');
+    }
     const fields = ['name', 'role', 'identity', 'mission', 'deliverable', 'personality', 'strengths', 'review', 'image'];
     const profile = Object.fromEntries(fields.map(key => [key, root.querySelector(key)?.textContent ?? '']));
     return {
-      ...profile, xml: root, id: row.emp_code, code: row.emp_code, team: row.tbl_dept.tbl_comcode.name,
+      ...profile, xml: root, file: row.profile_file, id: row.emp_code, code: row.emp_code, team: row.tbl_dept.tbl_comcode.name,
       rank: Number(root.querySelector('rank').textContent),
       duties: [...root.querySelectorAll('duties > duty')].map(item => item.textContent),
     };
@@ -269,51 +276,15 @@
     const guideSave = document.querySelector('button[form="staff-guide-form"]');
     const guideDelete = get('staff-guide-delete');
     const guideFiles = client.storage.from('staff-guides');
-    let guideRequest = 0;
-    let guideFile = null;
-
     function guideBusy(busy) {
       guidePrompt.disabled = guideSave.disabled = busy;
-      guideDelete.disabled = busy || !guideFile;
+      guideDelete.disabled = busy || !selected?.xml.querySelector('prompt');
     }
 
-    async function resetGuide(person) {
-      const request = ++guideRequest;
-      guideFile = null;
-      guidePrompt.value = '';
+    function resetGuide(person) {
+      guidePrompt.value = person?.xml.querySelector('prompt')?.textContent ?? '';
       guideStatus.textContent = '';
-      guideBusy(true);
-      if (!person) return;
-      try {
-        const { data, error } = await client.from('tbl_emp_guides').select('file_name')
-          .eq('emp_code', person.code).maybeSingle();
-        if (error) throw error;
-        const file = data?.file_name;
-        let prompt = '';
-        if (file?.startsWith('seed/')) {
-          prompt = person.xml.querySelector('prompt')?.textContent ?? '';
-        } else if (file) {
-          const download = await guideFiles.download(file);
-          if (download.error) throw download.error;
-          const source = await download.data.text();
-          if (file.endsWith('.xml')) {
-            const document = new DOMParser().parseFromString(source, 'application/xml');
-            const root = document.documentElement;
-            if (!['employee', 'guide'].includes(root.localName) || root.querySelector('parsererror')) {
-              throw Error('XML 형식을 확인해 주세요.');
-            }
-            prompt = root.querySelector('prompt')?.textContent ?? '';
-          } else {
-            prompt = source;
-          }
-        }
-        if (request !== guideRequest) return;
-        guideFile = file;
-        guidePrompt.value = prompt;
-        guideBusy(false);
-      } catch {
-        if (request === guideRequest) guideStatus.textContent = '지침서를 불러오지 못했습니다.';
-      }
+      guideBusy(!person);
     }
 
     async function writeGuide(remove) {
@@ -324,42 +295,41 @@
         guideStatus.textContent = '지침서 내용을 입력하세요.';
         return;
       }
-      const request = guideRequest;
-      const previous = guideFile;
-      const table = client.from('tbl_emp_guides');
-      let next;
+      const previous = person.file;
+      const xml = person.xml.cloneNode(true);
+      xml.querySelector('prompt')?.remove();
+      if (!remove) {
+        const element = xml.ownerDocument.createElement('prompt');
+        element.textContent = prompt;
+        xml.append(element);
+      }
+      const next = person.code + '/' + crypto.randomUUID() + '.xml';
       guideBusy(true);
       try {
-        if (!remove) {
-          next = person.code + '/' + crypto.randomUUID() + '.xml';
-          const xml = person.xml.cloneNode(true);
-          xml.querySelector('prompt')?.remove();
-          const element = xml.ownerDocument.createElement('prompt');
-          element.textContent = prompt;
-          xml.append(element);
-          const source = new XMLSerializer().serializeToString(xml);
-          parseXml(source, 'employee');
-          const upload = await guideFiles.upload(next, new Blob([source], { type: 'application/xml' }));
-          if (upload.error) throw upload.error;
-        }
-        const result = previous
-          ? await (remove ? table.delete() : table.update({ file_name: next }))
-            .eq('emp_code', person.code).eq('file_name', previous).select('emp_code').single()
-          : await table.insert({ emp_code: person.code, file_name: next });
+        const source = new XMLSerializer().serializeToString(xml);
+        parseXml(source, 'employee');
+        const upload = await guideFiles.upload(next, new Blob([source], { type: 'application/xml' }));
+        if (upload.error) throw upload.error;
+        const result = await client.from('tbl_emp').update({ profile_file: next })
+          .eq('emp_code', person.code).eq('profile_file', previous).select('emp_code').maybeSingle();
         if (result.error) throw result.error;
-      } catch {
-        if (request === guideRequest) {
-          guideBusy(false);
-          guideStatus.textContent = '지침서 변경을 확인할 수 없습니다. 캐릭터 카드를 다시 열어 확인하세요.';
+        if (!result.data) {
+          await guideFiles.remove([next]);
+          throw Error('Concurrent change');
         }
-        return;
+        person.file = next;
+        person.xml = xml;
+        if (previous.includes('/')) await guideFiles.remove([previous]);
+        if (selected === person) {
+          resetGuide(person);
+          guideStatus.textContent = remove ? '지침서를 삭제했습니다.' : '지침서를 저장했습니다.';
+        }
+      } catch {
+        if (selected === person) {
+          guideBusy(false);
+          guideStatus.textContent = '지침서 변경을 확인할 수 없습니다. 새로고침 후 다시 확인하세요.';
+        }
       }
-      if (previous && !previous.startsWith('seed/')) await guideFiles.remove([previous]);
-      if (request !== guideRequest) return;
-      guideFile = next;
-      guidePrompt.value = remove ? '' : prompt;
-      guideBusy(false);
-      guideStatus.textContent = remove ? '지침서를 삭제했습니다.' : '지침서를 저장했습니다.';
     }
     guideForm.addEventListener('submit', event => {
       event.preventDefault();
