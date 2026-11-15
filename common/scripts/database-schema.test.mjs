@@ -22,6 +22,10 @@ test('schema explorer renders actual relations, all tables and columns, filters 
   const window = {};
   vm.runInNewContext(bundle, { window });
   const data = window.ONURI_CODING_MANUAL.entries.find(entry => entry.database).database;
+  const employeeColumns = data.columns.filter(column => column.schema === 'public' && column.table === 'tbl_emp');
+  assert.ok(employeeColumns.some(column => column.name === 'profile_file' && !column.nullable));
+  assert.ok(employeeColumns.every(column => column.name !== 'profile'));
+  assert.ok(!data.tables.some(table => table.schema === 'public' && table.name === 'tbl_emp_guides'));
   assert.ok(data.constraints.some(key => key.schema === 'public' && key.table === 'tbl_emp'
     && key.kind === 'p' && key.columns.join(',') === 'emp_code'));
   assert.ok(data.constraints.some(key => key.table === 'tbl_evalu' && key.target_table === 'tbl_emp'
@@ -33,9 +37,13 @@ test('schema explorer renders actual relations, all tables and columns, filters 
   window.renderDatabaseSchema(root, data);
   const [scope, selection] = root.descendants().filter(element => element.tag === 'select');
   const search = root.descendants().find(element => element.type === 'search');
-  assert.equal(selection.options.length, data.tables.filter(table => ['public', 'edumaker'].includes(table.schema)).length);
+  assert.equal(selection.options.length, data.tables.filter(table => table.schema === 'public').length);
   assert.ok(root.descendants().some(element => element.attributes['data-table'] === 'auth.users'));
-  assert.ok(root.descendants().some(element => element.attributes.class?.includes('schema-view-edge')));
+  assert.ok(data.tables.some(table => table.schema === 'public' && table.name === 'tbl_board' && table.kind === 'r'));
+  assert.ok(!data.tables.some(table => table.schema === 'public' && table.name === 'board_posts'));
+  scope.value = 'staff'; scope.events.change();
+  assert.ok(selection.options.some(option => option.value === 'public.tbl_emp'));
+  assert.ok(!selection.options.some(option => option.value === 'public.tbl_board'));
   scope.value = 'all'; scope.events.change();
   assert.equal(selection.options.length, data.tables.length);
   for (const table of data.tables) {

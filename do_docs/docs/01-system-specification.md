@@ -1,41 +1,51 @@
-# 시스템 개발명세서
+# 시스템 개발명세서 · GPT 화면 개발 지침
 
-Onuri는 교안과 제작 사례를 교육 포털에 모으고, 일부 기능을 독립 주소에서도 제공합니다. 정적 HTML·CSS·JavaScript와 Node.js 빌드 스크립트로 구성됩니다. GitHub Pages는 `_site`의 정적 파일을 제공하며, 공지사항은 브라우저에서 Supabase로 요청합니다.
+적용 범위는 Onuri Learning Portal의 로컬 화면 개발, 데이터 연결, 검증과 배포입니다. 요청을 받으면 아래 규칙을 구현과 검수에 적용하세요. 요구사항 ID, 구현 규칙, 확인 방법을 짝지어 기록하는 구성은 현재 발행본인 ISO/IEC/IEEE 29148:2018을 참고했습니다. [요구사항 공학 표준](https://www.iso.org/standard/72089.html)
 
-| 경로 | 역할 |
+## 1. 요청 범위와 완료 기준
+
+**REQ-01** 요청에서 바꿀 화면, 메뉴 위치, 사용자 동작, 저장 위치, 완료 기준을 짧게 정리하세요. 기존 코드와 문서에서 해당 화면의 실제 경로와 데이터 출처를 먼저 확인하세요. 결과가 달라지는 정보가 부족하면 확인하고, 작은 구현 선택은 기존 화면을 기준으로 진행하세요. 완료 보고에는 수정 경로, 확인한 동작, 남은 확인 사항을 적으세요.
+
+## 2. 메뉴, 경로와 화면 구성
+
+| 메뉴 | 현재 소스와 구성 |
 |---|---|
-| `index.html` | 로그인, 홈, 메뉴, 자료 iframe |
-| `vi_vibe/vi_library.html` | Vibe Coding의 Living Lab Library |
-| `ga_games/` | Games의 사다리 게임, MBTI, Edumaker Idea Card |
-| `on_class/on_quiz/` | onuriClass → Quiz의 IT Flashcards와 Computer Quiz |
-| `on_class/` | onuriClass의 Announcements, 인사관리, edumaker |
-| `do_docs/` | Document의 GPT Manual, Dev Manual |
-| `do_docs/docs/` | 개발명세, 프레임워크 매뉴얼, 레퍼런스 원본 |
-| `do_docs/` | Document의 Making·AI 뉴스레터 목록과 본문 |
-| `vi_vibe/vi_onuri/` | 포트폴리오 홈·소개·작품·상세·과정·연락 |
-| `vi_vibe/vi_onyou/` | 메이커 카드 기본·카테고리·모바일 화면, 사용 안내와 다운로드 |
-| `mng/menu-builder.html`, `mng/builder.css`, `mng/builder.js` | 로컬 메뉴 편집기와 전용 스타일·동작 |
-| `onuri.framework/` | 공통 CSS·JS, 배너·푸터 템플릿, 미리보기 |
-| `common/css/`, `common/js/` | 페이지별 스타일과 브라우저 동작 |
-| `common/templates/`, `common/scripts/` | 레이아웃 및 뉴스레터 원본, 생성·빌드·검증 |
-| `common/data/` | 암호화 메뉴, 설정, 빌드에서 생성한 목록 |
-| `common/file/<메뉴 그룹 코드>.file/` | `cl.file` 리빙랩 교안, `ne.file` 뉴스레터 원본, `vi.file` 메이커 카드 자료 |
-| `common/images/<그룹 코드>.image/`, `common/images/shared/` | 메뉴 그룹 전용 이미지와 공용 대표 이미지 |
-| `onuri.framework/db_connect/supabase/migrations/` | 게시판, 공통코드, 인사관리 데이터베이스 변경 이력 |
-| `common/apps/edumaker/` | 별도 서버 앱의 소스와 저장소 문서 |
-| `do_docs/do_gpt.html` | GPT 메이킹 매뉴얼 공개 페이지 |
-| `.github/workflows/pages.yml` | Node.js 22 테스트, 빌드, GitHub Pages 배포 |
+| Vibe Coding | `vi_vibe/` · Living Lab Library, 메이커 활동과 포트폴리오 |
+| Games | `ga_games/` · 사다리 게임, MBTI, Edumaker Idea Card |
+| Document | `do_docs/` 바로 아래에 GPT Manual, Dev Manual, Making Newsletter, AI Newsletter |
+| onuriClass | `on_class/` · Announcements → 인사관리. Quiz 하위 그룹은 `on_class/on_quiz/` |
 
-상단 메뉴는 Vibe Coding, Games, Document, onuriClass 순서입니다. Document에서는 매뉴얼과 뉴스레터를 바로 선택하고, onuriClass에서는 Quiz를 펼쳐 하위 페이지를 선택합니다. Quiz에는 IT Flashcards와 Computer Quiz가 있습니다. 메뉴 이동 규칙은 `common/js/pages/index.js`, 이전 주소는 `common/data/page-routes.json`에서 관리합니다.
+- **REQ-02** 새 HTML과 하위 폴더는 소속 그룹의 접두어를 사용하세요. 예를 들어 Document는 `do_`, onuriClass는 `on_`입니다. 페이지를 이동하면 메뉴 렌더러, 메뉴 편집기 기본값, `site-config.js`, `page-routes.json`과 생성된 경로 데이터, 관련 빌드 설정을 함께 확인하세요. 이전 주소는 새 주소에 직접 연결하세요. 이동 후 비어 있는 폴더와 참조가 없는 교체 파일은 확인 후 정리하세요.
+- **REQ-03** `onuri.framework`의 헤더·테마·푸터를 재사용하세요. 목록과 상세가 있는 화면은 공통 reader 레이아웃을 사용하고, 본문·상단 바는 같은 최대 너비와 좌우 여백에 맞추세요. 내용이 짧으면 푸터는 화면 하단, 내용이 길면 본문 끝에 놓으세요. 축소 배너는 `resource-hero-compact`를 사용하세요. 공통 버튼은 `onuri-button`을 사용하고 페이지 전용 CSS·JS는 `common/css/pages/`, `common/js/pages/`에 두세요.
+- **REQ-04** 폼이나 탭을 추가하면 레이블과 키보드 포커스, 선택·저장·삭제 후 상태를 확인하세요. 노트북의 낮은 화면 높이에서도 로그인 시작 버튼에 접근할 수 있어야 합니다. 일반 로그인은 기존 사이트 인증을 사용하고, 관리자 체크 로그인은 Supabase 관리자 권한을 확인해 두 세션을 연결합니다. 로그인, 새 탭, 새로고침과 로그아웃은 공통 인증 흐름을 사용하세요. [프레임워크 매뉴얼](02-framework-manual.md)과 [CSS 클래스 레퍼런스](03-css-reference.md)를 참고하세요.
 
-인사관리 화면은 기존 Supabase 관리자 계정을 사용합니다. `tbl_emp`의 기본키는 `emp_code`이며, `tbl_evalu.member_id`가 사원코드를 참조합니다. 부서명은 `tbl_dept`의 코드로 `tbl_comcode`에서 조회합니다. 평가 내용과 별점, 평가 일시는 `tbl_evalu`에 저장합니다.
+## 3. 데이터는 XML 우선
 
-공지사항은 `public.tbl_board` 뷰를 통해 `edumaker.board_posts`를 사용합니다. 게시판명과 공개 조회 여부는 `tbl_comcode`의 BOARD 그룹에서 관리합니다. 공지사항의 코드는 `notice`입니다. 같은 화면을 재사용할 때는 게시판 코드를 등록하고 페이지의 `data-board-code`에 지정합니다.
+- **REQ-05** 인사 프로필, 역할, 담당 업무, 지침서처럼 파일로 관리할 수 있는 상세 콘텐츠는 XML을 우선 사용하세요. 인사관리는 `tbl_emp.profile_file`로 직원별 XML 하나를 읽습니다. 초기 파일은 `on_class/guides/`에 있고, 브라우저에서 편집해 저장한 파일은 비공개 Supabase Storage에 있습니다. 이름·직급·미션·성향·장단점·업무는 각 태그로, 지침서는 `<prompt>`로 연결하세요. 지침서를 삭제할 때는 `<prompt>`만 제거하고 인사카드는 유지하세요. 로컬 직접 열기용 `mk_xml.js`도 XML 원본에서 갱신하세요.
+- **REQ-06** DB는 공통코드, 사원·부서 식별과 관계, 파일명, 업무평가, 권한, 게시글처럼 공유 저장과 접근 제어가 필요한 곳에 사용하세요. 상세 프로필이나 지침서 본문을 DB에 복제하거나 기능마다 테이블을 추가하지 마세요. `tbl_evalu.member_id`는 `tbl_emp.emp_code`를 참조합니다. 부서·게시판 표시 이름은 `tbl_comcode`에서 가져오고, 게시판은 `tbl_board` 테이블과 게시판 코드를 재사용하세요. 기존 공지사항 코드는 `notice`입니다.
+- **REQ-07** 관리자 전용 자료는 권한이 적용된 DB나 비공개 Storage에서 읽으세요. GitHub Pages에 포함되는 XML과 JS는 URL로 조회할 수 있으므로 계정 정보, 비밀 키, 비공개 기록을 넣지 마세요. 파일이나 컬럼을 제거하기 전에 참조와 평가 기록을 확인하세요. 운영 중인 화면이 데이터를 읽는 방식을 바꿀 때는 새 화면이 작동하는 것을 확인한 뒤 구형 컬럼을 정리하세요. [DB·API 명세](05-data-api-specification.md)와 [DB 스키마](08-database-schema.md)를 참고하세요.
 
-브라우저는 `auth.js`로 현재 페이지의 세션·공개 여부를 결정하고 `common.js`로 공통 헤더와 테마를 초기화합니다. 헤더와 테마 전환의 가시성은 포털, 독립 페이지, iframe에 따라 다릅니다. 포털 푸터와 리빙랩·포트폴리오의 헤더·푸터는 정적 레이아웃 조각으로 생성됩니다. 뉴스레터 두 페이지는 전용 템플릿과 채널 데이터로 생성됩니다.
+## 4. 검수, 제출과 배포
 
-포털 세션은 복호화된 메뉴를 최대 8시간 유지하고 내부 탐색과 새 탭을 승인합니다. 리빙랩 및 `do_docs/`의 HTML은 공개 경로입니다. 클라이언트 세션은 화면 전환을 제어하며 GitHub Pages의 원본 파일 접근 자체를 제한할 수 없습니다. 공지 관리자 권한과 공개 여부는 Supabase 권한과 RLS가 집행합니다.
+| 요구사항 | 완료 확인 |
+|---|---|
+| REQ-01 | 변경 화면, 사용자 동작, 저장 위치와 완료 기준을 확인했다. |
+| REQ-02 | 메뉴와 파일 경로, 이전 주소 연결, 빌드 참조를 확인했다. |
+| REQ-03 · REQ-04 | 공통 너비와 푸터, 밝은·어두운 테마, 노트북과 좁은 화면을 확인했다. 관련 로그인·폼 동작을 점검했다. |
+| REQ-05 · REQ-07 | XML 태그, DB 파일명, 조회·저장·삭제, 기존 기록, 관리자 접근을 확인했다. |
+| REQ-08 | 테스트와 로컬 빌드 결과를 기록하고 배포 여부를 명시했다. |
 
-교안 빌드는 번호가 붙은 PDF를 확인하고 브라우저용 목록을 생성합니다. 로컬 파일 모드용 다운로드 데이터는 Git과 배포에서 제외됩니다. 뉴스레터 빌드는 `common/file/ne.file/`를 읽어 목록 데이터를 만들고, 작품 갤러리는 별도의 매니페스트를 읽습니다. 기존 주소는 `page-routes.json`에서 이동 페이지로 변환됩니다. 자세한 데이터 계약은 [데이터베이스·API 명세](05-data-api-specification.md)를 참고합니다.
+**REQ-08** 원본부터 수정하세요. 레이아웃 조각을 바꾸면 레이아웃 생성기를, Dev Manual 문서를 바꾸면 매뉴얼 생성기를 실행하세요. 로컬에서 아래 명령으로 검증하고 실제 확인한 항목을 보고하세요.
 
-GitHub Pages 워크플로는 테스트 후 `node common/scripts/build-library.mjs --deploy`로 `_site`를 만듭니다. 배포에는 `onuri.framework/css`, `js`, `images`, `db_connect/browser`의 실행 자산이 포함됩니다. `mng`, 개발 문서 원본, DB 마이그레이션, 로컬 백업과 다운로드 데이터는 배포 대상에서 제외합니다. 코딩 매뉴얼은 생성된 문서 데이터를 읽습니다.
+~~~powershell
+node common/scripts/build-layout-pages.mjs --check
+node common/scripts/build-coding-manual.mjs
+node --test common/scripts/*.test.mjs
+node common/scripts/build-library.mjs --deploy
+~~~
+
+마지막 명령은 로컬 `_site`를 만드는 빌드입니다. **최종 관리자가 이번 변경을 배포하라고 명시한 경우에만 배포하세요.** GitHub의 `main` 푸시와 Pages 워크플로 수동 실행은 실제 배포를 시작하므로 관리자 지시를 받은 뒤 실행하세요. 배포한 경우 Actions 성공 여부와 실제 URL에서 변경 내용을 확인하세요.
+
+## 5. GPT에 복사해서 쓰는 화면 개발 요청
+
+> Onuri Dev Manual의 시스템 개발명세에 따라 [메뉴 → 화면]을 수정해줘. 원하는 동작은 [사용자 조작과 결과]이고, 완료 기준은 [확인 조건]이야. 기존 공통 프레임워크, 메뉴 경로, 버튼을 재사용해줘. 상세 콘텐츠는 XML부터 검토하고 공유 저장에 필요한 데이터만 기존 DB에 연결해줘. 변경된 원본과 생성 파일을 확인하고 로컬 테스트 결과와 확인하지 못한 부분을 알려줘. 실제 배포는 최종 관리자가 요청한 경우에만 실행해줘.

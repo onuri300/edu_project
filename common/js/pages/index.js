@@ -92,7 +92,6 @@
     'on_cards.html': 'IT Flashcards',
     'on_quiz.html': 'Computer Quiz',
     'vi_library.html': 'Living Lab Library',
-    'on_edumkr.html': 'edumaker',
     'ga_idea.html': 'Edumaker Idea Card',
     'vi_knu.html': 'Kyungnam University Makerspace',
     'ga_mbti-a.html': 'Adult MBTI Test',
@@ -126,7 +125,6 @@
     onuriClass: [
       ['Announcements', 'on_class/on_notice.html'],
       ['인사관리', 'on_class/on_people.html'],
-      ['edumaker', 'on_class/on_edumkr.html'],
       ['IT Flashcards', 'on_class/on_quiz/on_cards.html', 'Quiz'],
       ['Computer Quiz', 'on_class/on_quiz/on_quiz.html', 'Quiz'],
     ],
@@ -178,7 +176,12 @@
   }
 
   function start() {
+    const removedPages = new Set(["on_class/on_edumkr.html","page_classroom/edumaker.html","cl_class/cl_edumkr.html","mk_class/mk_edumkr.html"].map(path => new URL(path, siteRoot).pathname));
     for (const category of DATA.cats) {
+      category.items = category.items.filter(item => {
+        const url = new URL(item.url, siteRoot);
+        return !sameSite(url) || !removedPages.has(url.pathname);
+      });
       for (const item of category.items) item.url = window.eduAuth.canonicalMenuUrl(item.url);
     }
     moveMenuItem(DATA.cats, 'vi_vibe/vi_knu.html', '바이브코딩');

@@ -13,6 +13,17 @@
 
 `auth.js`와 `common.js`는 최초 렌더링 전에 인증 상태와 테마를 설정합니다. 페이지 전용 스크립트는 DOM 뒤에 두거나 `defer`를 사용합니다. 공통 헤더 `.onuri-header`는 `common.js`가 생성합니다. 포털의 `.onuri-footer`, 리빙랩의 `.library-footer`, 포트폴리오의 `.site-footer`는 각각 콘텐츠와 링크가 다른 레이아웃입니다.
 
+## 브라우저 탭 로고 · 파비콘
+
+공용 로고는 `onuri.framework/images/onuri-logo.png`에 있습니다. 루트 `index.html`의 `<head>`에서 파비콘을 연결하면 브라우저 탭의 **Onuri | Learning Portal** 제목 왼쪽에 표시됩니다.
+
+~~~html
+<title>Onuri | Learning Portal</title>
+<link rel="icon" type="image/png" href="onuri.framework/images/onuri-logo.png">
+~~~
+
+하위 페이지를 새 탭으로 열 때도 같은 아이콘을 표시하려면 해당 HTML의 `<head>`에 로고 경로를 연결합니다. `on_class/on_people.html`처럼 한 단계 아래에 있으면 `../onuri.framework/images/onuri-logo.png`를 사용합니다. GitHub Pages 빌드는 공용 이미지 폴더를 배포본에 복사합니다. 로고를 교체한 뒤 예전 아이콘이 보이면 브라우저 캐시를 확인합니다.
+
 ## 헤더·본문·푸터
 
 공통 배너와 포털 푸터는 `onuri.framework/templates/layout/`에서, 리빙랩·포트폴리오 조각은 `common/templates/layout/`에서 관리합니다. 본문과 페이지 고유 메뉴·스크립트는 각 HTML에서 편집합니다.

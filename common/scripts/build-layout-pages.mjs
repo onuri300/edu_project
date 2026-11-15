@@ -28,12 +28,6 @@ const resourceBanners = {
     description: '수업에 필요한 교안을 미리 보고 내려받을 수 있는 리빙랩 자료실입니다.',
     image: 'common/images/shared/index-hero.png', width: 1536, height: 1024,
   },
-  'on_edumkr.html': {
-    variant: 'resource-hero-compact',
-    title: 'edumaker',
-    description: '수업 계획, 교안, 관련 뉴스와 수업 일지를 한곳에서 관리하는 메이킹 수업 스튜디오입니다.',
-    image: 'common/images/shared/index-hero.png', width: 1536, height: 1024,
-  },
   'ga_idea.html': {
     variant: 'resource-hero-compact',
     title: 'edumaker idea card',

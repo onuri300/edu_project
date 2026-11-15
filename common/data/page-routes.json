@@ -37,7 +37,6 @@
   "page_vibecoding/onuri-work-detail.html": "vi_vibe/vi_onuri/vi_detail.html",
   "page_vibecoding/onuri-works.html": "vi_vibe/vi_onuri/vi_works.html",
   "page_classroom/livinglab-library.html": "vi_vibe/vi_library.html",
-  "page_classroom/edumaker.html": "on_class/on_edumkr.html",
   "page_classroom/edumaker-idea-card.html": "ga_games/ga_idea.html",
   "page_etc/announcements.html": "on_class/on_notice.html",
   "page_etc/gpt-making-manual.html": "do_docs/do_gpt.html",
@@ -69,7 +68,6 @@
   "mo_toolos/mo_coding.html": "do_docs/do_dev.html",
   "cl_class/cl_library.html": "vi_vibe/vi_library.html",
   "cl_class/cl_idea.html": "ga_games/ga_idea.html",
-  "cl_class/cl_edumkr.html": "on_class/on_edumkr.html",
   "mo_tools/mo_notice.html": "on_class/on_notice.html",
   "mo_tools/mo_manual.html": "do_docs/do_gpt.html",
   "mo_tools/mo_coding.html": "do_docs/do_dev.html",
@@ -85,7 +83,6 @@
   "do_docs/ne_news/ne_ai.html": "do_docs/do_ai.html",
   "mk_class/mk_people.html": "on_class/on_people.html",
   "mk_class/mk_notice.html": "on_class/on_notice.html",
-  "mk_class/mk_edumkr.html": "on_class/on_edumkr.html",
   "mk_class/mk_quiz/mk_quiz.html": "on_class/on_quiz/on_quiz.html",
   "mk_class/mk_quiz/mk_cards.html": "on_class/on_quiz/on_cards.html"
 }

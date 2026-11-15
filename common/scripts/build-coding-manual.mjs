@@ -9,10 +9,11 @@ const documents = [
   ['structure', '구조와 프레임워크', '02-framework-manual.md', '공통 프레임워크, 템플릿'],
   ['reference', '코드 레퍼런스', '03-css-reference.md', 'CSS, 레이아웃, 테마'],
   ['reference', '코드 레퍼런스', '04-javascript-reference.md', 'JavaScript, 인증, 메뉴'],
-  ['reference', '코드 레퍼런스', '05-data-api-specification.md', '데이터베이스, API, Supabase'],
-  ['reference', '코드 레퍼런스', '08-database-schema.md', '전체 스키마, 테이블, 컬럼, 외래 키, 인덱스, RLS'],
+  ['database', '데이터베이스', '05-data-api-specification.md', '사용 DB, 모듈, 저장 규칙, API와 권한'],
+  ['database', '데이터베이스', '08-database-schema.md', '전체 ERD, 테이블, 컬럼, 외래 키, 인덱스, RLS'],
   ['development', '페이지 개발', '06-development-guide.md', '신규 페이지, 파일명, 검증'],
   ['development', '페이지 개발', '07-menu-layout-guide.md', '메뉴 그룹, 수정 금지, 공통 적용, 페이지 전용, 템플릿 유형'],
+  ['development', '페이지 개발', '09-local-source-structure.md', '로컬 파일 구조, 공통 자산, 파일명, 직원 XML, 생성 파일'],
 ];
 
 export async function buildCodingManual(source) {

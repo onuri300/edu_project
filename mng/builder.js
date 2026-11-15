@@ -73,7 +73,6 @@
       { name: "onuriClass", items: [
         { name: "Announcements", url: "./on_class/on_notice.html" },
         { name: "인사관리", url: "./on_class/on_people.html" },
-        { name: "edumaker", url: "./on_class/on_edumkr.html" },
       ] },
     ];
     defaults.forEach(cat => cats.append(catBlock(cat.name, cat.items)));

@@ -2,12 +2,13 @@
 
 public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 2026-11-14T13:50:33.581Z입니다. Supabase 관리 스키마는 이전 스냅샷을 참고용으로 포함합니다.
 
+인사관리 XML 전환 관련 메타데이터는 2026-11-15T01:12:08.831Z에 운영 DB에서 다시 확인했습니다. `tbl_emp.profile_file`이 직원별 통합 XML을 가리킵니다. 지침서를 편집해 저장한 파일은 비공개 `staff-guides` 버킷을 사용합니다. `tbl_emp.rank`는 기존 컬럼으로 남아 있으며, 인사카드의 직급 표시는 XML을 사용합니다.
+
 한글명은 문서에서 사용하는 설명 이름입니다. DB 코멘트가 있으면 별도로 표시합니다. 일반 테이블, 뷰, Supabase 관리 스키마를 함께 수록합니다.
 
 | 스키마 | 테이블·뷰 수 |
 |---|---|
 | auth | 27 |
-| edumaker | 14 |
 | extensions | 2 |
 | graphql | 0 |
 | graphql_public | 0 |
@@ -922,13 +923,13 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 
 - 인덱스 webauthn_credentials_user_id_idx — CREATE INDEX webauthn_credentials_user_id_idx ON auth.webauthn_credentials USING btree (user_id)
 
-### edumaker.board_posts · 게시판 글
+### public.tbl_board · 게시판 글
 
 종류 테이블 · RLS 사용
 
 | 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
 |---|---|---|---|---|---|
-| id | 식별자 | bigint | 아니오 | IDENTITY | PK |
+| board_id |  | bigint | 아니오 | IDENTITY | PK |
 | title | 제목 | text | 아니오 |  |  |
 | content | 내용 | text | 아니오 |  |  |
 | published | 공개 여부 | boolean | 아니오 | false |  |
@@ -939,303 +940,29 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 | updated_by | 수정자 식별자 | uuid | 예 |  | FK |
 | code_group | 코드 그룹 | text | 예 | 'BOARD'::text | FK |
 
-- board_posts_author_id_fkey — FOREIGN KEY (author_id) REFERENCES auth.users(id)
-
 - board_posts_board_type_check — CHECK ((board_type ~ '^[a-z][a-z0-9_]{0,39}$'::text))
 
 - board_posts_content_check — CHECK (((char_length(TRIM(BOTH FROM content)) >= 1) AND (char_length(TRIM(BOTH FROM content)) <= 20000)))
 
-- board_posts_pkey — PRIMARY KEY (id)
+- board_posts_pkey — PRIMARY KEY (board_id)
 
 - board_posts_title_check — CHECK (((char_length(TRIM(BOTH FROM title)) >= 1) AND (char_length(TRIM(BOTH FROM title)) <= 200)))
 
 - board_posts_updated_by_fkey — FOREIGN KEY (updated_by) REFERENCES auth.users(id) ON DELETE SET NULL
 
+- tbl_board_author_id_fkey — FOREIGN KEY (author_id) REFERENCES tbl_users(user_id)
+
 - tbl_board_comcode_fk — FOREIGN KEY (code_group, board_type) REFERENCES tbl_comcode(code_group, code)
 
-- 인덱스 board_posts_author_idx — CREATE INDEX board_posts_author_idx ON edumaker.board_posts USING btree (author_id)
+- 인덱스 board_posts_author_idx — CREATE INDEX board_posts_author_idx ON public.tbl_board USING btree (author_id)
 
-- 인덱스 board_posts_pkey — CREATE UNIQUE INDEX board_posts_pkey ON edumaker.board_posts USING btree (id)
+- 인덱스 board_posts_pkey — CREATE UNIQUE INDEX board_posts_pkey ON public.tbl_board USING btree (board_id)
 
-- 인덱스 board_posts_type_created_idx — CREATE INDEX board_posts_type_created_idx ON edumaker.board_posts USING btree (board_type, created_at DESC, id DESC)
+- 인덱스 board_posts_type_created_idx — CREATE INDEX board_posts_type_created_idx ON public.tbl_board USING btree (board_type, created_at DESC, board_id DESC)
 
-- 인덱스 board_posts_type_published_idx — CREATE INDEX board_posts_type_published_idx ON edumaker.board_posts USING btree (board_type, created_at DESC, id DESC) WHERE published
+- 인덱스 board_posts_type_published_idx — CREATE INDEX board_posts_type_published_idx ON public.tbl_board USING btree (board_type, created_at DESC, board_id DESC) WHERE published
 
-- 인덱스 board_posts_updater_idx — CREATE INDEX board_posts_updater_idx ON edumaker.board_posts USING btree (updated_by) WHERE (updated_by IS NOT NULL)
-
-### edumaker.canva_connections · Canva 연결
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | PK |
-| tokens | 연결 토큰 | text | 아니오 |  |  |
-| updated | 수정 시각 | text | 아니오 |  |  |
-
-- canva_connections_pkey — PRIMARY KEY (owner)
-
-- 인덱스 canva_connections_pkey — CREATE UNIQUE INDEX canva_connections_pkey ON edumaker.canva_connections USING btree (owner)
-
-### edumaker.canva_jobs · Canva 작업
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | PK |
-| id | 식별자 | text | 아니오 |  | PK |
-| course_id | 강좌 식별자 | text | 아니오 |  |  |
-| created | 생성 시각 | text | 아니오 |  |  |
-
-- canva_jobs_pkey — PRIMARY KEY (owner, id)
-
-- 인덱스 canva_jobs_pkey — CREATE UNIQUE INDEX canva_jobs_pkey ON edumaker.canva_jobs USING btree (owner, id)
-
-### edumaker.canva_link_categories · Canva 링크 분류
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | UNIQUE, PK |
-| id | 식별자 | text | 아니오 |  | PK |
-| title | 제목 | text | 아니오 |  | UNIQUE |
-
-- canva_link_categories_owner_title_key — UNIQUE (owner, title)
-
-- canva_link_categories_pkey — PRIMARY KEY (owner, id)
-
-- 인덱스 canva_link_categories_owner_title_key — CREATE UNIQUE INDEX canva_link_categories_owner_title_key ON edumaker.canva_link_categories USING btree (owner, title)
-
-- 인덱스 canva_link_categories_pkey — CREATE UNIQUE INDEX canva_link_categories_pkey ON edumaker.canva_link_categories USING btree (owner, id)
-
-### edumaker.canva_links · Canva 링크
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | FK, PK |
-| id | 식별자 | text | 아니오 |  | PK |
-| category_id | 분류 식별자 | text | 예 |  | FK |
-| title | 제목 | text | 아니오 |  |  |
-| date | 날짜 | text | 아니오 |  |  |
-| url | 주소 | text | 아니오 |  |  |
-| created | 생성 시각 | text | 아니오 |  |  |
-
-- canva_links_owner_category_id_fkey — FOREIGN KEY (owner, category_id) REFERENCES edumaker.canva_link_categories(owner, id) ON DELETE SET NULL (category_id)
-
-- canva_links_pkey — PRIMARY KEY (owner, id)
-
-- 인덱스 canva_links_by_category — CREATE INDEX canva_links_by_category ON edumaker.canva_links USING btree (owner, category_id)
-
-- 인덱스 canva_links_by_date — CREATE INDEX canva_links_by_date ON edumaker.canva_links USING btree (owner, date DESC, created DESC, id)
-
-- 인덱스 canva_links_pkey — CREATE UNIQUE INDEX canva_links_pkey ON edumaker.canva_links USING btree (owner, id)
-
-### edumaker.category_images · 분류 이미지
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | FK, PK |
-| category_id | 분류 식별자 | text | 아니오 |  | FK, PK |
-| slot | 이미지 위치 | integer | 아니오 |  | PK |
-| mime | 파일 형식 | text | 아니오 |  |  |
-| data | 데이터 | bytea | 아니오 |  |  |
-| caption | 이미지 설명 | text | 아니오 |  |  |
-| updated | 수정 시각 | text | 아니오 |  |  |
-
-- category_images_data_check — CHECK (((octet_length(data) >= 1) AND (octet_length(data) <= 524288)))
-
-- category_images_mime_check — CHECK ((mime = ANY (ARRAY['image/jpeg'::text, 'image/png'::text, 'image/webp'::text])))
-
-- category_images_owner_category_id_fkey — FOREIGN KEY (owner, category_id) REFERENCES edumaker.journal_categories(owner, id) ON DELETE CASCADE
-
-- category_images_pkey — PRIMARY KEY (owner, category_id, slot)
-
-- category_images_slot_check — CHECK ((slot = ANY (ARRAY[1, 2])))
-
-- 인덱스 category_images_pkey — CREATE UNIQUE INDEX category_images_pkey ON edumaker.category_images USING btree (owner, category_id, slot)
-
-### edumaker.courses · 강좌
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | FK, PK |
-| id | 식별자 | text | 아니오 |  | PK |
-| topic | 주제 | text | 아니오 |  |  |
-| audience | 수업 대상 | text | 아니오 |  |  |
-| planned_date | 예정일 | text | 아니오 |  |  |
-| input_options | 입력 옵션 | jsonb | 아니오 |  |  |
-| metadata | 메타데이터 | jsonb | 아니오 |  |  |
-| category_id | 분류 식별자 | text | 예 |  | FK |
-| journal_defaults | 일지 기본값 | jsonb | 예 |  |  |
-| updated | 수정 시각 | text | 아니오 |  |  |
-| version | 버전 | uuid | 아니오 | gen_random_uuid() |  |
-
-- courses_owner_category_id_fkey — FOREIGN KEY (owner, category_id) REFERENCES edumaker.journal_categories(owner, id) ON DELETE SET NULL (category_id)
-
-- courses_pkey — PRIMARY KEY (owner, id)
-
-- 인덱스 courses_owner_category — CREATE INDEX courses_owner_category ON edumaker.courses USING btree (owner, category_id)
-
-- 인덱스 courses_owner_updated — CREATE INDEX courses_owner_updated ON edumaker.courses USING btree (owner, updated DESC, id)
-
-- 인덱스 courses_pkey — CREATE UNIQUE INDEX courses_pkey ON edumaker.courses USING btree (owner, id)
-
-### edumaker.journal_categories · 수업 일지 분류
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | PK |
-| id | 식별자 | text | 아니오 |  | PK |
-| title | 제목 | text | 아니오 |  |  |
-| start_date | 시작일 | text | 아니오 |  |  |
-| end_date | 종료일 | text | 아니오 |  |  |
-| guidance | 작성 안내 | text | 아니오 |  |  |
-| goal_count | 목표 수 | integer | 아니오 |  |  |
-| topic_count | 주제 수 | integer | 아니오 |  |  |
-| detail_count | 세부 항목 수 | integer | 아니오 |  |  |
-| updated | 수정 시각 | text | 아니오 |  |  |
-
-- journal_categories_detail_count_check — CHECK (((detail_count >= 1) AND (detail_count <= 8)))
-
-- journal_categories_goal_count_check — CHECK (((goal_count >= 1) AND (goal_count <= 8)))
-
-- journal_categories_pkey — PRIMARY KEY (owner, id)
-
-- journal_categories_topic_count_check — CHECK (((topic_count >= 1) AND (topic_count <= 10)))
-
-- 인덱스 journal_categories_pkey — CREATE UNIQUE INDEX journal_categories_pkey ON edumaker.journal_categories USING btree (owner, id)
-
-### edumaker.journals · 수업 일지
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | FK, PK |
-| course_id | 강좌 식별자 | text | 아니오 |  | FK, PK |
-| session_position | 차시 순서 | integer | 아니오 |  | FK, PK |
-| body | 본문 | text | 아니오 |  |  |
-| class_date | 수업일 | text | 아니오 |  |  |
-| activities | 활동 | text | 아니오 |  |  |
-| actual_details | 실제 수업 세부 내용 | jsonb | 아니오 |  |  |
-| outline | 개요 | jsonb | 아니오 |  |  |
-| created_at | 생성 시각 | text | 예 |  |  |
-| deleted_at | 삭제 시각 | text | 예 |  |  |
-
-- journals_owner_course_id_session_position_fkey — FOREIGN KEY (owner, course_id, session_position) REFERENCES edumaker.sessions(owner, course_id, "position") ON DELETE CASCADE
-
-- journals_pkey — PRIMARY KEY (owner, course_id, session_position)
-
-- 인덱스 journals_pkey — CREATE UNIQUE INDEX journals_pkey ON edumaker.journals USING btree (owner, course_id, session_position)
-
-### edumaker.news_articles · 뉴스 기사
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | FK, PK |
-| course_id | 강좌 식별자 | text | 아니오 |  | FK, PK |
-| position | 순서 | integer | 아니오 |  | PK |
-| article | 기사 | jsonb | 아니오 |  |  |
-
-- news_articles_owner_course_id_fkey — FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE
-
-- news_articles_pkey — PRIMARY KEY (owner, course_id, "position")
-
-- news_articles_position_check — CHECK (("position" >= 0))
-
-- 인덱스 news_articles_pkey — CREATE UNIQUE INDEX news_articles_pkey ON edumaker.news_articles USING btree (owner, course_id, "position")
-
-### edumaker.sessions · 차시
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | FK, PK |
-| course_id | 강좌 식별자 | text | 아니오 |  | FK, PK |
-| position | 순서 | integer | 아니오 |  | PK |
-| title | 제목 | text | 아니오 |  |  |
-| plan | 수업 계획 | jsonb | 아니오 |  |  |
-
-- sessions_owner_course_id_fkey — FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE
-
-- sessions_pkey — PRIMARY KEY (owner, course_id, "position")
-
-- sessions_position_check — CHECK (("position" >= 0))
-
-- 인덱스 sessions_pkey — CREATE UNIQUE INDEX sessions_pkey ON edumaker.sessions USING btree (owner, course_id, "position")
-
-### edumaker.slide_sources · 슬라이드 출처
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | FK, PK |
-| course_id | 강좌 식별자 | text | 아니오 |  | FK, PK |
-| slide_position | 슬라이드 순서 | integer | 아니오 |  | FK, PK |
-| position | 순서 | integer | 아니오 |  | PK |
-| article | 기사 | jsonb | 아니오 |  |  |
-
-- slide_sources_owner_course_id_slide_position_fkey — FOREIGN KEY (owner, course_id, slide_position) REFERENCES edumaker.slides(owner, course_id, "position") ON DELETE CASCADE
-
-- slide_sources_pkey — PRIMARY KEY (owner, course_id, slide_position, "position")
-
-- slide_sources_position_check — CHECK (("position" >= 0))
-
-- 인덱스 slide_sources_pkey — CREATE UNIQUE INDEX slide_sources_pkey ON edumaker.slide_sources USING btree (owner, course_id, slide_position, "position")
-
-### edumaker.slides · 슬라이드
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| owner | 소유자 | text | 아니오 |  | FK, PK |
-| course_id | 강좌 식별자 | text | 아니오 |  | FK, PK |
-| position | 순서 | integer | 아니오 |  | PK |
-| session_number | 차시 번호 | integer | 아니오 |  |  |
-| kind | 종류 | text | 아니오 |  |  |
-| title | 제목 | text | 아니오 |  |  |
-| body | 본문 | text | 아니오 |  |  |
-| notes | 발표 노트 | text | 아니오 |  |  |
-| extra | 추가 정보 | jsonb | 아니오 |  |  |
-
-- slides_owner_course_id_fkey — FOREIGN KEY (owner, course_id) REFERENCES edumaker.courses(owner, id) ON DELETE CASCADE
-
-- slides_pkey — PRIMARY KEY (owner, course_id, "position")
-
-- slides_position_check — CHECK (("position" >= 0))
-
-- 인덱스 slides_by_session — CREATE INDEX slides_by_session ON edumaker.slides USING btree (owner, course_id, session_number) WHERE (kind = 'lesson'::text)
-
-- 인덱스 slides_pkey — CREATE UNIQUE INDEX slides_pkey ON edumaker.slides USING btree (owner, course_id, "position")
-
-### edumaker.storage_credentials · 저장소 자격 정보
-
-종류 테이블 · RLS 사용
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| key_hash | 접근 키 해시 | bytea | 아니오 |  | PK |
-
-- storage_credentials_key_hash_check — CHECK ((octet_length(key_hash) = 32))
-
-- storage_credentials_pkey — PRIMARY KEY (key_hash)
-
-- 인덱스 storage_credentials_pkey — CREATE UNIQUE INDEX storage_credentials_pkey ON edumaker.storage_credentials USING btree (key_hash)
+- 인덱스 board_posts_updater_idx — CREATE INDEX board_posts_updater_idx ON public.tbl_board USING btree (updated_by) WHERE (updated_by IS NOT NULL)
 
 ### extensions.pg_stat_statements · SQL 실행 통계
 
@@ -1302,20 +1029,6 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 | dealloc |  | bigint | 예 |  |  |
 | stats_reset |  | timestamp with time zone | 예 |  |  |
 
-### public.tbl_board · 게시판 글
-
-종류 뷰 · RLS 뷰 원본의 정책과 보안 옵션 확인
-
-| 컬럼 영문명 | 한글 설명·DB 코멘트 | 자료형 | NULL 허용 | 기본값·자동 생성 | 키 |
-|---|---|---|---|---|---|
-| id | 식별자 | bigint | 예 |  |  |
-| board_type | 게시판 구분 | text | 예 |  |  |
-| title | 제목 | text | 예 |  |  |
-| content | 내용 | text | 예 |  |  |
-| published | 공개 여부 | boolean | 예 |  |  |
-| created_at | 생성 시각 | timestamp with time zone | 예 |  |  |
-| updated_at | 수정 시각 | timestamp with time zone | 예 |  |  |
-
 ### public.tbl_comcode · 공통코드
 
 종류 테이블 · RLS 사용
@@ -1368,19 +1081,21 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 | name | 이름 | text | 아니오 |  |  |
 | rank |  | integer | 아니오 |  |  |
 | sort_order | 표시 순서 | integer | 아니오 |  |  |
-| profile |  | jsonb | 아니오 |  |  |
+| profile_file | 직원별 인사카드·지침서 XML 파일명 | text | 아니오 |  | UNIQUE |
 
 - staff_members_department_code_fkey — FOREIGN KEY (department_code) REFERENCES tbl_dept(code)
-
-- staff_members_profile_check — CHECK ((jsonb_typeof(profile) = 'object'::text))
 
 - staff_members_rank_check — CHECK (((rank >= '-1'::integer) AND (rank <= 2)))
 
 - tbl_emp_pkey — PRIMARY KEY (emp_code)
 
+- tbl_emp_profile_file_unique — UNIQUE (profile_file)
+
 - 인덱스 staff_members_department_idx — CREATE INDEX staff_members_department_idx ON public.tbl_emp USING btree (department_code)
 
 - 인덱스 tbl_emp_pkey — CREATE UNIQUE INDEX tbl_emp_pkey ON public.tbl_emp USING btree (emp_code)
+
+- 인덱스 tbl_emp_profile_file_unique — CREATE UNIQUE INDEX tbl_emp_profile_file_unique ON public.tbl_emp USING btree (profile_file)
 
 ### public.tbl_evalu · 업무 평가
 
@@ -1420,10 +1135,13 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 |---|---|---|---|---|---|
 | user_id | 사용자 식별자 | uuid | 아니오 |  | PK, FK |
 | created_at | 생성 시각 | timestamp with time zone | 아니오 | now() |  |
+| display_name |  | text | 아니오 | '관리자'::text |  |
 
 - admin_users_pkey — PRIMARY KEY (user_id)
 
 - admin_users_user_id_fkey — FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE
+
+- tbl_users_display_name_check — CHECK (((char_length(btrim(display_name)) >= 1) AND (char_length(btrim(display_name)) <= 80)))
 
 - 인덱스 admin_users_pkey — CREATE UNIQUE INDEX admin_users_pkey ON public.tbl_users USING btree (user_id)
 
@@ -1819,47 +1537,27 @@ public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 20
 
 | 스키마·함수 | 인자 | 반환형 |
 |---|---|---|
-| edumaker.canva_link_page | p_owner text, args jsonb | jsonb |
-| edumaker.category_doc | c edumaker.journal_categories | jsonb |
-| edumaker.course_context | c edumaker.courses | jsonb |
-| edumaker.course_doc | c edumaker.courses | jsonb |
-| edumaker.dispatch | p_owner text, p_operation text, p_args jsonb | jsonb |
-| edumaker.journal_selection | p_owner text, args jsonb | jsonb |
-| edumaker.library_page | p_owner text, args jsonb | jsonb |
-| edumaker.save_category | p_owner text, args jsonb | jsonb |
-| edumaker.save_course | p_owner text, doc jsonb, saved_at text, expected_version uuid | void |
-| edumaker.stamp_board_post_update |  | trigger |
+| public.stamp_board_post_update |  | trigger |
 | public.edumaker_storage | p_owner text, p_operation text, p_args jsonb | jsonb |
+| public.board_author_names | ids bigint[] | TABLE(board_id bigint, display_name text) |
 
-- edumaker.board_posts_stamp_update — CREATE TRIGGER board_posts_stamp_update BEFORE UPDATE OF title, content, published, board_type ON edumaker.board_posts FOR EACH ROW EXECUTE FUNCTION edumaker.stamp_board_post_update()
+- public.board_posts_stamp_update — CREATE TRIGGER board_posts_stamp_update BEFORE UPDATE OF title, content, published, board_type ON public.tbl_board FOR EACH ROW EXECUTE FUNCTION public.stamp_board_post_update()
 
 ## 공개 뷰 정의
-
-### public.tbl_board
-
-~~~sql
- SELECT id,
-    board_type,
-    title,
-    content,
-    published,
-    created_at,
-    updated_at
-   FROM edumaker.board_posts;
-~~~
 
 ## RLS 정책
 
 | 테이블 | 정책 | 역할 | 동작 | USING | WITH CHECK |
 |---|---|---|---|---|---|
-| edumaker.board_posts | admin create announcements | authenticated | INSERT |  | ((author_id = ( SELECT auth.uid() AS uid)) AND (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))) |
-| edumaker.board_posts | admin delete announcements | authenticated | DELETE | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
-| edumaker.board_posts | admin edit announcements | authenticated | UPDATE | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |
-| edumaker.board_posts | administrators read all notices | authenticated | SELECT | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
-| edumaker.board_posts | everyone read published notices | anon, authenticated | SELECT | (published AND (EXISTS ( SELECT 1    FROM tbl_comcode c   WHERE ((c.code_group = 'BOARD'::text) AND (c.code = board_posts.board_type) AND c.public_read)))) |  |
+| public.tbl_board | admin create announcements | authenticated | INSERT |  | ((author_id = ( SELECT auth.uid() AS uid)) AND (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))) |
+| public.tbl_board | admin delete announcements | authenticated | DELETE | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
+| public.tbl_board | admin edit announcements | authenticated | UPDATE | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |
+| public.tbl_board | administrators read all notices | authenticated | SELECT | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
+| public.tbl_board | everyone read published notices | anon, authenticated | SELECT | (published AND (EXISTS ( SELECT 1    FROM tbl_comcode c   WHERE ((c.code_group = 'BOARD'::text) AND (c.code = board_posts.board_type) AND c.public_read)))) |  |
 | public.tbl_comcode | admins read common codes | authenticated | SELECT | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
 | public.tbl_comcode | read public board codes | anon, authenticated | SELECT | ((code_group = 'BOARD'::text) AND public_read) |  |
 | public.tbl_dept | staff_admin_access | authenticated | ALL | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
 | public.tbl_emp | staff_admin_access | authenticated | ALL | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
 | public.tbl_evalu | staff_admin_access | authenticated | ALL | (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid)))) |  |
 | public.tbl_users | admins see own membership | authenticated | SELECT | (user_id = ( SELECT auth.uid() AS uid)) |  |
+| storage.objects | staff_guide_file_admin | authenticated | ALL | ((bucket_id = 'staff-guides'::text) AND (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))) | ((bucket_id = 'staff-guides'::text) AND (EXISTS ( SELECT 1    FROM tbl_users   WHERE (tbl_users.user_id = ( SELECT auth.uid() AS uid))))) |

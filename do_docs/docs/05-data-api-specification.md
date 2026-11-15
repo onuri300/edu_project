@@ -1,22 +1,38 @@
 # 데이터베이스 및 API 개발명세서
 
-## 운영 스키마와 ERD
+이 명세는 ISO/IEC/IEEE 29148:2018의 요구사항 추적 방식을 참고해 데이터 출처, 저장 규칙, 접근 권한과 확인 기준을 연결합니다. [ISO 요구사항 공학 표준](https://www.iso.org/standard/72089.html)
 
-Dev Manual에서 이 문서를 선택하면 운영 DB에서 조회한 테이블 목록과 ERD를 볼 수 있습니다. 스키마를 선택하거나 영문명·한글명·컬럼명으로 검색하고, 관계도의 테이블을 누르면 전체 컬럼과 자료형, NULL 허용, 기본값, PK·FK·UNIQUE, 인덱스, RLS 정책을 확인할 수 있습니다.
+## 사용 DB와 저장소
 
-현재 스냅샷은 11개 스키마, 61개 테이블·뷰, 555개 컬럼입니다. 기본 화면은 애플리케이션 스키마인 `public`과 `edumaker`를 표시합니다. `전체 스키마`를 선택하면 Supabase가 관리하는 인증·저장소 등의 구조도 확인할 수 있습니다. 관계도 화살표는 실제 외래 키이며, 점선은 공개 뷰의 원본 참조입니다. 외래 키가 없는 컬럼은 이름이 비슷해도 관계를 추측해서 연결하지 않습니다.
+| 구성 | 역할 | 확인 기준 |
+|---|---|---|
+| Supabase PostgreSQL · `public` | 사원·부서, 평가, 공통코드, 관리자 권한과 게시글 | PK·FK·제약조건, 공개 범위와 RLS를 확인합니다. |
+| Supabase Auth | 관리자 인증 | 관리자 권한은 `tbl_users`로 확인합니다. |
+| 직원별 XML · Supabase Storage | 인사카드와 지침서 본문 | `tbl_emp.profile_file`로 파일을 읽고 비공개 편집본은 `staff-guides`에 저장합니다. |
 
-한글명은 이해를 돕기 위한 문서용 이름이며 실제 DB 이름은 변경하지 않았습니다. 컬럼에 한글 설명이나 DB 코멘트가 없는 경우에는 영문명과 자료형을 기준으로 확인합니다.
+## 모듈별 테이블과 관계
 
-[전체 스키마·테이블·컬럼 명세](08-database-schema.md)에 테이블별 전체 정의와 애플리케이션 함수·트리거를 수록했습니다. DB 조회 시각은 명세와 웹 화면에 표시합니다. 이는 실시간 DB 접속 화면이 아닌 조회 시점의 스냅샷입니다. 스키마 변경 후에는 읽기 전용 카탈로그 조회로 `common/data/database-schema.json`을 갱신하고 `node common/scripts/build-coding-manual.mjs`를 실행합니다. 이 빌드는 전체 명세와 웹 매뉴얼을 함께 갱신합니다. 사용자 데이터, 토큰 값, 저장 파일은 포함하지 않습니다.
+| 모듈 | 주요 객체 | 저장·조회 계약 |
+|---|---|---|
+| 인사관리 | `tbl_emp`, `tbl_dept`, `tbl_evalu` | 사원은 부서 코드를 참조하고, 평가는 사원코드를 참조합니다. 프로필과 지침서 본문은 직원별 XML에 둡니다. |
+| 게시판 | `tbl_board` 테이블 | 화면은 `tbl_board`를 사용합니다. 게시판 코드는 `tbl_comcode`를 참조합니다. |
+| 공통코드·권한 | `tbl_comcode`, `tbl_users` | 부서명과 게시판명을 코드로 조회하고, 관리자 권한은 인증 계정과 대조합니다. |
+
+## ERD 읽는 방법
+
+**전체 모듈 · 포털 통합 ERD**에서 포털 테이블을 함께 봅니다. 관계가 복잡하면 **인사관리**, **게시판**, **공통코드·권한** 중 하나를 선택합니다. 기본 100%에서 최대 200%까지 확대할 수 있으며, 가로·세로로 스크롤할 수 있습니다. 테이블을 선택하면 컬럼, 자료형, PK·FK, 제약조건과 접근 정책을 확인할 수 있습니다.
+
+실선 화살표는 실제 외래 키, 점선은 뷰의 원본 참조를 표시합니다. Supabase 관리 영역까지 보려면 **전체 스키마 · Supabase 관리 포함**을 선택합니다. [테이블·컬럼 상세](08-database-schema.md)는 조회 시점의 명세입니다.
 
 ## 공지사항
 
-[공지사항 JS](../../common/js/pages/mo_notice.js)는 브라우저용 Supabase 클라이언트를 사용합니다. 공개 인터페이스는 `public.tbl_board`입니다. `security_invoker` 뷰를 거쳐 `edumaker.board_posts`의 테이블 권한과 RLS가 적용됩니다. 아래 컬럼과 제약은 운영 Supabase의 스키마를 읽기 전용으로 조회해 확인했습니다.
+게시글 기본키는 `tbl_board.board_id`이며, `author_id`는 `tbl_users.user_id`를 참조합니다. 작성 시 인증 계정이 작성자로 지정됩니다. 웹은 게시글 키로 `board_author_names`를 호출해 공개 범위에 해당하는 작성자 표시명만 가져옵니다. `tbl_users.user_id`는 Supabase `auth.users.id`를 참조합니다. 스키마와 ERD는 호환 컬럼 제거 후의 구조를 표시합니다.
+
+[공지사항 JS](../../common/js/pages/mo_notice.js)는 브라우저용 Supabase 클라이언트를 사용합니다. 공개 인터페이스는 `public.tbl_board`입니다. `public.tbl_board`에 컬럼 권한과 RLS가 적용됩니다. 아래 컬럼과 제약은 운영 Supabase의 스키마를 읽기 전용으로 조회해 확인했습니다.
 
 | 필드 | 소스에서 확인되는 계약 |
 |---|---|
-| `id` | `bigint` PK. 목록 정렬·수정·삭제 식별자 |
+| `board_id` | `bigint` PK. 목록 정렬·수정·삭제 식별자 |
 | `board_type` | `text NOT NULL`, 기본 `notice`, 소문자 시작 및 소문자·숫자·밑줄 검사 |
 | `title`, `content` | `text NOT NULL`. 앞뒤 공백 제거 후 제목 1~200자, 본문 1~20,000자 |
 | `published` | `boolean NOT NULL`, 기본값 `false` |
@@ -43,5 +59,3 @@ UI는 쓰기 직전에 관리자를 다시 검증하고, 동시 변경으로 응
 - `common/file/ne.file/`에서 `newsletter-data.js`를 생성합니다. HTML 본문은 sandbox iframe, Markdown은 로컬 markdown-it, PDF는 문서 뷰어를 사용합니다.
 - `node common/scripts/build-coding-manual.mjs`는 `do_docs/docs/`와 GPT 매뉴얼 JSON을 각각 `coding-manual.js`, `gpt-making-manual.js`로 생성합니다. 두 페이지는 정적 스크립트에서 본문을 읽으므로 로컬 파일로 열 수 있습니다.
 - 메이커 카드 `vi_vibe/vi_onyou/gallery.json`은 작품 경로·분류·제목을 제공합니다. 가져오기에 실패하면 내장 샘플로 표시합니다.
-
-edumaker는 별도로 운영되는 앱입니다. 이 포털은 서비스 링크를 제공하며, 앱의 강좌·차시·일지·슬라이드·Canva 데이터는 운영 앱에서 관리합니다. [edumaker 연결 안내](edumaker-integration.md)

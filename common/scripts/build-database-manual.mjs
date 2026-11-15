@@ -28,6 +28,7 @@ const names = {
   secrets: '보안 저장 항목', decrypted_secrets: '보안 저장 항목 조회 뷰',
 };
 const columns = {
+  profile_file: '직원별 인사카드·지침서 XML 파일명',
   emp_code: '사원코드', department_code: '부서코드', code_group: '코드 그룹',
   code: '코드', name: '이름', public_read: '공개 조회 여부', sort_order: '표시 순서',
   member_id: '평가 대상 사원코드', assessment: '평가 내용', rating: '별점',
@@ -64,6 +65,7 @@ export async function buildDatabaseManual(source) {
     '# 운영 데이터베이스 전체 스키마',
     '',
     'public·edumaker 스키마의 운영 PostgreSQL 카탈로그 조회 시각은 ' + snapshot.captured_at + '입니다. Supabase 관리 스키마는 이전 스냅샷을 참고용으로 포함합니다.',
+    ...(snapshot.staff_verified_at ? ['', '인사관리 XML 전환 관련 메타데이터는 ' + snapshot.staff_verified_at + '에 운영 DB에서 다시 확인했습니다. `tbl_emp.profile_file`이 직원별 통합 XML을 가리킵니다. 지침서를 편집해 저장한 파일은 비공개 `staff-guides` 버킷을 사용합니다. `tbl_emp.rank`는 기존 컬럼으로 남아 있으며, 인사카드의 직급 표시는 XML을 사용합니다.'] : []),
     '',
     '한글명은 문서에서 사용하는 설명 이름입니다. DB 코멘트가 있으면 별도로 표시합니다. 일반 테이블, 뷰, Supabase 관리 스키마를 함께 수록합니다.',
     '',

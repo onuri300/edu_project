@@ -182,6 +182,3 @@ index.html의 기존 선택 자료용 새 탭 버튼은 선택한 페이지를 �
 HTTP와 로컬 file:// 모두 application/octet-stream Blob에 원래 PDF 파일명을 지정해 저장합니다.
 로컬 파일 읽기 제한을 피하기 위한 데이터는 file/local-downloads에 자동 생성하며 Git·배포 대상에서는 제외합니다.
 common/file/cl.file 변경 후 node common/scripts/build-library.mjs 실행 시 목록과 로컬 다운로드 데이터가 함께 갱신됩니다.
-
-
-수업 자료실에 edumaker 메뉴를 추가했습니다. 소스 사본은 common/apps/edumaker이며 별도 운영 앱을 새 탭으로 연결합니다. 상세 내용: [edumaker 연결 안내](edumaker-integration.md)

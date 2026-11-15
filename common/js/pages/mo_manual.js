@@ -142,8 +142,11 @@
       destination.append(button);
       buttons.set(entry, button);
       if (parents.has(entry.file)) {
-        const children = branch('하위 문서', 'document:' + entry.file, destination);
-        childLists.set(entry.file, children.children);
+        const count = entries.filter(child => child.parent === entry.file).length;
+        const children = count >= 3
+          ? branch('하위 문서', 'document:' + entry.file, destination).children
+          : destination;
+        childLists.set(entry.file, children);
       }
     }
     const selected = matches.includes(preferred) ? preferred : matches[0];

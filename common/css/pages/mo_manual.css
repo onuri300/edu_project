@@ -99,7 +99,7 @@
 .schema-filter :is(input,select) { width: 100%; min-width: 0; box-sizing: border-box; }
 .schema-diagram-tools { display: flex; align-items: center; gap: 16px; margin-block: 12px; }
 .schema-diagram-tools .schema-filter { flex: 0 1 230px; }
-.schema-graph { overflow: auto; max-height: 540px; border: 1px solid var(--line); background: var(--muted-surface); border-radius: 8px; }
+.schema-graph { overflow: auto; max-height: min(75dvh, 760px); border: 1px solid var(--line); background: var(--muted-surface); border-radius: 8px; }
 .schema-graph svg { display: block; max-width: none; }
 .schema-edge { fill: none; stroke: var(--ink-soft); stroke-width: 1.5; }
 .schema-view-edge { stroke-dasharray: 6 4; }

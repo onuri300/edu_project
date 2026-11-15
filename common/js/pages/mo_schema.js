@@ -72,22 +72,29 @@
 
     const controls = node('div', undefined, 'schema-filters');
     const scope = node('select');
-    scope.append(new Option('애플리케이션 · public / edumaker', 'application'), new Option('전체 스키마', 'all'));
+    const modules = {
+      staff: new Set(['tbl_emp', 'tbl_dept', 'tbl_evalu', 'tbl_comcode', 'tbl_users']),
+      board: new Set(['tbl_board', 'tbl_comcode', 'tbl_users']),
+      shared: new Set(['tbl_comcode', 'tbl_users']),
+    };
+    scope.append(new Option('전체 모듈 · 포털 통합 ERD', 'application'),
+      new Option('인사관리', 'staff'), new Option('게시판', 'board'), new Option('공통코드·권한', 'shared'),
+      new Option('전체 스키마 · Supabase 관리 포함', 'all'));
     data.schemas.forEach(schema => scope.append(new Option(schema.name, schema.name)));
     const search = node('input');
     search.type = 'search';
     search.placeholder = '테이블명·한글명·컬럼명';
     const select = node('select');
-    controls.append(labelled('스키마', scope), labelled('검색', search), labelled('테이블·뷰', select));
+    controls.append(labelled('모듈·스키마', scope), labelled('검색', search), labelled('테이블·뷰', select));
     container.append(controls);
 
     const diagramTools = node('div', undefined, 'schema-diagram-tools');
     const zoom = node('input');
     zoom.type = 'range';
     zoom.min = '35';
-    zoom.max = '140';
-    zoom.value = '65';
-    const zoomText = node('output', '65%');
+    zoom.max = '200';
+    zoom.value = '100';
+    const zoomText = node('output', '100%');
     diagramTools.append(labelled('ERD 확대', zoom), zoomText);
     container.append(diagramTools);
     const graph = node('div', undefined, 'schema-graph');
@@ -238,8 +245,9 @@
     function refresh(preferred) {
       const query = search.value.trim().toLowerCase();
       const filtered = data.tables.filter(table => {
+        const module = modules[scope.value];
         const inScope = scope.value === 'all' || (scope.value === 'application'
-          ? ['public', 'edumaker'].includes(table.schema) : table.schema === scope.value);
+          ? table.schema === 'public' : module ? table.schema === 'public' && module.has(table.name) : table.schema === scope.value);
         const columns = data.columns.filter(column => column.schema === table.schema && column.table === table.name);
         return inScope && [tableId(table), table.korean, ...columns.flatMap(column => [column.name, column.korean])]
           .join(' ').toLowerCase().includes(query);

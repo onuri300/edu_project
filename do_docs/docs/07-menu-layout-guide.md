@@ -8,7 +8,7 @@
 | Games | `ga_games/` | 사다리 게임, 성인·어린이 MBTI, Edumaker Idea Card | 문제 데이터, 게임 설정·진행·결과 화면 |
 | Document | `do_docs/` | GPT Manual, Dev Manual | 매뉴얼의 코드·데이터 |
 | Document | `do_docs/` | AI 뉴스레터, 메이킹 뉴스레터 | `common/file/ne.file/`의 원본, 채널 정보, 뉴스레터 템플릿 |
-| onuriClass | `on_class/` | Announcements, 인사관리, edumaker, Quiz (`on_quiz/`) | 공지, 인사카드, 수업 관리 |
+| onuriClass | `on_class/` | Announcements, 인사관리, Quiz (`on_quiz/`) | 공지, 인사카드, 수업 관리 |
 
 루트의 `index.html`은 로그인과 그룹 메뉴, 홈 화면을 담당합니다. `mng/menu-builder.html`은 암호화 메뉴 파일을 만드는 로컬 관리 화면입니다. 저장된 메뉴 주소를 바꿀 때는 `common/data/page-routes.json`에 이전 주소와 새 주소의 대응을 유지합니다.
 
