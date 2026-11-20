@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 AI 매뉴얼 원본 · NotebookLM
+  - 소개(표지·특장점·오누리 활용) + 분류(section) → 묶음(set) → 프롬프트(prompt). 트리: AI → 분류 → 묶음
+  - prompt 의 id 는 사이트 주소(?id=)에 쓰이므로 제목이 바뀌어도 유지합니다. <text> 는 줄바꿈을 그대로 씁니다.
+  - 작성 규칙: ../../README.md
+-->
+<manual id="notebooklm" kind="ai" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>NotebookLM</title>
+  <maker>Google</maker>
+  <keyword>NotebookLM · Google</keyword>
+  <description>내가 올린 자료만을 근거로 답하고 정리해 주는 Google의 노트북형 AI.</description>
+  <summary>프로젝트별로 노트북을 만들고 자료를 소스로 올리면, 그 자료에 근거해 질문에 답하고 오디오·마인드맵·보고서·퀴즈 같은 결과물로 바꿔 주는 AI입니다.</summary>
+  <cover title="NotebookLM 소개와 기능">
+    <tagline>내가 올린 자료만으로 답하고 정리해 주는 노트북</tagline>
+    <site href="https://notebooklm.google/">NotebookLM 공식 사이트</site>
+    <chips>
+      <item>수업 자료 정리</item>
+      <item>근거 있는 요약</item>
+      <item>퀴즈·활동지 만들기</item>
+      <item>오디오로 복습</item>
+    </chips>
+  </cover>
+  <highlights>
+    <item title="소스에 근거한 답" scene="매뉴얼·계획서 사실 확인">올린 자료를 바탕으로 답하고 인용으로 원문을 확인합니다.</item>
+    <item title="스튜디오 결과물" scene="복습 자료·발표 초안">오디오·비디오 개요, 마인드맵, 보고서, 퀴즈, 슬라이드, 인포그래픽으로 바꿉니다.</item>
+    <item title="여러 소스 비교" scene="장비·자료 비교">여러 자료를 한 노트북에 모아 공통점과 차이를 정리합니다.</item>
+    <item title="공유" scene="수업 자료 공동 활용">보기·편집 권한으로 동료와 노트북을 공유합니다.</item>
+  </highlights>
+  <ouruse>
+    <item title="수업 자료">수업 계획서를 소스로 두고 활동지·퀴즈·루브릭을 파생합니다.</item>
+    <item title="자료 정리">장비 매뉴얼과 연수 자료를 요약·비교해 핵심만 봅니다.</item>
+    <item title="복습">마인드맵과 오디오 개요로 단원을 다시 훑습니다.</item>
+  </ouruse>
+  <specs>
+    <spec name="노트북">특정 프로젝트의 소스 모음. 노트북끼리 독립이라 여러 노트북을 한 번에 참조하지 못함</spec>
+    <spec name="소스">직접 업로드하거나 새 소스 찾기로 추가 (PDF·Google 문서·웹 링크·YouTube·오디오 등, 지원 형식은 공식 도움말에서 확인)</spec>
+    <spec name="채팅">소스의 요약을 먼저 보여 주고 질문·지시에 소스 근거로 답함</spec>
+    <spec name="스튜디오">노트 · 오디오 개요 · 비디오 개요 · 마인드맵 · 보고서(FAQ·학습 가이드·브리핑) · 데이터 표 · 플래시카드/퀴즈 · 슬라이드 · 인포그래픽</spec>
+    <spec name="소스 정리">소스가 5개 이상이면 주제별 자동 라벨</spec>
+    <spec name="공유">보기·편집 권한으로 비공개 공유, 공개 공유, 소유자가 허용하면 복사</spec>
+    <spec name="명칭·한도">공식 도움말 일부가 “Gemini Notebook”으로 표기되고 사용 한도는 별도 문서에 있어 공식 페이지에서 확인</spec>
+  </specs>
+  <pros>
+    <item>내가 올린 자료에만 근거해 답하고 인용으로 원문을 확인</item>
+    <item>한 노트북의 자료를 오디오·마인드맵·퀴즈 등 여러 형태로 변환</item>
+    <item>수업 자료를 소스로 두고 활동지·평가 문항을 바로 파생</item>
+    <item>비공개·공개 공유로 동료와 자료 공유</item>
+  </pros>
+  <cons>
+    <item>소스에 없는 내용은 답하지 않으므로 일반 지식 질문에는 맞지 않습니다.</item>
+    <item>노트북끼리 독립이라 여러 노트북을 합쳐 묻지 못합니다.</item>
+    <item>요금제·한도·명칭이 바뀔 수 있어 공식 페이지 확인이 필요합니다.</item>
+    <item>학생 개인정보가 든 자료는 올리지 않습니다.</item>
+  </cons>
+  <uses>
+    <item>수업 계획서·교재를 소스로 활동지·퀴즈 만들기</item>
+    <item>장비 매뉴얼·논문 여러 개 비교 요약</item>
+    <item>단원을 마인드맵·오디오 개요로 정리해 복습 자료 제작</item>
+    <item>연수·설명회 자료를 슬라이드 초안으로 변환</item>
+  </uses>
+  <tips>
+    <tip>수업·과제마다 노트북을 따로 만들면 답이 섞이지 않습니다.</tip>
+    <tip>질문마다 “소스에 없으면 없다고 말해줘”를 덧붙이면 추측이 줄어듭니다.</tip>
+    <tip>결과물은 사용자 지정에 대상·분량·형식을 적어 만듭니다.</tip>
+  </tips>
+  <links>
+    <link href="https://support.google.com/notebooklm/answer/16206563">NotebookLM 도움말(노트북 만들기)</link>
+    <link href="https://notebooklm.google/">NotebookLM</link>
+  </links>
+  <section id="source" title="소스와 질문" description="자료를 넣고 근거 있는 답을 받는 기본 사용">
+    <set title="소스 다루기">
+      <prompt id="NB-001">
+        <title>소스 올리고 노트북 만들기</title>
+        <keyword>소스 추가</keyword>
+        <description>프로젝트별로 노트북을 만들고 자료를 소스로 올립니다.</description>
+        <useCase>새 수업·과제 시작</useCase>
+        <text>(화면 조작) 새 노트북 만들기 → 소스 업로드 → 수업 계획서·교재·웹 링크 등을 추가한 뒤 아래처럼 묻습니다.
+"이 노트북의 소스를 한눈에 정리해줘. 소스별 핵심 한 줄과 서로 겹치는 내용을 알려줘."</text>
+        <expected>소스별 요약과 공통 주제</expected>
+        <tips>노트북은 서로 독립이라 한 번에 한 노트북의 소스만 참조합니다. 수업마다 노트북을 나누면 답이 섞이지 않습니다.</tips>
+        <combination>소스 근거 질문</combination>
+      </prompt>
+      <prompt id="NB-002">
+        <title>소스에만 근거한 답 받기</title>
+        <keyword>근거 질문</keyword>
+        <description>내가 올린 자료 안에서만 답하게 합니다.</description>
+        <useCase>사실 확인이 중요한 자료</useCase>
+        <text>업로드한 소스에 있는 내용만으로 답해줘. 소스에 없으면 "소스에 없음"이라고 말해줘.
+질문: 이 장비 매뉴얼에서 안전 수칙으로 꼭 지켜야 할 것은?</text>
+        <expected>소스에 근거한 답과 없을 때의 표시</expected>
+        <tips>답에 달린 인용을 눌러 원문 위치를 확인합니다. 소스 밖의 상식이 필요하면 따로 구분해 달라고 요청합니다.</tips>
+        <combination>여러 소스 비교</combination>
+      </prompt>
+      <prompt id="NB-003">
+        <title>여러 소스 비교하기</title>
+        <keyword>소스 비교</keyword>
+        <description>소스끼리 같은 점과 다른 점을 표로 비교합니다.</description>
+        <useCase>자료 비교·정리</useCase>
+        <text>소스 3개를 비교해줘. 비교 기준은 대상·핵심 주장·한계. 표로 만들고 각 칸에 어느 소스인지 표시해줘.</text>
+        <expected>출처가 표시된 비교 표</expected>
+        <tips>5개 이상 소스는 주제별 라벨로 묶어 두면 특정 소스만 골라 묻기 편합니다.</tips>
+        <combination>소스에만 근거한 답</combination>
+      </prompt>
+    </set>
+    <set title="질문 요령">
+      <prompt id="NB-004">
+        <title>핵심만 뽑는 요약</title>
+        <keyword>요약 지시</keyword>
+        <description>독자와 분량을 정해 요약합니다.</description>
+        <useCase>긴 자료 파악</useCase>
+        <text>소스 전체를 교사가 5분 안에 읽을 분량으로 요약해줘. 핵심 5가지, 수업에 바로 쓸 아이디어 2가지, 더 확인할 점 1가지.</text>
+        <expected>구조화된 요약</expected>
+        <tips>독자·분량·구성을 같이 적으면 답이 짧고 정확해집니다.</tips>
+        <combination>출력 형식 지정</combination>
+      </prompt>
+      <prompt id="NB-005">
+        <title>용어집 만들기</title>
+        <keyword>용어 정리</keyword>
+        <description>어려운 용어를 쉬운 말로 풀어 줍니다.</description>
+        <useCase>학습 자료 준비</useCase>
+        <text>소스에 나오는 전문 용어를 15개 뽑아서 용어집으로 만들어줘. 초등 고학년이 이해할 말로 한 줄씩.</text>
+        <expected>용어와 쉬운 설명 목록</expected>
+        <tips>대상 학년을 적으면 설명 수준이 맞춰집니다.</tips>
+        <combination>퀴즈</combination>
+      </prompt>
+    </set>
+  </section>
+  <section id="studio" title="스튜디오 결과물" description="오디오·마인드맵·보고서·퀴즈로 바꾸기">
+    <set title="오디오·비디오">
+      <prompt id="NB-006">
+        <title>오디오 개요 만들기</title>
+        <keyword>오디오 개요</keyword>
+        <description>소스 내용을 두 진행자가 대화하는 음성으로 만듭니다.</description>
+        <useCase>이동 중 복습</useCase>
+        <text>(스튜디오) 오디오 개요 → 사용자 지정에 입력
+"중학생 대상으로, 핵심 개념 3가지를 생활 예시와 함께 쉽게 설명해줘. 마지막에 한 줄 정리를 넣어줘."</text>
+        <expected>대화형 음성 요약</expected>
+        <tips>초점·대상·분량을 지정하면 내용이 달라집니다. 생성에는 시간이 걸립니다.</tips>
+        <combination>비디오 개요</combination>
+      </prompt>
+      <prompt id="NB-007">
+        <title>비디오 개요 만들기</title>
+        <keyword>비디오 개요</keyword>
+        <description>소스를 슬라이드형 영상 요약으로 만듭니다.</description>
+        <useCase>수업 도입 영상</useCase>
+        <text>(스튜디오) 비디오 개요 → 사용자 지정
+"수업 도입 3분용. 질문으로 시작하고, 핵심 3가지를 시각 자료와 함께 설명해줘."</text>
+        <expected>짧은 영상 요약</expected>
+        <tips>생성 가능 여부와 길이는 계정·시점에 따라 다를 수 있습니다.</tips>
+        <combination>오디오 개요</combination>
+      </prompt>
+    </set>
+    <set title="정리·시각화">
+      <prompt id="NB-008">
+        <title>마인드맵 만들기</title>
+        <keyword>마인드맵</keyword>
+        <description>소스의 구조를 가지치기 지도로 보여 줍니다.</description>
+        <useCase>단원 구조 파악</useCase>
+        <text>(스튜디오) 마인드맵 만들기 → 생성된 노드를 눌러 "이 가지를 더 자세히 설명해줘"라고 이어서 묻습니다.</text>
+        <expected>주제별 마인드맵</expected>
+        <tips>노드를 눌러 바로 질문으로 이어 갈 수 있습니다.</tips>
+        <combination>보고서</combination>
+      </prompt>
+      <prompt id="NB-009">
+        <title>보고서·학습 가이드</title>
+        <keyword>보고서</keyword>
+        <description>FAQ·학습 가이드·브리핑 문서 형태로 정리합니다.</description>
+        <useCase>요약 문서 제작</useCase>
+        <text>(스튜디오) 보고서 → 학습 가이드 → 사용자 지정
+"초등 교사 연수용으로, 핵심 개념·퀴즈 5문항·생각해 볼 질문 3개로 구성해줘."</text>
+        <expected>구조화된 학습 문서</expected>
+        <tips>형식(FAQ, 학습 가이드, 브리핑)을 먼저 고르고 대상을 적습니다.</tips>
+        <combination>플래시카드·퀴즈</combination>
+      </prompt>
+      <prompt id="NB-010">
+        <title>데이터 표·인포그래픽</title>
+        <keyword>데이터 표</keyword>
+        <description>소스 속 정보를 표와 그림으로 정리합니다.</description>
+        <useCase>비교·정리</useCase>
+        <text>(스튜디오) 데이터 표 → "장비별 가격·크기·용도를 열로 정리해줘." / 인포그래픽 → "수업 준비 순서를 4단계로."</text>
+        <expected>표와 인포그래픽</expected>
+        <tips>표의 열 이름을 직접 지정하면 원하는 모양이 나옵니다.</tips>
+        <combination>보고서</combination>
+      </prompt>
+    </set>
+    <set title="학습·발표">
+      <prompt id="NB-011">
+        <title>플래시카드와 퀴즈</title>
+        <keyword>퀴즈</keyword>
+        <description>소스에서 복습용 카드와 문제를 만듭니다.</description>
+        <useCase>형성평가</useCase>
+        <text>(스튜디오) 퀴즈 → "중학생 수준, 객관식 10문항, 쉬움 4·보통 4·어려움 2." / 플래시카드 → "핵심 용어 20개."</text>
+        <expected>카드와 문제</expected>
+        <tips>난이도와 개수를 같이 적습니다. 정답과 해설은 소스와 대조합니다.</tips>
+        <combination>용어집</combination>
+      </prompt>
+      <prompt id="NB-012">
+        <title>슬라이드 만들기</title>
+        <keyword>슬라이드</keyword>
+        <description>소스 내용을 발표 자료로 만듭니다.</description>
+        <useCase>수업·설명회 자료</useCase>
+        <text>(스튜디오) 슬라이드 → "학부모 설명회용 8장. 문제 → 활동 → 결과 → 신청 방법 순서로."</text>
+        <expected>슬라이드 초안</expected>
+        <tips>초안으로 쓰고 문구·이미지는 직접 다듬습니다.</tips>
+        <combination>보고서</combination>
+      </prompt>
+    </set>
+  </section>
+  <section id="teach" title="수업 활용" description="수업 자료를 소스로 쓰는 요청문">
+    <set title="수업 자료">
+      <prompt id="NB-013">
+        <title>소스로 활동지 만들기</title>
+        <keyword>활동지</keyword>
+        <description>교재 소스에서 학생용 활동지를 만듭니다.</description>
+        <useCase>수업 전 자료 준비</useCase>
+        <text>업로드한 수업 계획서를 바탕으로 학생용 활동지를 만들어줘. 빈칸 5개, 생각 쓰기 2개, 체크리스트 1개. 초등 5~6학년 수준.</text>
+        <expected>활동지 초안</expected>
+        <tips>소스에 있는 활동만 쓰게 하면 엉뚱한 내용이 줄어듭니다.</tips>
+        <combination>퀴즈</combination>
+      </prompt>
+      <prompt id="NB-014">
+        <title>수준별 설명</title>
+        <keyword>수준별</keyword>
+        <description>같은 내용을 학습자 수준에 맞게 바꿉니다.</description>
+        <useCase>혼합 수준 수업</useCase>
+        <text>같은 개념을 초등 저학년, 고학년, 성인 세 수준으로 나눠 설명해줘. 수준마다 예시 하나씩.</text>
+        <expected>세 수준의 설명</expected>
+        <tips>수준별 용어 난이도를 따로 지정합니다.</tips>
+        <combination>용어집</combination>
+      </prompt>
+      <prompt id="NB-015">
+        <title>수업 계획 점검</title>
+        <keyword>수업 점검</keyword>
+        <description>계획서의 빠진 부분을 찾아 줍니다.</description>
+        <useCase>수업 계획 검토</useCase>
+        <text>이 수업 계획서에서 시간 배분이 부족한 부분, 준비물이 빠진 부분, 안전 수칙이 빠진 부분을 찾아줘. 소스의 어느 부분인지 함께 표시해줘.</text>
+        <expected>점검 결과 목록</expected>
+        <tips>소스 위치를 같이 적게 하면 확인이 쉽습니다.</tips>
+        <combination>소스에만 근거한 답</combination>
+      </prompt>
+      <prompt id="NB-016">
+        <title>노트북 공유</title>
+        <keyword>공유</keyword>
+        <description>노트북을 동료와 공유합니다.</description>
+        <useCase>자료 공동 활용</useCase>
+        <text>(화면 조작) 노트북 공유 → 사람 추가(보기 또는 편집) 또는 공개 공유 링크. 소유자가 허용하면 복사본도 만들 수 있습니다.</text>
+        <expected>권한이 정해진 공유</expected>
+        <tips>민감한 소스가 있는 노트북은 공개 공유하지 않습니다.</tips>
+      </prompt>
+    </set>
+  </section>
+</manual>

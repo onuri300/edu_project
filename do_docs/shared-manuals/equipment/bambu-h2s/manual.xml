@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 장비 매뉴얼 원본 · Bambu Lab H2S
+  - <photo> : src(로컬 images/ 사본, 이 manual.xml 기준 상대 경로)가 있으면 그것을, 없으면 remote(제조사 공식 이미지 주소)를 씁니다.
+    제조사 사진은 사용 조건을 확인한 뒤 images/ 에 src 이름으로 저장하세요.
+  - 작성 규칙: ../../README.md
+-->
+<manual id="bambu-h2s" kind="equipment" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>Bambu Lab H2S</title>
+  <maker>Bambu Lab</maker>
+  <keyword>Bambu Lab · 대형 단일 노즐</keyword>
+  <description>Bambu Lab에서 가장 큰 출력 크기의 단일 노즐 프린터입니다.</description>
+  <summary>340×320×340 mm의 큰 출력 공간과 350°C 핫엔드, 65°C 가열 챔버를 갖춘 단일 노즐 3D 프린터입니다. 10W 레이저·커팅 모듈이 들어간 레이저 에디션도 있습니다.</summary>
+  <photo src="images/bambu-h2s.jpg" remote="https://storage.ghost.io/c/8d/d9/8dd9f85b-21c3-4782-bba8-8778cd8f2f93/content/images/size/w1200/2025/08/H2S-banner_1024x667.jpg" alt="Bambu Lab H2S 제조사 제품 사진"/>
+  <specs>
+    <spec name="출력 크기">340×320×340 mm (공식 소개 기준 X1C의 약 220%)</spec>
+    <spec name="온도">핫엔드 최대 350°C, 가열 챔버 최대 65°C</spec>
+    <spec name="속도·가속">툴헤드 최대 1,000 mm/s, 가속 최대 20,000 mm/s² (X1C 대비 최대 30% 빠름, 공식 내부 테스트)</spec>
+    <spec name="압출기">자체 PMSM 서보 압출기 (압출력 67% 향상)</spec>
+    <spec name="감시">카메라 3개, 센서 23개, 화염 센서 5개, 도어·커버 감시, 비상 정지</spec>
+    <spec name="AMS">AMS 2 Pro 최대 4대 + AMS HT 최대 8대 (24슬롯, 최대 24색). 1세대 AMS는 건조 불가, AMS Lite는 미지원</spec>
+    <spec name="레이저 에디션">10W 455 nm 레이저·커팅 모듈 — 합판·아크릴·PU 최대 5 mm 절단 (40W는 미지원)</spec>
+    <spec name="정밀도 옵션">비전 인코더(별매) 사용 시 50 µm 미만</spec>
+    <spec name="소음·전원">50 dB 미만, 100–120 V (공식 페이지 기준)</spec>
+    <spec name="연결">클라우드 원격 제어, 완전 오프라인 사용 가능, 개발자 모드(MQTT)</spec>
+  </specs>
+  <pros>
+    <item>큰 모형을 한 번에 출력</item>
+    <item>고온 핫엔드와 가열 챔버로 폭넓은 소재 지원</item>
+    <item>레이저 에디션으로 레이저 각인·절단까지 한 장비에서</item>
+    <item>오프라인 사용이 가능해 학교망 환경에도 유리</item>
+  </pros>
+  <cons>
+    <item>단일 노즐이라 서포트·다색은 AMS와 슬라이싱 설정으로 해결합니다.</item>
+    <item>USB 저장장치가 기본 포함이 아니어서 녹화·타임랩스·LAN 출력에는 따로 필요합니다.</item>
+    <item>레이저 사용 시 개발자 모드가 제한되고 외부 에어 펌프가 필요한 구성이 있습니다.</item>
+  </cons>
+  <uses>
+    <item>큰 모형·교구, 한 번에 여러 개를 얹어 출력</item>
+    <item>고온 소재 부품</item>
+    <item>레이저 에디션: 합판·아크릴 소형 절단과 각인 연습</item>
+  </uses>
+  <tips>
+    <tip>큰 출력은 시간이 길어지므로 필라멘트 잔량을 확인하고 시작합니다.</tip>
+    <tip>레이저 작업은 보호 창(녹색 글라스)을 닫고, 환기 후 진행합니다.</tip>
+  </tips>
+  <links>
+    <link href="https://bambulab.com/en-us/h2s">H2S 공식 페이지</link>
+    <link href="https://bambulab.com/en-us/h2s/tech-specs">H2S 기술 사양</link>
+    <link href="https://wiki.bambulab.com/en/h2s/manual/h2s-intro">H2S 소개 위키</link>
+    <link href="https://blog.bambulab.com/h2s-the-ultimate-single-nozzle-3d-printer-now-bigger-than-ever/">H2S 공식 블로그</link>
+  </links>
+</manual>

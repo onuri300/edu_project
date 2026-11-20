@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 프로그램 매뉴얼 원본 · Notion
+  - 요약(프로그램 소개) + <docs> 의 문서들이 왼쪽 트리에서 이 프로그램 아래에 순서대로 나옵니다.
+  - 이미지 경로(src·fullSrc)는 이 manual.xml 기준 상대 경로입니다. doc id 는 제목이 바뀌어도 유지합니다.
+  - 작성 규칙: ../README.md
+-->
+<manual id="notion" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>Notion</title>
+  <maker>Notion</maker>
+  <keyword>Notion · 노트·위키·데이터베이스</keyword>
+  <description>글·표·할 일을 한 페이지에 모아 정리하고 팀과 공유하는 올인원 작업 공간입니다.</description>
+  <summary>문서, 체크리스트, 표(데이터베이스), 갤러리, 캘린더를 블록으로 조합해 한 곳에서 정리하는 서비스입니다. 수업 노트, 매뉴얼, 아이디어 모음, 교육 자료 위키를 만들고 링크로 공유하기 좋습니다.</summary>
+  <specs>
+    <spec name="구성">워크스페이스 → 페이지 → 블록(글·표·이미지·체크박스·코드 등)</spec>
+    <spec name="데이터베이스">같은 항목을 표·보드·갤러리·캘린더·타임라인 보기로 전환</spec>
+    <spec name="속성">텍스트·선택·날짜·사람·파일·관계(연결)·수식</spec>
+    <spec name="공유">사람 초대(보기·댓글·편집) 또는 웹에 게시(공개 링크)</spec>
+    <spec name="템플릿">페이지·데이터베이스 템플릿과 공개 템플릿 복제</spec>
+    <spec name="내보내기">Markdown, CSV, PDF, HTML 등 (형식은 공식 도움말 확인)</spec>
+    <spec name="AI·요금">AI 기능과 무료/유료 플랜의 범위는 바뀔 수 있어 공식 페이지 확인</spec>
+  </specs>
+  <usage>
+    <item>워크스페이스에서 새 페이지를 만들고 제목을 정합니다.</item>
+    <item>"/" 명령으로 제목·체크리스트·표·이미지 블록을 넣습니다.</item>
+    <item>반복되는 목록은 데이터베이스로 만들고 보기를 표·보드·캘린더로 바꿉니다.</item>
+    <item>공유 → 사람 초대 또는 웹에 게시로 전달합니다.</item>
+  </usage>
+  <pros>
+    <item>글과 표를 한 화면에서 섞어 정리할 수 있음</item>
+    <item>같은 데이터를 표·보드·캘린더로 바꿔 볼 수 있음</item>
+    <item>링크 하나로 팀 공유·웹 게시</item>
+    <item>템플릿으로 시작이 빠름</item>
+  </pros>
+  <cons>
+    <item>처음에는 페이지·데이터베이스 개념을 익혀야 합니다.</item>
+    <item>대용량 계산은 스프레드시트(Sheets)가 더 알맞습니다.</item>
+    <item>웹 게시는 누구나 볼 수 있어 개인정보가 든 페이지는 올리지 않습니다.</item>
+    <item>요금과 기능 범위는 바뀔 수 있어 공식 페이지 확인이 필요합니다.</item>
+  </cons>
+  <uses>
+    <item>수업 노트·교안 초안 정리</item>
+    <item>장비·프로그램 매뉴얼 위키</item>
+    <item>아이디어 노트와 할 일 보드</item>
+    <item>뉴스레터·참고 글 스크랩 정리</item>
+  </uses>
+  <tips>
+    <tip>페이지는 폴더 대신 "위키 → 하위 페이지" 구조로 두고 앞쪽에 목차 페이지를 만듭니다.</tip>
+    <tip>자주 쓰는 형식(수업일지, 회의록)은 템플릿으로 저장해 복제합니다.</tip>
+    <tip>공유할 때는 "보기"를 기본으로 하고 편집은 필요한 사람에게만 줍니다.</tip>
+  </tips>
+  <links>
+    <link href="https://www.notion.com/">Notion</link>
+    <link href="https://www.notion.com/help">Notion 도움말</link>
+  </links>
+  <docs>
+    <doc id="page">
+      <title>페이지와 블록으로 문서 쓰기</title>
+      <keyword>Notion · 블록</keyword>
+      <description>제목·글·이미지·할 일 블록을 쌓아 문서를 만듭니다.</description>
+      <summary>Notion의 모든 내용은 블록입니다. /(슬래시)로 원하는 블록을 넣고 끌어서 순서를 바꿉니다.</summary>
+      <when>
+        <item>수업 노트·아이디어를 정리할 때</item>
+      </when>
+      <actions>
+        <action><b>새 페이지</b>를 만들고 제목을 씁니다.</action>
+        <action>빈 줄에서 <kbd>/</kbd>를 입력해 제목·이미지·할 일·토글 등을 고릅니다.</action>
+        <action>블록 왼쪽 손잡이(⋮⋮)를 끌어 순서를 바꿉니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="database">
+      <title>데이터베이스로 목록 관리</title>
+      <keyword>Notion · 데이터베이스</keyword>
+      <description>표·보드·캘린더 보기로 수업 일정이나 장비 목록을 관리합니다.</description>
+      <summary>데이터베이스는 같은 자료를 표·보드·캘린더 등 여러 보기로 볼 수 있는 목록입니다.</summary>
+      <when>
+        <item>수업 일정, 장비 점검 기록, 교안 목록을 관리할 때</item>
+      </when>
+      <actions>
+        <action><kbd>/</kbd> → <b>데이터베이스 - 전체 페이지</b> 또는 <b>표</b>를 넣습니다.</action>
+        <action>속성(날짜·선택·사람 등)을 추가합니다.</action>
+        <action><b>+ 보기 추가</b>로 보드·캘린더 보기를 만듭니다.</action>
+        <action>필터·정렬로 필요한 항목만 봅니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="share">
+      <title>공유와 웹에 게시</title>
+      <keyword>Notion · 공유 · 게시</keyword>
+      <description>함께 쓸 사람을 초대하거나 페이지를 웹 주소로 공개합니다.</description>
+      <summary>팀원을 초대해 함께 편집하거나, 게시(Publish)로 누구나 볼 수 있는 웹 페이지를 만듭니다.</summary>
+      <when>
+        <item>수업 안내 페이지를 링크로 나눌 때</item>
+      </when>
+      <actions>
+        <action>오른쪽 위 <b>공유</b>에서 사람을 초대하고 권한을 고릅니다.</action>
+        <action>공개하려면 <b>게시</b> 탭에서 웹에 게시합니다.</action>
+        <action>링크를 복사해 전달합니다.</action>
+      </actions>
+      <tips>
+        <tip>게시한 페이지는 링크가 있으면 누구나 볼 수 있으니 개인정보를 넣지 않습니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="export">
+      <title>내보내기 (Markdown·PDF·CSV)</title>
+      <keyword>Notion · 내보내기</keyword>
+      <description>페이지를 Markdown·PDF로, 데이터베이스를 CSV로 내려받습니다.</description>
+      <summary>Notion에 정리한 내용을 다른 곳(ERP, 문서)으로 옮길 때 내보내기를 씁니다.</summary>
+      <when>
+        <item>정리한 매뉴얼을 사이트나 문서로 옮길 때</item>
+      </when>
+      <actions>
+        <action>페이지 오른쪽 위 <b>⋯ → 내보내기</b>.</action>
+        <action>형식(Markdown &amp; CSV, PDF 등)을 고릅니다.</action>
+        <action>하위 페이지 포함 여부를 정하고 내보냅니다.</action>
+      </actions>
+    </doc>
+  </docs>
+</manual>

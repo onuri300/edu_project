@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 프로그램 매뉴얼 원본 · Google Sheets
+  - 요약(프로그램 소개) + <docs> 의 문서들이 왼쪽 트리에서 이 프로그램 아래에 순서대로 나옵니다.
+  - 이미지 경로(src·fullSrc)는 이 manual.xml 기준 상대 경로입니다. doc id 는 제목이 바뀌어도 유지합니다.
+  - 작성 규칙: ../README.md
+-->
+<manual id="gsheets" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>Google Sheets</title>
+  <maker>Google</maker>
+  <keyword>Google Sheets · 스프레드시트</keyword>
+  <description>웹에서 표를 만들고 계산·정렬·차트까지 하는 스프레드시트 도구입니다.</description>
+  <summary>명단·신청서·재료 목록·견적을 표로 정리하고 함수로 계산하며 여러 사람이 함께 입력할 수 있습니다. Google 설문(폼)과 연결하면 신청 결과를 자동으로 모읍니다.</summary>
+  <specs>
+    <spec name="기본 기능">수식과 함수, 정렬·필터, 조건부 서식, 데이터 확인(드롭다운)</spec>
+    <spec name="시각화">차트, 피벗 테이블</spec>
+    <spec name="함께 쓰기">동시 편집, 댓글, 시트·범위별 보호</spec>
+    <spec name="연동">Google 설문(폼) 응답 자동 수집, Slides 차트 연결</spec>
+    <spec name="내보내기">XLSX, CSV, PDF 등</spec>
+    <spec name="자동화">Apps Script로 반복 작업 자동화(선택)</spec>
+  </specs>
+  <usage>
+    <item>Drive에서 새로 만들기 → Google 스프레드시트를 고릅니다.</item>
+    <item>첫 행에 열 제목을 적고 데이터를 입력합니다.</item>
+    <item>필터·정렬·함수(SUM, COUNTIF 등)로 정리합니다.</item>
+    <item>필요하면 차트를 만들고 공유 권한을 정합니다.</item>
+  </usage>
+  <pros>
+    <item>여러 사람이 실시간으로 입력하고 확인</item>
+    <item>설문 응답을 표로 자동 정리</item>
+    <item>함수·필터로 집계가 빠름</item>
+    <item>XLSX·CSV로 내보내 다른 프로그램과 호환</item>
+  </pros>
+  <cons>
+    <item>아주 큰 데이터와 복잡한 모델은 Excel보다 느릴 수 있습니다.</item>
+    <item>권한을 넓게 주면 실수로 수식이 지워질 수 있어 범위 보호가 필요합니다.</item>
+    <item>개인정보가 든 시트의 링크 공유에 주의해야 합니다.</item>
+  </cons>
+  <uses>
+    <item>수강생 명단·출석·신청 정리</item>
+    <item>재료비·수업 견적 계산</item>
+    <item>장비 사용 기록·재고 목록</item>
+    <item>설문 결과 집계와 차트</item>
+  </uses>
+  <tips>
+    <tip>첫 행은 제목, 한 칸에는 한 가지 값만 넣어야 정렬·집계가 잘 됩니다.</tip>
+    <tip>날짜·숫자 형식을 미리 맞추고, 선택지는 드롭다운으로 제한하면 오타가 줄어듭니다.</tip>
+    <tip>수식 칸은 범위를 보호하고, 학생에게는 입력할 칸만 편집 권한을 줍니다.</tip>
+  </tips>
+  <links>
+    <link href="https://workspace.google.com/products/sheets/">Google 스프레드시트</link>
+    <link href="https://support.google.com/docs/topic/9054603">Sheets 도움말</link>
+  </links>
+  <docs>
+    <doc id="list">
+      <title>명단 정리 (정렬·필터)</title>
+      <keyword>Google Sheets · 정렬 · 필터</keyword>
+      <description>수강생·장비 목록을 정렬하고 조건으로 걸러 봅니다.</description>
+      <summary>첫 줄을 제목 행으로 두고 필터를 걸면 반·날짜·상태별로 원하는 행만 볼 수 있습니다.</summary>
+      <when>
+        <item>수강생 명단·출석·장비 대여 목록을 관리할 때</item>
+      </when>
+      <actions>
+        <action>첫 행에 제목(이름·반·연락처 등)을 적고 <b>보기 → 고정 → 1행</b>.</action>
+        <action><b>데이터 → 필터 만들기</b>.</action>
+        <action>제목 옆 필터 아이콘으로 정렬하거나 값을 골라 봅니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="formula">
+      <title>기본 함수로 집계하기</title>
+      <keyword>Google Sheets · 함수</keyword>
+      <description>합계·개수·찾기 함수로 신청 인원, 재료 수량을 계산합니다.</description>
+      <summary>자주 쓰는 몇 가지 함수만 알아도 신청 인원 집계, 재료 비용 계산, 명단 찾기가 자동이 됩니다.</summary>
+      <when>
+        <item>재료 수량·비용을 계산할 때</item>
+        <item>반별 인원을 세거나 이름으로 정보를 찾을 때</item>
+      </when>
+      <actions>
+        <action>합계: <code>=SUM(B2:B30)</code></action>
+        <action>조건 개수: <code>=COUNTIF(C2:C30, "1반")</code></action>
+        <action>찾기: <code>=XLOOKUP(이름, A:A, D:D)</code></action>
+        <action>수식 칸을 아래로 끌어 다른 행에 복사합니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="form">
+      <title>Google 설문지 응답 받기</title>
+      <keyword>Google Sheets · 설문지 연결</keyword>
+      <description>신청서·만족도 조사 응답을 시트로 자동으로 모읍니다.</description>
+      <summary>Google 설문지의 응답을 스프레드시트에 연결하면 새 응답이 한 줄씩 자동으로 쌓입니다.</summary>
+      <when>
+        <item>수업 신청·만족도 조사를 받을 때</item>
+      </when>
+      <actions>
+        <action>Google 설문지에서 질문을 만듭니다.</action>
+        <action><b>응답</b> 탭 → <b>Sheets에 연결</b>.</action>
+        <action>시트에서 필터·함수로 결과를 정리합니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="chart">
+      <title>차트 만들기와 내보내기</title>
+      <keyword>Google Sheets · 차트</keyword>
+      <description>집계 결과를 차트로 만들고 XLSX·CSV로 내려받습니다.</description>
+      <summary>수업 결과 보고서에 넣을 차트를 만들고, 다른 프로그램에서 쓸 수 있게 파일로 내보냅니다.</summary>
+      <when>
+        <item>보고서에 만족도·참여 인원 차트를 넣을 때</item>
+      </when>
+      <actions>
+        <action>데이터 범위를 선택하고 <b>삽입 → 차트</b>.</action>
+        <action>차트 편집기에서 종류(막대·원형 등)를 고릅니다.</action>
+        <action><b>파일 → 다운로드 → Microsoft Excel(.xlsx)</b> 또는 <b>CSV</b>.</action>
+      </actions>
+    </doc>
+  </docs>
+</manual>

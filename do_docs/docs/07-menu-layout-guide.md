@@ -6,7 +6,7 @@
 |---|---|---|---|
 | Vibe Coding | `vi_vibe/` | 오누리메이커랩, 온유 메이커 카드, 경남대 창의공작센터, Living Lab Library | 작품·프로필 데이터, 갤러리, 센터 소개와 링크 |
 | Games | `ga_games/` | 사다리 게임, 성인·어린이 MBTI, Edumaker Idea Card | 문제 데이터, 게임 설정·진행·결과 화면 |
-| Document | `do_docs/` | GPT Manual, Dev Manual | 매뉴얼의 코드·데이터 |
+| Document | `do_docs/` | GPT Manual, Dev Manual, 장비 매뉴얼, 프로그램 매뉴얼 | 매뉴얼의 코드·데이터 |
 | Document | `do_docs/` | AI 뉴스레터, 메이킹 뉴스레터 | `common/file/ne.file/`의 원본, 채널 정보, 뉴스레터 템플릿 |
 | onuriClass | `on_class/` | Announcements, 인사관리, Quiz (`on_quiz/`) | 공지, 인사카드, 수업 관리 |
 
@@ -48,3 +48,16 @@
 새 사이트의 기본 화면을 시작할 때는 `onuri.framework/preview.html`에서 헤더, 테마, 배너, 콘텐츠 카드 예시를 확인할 수 있습니다.
 
 문서를 수정한 뒤 `node common/scripts/build-coding-manual.mjs`를 실행하면 Coding Manual 목록과 본문이 갱신됩니다.
+
+## Document 공통 템플릿
+
+새 Document 페이지에도 공통 배너 다음에 리더를 배치합니다. 바깥에는 `reading-page`, 안에는 `reading-layout document-reader`를 지정합니다. 안쪽에는 `reading-sidebar`(검색·목록), `reading-divider`(목록 +/− 버튼), `reading-content`(본문)를 이 순서로 둡니다.
+
+- 공통 스타일은 `onuri.framework/css/reader.css`, 동작은 `common/js/pages/do_reader.js`를 연결합니다.
+- 목록 컨테이너에 `data-document-tree`, 목록 버튼에 `class="document-sidebar-toggle"`, `data-document-sidebar-toggle`와 목록 ID를 가리키는 `aria-controls`를 둡니다. 왼쪽 목록은 처음부터 보이므로 버튼은 `−`, `aria-expanded="true"`입니다. 스크립트는 목록에 전체 펼치기 +와 전체 접기 −를 추가합니다.
+- 분류 행은 `<details class="document-tree-branch"><summary>분류 이름</summary>…</details>`를 사용합니다. 왼쪽 목록은 그대로 표시하고 분류 행과 하위 항목만 처음에 접습니다. 검색이나 분류 선택 시 필요한 항목을 펼칩니다.
+- 뉴스레터 페이지는 `common/templates/newsletter.html`에서도 같은 구조를 사용합니다. Document 전용 로고는 `common/images/do.image/`에 둡니다.
+- 매뉴얼의 화면 캡처·예시 이미지에 해당하는 클릭 순서와 상세 설명은 같은 줄에 배치합니다. `document-media-pair` 안에 테두리가 있는 `document-media-frame`을 왼쪽에, 설명을 오른쪽에 둡니다. 좁은 화면에서는 이미지 위, 설명 아래 순서로 쌓으며 원본 비율과 본문 너비를 지킵니다. 원본을 읽어야 하는 화면 캡처에는 확대 링크를 제공합니다.
+- 목록과 본문은 가용 폭에 대한 비율로 배치합니다. 좁은 화면에서는 목록 아래에 본문을 표시합니다. 이미지, 표, 도식과 긴 코드는 본문 범위에서 줄이거나 줄을 바꿔 가로 스크롤이 생기지 않게 합니다.
+- 왼쪽 트리의 분류 표시와 전체 펼치기·접기 줄은 인사카드와 같은 reader.css 스타일을 사용합니다. 목록 개수는 왼쪽, +/− 버튼은 오른쪽에 둡니다.
+- Document 리더와 인사카드의 기본 열 너비는 가용 폭 기준 2:8입니다. 모바일에서는 위아래로 배치합니다. 왼쪽 목록 자체는 ‹/›로, 목록 안의 전체 펼치기·접기는 +/−로 조작합니다. 조직도 버튼은 조회 조건 아래, 목록 개수와 +/− 위에 둡니다.

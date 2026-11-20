@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 장비 매뉴얼 원본 · xTool F2
+  - <photo> : src(로컬 images/ 사본, 이 manual.xml 기준 상대 경로)가 있으면 그것을, 없으면 remote(제조사 공식 이미지 주소)를 씁니다.
+    제조사 사진은 사용 조건을 확인한 뒤 images/ 에 src 이름으로 저장하세요.
+  - 작성 규칙: ../../README.md
+-->
+<manual id="xtool-f2" kind="equipment" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>xTool F2</title>
+  <maker>xTool</maker>
+  <keyword>xTool · 휴대형 이중 레이저</keyword>
+  <description>5W 적외선(IR)과 15W 다이오드 레이저를 함께 쓰는 휴대형 레이저입니다.</description>
+  <summary>금속 마킹에 쓰는 5W IR 레이저와 나무·아크릴 등을 새기고 자르는 15W 다이오드 레이저를 한 몸에 넣은 휴대형 장비입니다. 50MP 카메라로 작업물 위에 디자인을 맞춰 놓고 바로 작업합니다.</summary>
+  <photo src="images/xtool-f2.webp" remote="https://www.xtool.com/cdn/shop/files/mk-f2chanpinye_us_pc_f2_2488-2704.webp?v=1762229455&amp;width=800" alt="xTool F2 제조사 제품 사진"/>
+  <specs>
+    <spec name="레이저">5W IR(1064 nm) + 15W 블루 다이오드</spec>
+    <spec name="작업 영역">115×115 mm (슬라이드 확장 시 115×400 mm)</spec>
+    <spec name="작업물 최대 높이">120 mm</spec>
+    <spec name="최대 속도">6,000 mm/s</spec>
+    <spec name="카메라">50MP 내장, 자동 초점·실시간 미리보기·시각 정렬</spec>
+    <spec name="소프트웨어">xTool Studio (Windows·macOS). 공식 페이지 기준 LightBurn은 현재 미지원</spec>
+    <spec name="액세서리">F1 액세서리 대부분 호환 (로터리, 슬라이드 확장, 풋 페달)</spec>
+    <spec name="보증">기본 12개월 (xToolCare 가입 시 최대 3년)</spec>
+  </specs>
+  <pros>
+    <item>IR 레이저로 스테인리스·알루미늄·구리·황동·티타늄 합금 등 금속 마킹·각인</item>
+    <item>15W 다이오드로 합판·아크릴·가죽 등 비금속 각인과 절단</item>
+    <item>카메라 정렬과 일괄(배치) 채우기로 같은 모양을 여러 개 빠르게 제작</item>
+    <item>곡면·입체(릴리프) 각인 지원</item>
+    <item>가볍고 작아 현장 제작·수업 시연에 편함</item>
+  </pros>
+  <cons>
+    <item>금속은 새길 수만 있고 자를 수 없습니다.</item>
+    <item>유리는 표면 마킹 수준입니다.</item>
+    <item>작업 영역이 115 mm로 작아 큰 작품은 슬라이드 확장이 필요합니다.</item>
+    <item>연기·냄새는 별도 공기청정기나 환기로 처리해야 합니다.</item>
+  </cons>
+  <uses>
+    <item>스틸 명함, 금속 키링·네임택 각인</item>
+    <item>나무·아크릴 소품, 이름표, 열쇠고리</item>
+    <item>학생 작품에 이름·로고 새기기</item>
+    <item>행사·현장에서 바로 만들어 주는 맞춤 제작</item>
+  </uses>
+  <tips>
+    <tip>재질별 설정값은 xTool Studio의 자동 설정을 먼저 쓰고 시험 조각으로 확인합니다.</tip>
+    <tip>금속 마킹 전에 표면의 기름기를 닦아내면 각인이 깨끗합니다.</tip>
+    <tip>수업에서는 재질별 시험편을 미리 만들어 두면 대기 시간이 줄어듭니다.</tip>
+  </tips>
+  <links>
+    <link href="https://www.xtool.com/collections/diy-machine1/products/xtool-f2-5w-ir-15w-diode-portable-dual-laser-engraver">xTool F2 공식 페이지</link>
+    <link href="https://www.xtool.com/pages/software">xTool Studio</link>
+    <link href="https://support.xtool.com/">xTool 지원센터</link>
+    <link href="https://support.xtool.com/article/2818">xTool 지원 문서</link>
+  </links>
+</manual>

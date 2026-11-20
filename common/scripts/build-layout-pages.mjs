@@ -8,6 +8,18 @@ export const pageFolders = ['.', 'mng', 'do_docs',
   'ga_games', 'on_class', 'on_class/on_quiz', 'vi_vibe', 'vi_vibe/vi_onuri', 'vi_vibe/vi_onyou'];
 const region = /<!-- layout:([a-z-]+) -->\r?\n[\s\S]*?\r?\n<!-- \/layout:\1 -->/g;
 const resourceBanners = {
+  'do_equip.html': {
+    variant: 'resource-hero-compact',
+    title: '장비 매뉴얼',
+    description: '오누리 작업실의 용도별 장비와 사양를 확인하세요.',
+    image: 'common/images/ne.image/ai-newsletter-hero.png',
+  },
+  'do_program.html': {
+    variant: 'resource-hero-compact',
+    title: '프로그램 매뉴얼',
+    description: '오누리 작업실의 제작·AI·개발 및 배포 프로그램을 확인하세요.',
+    image: 'common/images/ne.image/ai-newsletter-hero.png',
+  },
   'on_people.html': {
     variant: 'resource-hero-compact',
     eyebrow: 'ONURI / onuriClass',
@@ -64,8 +76,8 @@ const resourceBanners = {
   'do_gpt.html': {
     variant: 'resource-hero-compact',
     eyebrow: 'ONURI / PROMPT LIBRARY',
-    title: 'GPT Manual',
-    description: '출력 형식, 이미지 가공, 교안 제작, 실무에 쓸 프롬프트를 찾아보세요.',
+    title: 'AI 매뉴얼',
+    description: 'ChatGPT, Claude, Gemini, NotebookLM의 활용법과 프롬프트를 확인하세요.',
     image: 'common/images/ne.image/ai-newsletter-hero.png',
   },
   'ga_mbti-a.html': {

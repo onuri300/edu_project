@@ -1,0 +1,98 @@
+.staff-org-teams {
+  --org-line: var(--accent);
+  --org-branch-gap: 16px;
+  display: grid;
+  grid-template-columns: minmax(720px, 1fr);
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.staff-org-root { width: min(100%, 380px); min-width: 0; box-sizing: border-box; overflow-wrap: anywhere; justify-self: center; text-align: center; }
+.staff-org-root h3 { margin: 0 0 8px; }
+.staff-org-root::after {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 24px;
+  margin-inline: auto;
+  background: var(--org-line);
+}
+.staff-org-branches {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(168px, 1fr);
+  gap: var(--org-branch-gap);
+  min-width: 720px;
+}
+.staff-org-branch {
+  position: relative;
+  min-width: 0;
+  padding-top: 24px;
+}
+.staff-org-branch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(0px - var(--org-branch-gap) / 2);
+  right: calc(0px - var(--org-branch-gap) / 2);
+  border-top: 2px solid var(--org-line);
+}
+.staff-org-branch:first-child::before { left: 50%; }
+.staff-org-branch:last-child::before { right: 50%; }
+.staff-org-branch::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 24px;
+  border-left: 2px solid var(--org-line);
+}
+html .reading-content .staff-org-branch > h3 {
+  margin: 0;
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  border-block-start: 3px solid var(--accent);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+.staff-org-members { margin: 0; padding: 0; list-style: none; }
+.staff-org-level::before, .staff-org-level li + li::before {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 14px;
+  margin-inline: auto;
+  background: var(--org-line);
+}
+.staff-org-person {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 92px;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.staff-org-person:hover { border-color: var(--accent); }
+.staff-org-face {
+  display: block;
+  flex: 0 0 72px;
+  height: 76px;
+  overflow: hidden;
+}
+.staff-org-face img { display: block; width: 100%; height: auto; }
+.staff-org-info { min-width: 0; display: grid; gap: 2px; overflow-wrap: anywhere; }
+.staff-org-info span { font-size: 12px; }
+.staff-org-root .staff-org-person { gap: 16px; padding: 10px 16px; }
+.staff-org-root .staff-org-face { flex-basis: 88px; height: 90px; }

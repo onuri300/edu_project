@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 장비 매뉴얼 원본 · Bambu Lab X1C (X1-Carbon)
+  - <photo> : src(로컬 images/ 사본, 이 manual.xml 기준 상대 경로)가 있으면 그것을, 없으면 remote(제조사 공식 이미지 주소)를 씁니다.
+    제조사 사진은 사용 조건을 확인한 뒤 images/ 에 src 이름으로 저장하세요.
+  - 작성 규칙: ../../README.md
+-->
+<manual id="bambu-x1c" kind="equipment" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-20">
+  <title>Bambu Lab X1C (X1-Carbon)</title>
+  <maker>Bambu Lab</maker>
+  <keyword>Bambu Lab · 엔클로저 고속</keyword>
+  <description>고속·고정밀 엔클로저형 3D 프린터입니다.</description>
+  <summary>조립·보정된 상태로 출하되는 CoreXY 엔클로저 3D 프린터입니다. 라이다와 카메라가 첫 층과 스파게티(출력 실패)를 점검하고, AMS로 최대 16색·다재료 출력이 가능합니다.</summary>
+  <photo src="images/bambu-x1c.jpg" remote="https://storage.ghost.io/c/8d/d9/8dd9f85b-21c3-4782-bba8-8778cd8f2f93/content/images/size/w1200/2026/03/X1-hero.jpg" alt="Bambu Lab X1C (X1-Carbon) 제조사 제품 사진"/>
+  <specs>
+    <spec name="판매 상태">2026-03-31 단종(EOL) — 버그 수정·기능 업데이트 2027-05-31, 보안 패치 2029-05-31, 부품·지원 2031-03-31까지 (Bambu Lab 공지)</spec>
+    <spec name="출력 크기">256×256×256 mm (공식 사양서 기준)</spec>
+    <spec name="속도·가속">최대 500 mm/s, 가속 20 m/s², 유량 32 mm³/s</spec>
+    <spec name="핫엔드·노즐">올메탈 핫엔드, 경화강(50 HRC) 노즐</spec>
+    <spec name="센싱">마이크로 라이다(7 µm), 이중 자동 베드 레벨링, 1920×1080 챔버 카메라</spec>
+    <spec name="AI 감시">첫 층 검사, 스파게티 감지 / 2 TOPS NPU</spec>
+    <spec name="엔클로저">챔버 온도 기능, 활성탄 필터(VOC 흡수)</spec>
+    <spec name="다색·다재료">AMS 사용, 최대 16색</spec>
+    <spec name="지원 소재">PA(나일론), PC, PA-CF 등 탄소·유리섬유 강화 소재 포함</spec>
+    <spec name="출력 방법">Bambu Studio, Bambu Handy(원격), SD 카드, 로컬 네트워크</spec>
+  </specs>
+  <pros>
+    <item>조립·보정이 끝난 상태라 바로 출력</item>
+    <item>라이다·카메라 기반 자동 보정과 실패 감지</item>
+    <item>경화강 노즐과 엔클로저로 기능성 소재 출력 가능</item>
+    <item>3MF로 모델·설정·조립 정보를 한 파일에 관리</item>
+  </pros>
+  <cons>
+    <item>2026년 3월 31일 단종되어 새로 살 수 없습니다. 이미 있는 장비는 2031년 3월까지 부품·지원을 받을 수 있습니다.</item>
+    <item>공식 소개 페이지 기준 AMS는 별도 구성(콤보 여부 확인)입니다.</item>
+    <item>소음과 열이 있으므로 교실에서는 설치 위치를 고려해야 합니다.</item>
+    <item>신제품(X2D·H2S)과 비교하면 출력 크기·기능이 한 세대 앞서지는 않습니다.</item>
+  </cons>
+  <uses>
+    <item>수업용 모형·부품 고속 출력</item>
+    <item>다색 출력으로 만드는 캐릭터·키링</item>
+    <item>튼튼한 소재의 기능성 부품</item>
+  </uses>
+  <tips>
+    <tip>출력 전 첫 층 검사를 켜두면 실패를 줄일 수 있습니다.</tip>
+    <tip>필라멘트는 건조 상태를 유지하고, 소재에 맞는 프리셋을 선택합니다.</tip>
+  </tips>
+  <links>
+    <link href="https://bambulab.com/en-us/x1">X1 시리즈 공식 페이지</link>
+    <link href="https://public-cdn.bambulab.com/store/X1-Carbon%20tech%20specs.pdf">X1-Carbon 기술 사양서(PDF)</link>
+    <link href="https://wiki.bambulab.com/">Bambu Lab 위키</link>
+    <link href="https://blog.bambulab.com/the-x1-series-is-eol-the-standard-it-set-will-remain-forever/">X1 시리즈 단종(EOL) 공지</link>
+  </links>
+</manual>

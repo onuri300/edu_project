@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 AI 매뉴얼 원본 · Gemini
+  - 소개(표지·특장점·오누리 활용) + 분류(section) → 묶음(set) → 프롬프트(prompt). 트리: AI → 분류 → 묶음
+  - prompt 의 id 는 사이트 주소(?id=)에 쓰이므로 제목이 바뀌어도 유지합니다. <text> 는 줄바꿈을 그대로 씁니다.
+  - 작성 규칙: ../../README.md
+-->
+<manual id="gemini" kind="ai" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>Gemini</title>
+  <maker>Google</maker>
+  <keyword>Gemini · Google</keyword>
+  <description>Google의 AI 어시스턴트. Gmail·Docs 같은 Google 앱과 연결됩니다.</description>
+  <summary>Google이 만든 개인용 AI 어시스턴트입니다. 채팅, 심층 리서치, 캔버스, 이미지·영상 생성을 제공하고 Gmail·Docs 같은 Google 앱 안에서도 쓸 수 있습니다.</summary>
+  <cover title="Gemini 소개와 기능">
+    <tagline>Google 앱 안에서 바로 쓰는 AI</tagline>
+    <site href="https://gemini.google/about/">Gemini 공식 사이트</site>
+    <chips>
+      <item>조사 보고서 초안</item>
+      <item>Docs·Gmail 작성</item>
+      <item>사진 보며 질문</item>
+      <item>이미지·영상 시안</item>
+    </chips>
+  </cover>
+  <highlights>
+    <item title="Deep Research와 Canvas" scene="조사형 질문과 문서 편집">여러 출처를 조사한 보고서를 만들고, 문서·코드를 옆 화면에서 고칩니다.</item>
+    <item title="Google 앱 연동" scene="문서 맥락을 그대로 활용">Gmail·Docs·Vids 같은 Google 앱 안에서 바로 사용합니다.</item>
+    <item title="Gemini Live" scene="현장 사진을 찍어 설명 요청">음성으로 대화하고 카메라로 보여 주며 물어봅니다.</item>
+    <item title="이미지·영상 생성" scene="수업 자료 시안">이미지 생성·편집, 영상 생성(AI Plus 이상)을 지원합니다.</item>
+  </highlights>
+  <ouruse>
+    <item title="조사">Deep Research로 장비·교육 자료를 조사해 보고서 초안을 받습니다.</item>
+    <item title="문서 작업">Docs·Gmail 안에서 안내문과 메일을 쓰고 다듬습니다.</item>
+    <item title="현장 질문">장비나 작품 사진을 보여 주고 설명과 개선점을 묻습니다.</item>
+  </ouruse>
+  <specs>
+    <spec name="채팅·Live">입력과 음성 대화를 오가며 사용, 카메라로 보여 주며 대화(Gemini Live)</spec>
+    <spec name="Deep Research">모든 요금제에서 제공 (공식 페이지 기준)</spec>
+    <spec name="Canvas">모든 요금제에서 제공 (공식 페이지 기준)</spec>
+    <spec name="이미지">무료 요금제에서 이미지 생성·편집 (Nano Banana 모델 언급)</spec>
+    <spec name="영상">텍스트·이미지·영상으로 영상 생성·편집 (AI Plus 이상)</spec>
+    <spec name="Workspace 연동">Gmail · Docs · Vids 등 Google 앱 안에서 사용</spec>
+    <spec name="플랫폼">Android · iOS 앱, 웹, 데스크톱, Chrome, Google Home</spec>
+    <spec name="개발자 도구">Google AI Studio(Gemini API), Google Antigravity</spec>
+    <spec name="요금제">Free · AI Plus · AI Pro · AI Ultra (가격은 공식 페이지에서 확인)</spec>
+  </specs>
+  <pros>
+    <item>Google 문서·메일·드라이브와 가까워 업무 흐름에 자연스럽게 연결</item>
+    <item>무료 요금제에서도 심층 리서치·캔버스·이미지 생성 이용</item>
+    <item>카메라·음성으로 바로 묻는 Live 기능</item>
+    <item>AI Studio로 API를 쉽게 시험</item>
+  </pros>
+  <cons>
+    <item>요금제에 따라 쓸 수 있는 기능과 모델이 다릅니다.</item>
+    <item>결과의 사실 여부는 확인이 필요합니다.</item>
+    <item>개인정보·학생 자료 업로드는 조직 정책을 확인합니다.</item>
+  </cons>
+  <uses>
+    <item>Google Docs·Slides 자료 작성 보조</item>
+    <item>조사 보고서 초안(Deep Research)</item>
+    <item>이미지·영상 아이디어와 시안</item>
+    <item>현장 사진을 찍어 설명 요청 (Live)</item>
+  </uses>
+  <tips>
+    <tip>Gmail·Docs 안에서 쓰면 문서 맥락을 그대로 활용할 수 있습니다.</tip>
+    <tip>조사형 질문은 Deep Research로, 문서 편집은 Canvas로 나눠 씁니다.</tip>
+  </tips>
+  <links>
+    <link href="https://gemini.google/about/">Gemini 소개</link>
+    <link href="https://support.google.com/gemini/answer/14579631">Gemini 앱 도움말</link>
+    <link href="https://gemini.google/desktop/">Gemini 데스크톱</link>
+  </links>
+  <section id="tech" title="프롬프트 기법" description="Google 공식 프롬프트 가이드의 기본 틀">
+    <set title="기본 틀">
+      <prompt id="GM-001">
+        <title>페르소나·과제·맥락·형식</title>
+        <keyword>PTCF</keyword>
+        <description>Google이 권하는 4요소로 프롬프트를 구성합니다.</description>
+        <useCase>처음 쓰는 모든 요청</useCase>
+        <text>[페르소나] 너는 초등 메이커 교육 강사야.
+[과제] 레이저 커팅 첫 수업의 도입 활동을 제안해줘.
+[맥락] 초5 24명, 80분 수업, 장비는 데스크톱 레이저 6대.
+[형식] 활동 3개를 표(활동명/시간/방법)로.</text>
+        <expected>조건에 맞는 활동 표</expected>
+        <tips>네 요소를 모두 쓰지 않아도 되지만 과제는 꼭 넣습니다. 부족하면 결과를 보고 한 요소씩 보태 갑니다.</tips>
+        <combination>반복 개선</combination>
+      </prompt>
+      <prompt id="GM-002">
+        <title>완전한 문장으로 쓰기</title>
+        <keyword>자연스러운 문장</keyword>
+        <description>키워드 나열 대신 사람에게 말하듯 구체적으로 적습니다.</description>
+        <useCase>결과가 엉뚱할 때</useCase>
+        <text>학부모에게 보낼 방학 만들기 수업 안내문을 써줘. 날짜는 1월 6일~10일, 장소는 3층 메이커실, 신청은 링크로 받아. 따뜻하지만 간결하게.</text>
+        <expected>완성형 안내문</expected>
+        <tips>10~20단어 이상의 구체적 문장이 좋은 결과를 냅니다.</tips>
+        <combination>PTCF</combination>
+      </prompt>
+      <prompt id="GM-003">
+        <title>대화로 이어서 다듬기</title>
+        <keyword>반복 개선</keyword>
+        <description>첫 답을 보고 추가 지시로 조정합니다.</description>
+        <useCase>초안 → 완성</useCase>
+        <text>좋아. 이번엔 더 짧게 줄이고, 마지막에 신청 마감 문장을 넣어줘.</text>
+        <expected>수정된 안내문</expected>
+        <tips>한 번에 완벽을 기대하기보다 짧은 후속 지시를 이어 갑니다. 다른 표현으로 다시 물어보는 것도 방법입니다.</tips>
+        <combination>PTCF</combination>
+      </prompt>
+    </set>
+    <set title="구체화">
+      <prompt id="GM-004">
+        <title>예시로 보여주기</title>
+        <keyword>예시 제공</keyword>
+        <description>원하는 형식의 예시를 주면 따라 만듭니다.</description>
+        <useCase>형식 통일</useCase>
+        <text>아래 형식처럼 수업 소개를 3개 더 써줘.
+예) 레이저로 열쇠고리 만들기 | 초3~4 | 40분 | 디자인하고 직접 만들어 가요.
+주제: 우드 명패, 3D 필통 칸막이, 스티커 컷팅</text>
+        <expected>같은 형식의 3줄</expected>
+        <tips>예시는 몇 개로 충분합니다. 너무 길면 결과가 그대로 복제됩니다.</tips>
+        <combination>출력 형식</combination>
+      </prompt>
+      <prompt id="GM-005">
+        <title>형식·길이 지정</title>
+        <keyword>출력 형식</keyword>
+        <description>표·목록·글자 수·어조를 지정합니다.</description>
+        <useCase>붙여 쓸 결과</useCase>
+        <text>준비물 목록을 번호 목록으로, 항목당 15자 이내로 써줘. 마지막에 안전 유의사항 한 줄.</text>
+        <expected>번호 목록</expected>
+        <tips>어조(친근한/공식적), 독자, 분량을 같이 적습니다.</tips>
+        <combination>PTCF</combination>
+      </prompt>
+      <prompt id="GM-006">
+        <title>제약과 기준 주기</title>
+        <keyword>제약 조건</keyword>
+        <description>해야 할 조건과 피할 조건을 분명히 적습니다.</description>
+        <useCase>범위 통제</useCase>
+        <text>아래 기준을 지켜서 써줘: 전문 용어 사용 금지, 한 문장 40자 이내, 중학생이 이해할 수준.</text>
+        <expected>기준에 맞는 글</expected>
+        <tips>부정문 대신 "~하게"로 원하는 결과를 적는 것이 더 안정적입니다.</tips>
+        <combination>출력 형식</combination>
+      </prompt>
+    </set>
+  </section>
+  <section id="mode" title="모드와 도구" description="Gemini 앱에서 고르는 기능">
+    <set title="모델과 기능">
+      <prompt id="GM-007">
+        <title>빠른 답 vs 깊은 생각</title>
+        <keyword>모드 선택</keyword>
+        <description>앱의 모델 선택기에서 속도 중심과 추론 중심을 고릅니다.</description>
+        <useCase>간단한 질문 vs 복잡한 문제</useCase>
+        <text>(설정) 모델 선택기에서 속도 중심 또는 추론 중심 모델 선택</text>
+        <expected>복잡할수록 추론형 선택</expected>
+        <tips>제공 모델과 이름은 계정·시점에 따라 달라지므로 앱의 선택기를 확인합니다.</tips>
+        <combination>Deep Research</combination>
+      </prompt>
+      <prompt id="GM-008">
+        <title>Deep Research</title>
+        <keyword>Deep Research</keyword>
+        <description>여러 웹 출처를 조사해 보고서를 만듭니다.</description>
+        <useCase>비교·시장·자료 조사</useCase>
+        <text>교육용 3D프린터 3종을 가격, 소음, 소프트웨어, 안전 면에서 비교하는 보고서를 만들어줘. 출처를 표시해줘.</text>
+        <expected>출처가 달린 보고서</expected>
+        <tips>시작 전에 조사 계획을 보여 주면 수정할 수 있습니다. 시간이 걸리는 작업입니다.</tips>
+        <combination>모드 선택</combination>
+      </prompt>
+      <prompt id="GM-009">
+        <title>Canvas로 같이 편집</title>
+        <keyword>Canvas</keyword>
+        <description>문서·코드를 옆 화면에서 직접 고치며 다듬습니다.</description>
+        <useCase>긴 글·코드 수정</useCase>
+        <text>이 안내문을 Canvas에 열어 줘. 3문단 중 둘째 문단만 더 쉽게 고쳐줘.</text>
+        <expected>부분 수정이 가능한 편집 화면</expected>
+        <tips>선택한 부분만 고치게 지시하면 나머지는 유지됩니다.</tips>
+        <combination>반복 개선</combination>
+      </prompt>
+      <prompt id="GM-010">
+        <title>파일과 이미지 첨부</title>
+        <keyword>파일 · 이미지</keyword>
+        <description>문서·표·이미지를 첨부해 질문합니다.</description>
+        <useCase>자료 기반 작업</useCase>
+        <text>첨부한 수업 사진을 보고 학생 작품의 잘된 점 3가지와 보완점 2가지를 알려줘.</text>
+        <expected>사진 기반 피드백</expected>
+        <tips>무엇을 볼지(관점)를 같이 적습니다.</tips>
+        <combination>PTCF</combination>
+      </prompt>
+    </set>
+  </section>
+  <section id="work" title="작업별 프롬프트" description="수업·문서·제작에 쓰는 요청문">
+    <set title="수업 · 교안">
+      <prompt id="GM-011">
+        <title>수업안 만들기</title>
+        <keyword>수업안</keyword>
+        <description>조건을 주고 수업안을 받습니다.</description>
+        <useCase>새 차시 설계</useCase>
+        <text>중학생 90분 "메이커 입문" 수업안을 만들어줘. 목표 / 준비물 / 도입 / 활동 / 정리 / 평가 순서로, 시간도 적어줘.</text>
+        <expected>시간 배분 수업안</expected>
+        <tips>대상·시간·장비를 먼저 알려 줍니다.</tips>
+        <combination>PTCF</combination>
+      </prompt>
+      <prompt id="GM-012">
+        <title>퀴즈와 활동지</title>
+        <keyword>퀴즈</keyword>
+        <description>학습 내용으로 문제를 만듭니다.</description>
+        <useCase>형성평가</useCase>
+        <text>레이저 안전 수칙으로 객관식 5문항과 정답, 해설을 만들어줘. 초등 고학년 수준.</text>
+        <expected>문항·정답·해설</expected>
+        <tips>난이도와 학년을 적습니다.</tips>
+        <combination>출력 형식</combination>
+      </prompt>
+    </set>
+    <set title="문서 · 글쓰기">
+      <prompt id="GM-013">
+        <title>자료 요약</title>
+        <keyword>요약</keyword>
+        <description>긴 자료의 핵심을 정리합니다.</description>
+        <useCase>회의·보고서</useCase>
+        <text>첨부한 문서를 핵심 3줄, 결정 사항, 할 일 목록으로 요약해줘.</text>
+        <expected>구조화된 요약</expected>
+        <tips>독자와 분량을 적습니다.</tips>
+        <combination>파일 · 이미지</combination>
+      </prompt>
+      <prompt id="GM-014">
+        <title>문장 다듬기</title>
+        <keyword>다듬기</keyword>
+        <description>의미는 유지하고 문체를 고칩니다.</description>
+        <useCase>안내문·메일</useCase>
+        <text>의미는 바꾸지 말고 더 정중하게 고쳐줘. 고친 부분은 굵게 표시해줘.
+(글)</text>
+        <expected>고친 글</expected>
+        <tips>"의미 유지"를 적어 둡니다.</tips>
+        <combination>출력 형식</combination>
+      </prompt>
+    </set>
+    <set title="제작 · 코딩">
+      <prompt id="GM-015">
+        <title>코드와 웹페이지</title>
+        <keyword>코드</keyword>
+        <description>요구사항을 주고 코드를 받습니다.</description>
+        <useCase>스크립트·웹</useCase>
+        <text>정적 HTML 한 파일로 학급 모둠 뽑기 페이지를 만들어줘. 반응형, 외부 라이브러리 없이.</text>
+        <expected>실행 가능한 코드</expected>
+        <tips>환경과 금지 사항을 적고 오류는 메시지째 붙여 넣습니다.</tips>
+        <combination>Canvas</combination>
+      </prompt>
+    </set>
+  </section>
+  <section id="google" title="Google 앱 연계" description="Docs·Gmail·Sheets·Gems 활용">
+    <set title="Workspace">
+      <prompt id="GM-016">
+        <title>Docs에서 초안 쓰기</title>
+        <keyword>Docs</keyword>
+        <description>Docs의 Gemini로 초안·요약·다듬기를 합니다.</description>
+        <useCase>문서 작성</useCase>
+        <text>(Docs) "방학 캠프 학부모 안내문" 초안을 써줘. 날짜·장소·비용·신청 방법 포함, 한 장 분량.</text>
+        <expected>Docs 안의 초안</expected>
+        <tips>초안 후 선택한 문장만 "더 짧게" 등으로 고칩니다.</tips>
+        <combination>반복 개선</combination>
+      </prompt>
+      <prompt id="GM-017">
+        <title>Gmail 답장 작성</title>
+        <keyword>Gmail</keyword>
+        <description>메일을 요약하고 답장 초안을 만듭니다.</description>
+        <useCase>메일 업무</useCase>
+        <text>(Gmail) 이 메일에 정중하게 답장해줘. 일정은 다음 주 화요일 오후로 제안하고 두 문장 이내로.</text>
+        <expected>답장 초안</expected>
+        <tips>보내기 전 내용을 꼭 확인합니다.</tips>
+        <combination>PTCF</combination>
+      </prompt>
+      <prompt id="GM-018">
+        <title>Sheets 표 정리</title>
+        <keyword>Sheets</keyword>
+        <description>표 구조 생성과 데이터 정리를 돕습니다.</description>
+        <useCase>출석·재고 표</useCase>
+        <text>(Sheets) 재료 재고 관리 표를 만들어줘. 열은 품목, 수량, 단가, 구입처, 비고.</text>
+        <expected>표 틀</expected>
+        <tips>열 이름을 직접 지정합니다.</tips>
+        <combination>출력 형식</combination>
+      </prompt>
+    </set>
+    <set title="Gems">
+      <prompt id="GM-019">
+        <title>Gem(맞춤 AI) 만들기</title>
+        <keyword>Gems</keyword>
+        <description>자주 쓰는 지시를 저장한 나만의 Gemini를 만듭니다.</description>
+        <useCase>반복 업무 자동화</useCase>
+        <text>(Gem 지시) 너는 초등 메이커 수업 도우미야. 수업 주제를 받으면 목표, 준비물, 활동 3단계, 평가 기준을 표로 답해. 한국어로 간결하게.</text>
+        <expected>매번 같은 형식으로 답하는 Gem</expected>
+        <tips>역할, 과제, 맥락, 형식을 지시에 한 번 적어 두고 예시 질문으로 시험합니다.</tips>
+        <combination>PTCF</combination>
+      </prompt>
+    </set>
+  </section>
+</manual>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 프로그램 매뉴얼 원본 · Bambu Studio
+  - 요약(프로그램 소개) + <docs> 의 문서들이 왼쪽 트리에서 이 프로그램 아래에 순서대로 나옵니다.
+  - 이미지 경로(src·fullSrc)는 이 manual.xml 기준 상대 경로입니다. doc id 는 제목이 바뀌어도 유지합니다.
+  - 작성 규칙: ../README.md
+-->
+<manual id="bambu-studio" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>Bambu Studio</title>
+  <maker>Bambu Lab</maker>
+  <keyword>Bambu Studio · 슬라이서</keyword>
+  <description>Bambu Lab 3D 프린터용 슬라이서이자 제어 프로그램입니다.</description>
+  <summary>3D 모델을 프린터가 읽는 출력 경로(G-code)로 바꾸고, 프린터를 원격으로 모니터링·제어하는 프로그램입니다. PrusaSlicer를 기반으로 만들어졌습니다.</summary>
+  <specs>
+    <spec name="대상">Bambu Lab 프린터 (X1 · P1 · A1 시리즈 등, 새 모델 지원은 공식 다운로드 페이지 확인)</spec>
+    <spec name="지원 파일">.3mf, .stl, .stp/.step, .amf, .obj</spec>
+    <spec name="기능">프로젝트 기반 작업, 슬라이싱 미리보기, 출력 시간 히스토그램, 원격 모니터링·제어, 출력 이력, 설정 클라우드 동기화</spec>
+    <spec name="출력 방법">네트워크(LAN/WAN), SD 카드</spec>
+    <spec name="필요 구성">네트워크 출력·로그인에는 Bambu Network 플러그인 필요</spec>
+  </specs>
+  <usage>
+    <item>프린터·노즐·필라멘트를 선택합니다.</item>
+    <item>새 프로젝트에 모델을 끌어다 놓습니다.</item>
+    <item>프린터·필라멘트·출력 프리셋을 고르고 슬라이스합니다.</item>
+    <item>미리보기에서 서포트, 출력 시간을 확인합니다.</item>
+    <item>“출력”으로 프린터에 보내거나 SD 카드로 내보냅니다.</item>
+  </usage>
+  <pros>
+    <item>프린터와 같은 회사가 만들어 연동과 보정 기능이 잘 맞음</item>
+    <item>다중 플레이트·다색 출력 설정을 한 프로젝트에서 관리</item>
+    <item>카메라 영상으로 원격 확인(카메라가 있는 기종)</item>
+    <item>무료</item>
+  </pros>
+  <cons>
+    <item>지역 설정이 계정 지역과 다르면 로그인할 수 없습니다.</item>
+    <item>네트워크 출력에는 같은 LAN과 플러그인이 필요합니다.</item>
+    <item>지원 OS 목록은 이 매뉴얼에서 확인하지 못했습니다. 다운로드 페이지를 참고하세요.</item>
+  </cons>
+  <uses>
+    <item>X2D · X1C · H2S 출력 준비</item>
+    <item>여러 플레이트를 한 번에 슬라이스해 수업용 출력 예약</item>
+    <item>틴커캐드·뱀부 모델(.stl)을 가져와 출력</item>
+  </uses>
+  <tips>
+    <tip>다중 플레이트 파일은 “모두 슬라이스”로 한꺼번에 처리합니다.</tip>
+    <tip>출력 전 베드 레벨링·유량 보정 옵션은 필요할 때만 켭니다.</tip>
+    <tip>문제는 사진·영상과 함께 공식 지원에 접수하는 것이 빠릅니다.</tip>
+  </tips>
+  <links>
+    <link href="https://bambulab.com/en-us/download/studio">Bambu Studio 다운로드</link>
+    <link href="https://wiki.bambulab.com/en/software/bambu-studio/studio-quick-start">Bambu Studio 빠른 시작</link>
+    <link href="https://wiki.bambulab.com/en/software">소프트웨어 위키</link>
+  </links>
+  <docs>
+    <doc id="import">
+      <title>모델 가져오기와 배치</title>
+      <keyword>Bambu Studio · 가져오기</keyword>
+      <description>STL·3MF·STEP 모델을 불러와 방향과 위치를 정합니다.</description>
+      <summary>틴커캐드 등에서 만든 모델을 빌드 플레이트에 올리는 단계입니다. 바닥에 넓은 면이 닿게 놓아야 출력이 안정적입니다.</summary>
+      <when>
+        <item>틴커캐드·MakerWorld 모델을 출력할 때</item>
+        <item>여러 개를 한 판에 배치할 때</item>
+      </when>
+      <actions>
+        <action><b>파일 → 가져오기</b>나 끌어다 놓기로 모델을 엽니다.</action>
+        <action><b>면을 바닥에 놓기</b> 도구로 넓은 면을 플레이트에 붙입니다.</action>
+        <action><b>자동 배치</b>로 여러 모델의 간격을 맞춥니다.</action>
+        <action>크기 조절 도구로 실제 크기(mm)를 확인합니다.</action>
+      </actions>
+      <tips>
+        <tip>3MF 파일에는 색·설정이 함께 저장돼 다시 열어도 같은 상태가 유지됩니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="settings">
+      <title>필라멘트·출력 설정</title>
+      <keyword>Bambu Studio · 프로세스 설정</keyword>
+      <description>프린터·필라멘트를 고르고 층 높이·채움·서포트를 정합니다.</description>
+      <summary>출력 품질과 시간은 층 높이, 내부 채움(인필), 서포트 설정으로 크게 달라집니다. 수업에서는 기본값에서 몇 가지만 조정하는 편이 안전합니다.</summary>
+      <when>
+        <item>출력 시간을 줄이거나 튼튼하게 만들고 싶을 때</item>
+        <item>공중에 뜬 부분이 있어 서포트가 필요할 때</item>
+      </when>
+      <actions>
+        <action>왼쪽 위에서 <b>프린터</b>와 <b>플레이트 종류</b>를 고릅니다.</action>
+        <action><b>필라멘트</b>를 고릅니다. (AMS를 쓰면 슬롯별 색 확인)</action>
+        <action>프로세스에서 <b>층 높이</b>(예: 0.2mm)와 <b>채움 밀도</b>를 정합니다.</action>
+        <action>공중에 뜬 부분이 있으면 <b>서포트 사용</b>을 켭니다.</action>
+      </actions>
+      <tips>
+        <tip>키링처럼 얇은 작품은 서포트 없이 바닥이 평평하게 설계하면 출력이 빠르고 깔끔합니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="svg">
+      <title>SVG로 간판(층 쌓기) 만들기</title>
+      <keyword>Bambu Studio · SVG 가져오기</keyword>
+      <description>Inkscape에서 만든 선화·받침판 SVG를 높이가 다른 입체로 만듭니다.</description>
+      <summary>SVG를 가져오면 도형이 일정한 높이의 입체가 됩니다. 받침판은 낮게, 선화는 그 위로 높게 쌓으면 레진을 채울 칸이 있는 스테인글라스 키링 틀이 됩니다.</summary>
+      <when>
+        <item>스테인글라스 키링처럼 선화가 솟은 틀을 만들 때</item>
+        <item>이름 간판·명패를 만들 때</item>
+      </when>
+      <actions>
+        <action><b>04_받침판.svg</b>를 가져오고 높이를 낮게(예: 1~1.5mm) 정합니다.</action>
+        <action><b>03_선화.svg</b>를 같은 위치에 가져와 받침판 위로 올라오도록 높이를 정합니다.</action>
+        <action>두 파트의 색(필라멘트)을 다르게 지정합니다.</action>
+        <action>고리 구멍을 추가하고 슬라이스로 층을 확인합니다.</action>
+      </actions>
+      <tips>
+        <tip>두 SVG를 같은 페이지 크기로 저장해 두면 가져왔을 때 위치가 바로 맞습니다.</tip>
+        <tip>메뉴 이름(간판 만들기 등)은 버전에 따라 다를 수 있어 수업 전 실제 화면으로 확인합니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="paint">
+      <title>서포트·색 칠하기</title>
+      <keyword>Bambu Studio · 칠하기 도구</keyword>
+      <description>서포트가 필요한 곳이나 색을 바꿀 면을 붓으로 칠해 지정합니다.</description>
+      <summary>자동 서포트가 너무 많거나 적을 때 서포트 칠하기로 필요한 곳만 지정합니다. AMS가 있으면 색 칠하기로 한 모델에 여러 색을 넣을 수 있습니다.</summary>
+      <when>
+        <item>서포트 자국을 줄이고 싶을 때</item>
+        <item>한 모델의 일부만 다른 색으로 출력할 때</item>
+      </when>
+      <actions>
+        <action>모델을 선택하고 왼쪽 도구 모음에서 <b>서포트 칠하기</b> 또는 <b>색 칠하기</b>를 고릅니다.</action>
+        <action>붓 크기를 정하고 면을 칠합니다.</action>
+        <action>슬라이스한 뒤 미리보기로 결과를 확인합니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="slice">
+      <title>슬라이스·미리보기와 출력 보내기</title>
+      <keyword>Bambu Studio · 슬라이스</keyword>
+      <description>층별 미리보기로 확인한 뒤 프린터로 출력을 보냅니다.</description>
+      <summary>슬라이스는 모델을 층으로 잘라 프린터가 따라갈 경로를 만드는 과정입니다. 미리보기에서 시간·필라멘트 양·층 모양을 확인합니다.</summary>
+      <when>
+        <item>출력 전에 시간과 결과를 확인할 때</item>
+      </when>
+      <actions>
+        <action><b>플레이트 슬라이스</b>를 누릅니다.</action>
+        <action>오른쪽 층 슬라이더로 아래층부터 경로를 확인합니다.</action>
+        <action>예상 시간·필라멘트 양을 확인합니다.</action>
+        <action><b>출력</b>을 눌러 같은 네트워크의 프린터로 보내거나 SD 카드로 내보냅니다.</action>
+      </actions>
+      <tips>
+        <tip>첫 층이 플레이트에 잘 붙는지가 가장 중요합니다. 출력 시작 후 첫 층을 지켜봅니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="pause">
+      <title>층 사이 일시정지로 색 바꾸기</title>
+      <keyword>Bambu Studio · 일시정지 추가</keyword>
+      <description>정한 층에서 출력을 멈춰 필라멘트를 바꾸거나 부품을 넣습니다.</description>
+      <summary>AMS 없이도 층 높이별로 색을 바꿀 수 있습니다. 미리보기 슬라이더에서 원하는 층에 일시정지를 넣고, 멈추면 필라멘트를 교체합니다.</summary>
+      <when>
+        <item>받침판과 선화의 색을 다르게 하고 싶은데 AMS가 없을 때</item>
+        <item>출력 중간에 자석·너트를 넣을 때</item>
+      </when>
+      <actions>
+        <action>슬라이스 후 오른쪽 층 슬라이더를 색이 바뀔 층으로 옮깁니다.</action>
+        <action>슬라이더의 <b>+</b> 또는 오른쪽 클릭 메뉴에서 <b>일시정지 추가</b>를 고릅니다.</action>
+        <action>다시 슬라이스하고 출력합니다.</action>
+        <action>프린터가 멈추면 필라멘트를 바꾸고 이어서 출력합니다.</action>
+      </actions>
+    </doc>
+  </docs>
+</manual>

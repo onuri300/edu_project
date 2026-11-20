@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 장비 매뉴얼 목차 (왼쪽 트리 메뉴의 원본)
+  - 분류(category) → 묶음(group, 제조사) → 장비(program) 순서가 그대로 트리 순서입니다.
+  - 장비 문서 경로(src)는 이 index.xml 기준 상대 경로입니다. 작성 규칙: ../README.md
+-->
+<catalog id="onuri-equipment" kind="equipment" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20">
+  <title>디지털 장비 매뉴얼</title>
+  <overview id="overview" nav="한눈에 보기">
+    <title>장비 한눈에 보기</title>
+    <keyword>장비 요약 · 비교</keyword>
+    <description>수업에 쓰는 6종 장비를 한 표로 비교합니다.</description>
+    <summary>레이저 3종(xTool F2·P3·O1 Omni)과 3D 프린터 3종(Bambu Lab X2D·X1C·H2S)입니다. 작게 만들거나 금속에 새길 때는 F2, 큰 판재를 자를 때는 P3, 인쇄는 O1 Omni, 출력물은 Bambu Lab 계열로 나눠 씁니다.</summary>
+    <chart root="오누리 작업실">
+      <group title="레이저 가공">
+        <item ref="xtool-f2">소형 소재에 각인하는 휴대형 듀얼 레이저.</item>
+        <item ref="xtool-p3">넓은 판재와 반복 절단 작업에 적합한 CO₂ 레이저.</item>
+      </group>
+      <group title="컬러 인쇄">
+        <item ref="xtool-o1-omni">굿즈 표면에 색과 그래픽을 더하는 UV 인쇄 장비.</item>
+      </group>
+      <group title="3D 프린터">
+        <item ref="bambu-x2d">모델과 서포트를 별도 노즐로 출력하는 듀얼 노즐 장비.</item>
+        <item ref="bambu-x1c">반복 출력과 일반 수업용 모형에 쓰는 밀폐형 FFF 프린터.</item>
+        <item ref="bambu-h2s">여러 조각으로 나누기 어려운 대형 부품에 적합한 단일 노즐 장비.</item>
+      </group>
+    </chart>
+    <table>
+      <head><cell>장비</cell><cell>종류</cell><cell>작업·출력 크기</cell><cell>핵심 특징</cell><cell>주 용도</cell></head>
+      <row><cell>xTool F2</cell><cell>휴대형 이중 레이저 (5W IR + 15W 다이오드)</cell><cell>115×115 mm (슬라이드 확장 시 115×400 mm)</cell><cell>50MP 카메라, 최대 6,000 mm/s, 금속 마킹</cell><cell>스틸 명함·금속 각인, 나무·아크릴 소품</cell></row>
+      <row><cell>xTool P3</cell><cell>80W CO₂ 레이저 커터</cell><cell>915×458 mm</cell><cell>LiDAR 자동 초점, 대형 작업 영역, Class 1 안전 등급</cell><cell>두꺼운 아크릴·합판 절단, 대량 제작</cell></row>
+      <row><cell>xTool O1 Omni</cell><cell>4-in-1 프린터 (UV · UV DTF · DTG · DTF)</cell><cell>330×122 mm / 330×420 mm</cell><cell>입체물 UV 인쇄, 720×1440 dpi</cell><cell>굿즈·컵·의류 인쇄</cell></row>
+      <row><cell>Bambu Lab X2D</cell><cell>듀얼 노즐 3D 프린터</cell><cell>256×256×260 mm</cell><cell>서포트 전용 노즐, 챔버 65°C, 3단 공기 정화</cell><cell>서포트 분리가 쉬운 복잡한 모형</cell></row>
+      <row><cell>Bambu Lab X1C</cell><cell>엔클로저 3D 프린터 (2026-03 단종)</cell><cell>256×256×256 mm</cell><cell>최대 500 mm/s, 라이다·AI 출력 감시, AMS 최대 16색</cell><cell>고속 출력, 기능성 소재 출력</cell></row>
+      <row><cell>Bambu Lab H2S</cell><cell>대형 단일 노즐 3D 프린터</cell><cell>340×320×340 mm</cell><cell>노즐 350°C, 챔버 65°C, 10W 레이저 에디션 옵션</cell><cell>큰 모형, 고온 소재, 레이저 겸용</cell></row>
+    </table>
+    <tips>
+      <tip>금속 마킹·소형 각인은 F2, 판재 절단·대형 작업은 P3로 나눠 생각하면 선택이 빨라집니다.</tip>
+      <tip>3D 프린터 출력은 Bambu Studio로, xTool 장비 작업은 xTool Studio로 준비합니다. (프로그램 매뉴얼 참고)</tip>
+    </tips>
+  </overview>
+  <category id="laser" title="레이저 · 인쇄">
+    <group title="xTool">
+      <program id="xtool-f2" src="xtool-f2/manual.xml" blurb="소형 소재에 각인하는 휴대형 듀얼 레이저."/>
+      <program id="xtool-p3" src="xtool-p3/manual.xml" blurb="넓은 판재와 반복 절단 작업에 적합한 CO₂ 레이저."/>
+      <program id="xtool-o1-omni" src="xtool-o1-omni/manual.xml" blurb="굿즈 표면에 색과 그래픽을 더하는 UV 인쇄 장비."/>
+    </group>
+  </category>
+  <category id="print3d" title="3D 프린터">
+    <group title="Bambu Lab">
+      <program id="bambu-x2d" src="bambu-x2d/manual.xml" blurb="모델과 서포트를 별도 노즐로 출력하는 듀얼 노즐 장비."/>
+      <program id="bambu-x1c" src="bambu-x1c/manual.xml" blurb="반복 출력과 일반 수업용 모형에 쓰는 밀폐형 FFF 프린터."/>
+      <program id="bambu-h2s" src="bambu-h2s/manual.xml" blurb="여러 조각으로 나누기 어려운 대형 부품에 적합한 단일 노즐 장비."/>
+    </group>
+  </category>
+</catalog>

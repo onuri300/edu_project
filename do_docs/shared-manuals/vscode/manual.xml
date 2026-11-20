@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 프로그램 매뉴얼 원본 · Visual Studio Code
+  - 요약(프로그램 소개) + <docs> 의 문서들이 왼쪽 트리에서 이 프로그램 아래에 순서대로 나옵니다.
+  - 이미지 경로(src·fullSrc)는 이 manual.xml 기준 상대 경로입니다. doc id 는 제목이 바뀌어도 유지합니다.
+  - 작성 규칙: ../README.md
+-->
+<manual id="vscode" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>Visual Studio Code</title>
+  <maker>Microsoft</maker>
+  <keyword>VS Code · 코드 편집기</keyword>
+  <description>이 ERP 사이트와 웹페이지를 만드는 코드 편집기입니다.</description>
+  <summary>프로젝트 폴더를 열어 파일을 편집하고, 디버깅·Git·터미널·확장 기능을 한 화면에서 쓰는 코드 편집기입니다. 선택적으로 AI 코드 도우미(Copilot)와 대화형 에이전트 기능도 쓸 수 있습니다. 핵심 편집기는 계정 없이 사용합니다.</summary>
+  <specs>
+    <spec name="핵심 기능">편집·검색, 디버깅, Git 소스 관리, 통합 터미널, 확장</spec>
+    <spec name="언어 지원">일부 내장 + 확장으로 추가 (자동 완성·오류 검사)</spec>
+    <spec name="AI 기능(선택)">인라인 제안, Chat 보기, 에이전트에 작업 위임</spec>
+    <spec name="환경">Windows · macOS · Linux 설치 안내, 웹용 VS Code, SSH·WSL·Dev Container·GitHub Codespaces</spec>
+    <spec name="계정">핵심 편집기는 계정 없이 사용</spec>
+  </specs>
+  <usage>
+    <item>프로젝트 폴더(예: onuri_erp)를 “폴더 열기”로 엽니다.</item>
+    <item>왼쪽 탐색기에서 파일을 열어 편집합니다.</item>
+    <item>소스 제어 탭에서 변경 내용을 확인해 커밋합니다.</item>
+    <item>터미널에서 <code>npm run bundle</code> 같은 명령을 실행합니다.</item>
+    <item>필요한 확장(예: HTML·CSS·Markdown 미리보기)을 설치합니다.</item>
+  </usage>
+  <pros>
+    <item>무료이고 가벼우며 확장으로 기능을 넓힐 수 있음</item>
+    <item>Git·터미널이 통합되어 GitHub 작업이 편함</item>
+    <item>웹과 데스크톱, 원격 개발 환경까지 폭넓게 지원</item>
+  </pros>
+  <cons>
+    <item>확장이 많을수록 화면과 설정이 복잡해집니다.</item>
+    <item>AI 기능은 별도 구독·로그인이 필요할 수 있습니다.</item>
+  </cons>
+  <uses>
+    <item>ERP 사이트 코드 수정, 스타일 조정</item>
+    <item>매뉴얼·문서(Markdown) 편집</item>
+    <item>GitHub에 변경 내용 올리기</item>
+  </uses>
+  <tips>
+    <tip>저장할 때마다 자동 서식이 적용되게 설정하면 코드가 깔끔해집니다.</tip>
+    <tip>작업 전·후로 소스 제어 탭에서 바뀐 파일을 확인하는 습관을 들입니다.</tip>
+  </tips>
+  <links>
+    <link href="https://code.visualstudio.com/docs/getstarted/what-is-vscode">VS Code 소개</link>
+    <link href="https://code.visualstudio.com/docs/getstarted/userinterface">사용자 인터페이스</link>
+    <link href="https://code.visualstudio.com/">VS Code 홈</link>
+  </links>
+  <docs>
+    <doc id="folder">
+      <title>폴더 열기와 파일 탐색</title>
+      <keyword>VS Code · 탐색기</keyword>
+      <description>프로젝트 폴더를 열고 파일을 찾고 만듭니다.</description>
+      <summary>VS Code는 파일 하나가 아니라 폴더(프로젝트) 단위로 작업합니다. 폴더를 열면 왼쪽 탐색기에 전체 구조가 보입니다.</summary>
+      <when>
+        <item>웹사이트·ERP 소스를 고칠 때</item>
+      </when>
+      <actions>
+        <action><b>파일 → 폴더 열기</b>로 프로젝트 폴더를 엽니다.</action>
+        <action>왼쪽 <b>탐색기</b>에서 파일을 열고, 새 파일·폴더 아이콘으로 만듭니다.</action>
+        <action>파일 이름으로 빠르게 열기: <kbd>Ctrl+P</kbd>.</action>
+      </actions>
+    </doc>
+
+    <doc id="search">
+      <title>검색·바꾸기와 여러 곳 동시 편집</title>
+      <keyword>VS Code · 검색 · 멀티 커서</keyword>
+      <description>프로젝트 전체에서 글자를 찾아 바꾸고, 여러 줄을 한 번에 고칩니다.</description>
+      <summary>전체 검색과 멀티 커서를 쓰면 여러 파일·여러 줄의 같은 내용을 빠르게 고칠 수 있습니다.</summary>
+      <when>
+        <item>메뉴 이름·경로를 여러 파일에서 바꿀 때</item>
+      </when>
+      <actions>
+        <action>전체 검색: <kbd>Ctrl+Shift+F</kbd> → 찾을 글자 입력 → 바꾸기 칸에 새 글자.</action>
+        <action>같은 단어 여러 개 선택: <kbd>Ctrl+D</kbd>를 반복.</action>
+        <action>원하는 위치마다 커서 추가: <kbd>Alt</kbd> + 클릭.</action>
+      </actions>
+    </doc>
+
+    <doc id="terminal">
+      <title>통합 터미널 쓰기</title>
+      <keyword>VS Code · 터미널</keyword>
+      <description>편집기 안에서 명령(npm, git 등)을 실행합니다.</description>
+      <summary>통합 터미널은 열려 있는 폴더 위치에서 바로 열려, 빌드·실행 명령을 편하게 쓸 수 있습니다.</summary>
+      <when>
+        <item><code>npm run bundle</code> 같은 명령을 실행할 때</item>
+      </when>
+      <actions>
+        <action><b>터미널 → 새 터미널</b>(<kbd>Ctrl+`</kbd>).</action>
+        <action>명령을 입력하고 <kbd>Enter</kbd>. 예) <code>npm run bundle</code></action>
+        <action>여러 터미널은 오른쪽 위 + 로 추가합니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="git">
+      <title>소스 제어로 커밋·푸시</title>
+      <keyword>VS Code · 소스 제어</keyword>
+      <description>바뀐 파일을 확인하고 커밋해 GitHub에 올립니다.</description>
+      <summary>소스 제어 화면에서 무엇이 바뀌었는지 보고, 메시지를 적어 커밋한 뒤 GitHub로 푸시합니다.</summary>
+      <when>
+        <item>고친 사이트를 GitHub Pages에 반영할 때</item>
+      </when>
+      <actions>
+        <action>왼쪽 <b>소스 제어</b>(<kbd>Ctrl+Shift+G</kbd>)를 엽니다.</action>
+        <action>바뀐 파일을 눌러 변경 내용을 비교합니다.</action>
+        <action>올릴 파일에 <b>+(스테이징)</b>, 메시지를 적고 <b>커밋</b>.</action>
+        <action><b>변경 내용 동기화(푸시)</b> 를 누릅니다.</action>
+      </actions>
+      <tips>
+        <tip>비밀 키가 든 파일(.env 등)은 커밋하지 않습니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="extension">
+      <title>확장 설치 (Live Server 등)</title>
+      <keyword>VS Code · 확장</keyword>
+      <description>필요한 기능을 확장으로 추가합니다.</description>
+      <summary>확장으로 미리보기 서버, 한국어 화면, 코드 정리 기능 등을 더할 수 있습니다.</summary>
+      <when>
+        <item>웹페이지를 바로 미리 보고 싶을 때</item>
+      </when>
+      <actions>
+        <action>왼쪽 <b>확장</b>(<kbd>Ctrl+Shift+X</kbd>)을 엽니다.</action>
+        <action>이름을 검색해 <b>설치</b>합니다. 예) Korean Language Pack, Live Server</action>
+        <action>설치한 확장의 설명에 따라 실행합니다.</action>
+      </actions>
+      <tips>
+        <tip>게시자와 설치 수를 확인하고 믿을 수 있는 확장만 설치합니다.</tip>
+      </tips>
+    </doc>
+  </docs>
+</manual>

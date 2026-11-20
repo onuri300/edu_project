@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 장비 매뉴얼 원본 · Bambu Lab X2D
+  - <photo> : src(로컬 images/ 사본, 이 manual.xml 기준 상대 경로)가 있으면 그것을, 없으면 remote(제조사 공식 이미지 주소)를 씁니다.
+    제조사 사진은 사용 조건을 확인한 뒤 images/ 에 src 이름으로 저장하세요.
+  - 작성 규칙: ../../README.md
+-->
+<manual id="bambu-x2d" kind="equipment" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>Bambu Lab X2D</title>
+  <maker>Bambu Lab</maker>
+  <keyword>Bambu Lab · 듀얼 노즐</keyword>
+  <description>모델용·서포트용 노즐이 따로 있는 듀얼 노즐 3D 프린터입니다.</description>
+  <summary>주 노즐은 모형을, 보조 노즐은 떼어내기 쉬운 서포트 재료를 출력하는 듀얼 노즐 3D 프린터입니다. 노즐 전환이 기계식이라 헤드가 가볍고, 챔버를 65°C까지 데울 수 있습니다.</summary>
+  <photo src="images/bambu-x2d.jpg" remote="https://storage.ghost.io/c/8d/d9/8dd9f85b-21c3-4782-bba8-8778cd8f2f93/content/images/2026/04/X2D-104.jpg" alt="Bambu Lab X2D 제조사 제품 사진"/>
+  <specs>
+    <spec name="출력 크기">단일 노즐 256×256×260 mm (보조 노즐만 쓰면 235.5×256×256 mm), 듀얼 사용 시 교집합 235.5×256×256 mm</spec>
+    <spec name="노즐">왼쪽 다이렉트 드라이브(주) + 오른쪽 보우덴 방식(보조)</spec>
+    <spec name="온도">노즐 최대 300°C, 챔버 최대 65°C(히트 모드)</spec>
+    <spec name="공기 정화">G3 프리필터 + H12 HEPA + 활성탄 3단</spec>
+    <spec name="센서·소음">센서 31개, 소음 50 dB 이하</spec>
+    <spec name="캘리브레이션">PMSM 모터(20 kHz 토크·위치 샘플링), 출력 전 동적 유량 보정(주 노즐), 비전 인코더 옵션(50 µm급)</spec>
+    <spec name="AMS">호환 구성은 공식 사양 페이지에서 확인</spec>
+  </specs>
+  <pros>
+    <item>서포트를 다른 재료·노즐로 출력해 후처리가 쉬움</item>
+    <item>챔버 가열로 ABS·PC 같은 소재 출력에 유리</item>
+    <item>3단 공기 정화로 교실·작업실 환경에 유리</item>
+    <item>출력 전 유량 보정 등 자동 보정 기능</item>
+  </pros>
+  <cons>
+    <item>속도 수치는 공식 블로그에 구체적으로 나오지 않아, 사양 페이지 확인이 필요합니다.</item>
+    <item>노즐 두 개를 쓰므로 소재·서포트 설정이 단일 노즐보다 복잡합니다.</item>
+    <item>두 노즐을 모두 쓰면 출력 가능 영역이 약간 줄어듭니다.</item>
+  </cons>
+  <uses>
+    <item>서포트가 많은 복잡한 모형, 움직이는 부품</item>
+    <item>다색·다재료 출력</item>
+    <item>고온 소재로 만드는 기능성 부품</item>
+  </uses>
+  <tips>
+    <tip>처음에는 단일 노즐로 익숙해진 뒤 서포트 노즐 설정을 추가합니다.</tip>
+    <tip>Bambu Studio에서 노즐별 소재를 지정해 슬라이싱합니다.</tip>
+  </tips>
+  <links>
+    <link href="https://bambulab.com/en-us/x2d">X2D 공식 페이지</link>
+    <link href="https://bambulab.com/en/x2d/specs">X2D 기술 사양</link>
+    <link href="https://wiki.bambulab.com/en/x2d/manual/x2d-faq">X2D 위키 · FAQ</link>
+    <link href="https://blog.bambulab.com/xcellence-made-simple-bambu-lab-presents-the-x2d/">공식 소개 블로그</link>
+  </links>
+</manual>

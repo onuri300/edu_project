@@ -1,18 +1,6 @@
 
 .manual :is(input, select, button) { padding: 10px 12px; }
-.manual-tree-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-bottom: 12px; margin-bottom: 8px; border-bottom: 1px solid var(--line); }
-.manual-tree-actions { display: flex; gap: 4px; }
-.manual .manual-tree-actions button { width: 28px; height: 28px; padding: 0; border: 0; border-radius: 4px; background: var(--muted-surface); color: var(--accent); font-size: 20px; line-height: 1; }
-.manual-tree-branch > summary { display: flex; gap: 8px; align-items: baseline; padding: 9px 4px; list-style: none; cursor: pointer; font-weight: 600; }
-.manual-tree-branch > summary::-webkit-details-marker { display: none; }
-.manual-tree-branch > summary::before { content: '+'; flex: 0 0 14px; color: var(--accent); font-family: monospace; }
-.manual-tree-branch[open] > summary::before { content: '−'; }
-.manual-sidebar-toggle:focus-visible, #manual-list :is(button,summary):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.manual-subpages {
-  margin-inline-start: 12px;
-  padding-inline-start: 10px;
-  border-inline-start: 1px solid var(--line);
-}
+#manual-list :is(button,summary):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .manual-sample {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 프로그램 매뉴얼 원본 · GitHub
+  - 요약(프로그램 소개) + <docs> 의 문서들이 왼쪽 트리에서 이 프로그램 아래에 순서대로 나옵니다.
+  - 이미지 경로(src·fullSrc)는 이 manual.xml 기준 상대 경로입니다. doc id 는 제목이 바뀌어도 유지합니다.
+  - 작성 규칙: ../README.md
+-->
+<manual id="github" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>GitHub</title>
+  <maker>GitHub</maker>
+  <keyword>GitHub · 저장소 · Pages</keyword>
+  <description>코드를 저장·공유하고 GitHub Pages로 웹사이트를 게시하는 서비스입니다.</description>
+  <summary>코드를 저장소(repository)에 보관하고 변경 이력을 관리하는 서비스입니다. GitHub Pages를 쓰면 저장소의 HTML·CSS·JavaScript 파일을 그대로 웹사이트로 게시할 수 있습니다. 이 ERP도 이 방식(브라우저 → Supabase, 서버 없음)으로 운영합니다.</summary>
+  <specs>
+    <spec name="GitHub Pages">정적 사이트 호스팅 (HTML·CSS·JS, 필요하면 빌드 단계 포함)</spec>
+    <spec name="주소">github.io 도메인 또는 사용자 도메인</spec>
+    <spec name="사이트 수">계정당 1개, 프로젝트 사이트는 저장소당 1개</spec>
+    <spec name="저장소 공개 범위">Free 요금제는 공개 저장소에서 Pages 사용, 유료 요금제는 비공개 저장소도 가능</spec>
+    <spec name="제한">용량·트래픽 제한은 공식 “Pages limits” 문서 참고</spec>
+    <spec name="개인정보">방문자 IP가 보안 목적으로 기록·저장됨 (공식 페이지)</spec>
+  </specs>
+  <usage>
+    <item>저장소를 만들고 코드를 올립니다. (VS Code의 소스 제어 사용)</item>
+    <item>저장소 Settings → Pages에서 게시할 브랜치·폴더를 선택합니다.</item>
+    <item>잠시 뒤 github.io 주소로 사이트가 열립니다.</item>
+    <item>코드를 수정해 다시 올리면 사이트도 갱신됩니다.</item>
+  </usage>
+  <pros>
+    <item>변경 이력이 남아 되돌리기 쉬움</item>
+    <item>정적 사이트는 서버 없이 무료로 게시 가능(공개 저장소)</item>
+    <item>협업·이슈 관리·코드 리뷰 기능</item>
+  </pros>
+  <cons>
+    <item>정적 호스팅이라 서버 코드는 실행하지 못합니다. (이 ERP는 Supabase를 브라우저에서 직접 호출)</item>
+    <item>공개 저장소에 올린 파일은 누구나 볼 수 있으므로 비밀 키(service_role 등)를 절대 올리지 않습니다.</item>
+    <item>Free 요금제에서는 비공개 저장소에 Pages를 쓸 수 없습니다.</item>
+  </cons>
+  <uses>
+    <item>ERP·교육용 웹사이트 게시</item>
+    <item>교안·자료 코드의 버전 관리</item>
+    <item>수업 자료를 학생과 공유</item>
+  </uses>
+  <tips>
+    <tip>Supabase anon 키는 공개해도 되지만 service_role 키는 소스에 넣지 않습니다.</tip>
+    <tip>민감한 데이터가 든 파일(files/)은 공개 저장소 대신 Storage에 두는 방식을 고려합니다.</tip>
+  </tips>
+  <links>
+    <link href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages">GitHub Pages란?</link>
+    <link href="https://docs.github.com/en/pages/quickstart">GitHub Pages 빠른 시작</link>
+    <link href="https://docs.github.com/en/get-started/quickstart">GitHub 시작하기</link>
+  </links>
+  <docs>
+    <doc id="repo">
+      <title>저장소 만들기와 올리기</title>
+      <keyword>GitHub · 저장소</keyword>
+      <description>새 저장소를 만들고 프로젝트 파일을 올립니다.</description>
+      <summary>저장소(Repository)는 프로젝트 파일과 변경 기록을 담는 공간입니다.</summary>
+      <when>
+        <item>새 웹사이트·교육 자료를 GitHub에 올릴 때</item>
+      </when>
+      <actions>
+        <action>GitHub에서 <b>New repository</b> → 이름과 공개 여부를 정합니다.</action>
+        <action>VS Code에서 폴더를 열고 소스 제어의 <b>GitHub에 게시</b>를 누르거나, 원격 주소를 연결해 푸시합니다.</action>
+        <action>저장소 페이지에서 파일이 올라왔는지 확인합니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="history">
+      <title>커밋 기록 보기와 되돌리기</title>
+      <keyword>GitHub · 커밋 기록</keyword>
+      <description>언제 무엇이 바뀌었는지 보고 필요하면 이전 상태로 돌립니다.</description>
+      <summary>모든 커밋이 기록으로 남아 잘못 고친 파일을 이전 내용으로 되돌릴 수 있습니다.</summary>
+      <when>
+        <item>사이트가 갑자기 깨져 원인을 찾을 때</item>
+      </when>
+      <actions>
+        <action>저장소에서 <b>Commits</b>를 눌러 기록을 봅니다.</action>
+        <action>커밋을 눌러 바뀐 줄을 확인합니다.</action>
+        <action>되돌리려면 VS Code나 GitHub Desktop에서 해당 커밋을 되돌리기(Revert)합니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="pages">
+      <title>GitHub Pages로 사이트 게시</title>
+      <keyword>GitHub · Pages</keyword>
+      <description>저장소의 HTML을 github.io 주소의 웹사이트로 공개합니다.</description>
+      <summary>서버 없이 정적 사이트를 무료로 게시합니다. 이 ERP도 같은 방식입니다.</summary>
+      <when>
+        <item>수업 자료·ERP를 웹 주소로 열고 싶을 때</item>
+      </when>
+      <actions>
+        <action>저장소 <b>Settings → Pages</b>.</action>
+        <action><b>Source</b>에서 게시할 브랜치와 폴더(/root 등)를 고르고 저장합니다.</action>
+        <action>잠시 뒤 표시된 github.io 주소로 접속합니다.</action>
+        <action>이후 푸시하면 사이트가 자동으로 갱신됩니다.</action>
+      </actions>
+      <tips>
+        <tip>Free 요금제에서는 공개 저장소에서만 Pages를 쓸 수 있습니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="issue">
+      <title>이슈로 할 일 관리</title>
+      <keyword>GitHub · Issues</keyword>
+      <description>고칠 점·아이디어를 이슈로 적고 처리 상태를 관리합니다.</description>
+      <summary>이슈는 할 일 카드입니다. 라벨·담당자를 붙이고, 커밋 메시지에 이슈 번호를 적으면 연결됩니다.</summary>
+      <when>
+        <item>ERP 개선 아이디어나 버그를 기록할 때</item>
+      </when>
+      <actions>
+        <action>저장소 <b>Issues → New issue</b>.</action>
+        <action>제목과 내용을 적고 라벨을 붙입니다.</action>
+        <action>처리하면 <b>Close issue</b> 하거나 커밋 메시지에 <code>fixes #번호</code>를 적습니다.</action>
+      </actions>
+    </doc>
+
+    <doc id="secret">
+      <title>.gitignore와 비밀 키 지키기</title>
+      <keyword>GitHub · .gitignore</keyword>
+      <description>올리면 안 되는 파일(비밀 키·개인정보)을 저장소에서 제외합니다.</description>
+      <summary>공개 저장소의 파일은 누구나 볼 수 있습니다. .gitignore에 제외할 파일을 적어 실수로 올리는 일을 막습니다.</summary>
+      <when>
+        <item>Supabase 키·개인정보가 든 파일이 프로젝트에 있을 때</item>
+      </when>
+      <actions>
+        <action>프로젝트 맨 위에 <code>.gitignore</code> 파일을 만듭니다.</action>
+        <action>제외할 파일·폴더를 한 줄씩 적습니다. 예) <code>.env</code>, <code>node_modules/</code></action>
+        <action>이미 올린 비밀 키는 키를 새로 발급해 바꿉니다.</action>
+      </actions>
+      <tips>
+        <tip>Supabase anon 키는 공개돼도 되지만 service_role 키는 절대 올리지 않습니다.</tip>
+      </tips>
+    </doc>
+  </docs>
+</manual>

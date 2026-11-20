@@ -1,0 +1,141 @@
+.equip-branches { list-style: none; padding: 0; margin: 0; }
+.equip-chart .staff-org-root { margin: 0; }
+.equip-root-label { display: block; padding: .65rem; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); }
+.equip-device { box-sizing: border-box; text-decoration: none; }
+.equip-device .staff-org-face img { height: 100%; object-fit: contain; }
+.equip-photo { width: 100%; height: clamp(190px, 32vw, 330px); object-fit: contain; }
+.equip-spec { margin-block: 1.25rem; }
+.equip-spec div { display: grid; grid-template-columns: minmax(90px, 24%) 1fr; gap: 12px; padding: .6rem 0; border-bottom: 1px solid #7792a766; }
+.equip-spec dt { font-weight: 700; }
+.equip-spec dd { margin: 0; }
+
+.equip-manual-samples {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: 1rem;
+}
+
+.equip-manual-samples figure {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid #d8e3e2;
+  border-radius: .75rem;
+  background: #fff;
+  color: #173537;
+  text-align: center;
+}
+
+.equip-manual-samples img {
+  display: block;
+  width: 100%;
+  height: 12rem;
+  object-fit: contain;
+  margin-bottom: .75rem;
+}
+
+.equip-workflow {
+  container-type: inline-size;
+  display: grid;
+  gap: 1rem;
+}
+.equip-workflow-step {
+  min-width: 0;
+  padding: clamp(.85rem, 2vw, 1.4rem);
+  border: 1px solid #d8e3e2;
+  border-radius: .9rem;
+}
+.equip-workflow-step > h4 {
+  margin: 0 0 .85rem;
+}
+.equip-workflow-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
+}
+@container (min-width: 560px) {
+  .equip-workflow-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr);
+  }
+}
+.equip-workflow :is(.equip-workflow-grid, .equip-workflow-instructions) > ol {
+  margin: 0;
+  padding-inline-start: 1.45rem;
+}
+.equip-workflow-grid li + li {
+  margin-top: .4rem;
+}
+.equip-workflow-note {
+  padding: .8rem 1rem;
+  border-left: .25rem solid #81a5a1;
+  background: #edf5f3;
+  color: #173537;
+}
+.equip-workflow-step details {
+  margin-top: .85rem;
+  padding-top: .65rem;
+  border-top: 1px solid #d8e3e2;
+}
+.equip-workflow-step summary {
+  cursor: pointer;
+}
+
+.equip-workflow-compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .6rem;
+}
+
+
+.equip-program-logo {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: .35rem;
+  background: var(--card);
+  color: var(--ink);
+}
+.equip-program-logo {
+  flex: 0 0 2.75rem;
+  height: 2.75rem;
+  background: #fff;
+  color: #173537;
+  font-weight: 700;
+}
+.equip-program-logo img {
+  display: block;
+  object-fit: contain;
+  width: 2rem;
+  height: 2rem;
+}
+
+.document-reader .equip-chart {
+  grid-template-columns: minmax(0, 1fr);
+  overflow: visible;
+  container-type: inline-size;
+}
+.document-reader .equip-branches {
+  grid-auto-columns: minmax(0, 1fr);
+  min-width: 0;
+}
+@container (max-width: 640px) {
+  .document-reader .equip-branches { grid-auto-flow: row; }
+  .document-reader .staff-org-branch::before { display: none; }
+}
+
+.shared-manual-images { display: grid; gap: .75rem; min-width: 0; }
+@media (max-width: 768px) {
+  .shared-manual-pair { grid-template-columns: minmax(0, 1fr); }
+}
+
+.shared-manual-table { border-collapse: collapse; margin-block: 1.25rem; }
+.shared-manual-table :is(th, td) { border: 1px solid var(--line); padding: .55rem; text-align: start; }
+.shared-manual-table th { background: var(--muted-surface); }
+.shared-manual-pair, .equip-workflow-instructions { min-width: 0; }
+.equip-workflow-instructions > :first-child { margin-block-start: 0; }
+
+
+.program-filters { margin-block: .65rem; }
+.program-filters label { min-width: 0; }
+
+.equip-root-label { box-sizing: border-box; max-width: 100%; overflow-wrap: anywhere; }

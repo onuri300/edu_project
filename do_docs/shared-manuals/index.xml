@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 프로그램 매뉴얼 목차 (왼쪽 트리 메뉴의 원본)
+  - 분류(category) → 프로그램(program) 순서가 그대로 트리 순서입니다. 프로그램 안의 문서 순서는 각 manual.xml 의 <docs> 순서입니다.
+  - 작성 규칙: README.md
+-->
+<catalog id="onuri-programs" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20">
+  <title>프로그램 매뉴얼</title>
+  <overview id="overview" nav="한눈에 보기">
+    <title>프로그램 한눈에 보기</title>
+    <keyword>프로그램 요약 · 비교</keyword>
+    <description>수업과 제작에 쓰는 프로그램 12종을 요약합니다.</description>
+    <summary>장비를 움직이는 프로그램(RDWorks, xTool Studio, Bambu Studio), 디자인 프로그램(Inkscape, Illustrator, Canva), 자료를 보관·공유·정리하는 문서·협업 도구(Drive, Slides, Sheets, Notion), 사이트를 만드는 프로그램(VS Code, GitHub)으로 나뉩니다. AI 도구는 별도 AI 메뉴에서 다룹니다.</summary>
+    <chart root="오누리 프로그램"/>
+    <table>
+      <head><cell>프로그램</cell><cell>무엇을 하나</cell><cell>함께 쓰는 장비·서비스</cell><cell>주로 다루는 파일</cell></head>
+      <row><cell>RDWorks</cell><cell>Ruida 제어기를 쓰는 CO₂ 레이저의 작업 파일 준비·전송</cell><cell>Ruida 제어기 레이저(RDWorks 사용 기종)</cell><cell>벡터 도형, .rd 작업 파일</cell></row>
+      <row><cell>Inkscape</cell><cell>무료 벡터 그래픽 편집</cell><cell>레이저·커팅 장비용 도안 제작</cell><cell>SVG (DXF·PDF 등 내보내기)</cell></row>
+      <row><cell>Illustrator</cell><cell>전문 벡터 그래픽 편집 (유료 구독)</cell><cell>레이저·커팅 도안, 인쇄물</cell><cell>AI, SVG, PDF (DXF 내보내기)</cell></row>
+      <row><cell>Canva</cell><cell>템플릿 기반 웹 디자인 (포스터·카드뉴스·자료)</cell><cell>인쇄·온라인 게시, 수업 자료</cell><cell>PNG, JPG, PDF 등 (SVG는 플랜 확인)</cell></row>
+      <row><cell>Bambu Studio</cell><cell>Bambu Lab 3D 프린터용 슬라이서</cell><cell>X2D · X1C · H2S</cell><cell>.3mf, .stl, .step, .obj</cell></row>
+      <row><cell>xTool Studio</cell><cell>xTool 장비용 디자인·작업 설정</cell><cell>xTool F2 · P3 · O1 Omni</cell><cell>이미지·벡터, 프로젝트 파일</cell></row>
+      <row><cell>Google Drive</cell><cell>파일 보관·공유·공동 작업 (클라우드)</cell><cell>Slides, Sheets, 수업 자료 공유</cell><cell>문서·이미지·PDF 등 모든 파일</cell></row>
+      <row><cell>Google Slides</cell><cell>웹에서 만드는 발표 자료</cell><cell>Drive, Canva 이미지</cell><cell>PPTX, PDF로 내보내기</cell></row>
+      <row><cell>Google Sheets</cell><cell>웹에서 쓰는 표·계산·차트</cell><cell>Drive, 신청서·명단 정리</cell><cell>XLSX, CSV로 내보내기</cell></row>
+      <row><cell>Notion</cell><cell>페이지·데이터베이스로 문서·위키·할 일 관리</cell><cell>팀 공유, 수업 노트·매뉴얼 정리</cell><cell>페이지, 데이터베이스 (Markdown·CSV·PDF 내보내기)</cell></row>
+      <row><cell>VS Code</cell><cell>코드 편집기 (디버깅·Git·확장·터미널)</cell><cell>GitHub, 로컬 개발 환경</cell><cell>HTML · CSS · JS 등 코드</cell></row>
+      <row><cell>GitHub</cell><cell>코드 저장·협업·웹사이트 게시(GitHub Pages)</cell><cell>VS Code, 이 ERP 사이트</cell><cell>저장소(코드), 정적 웹사이트</cell></row>
+    </table>
+    <tips>
+      <tip>레이저는 도안(Inkscape·Illustrator) → 작업 설정(xTool Studio 또는 RDWorks) → 장비 순서로, 3D 프린터는 모델 → Bambu Studio → 프린터 순서로 흐릅니다.</tip>
+      <tip>웹사이트는 VS Code에서 만들고 GitHub에 올려 GitHub Pages로 게시합니다.</tip>
+    </tips>
+  </overview>
+  <category id="laser" title="레이저 제어">
+    <program id="rdworks" src="rdworks/manual.xml" blurb="Ruida 제어기 CO₂ 레이저 작업 전송"/>
+    <program id="xtool-studio" src="xtool-studio/manual.xml" blurb="xTool 장비 디자인·작업 설정"/>
+  </category>
+  <category id="design" title="디자인">
+    <program id="inkscape" src="inkscape/manual.xml" blurb="무료 벡터 도안 제작"/>
+    <program id="illustrator" src="illustrator/manual.xml" blurb="정밀 벡터 그래픽 (유료 구독)"/>
+    <program id="canva" src="canva/manual.xml" blurb="템플릿으로 포스터·자료 제작"/>
+  </category>
+  <category id="print3d" title="3D 프린팅">
+    <program id="bambu-studio" src="bambu-studio/manual.xml" blurb="Bambu Lab 슬라이서·제어"/>
+  </category>
+  <category id="google" title="문서 · 협업">
+    <program id="gdrive" src="gdrive/manual.xml" blurb="파일 보관·링크 공유"/>
+    <program id="gslides" src="gslides/manual.xml" blurb="웹 발표 자료"/>
+    <program id="gsheets" src="gsheets/manual.xml" blurb="웹 표·계산·차트"/>
+    <program id="notion" src="notion/manual.xml" blurb="노트·위키·데이터베이스"/>
+  </category>
+  <category id="dev" title="개발 · 배포">
+    <program id="vscode" src="vscode/manual.xml" blurb="코드 편집기"/>
+    <program id="github" src="github/manual.xml" blurb="코드 저장·GitHub Pages 게시"/>
+  </category>
+</catalog>

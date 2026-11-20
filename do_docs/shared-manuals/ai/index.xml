@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 AI 매뉴얼 목차 (왼쪽 트리 메뉴의 원본)
+  - category 없이 program 을 바로 두면 AI 가 맨 위 가지가 되고, 그 아래에 소개와 manual.xml 의 분류(section)가 붙습니다.
+  - 작성 규칙: ../README.md
+-->
+<catalog id="onuri-ai" kind="ai" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20">
+  <title>AI 매뉴얼</title>
+  <overview id="overview" nav="한눈에 보기">
+    <title>AI 한눈에 보기</title>
+    <keyword>ChatGPT · Claude · Gemini · NotebookLM</keyword>
+    <description>용도에 맞는 AI를 고르고, 카드를 누르면 그 AI의 소개와 프롬프트로 이동합니다.</description>
+    <summary>글·이미지를 만들고 대화로 풀어 가는 AI와, 내 자료를 근거로 정리하는 AI로 나누어 보았습니다.</summary>
+    <chart root="오누리 AI 도구">
+      <group title="대화·생성 AI">
+        <item ref="chatgpt">OpenAI의 AI 어시스턴트. 대화·이미지·파일 분석·맞춤 GPT를 한 곳에서 씁니다.</item>
+        <item ref="claude">Anthropic의 AI 어시스턴트. 파일·도구와 연결해 결과물을 만들어 줍니다.</item>
+        <item ref="gemini">Google의 AI 어시스턴트. Gmail·Docs 같은 Google 앱과 연결됩니다.</item>
+      </group>
+      <group title="자료 정리 AI">
+        <item ref="notebooklm">내가 올린 자료만을 근거로 답하고 정리해 주는 Google의 노트북형 AI.</item>
+      </group>
+    </chart>
+    <tips>
+      <tip>정해진 자료를 근거로 확인할 때는 NotebookLM, 아이디어·초안은 ChatGPT·Claude·Gemini가 맞습니다.</tip>
+      <tip>같은 질문을 두 AI에 넣어 비교하면 답의 차이를 알 수 있습니다.</tip>
+    </tips>
+  </overview>
+  <program id="chatgpt" src="chatgpt/manual.xml"/>
+  <program id="claude" src="claude/manual.xml"/>
+  <program id="gemini" src="gemini/manual.xml"/>
+  <program id="notebooklm" src="notebooklm/manual.xml"/>
+</catalog>

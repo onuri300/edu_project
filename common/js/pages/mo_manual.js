@@ -14,25 +14,6 @@
   let selectedText = '';
   let categories = [];
   const treeState = new Map();
-  const workspace = document.querySelector('.manual-workspace');
-  const sidebarToggle = document.getElementById('manual-sidebar-toggle');
-  const sidebar = document.getElementById('manual-sidebar');
-  let allExpanded;
-  function setAllExpanded(open) {
-    allExpanded = open;
-    list.querySelectorAll('details').forEach(branch => { branch.open = open; });
-    for (const key of treeState.keys()) treeState.set(key, open);
-  }
-  document.getElementById('manual-expand-all').addEventListener('click', () => setAllExpanded(true));
-  document.getElementById('manual-collapse-all').addEventListener('click', () => setAllExpanded(false));
-  sidebarToggle.addEventListener('click', () => {
-    const collapsed = workspace.classList.toggle('manual-sidebar-collapsed');
-    sidebar.hidden = collapsed;
-    sidebarToggle.textContent = collapsed ? '→' : '←';
-    sidebarToggle.setAttribute('aria-expanded', String(!collapsed));
-    sidebarToggle.setAttribute('aria-label', collapsed ? '문서 목록 펼치기' : '문서 목록 접기');
-  });
-
   function show(entry, button) {
     for (const previous of list.querySelectorAll('[aria-current]')) {
       previous.removeAttribute('aria-current');
@@ -112,8 +93,8 @@
     const branches = new Map();
     function branch(label, key, destination) {
       const group = document.createElement('details');
-      group.className = 'manual-tree-branch';
-      group.open = query || category.value ? true : (treeState.get(key) ?? allExpanded ?? true);
+      group.className = 'document-tree-branch';
+      group.open = Boolean(query || category.value || treeState.get(key));
       const summary = document.createElement('summary');
       summary.textContent = label;
       group.append(summary);
@@ -153,7 +134,7 @@
     if (selected) {
       const button = buttons.get(selected);
       // Reveal the selected document after search or an internal document link.
-      if (query || preferred?.file || preferred?.id) {
+      if (query || category.value) {
         let parent = button.parentElement;
         while (parent && parent !== list) {
           if (parent.tagName === 'DETAILS') parent.open = true;

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 프로그램 매뉴얼 원본 · Inkscape
+  - 요약(프로그램 소개) + <docs> 의 문서들이 왼쪽 트리에서 이 프로그램 아래에 순서대로 나옵니다.
+  - 이미지 경로(src·fullSrc)는 이 manual.xml 기준 상대 경로입니다. doc id 는 제목이 바뀌어도 유지합니다.
+  - 작성 규칙: ../README.md
+-->
+<manual id="inkscape" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-20">
+  <title>Inkscape</title>
+  <maker>Inkscape Project</maker>
+  <keyword>Inkscape · 벡터 그래픽</keyword>
+  <description>레이저 도안과 일러스트를 만드는 무료 벡터 그래픽 편집기입니다.</description>
+  <summary>선과 도형을 수학적으로 표현하는 벡터 그래픽을 만드는 무료 편집기입니다. 확대해도 깨지지 않아 레이저 절단선·각인 도안을 만들 때 널리 쓰이고, 오누리 수업에서는 레진 스테인글라스 키링의 선화 SVG와 검정 받침판(plate) SVG를 만드는 데 씁니다.</summary>
+  <specs>
+    <spec name="기본 형식">SVG (출력용은 일반 SVG · Plain SVG로 저장)</spec>
+    <spec name="내보내기">PNG, PDF, DXF, EPS, AI, PostScript 등 (확장 기능으로 더 다양)</spec>
+    <spec name="그리기 도구">펜(베지어), 연필, 캘리그래피, 도형, 텍스트(경로를 따라가는 글자 포함)</spec>
+    <spec name="편집">노드 편집, 불리언 연산(합치기·빼기·교차), 비트맵 따라 그리기, 실시간 경로 효과(오프셋 등) 20종 이상</spec>
+    <spec name="확장">기본 확장 150개 이상, 필터 250개 이상, 템플릿 90개 이상</spec>
+    <spec name="화면">테마(다크 모드 포함)와 단축키 사용자 설정, 레이어 및 객체 패널(Ctrl+Shift+L)</spec>
+  </specs>
+  <usage>
+    <item>문서 크기를 재료 크기(mm)에 맞춥니다.</item>
+    <item>도형·텍스트·펜 도구로 도안을 만들거나, PNG를 가져와 비트맵 따라 그리기로 선화를 만듭니다.</item>
+    <item>글자와 경로 효과는 “객체를 경로로”로 변환해 확정합니다.</item>
+    <item>절단선과 각인선을 색으로 나눕니다. (키링은 선화와 받침판을 파일로 나눕니다)</item>
+    <item>일반 SVG(또는 DXF)로 저장해 xTool Studio·RDWorks·Bambu Studio로 가져갑니다.</item>
+  </usage>
+  <pros>
+    <item>무료 오픈 소스이고 SVG 표준을 충실히 따름</item>
+    <item>불리언 연산과 노드 편집으로 정밀한 절단선 제작</item>
+    <item>비트맵 따라 그리기로 PNG 그림을 벡터 선화로 바꿈</item>
+    <item>오프셋 경로 효과로 받침판 여백을 mm 단위로 정확히 줌</item>
+    <item>“가는 선 강조” 보기 모드 등 플로터·커팅 작업에 유용한 기능</item>
+  </pros>
+  <cons>
+    <item>기능이 많아 처음에는 화면이 복잡합니다.</item>
+    <item>레이저 전용 설정(출력·속도)은 xTool Studio·RDWorks에서, 3D 출력 설정은 Bambu Studio에서 합니다.</item>
+    <item>경로 효과(오프셋)는 저장 전 “객체를 경로로”로 확정하지 않으면 다른 프로그램에서 원래 모양으로 보일 수 있습니다.</item>
+    <item>공식 페이지에서 지원 플랫폼과 라이선스 표기를 이 매뉴얼에서는 확인하지 못했습니다. 다운로드 페이지를 참고하세요.</item>
+  </cons>
+  <uses>
+    <item>절단선·각인 도안 만들기</item>
+    <item>레진 스테인글라스 키링의 선화 SVG · 받침판 SVG 만들기 (Bambu Studio 간판 만들기로 연결)</item>
+    <item>이름표·로고·스티커 디자인</item>
+    <item>텍스트를 경로로 바꿔 글꼴 문제 없이 레이저로 보내기</item>
+    <item>그림을 트레이싱해 각인용 벡터로 변환</item>
+  </uses>
+  <tips>
+    <tip>선 두께는 절단용 가는 선(헤어라인)과 각인용을 구분해 둡니다.</tip>
+    <tip>불리언 연산으로 도형을 합쳐 두면 중복선으로 두 번 자르는 일을 막을 수 있습니다.</tip>
+    <tip>키링 받침판 여백은 오프셋 2~3mm가 적당하고, 저장 전에 반드시 “객체를 경로로”로 확정합니다.</tip>
+    <tip>레진을 채울 칸은 선이 끊기지 않았는지 확대해 확인합니다. 열린 칸은 레진이 샙니다.</tip>
+  </tips>
+  <links>
+    <link href="https://inkscape.org/about/features/">Inkscape 기능 소개</link>
+    <link href="https://inkscape.org/release/inkscape-1.4/">Inkscape 다운로드 (1.4)</link>
+  </links>
+  <docs>
+    <doc id="document">
+      <title>문서 크기와 단위(mm) 설정</title>
+      <keyword>Inkscape · 문서 속성</keyword>
+      <description>작업 전에 문서 크기를 재료·출력 크기에 맞추고 단위를 mm로 바꿉니다.</description>
+      <summary>레이저·3D 프린터로 보낼 도안은 실제 크기가 중요합니다. 처음에 문서 단위와 크기를 맞춰 두면 다른 프로그램에서 크기가 바뀌는 문제를 줄일 수 있습니다.</summary>
+      <when>
+        <item>새 도안을 시작할 때</item>
+        <item>다른 사람이 만든 SVG를 받아 크기를 확인할 때</item>
+      </when>
+      <actions>
+        <action><b>파일 → 문서 속성</b>(<kbd>Ctrl+Shift+D</kbd>)을 엽니다.</action>
+        <action>표시 단위와 페이지 크기 단위를 <b>mm</b>로 바꿉니다.</action>
+        <action>페이지 너비·높이를 재료나 출력 크기에 맞춰 입력합니다.</action>
+        <action>선택 도구 위쪽의 W·H 단위도 mm로 바꾸고 비율 잠금을 켭니다.</action>
+      </actions>
+      <tips>
+        <tip>키링처럼 선화와 받침판을 따로 저장할 때는 두 파일의 페이지 크기를 같게 둡니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="practice" nav="실습 · 스테인글라스 키링 도안">
+      <title>Inkscape로 스테인글라스 키링 도안 만들기</title>
+      <keyword>Inkscape · 실습</keyword>
+      <description>PNG 선화 한 장으로 선화 SVG와 검정 받침판 SVG를 만들고, 같은 폴더에 두 파일로 저장합니다.</description>
+      <intro>PNG 한 장을 선화 SVG와 검정 받침판 SVG로 만드는 실습입니다. 단계 순서대로 따라가며 왼쪽 실제 화면을 보고 오른쪽의 클릭 순서와 확인 기준을 따라 하세요. 이미지를 누르면 크게 열립니다.</intro>
+      <flow title="실습 단계">
+        <ref doc="trace"/>
+        <ref doc="fill"/>
+        <ref doc="offset"/>
+        <ref doc="layers"/>
+        <ref doc="save"/>
+        <ref program="bambu-studio" doc="svg">Bambu Studio에서 간판(층 쌓기)으로 출력 — 다음 프로그램</ref>
+      </flow>
+      <samples title="오누리 키링 교안 예시 파일">
+        <figure src="images/onuri_black.svg" alt="안경을 쓴 캐릭터의 선화">
+          <caption>선화 SVG · 03_선화.svg 예시</caption>
+        </figure>
+        <figure src="images/onuri_bg.svg" alt="캐릭터의 바깥 윤곽을 채운 검정 받침판">
+          <caption>받침판 SVG · 04_받침판.svg 예시</caption>
+        </figure>
+      </samples>
+    </doc>
+
+    <doc id="trace">
+      <title>비트맵 → 벡터 이미지 변환</title>
+      <keyword>Inkscape · 비트맵 따라 그리기(Trace Bitmap)</keyword>
+      <description>PNG·JPG 그림을 벡터 선화로 바꿉니다.</description>
+      <summary>AI로 만든 그림이나 손그림(PNG)은 픽셀 이미지라 레이저 절단선이나 3D 간판으로 쓸 수 없습니다. 비트맵 따라 그리기로 벡터 경로를 만듭니다.</summary>
+      <when>
+        <item>AI가 만든 캐릭터 선화를 키링 도안으로 쓸 때</item>
+        <item>손그림을 스캔해 각인·절단선으로 바꿀 때</item>
+      </when>
+      <actions title="PNG를 선화로 추적">
+        <action><b>파일 → 가져오기</b> → PNG 선택.</action>
+        <action>그림 선택 → <b>경로 → 비트맵 따라 그리기</b>(Trace Bitmap).</action>
+        <action><b>단일 스캔 → 명도 컷오프 → 적용</b>.</action>
+      </actions>
+      <figures>
+        <figure src="images/trace.png" alt="후드 캐릭터와 오른쪽 비트맵 따라 그리기 미리보기">
+          <caption>후드 샘플 · Inkscape 실습 화면</caption>
+        </figure>
+      </figures>
+      <detail title="벡터와 선화 점검">
+        <p>추적 결과는 원본 PNG 바로 위에 생깁니다. 레이어 및 객체 패널에서 아래쪽의 이미지 항목을 찾아 제거하세요.</p>
+        <p>선택 도구의 W·H 단위를 mm로 바꾸고 비율을 잠근 뒤 최종 크기를 먼저 정합니다.</p>
+        <p>끊긴 칸은 끝을 이어 막고, 지나치게 좁은 칸은 경계를 조금 옮겨 공간을 넓힙니다. (끊긴 칸은 레진이 새는 원인이 됩니다)</p>
+      </detail>
+      <tips>
+        <tip>선이 뭉개지면 명도 컷오프 값을 조금씩 바꿔 미리보기로 비교합니다.</tip>
+        <tip>원본은 선이 굵고 단순할수록 깔끔하게 추적됩니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="fill">
+      <title>선화를 면으로 합치기 (실루엣·받침판)</title>
+      <keyword>Inkscape · 나누기 + 결합</keyword>
+      <description>선화의 안쪽까지 채운 하나의 검정 면(실루엣)을 만듭니다.</description>
+      <summary>선화를 복제해 나누기(Break Apart) → 결합(Union)하면 선 사이 빈칸이 채워진 하나의 실루엣이 됩니다. 키링 받침판(plate)이나 바깥 절단선의 바탕이 됩니다.</summary>
+      <when>
+        <item>스테인글라스 키링의 검정 받침판을 만들 때</item>
+        <item>스티커·아크릴 키링의 바깥 윤곽을 만들 때</item>
+      </when>
+      <actions title="안쪽을 채워 검정 받침판 만들기">
+        <action>선화 선택 → <kbd>Ctrl+D</kbd>로 제자리 복제.</action>
+        <action><b>레이어 → 레이어 및 객체</b> → 원본은 잠그고 복제본만 선택.</action>
+        <action><b>경로 → 나누기</b>(Break Apart) → 분리된 경로를 함께 선택 → <b>경로 → 결합</b>(Union).</action>
+        <action>아래 색상 팔레트에서 <b>검정</b> 선택.</action>
+      </actions>
+      <figures>
+        <figure src="images/silhouette.png" alt="후드 캐릭터 받침판의 내부가 검정으로 채워진 Inkscape 캔버스">
+          <caption>후드 샘플 · 채워진 받침판 실습 화면</caption>
+        </figure>
+      </figures>
+      <detail title="실루엣이 안 채워질 때">
+        <p>먼저 실루엣 내부가 전부 채워졌는지 확인하세요. 외곽이 끊겨 있다면 베지어 도구로 바깥을 따라 그린 뒤 시작점을 클릭해 경로를 닫고 검정으로 채웁니다.</p>
+      </detail>
+    </doc>
+
+    <doc id="offset">
+      <title>오프셋으로 바깥 여백 주기</title>
+      <keyword>Inkscape · 경로 효과 오프셋</keyword>
+      <description>실루엣을 mm 단위로 바깥쪽으로 넓혀 테두리 여백을 만듭니다.</description>
+      <summary>실시간 경로 효과의 오프셋(Offset)은 단위와 값을 정확히 입력할 수 있어, 받침판 여백이나 스티커 칼선 여유를 일정하게 줄 때 씁니다.</summary>
+      <when>
+        <item>키링 받침판에 2~3mm 테두리를 줄 때</item>
+        <item>아크릴·스티커의 칼선을 그림보다 조금 크게 잡을 때</item>
+      </when>
+      <actions title="오프셋 값을 입력해 바깥 여백 주기">
+        <action>검정 <b>받침판 경로</b> 선택.</action>
+        <action><b>경로 → 경로 효과</b>(Path Effects) → <b>실시간 경로 효과 추가하기</b> → <b>오프셋(Offset)</b> 선택.</action>
+        <action><b>단위 → mm</b> 선택 → <b>오프셋 → 2 또는 3</b> 입력 → <kbd>Enter</kbd>.</action>
+      </actions>
+      <figures>
+        <figure src="images/offset-panel.png" fullSrc="images/offset.jpg" alt="Inkscape 경로 효과 패널의 오프셋 항목. 단위는 mm이고 오프셋은 2.000000입니다.">
+          <caption>실제 설정 화면 · 단위 mm, 오프셋 2. 누르면 전체 작업 화면이 열립니다.</caption>
+        </figure>
+      </figures>
+      <detail title="여백과 모서리 점검">
+        <p>양수는 경로를 바깥쪽으로, 음수는 안쪽으로 줄입니다. 같은 칸에 2나 3 중 하나를 입력하면 한 번에 설정됩니다.</p>
+        <p>모서리가 뾰족하게 튀면 연결 방식에서 둥근 모서리(Rounded)를 선택합니다.</p>
+      </detail>
+      <tips>
+        <tip>경로 효과는 저장 전에 <b>경로 → 객체를 경로로</b>로 확정해야 다른 프로그램에서 같은 모양으로 보입니다.</tip>
+      </tips>
+      <links>
+        <link href="https://inkscape.gitlab.io/inkscape/doxygen/lpe-offset_8cpp_source.html">Inkscape 오프셋 단위와 설정</link>
+      </links>
+    </doc>
+
+    <doc id="layers">
+      <title>레이어 순서 정리와 겹침 확인</title>
+      <keyword>Inkscape · 레이어 및 객체</keyword>
+      <description>흰 선화를 위, 검정 받침판을 아래로 놓아 여백과 튀어나온 곳을 확인합니다.</description>
+      <summary>레이어 및 객체 패널에서 순서만 바꾸면 좌표와 크기는 그대로 둔 채 겹침을 확인할 수 있습니다. 출력 전에 선이 받침판 밖으로 나가지 않는지 점검합니다.</summary>
+      <when>
+        <item>선화와 받침판이 정확히 겹치는지 확인할 때</item>
+        <item>여러 도형의 앞뒤 순서를 바꿀 때</item>
+      </when>
+      <actions title="흰 선화를 위로 올려 여백 점검">
+        <action><b>레이어 → 레이어 및 객체</b>(<kbd>Ctrl+Shift+L</kbd>).</action>
+        <action>원본 선화를 제자리 복제 → 확인용 복제본만 <b>흰색</b>으로 변경.</action>
+        <action>패널에서 <b>흰 선화 레이어 행</b>을 선택 → <b>레이어 → 레이어 올리기</b>. 검정 받침판 행을 선택했다면 <b>레이어 → 레이어 내리기</b>.</action>
+        <action>위에 <b>흰 선화</b>, 아래에 <b>검정 받침판</b>이 보이는지 확인.</action>
+      </actions>
+      <figures>
+        <figure src="images/layers-before.jpg" alt="레이어 변경 전. 검정 받침판이 위에 있어 흰 선화가 가려져 있습니다.">
+          <caption>변경 전 · 받침판이 위</caption>
+        </figure>
+        <figure src="images/layers-after.jpg" alt="레이어 변경 후. 레이어 및 객체 목록에서 흰 선화가 위에 있고 캔버스에 흰 선이 보입니다.">
+          <caption>변경 후 · 흰 선화가 위</caption>
+        </figure>
+      </figures>
+      <detail title="화면에서 무엇을 확인하나요?">
+        <p>패널에서 순서만 바꾸면 두 도형의 캔버스 좌표와 크기가 유지됩니다.</p>
+        <p>흰 선이 검정 바깥으로 튀어나오거나 여백이 좁은 곳을 확대해서 보세요.</p>
+        <p>원래 검정 선화가 보인다면 작업 중에만 눈 아이콘으로 숨겨 둡니다.</p>
+      </detail>
+    </doc>
+
+    <doc id="save">
+      <title>출력용 SVG 저장 (일반 SVG)</title>
+      <keyword>Inkscape · 다른 이름으로 저장</keyword>
+      <description>출력에 쓸 경로만 남기고 일반 SVG로 저장해 다른 프로그램으로 넘깁니다.</description>
+      <summary>Inkscape SVG에는 편집용 정보가 들어 있어 다른 프로그램에서 다르게 보일 수 있습니다. 출력용 파일은 경로를 확정한 뒤 일반 SVG(Plain SVG)로 저장합니다.</summary>
+      <when>
+        <item>Bambu Studio·xTool Studio·RDWorks로 도안을 넘길 때</item>
+        <item>선화와 받침판처럼 파일을 나눠 보낼 때</item>
+      </when>
+      <actions title="같은 폴더에 두 SVG 저장">
+        <action>작업 파일을 두 벌로 복사하고 각 파일에 해당 출력용 경로만 남깁니다.</action>
+        <action>받침판 선택 → <b>경로 → 객체를 경로로</b> → 오프셋 결과 확정.</action>
+        <action><b>파일 → 다른 이름으로 저장 → 일반 SVG</b>(Plain SVG).</action>
+      </actions>
+      <note title="키링 도안 폴더">
+        <item><code>03_선화.svg</code> · 검정 선화</item>
+        <item><code>04_받침판.svg</code> · 검정 실루엣</item>
+      </note>
+      <detail title="저장 전, Bambu Studio로 넘기기 전">
+        <p>두 파일의 페이지 크기와 도형 좌표를 작업 문서와 같게 유지합니다. (같은 페이지 크기로 저장하면 수업 중 정렬 시간이 줄어듭니다)</p>
+        <p>확인용 흰 선화와 원본 PNG를 출력 파일에서 제거합니다.</p>
+        <p>이후 Bambu Studio에서 두 SVG를 불러와 배치하고 고리 구멍을 추가합니다.</p>
+      </detail>
+      <tips>
+        <tip>레이저용으로 DXF가 필요하면 <b>다른 이름으로 저장 → DXF</b>를 고릅니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="boolean">
+      <title>도형 합치기·빼기 (불리언 연산)</title>
+      <keyword>Inkscape · 결합 · 차이 · 교차</keyword>
+      <description>겹친 도형을 하나로 합치거나 구멍을 뚫어 절단선을 정리합니다.</description>
+      <summary>불리언 연산은 두 도형으로 새 모양을 만드는 기능입니다. 키링 고리 구멍을 뚫거나, 겹친 도형을 하나로 합쳐 중복 절단선을 없앨 때 씁니다.</summary>
+      <when>
+        <item>키링·명찰에 고리 구멍을 뚫을 때</item>
+        <item>글자와 도형을 붙여 한 덩어리로 자를 때</item>
+      </when>
+      <actions>
+        <action>두 도형을 함께 선택합니다.</action>
+        <action>합치기: <b>경로 → 결합</b>(<kbd>Ctrl++</kbd>).</action>
+        <action>구멍 뚫기: 구멍 도형을 위에 놓고 <b>경로 → 차이</b>(<kbd>Ctrl+-</kbd>).</action>
+        <action>겹친 부분만 남기기: <b>경로 → 교차</b>(<kbd>Ctrl+*</kbd>).</action>
+      </actions>
+      <tips>
+        <tip>차이는 위에 있는 도형으로 아래 도형을 잘라 냅니다. 순서가 반대면 결과도 반대입니다.</tip>
+      </tips>
+    </doc>
+
+    <doc id="text">
+      <title>텍스트를 경로로 바꾸기</title>
+      <keyword>Inkscape · 객체를 경로로</keyword>
+      <description>글자를 도형(경로)으로 바꿔 글꼴이 없는 컴퓨터에서도 같은 모양을 유지합니다.</description>
+      <summary>레이저 프로그램이나 다른 컴퓨터에 같은 글꼴이 없으면 글자 모양이 바뀝니다. 출력 전에 글자를 경로로 바꿔 두면 안전합니다.</summary>
+      <when>
+        <item>이름표·명함·간판 글자를 출력할 때</item>
+        <item>글자 모양을 노드로 직접 다듬고 싶을 때</item>
+      </when>
+      <actions>
+        <action>텍스트 도구로 글자를 쓰고 글꼴·크기를 정합니다.</action>
+        <action>글자를 선택하고 <b>경로 → 객체를 경로로</b>(<kbd>Shift+Ctrl+C</kbd>).</action>
+        <action>글자가 겹친 부분이 있으면 <b>경로 → 결합</b>으로 합칩니다.</action>
+      </actions>
+      <tips>
+        <tip>경로로 바꾸면 글자를 다시 고칠 수 없으니 원본 텍스트를 숨긴 채 남겨 둡니다.</tip>
+      </tips>
+    </doc>
+  </docs>
+</manual>

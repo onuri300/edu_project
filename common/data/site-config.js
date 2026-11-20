@@ -1,5 +1,5 @@
 window.eduSiteConfig = Object.freeze({
-  publicPaths: ['vi_vibe/vi_library.html', 'on_class/on_notice.html', 'do_docs/do_gpt.html', 'do_docs/do_dev.html', 'vi_vibe/vi_knu.html', 'ga_games/ga_mbti-a.html', 'ga_games/ga_mbti-k.html'],
+  publicPaths: ['vi_vibe/vi_library.html', 'on_class/on_notice.html', 'do_docs/do_gpt.html', 'do_docs/do_dev.html', 'do_docs/do_equip.html', 'do_docs/do_program.html', 'vi_vibe/vi_knu.html', 'ga_games/ga_mbti-a.html', 'ga_games/ga_mbti-k.html'],
   publicFolders: [],
   localPaths: [],
   resumablePaths: ['ga_games/ga_idea.html', 'on_class/on_people.html', 'do_docs/do_ai.html', 'do_docs/do_making.html'],

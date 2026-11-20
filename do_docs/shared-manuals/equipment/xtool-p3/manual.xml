@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 장비 매뉴얼 원본 · xTool P3
+  - <photo> : src(로컬 images/ 사본, 이 manual.xml 기준 상대 경로)가 있으면 그것을, 없으면 remote(제조사 공식 이미지 주소)를 씁니다.
+    제조사 사진은 사용 조건을 확인한 뒤 images/ 에 src 이름으로 저장하세요.
+  - 작성 규칙: ../../README.md
+-->
+<manual id="xtool-p3" kind="equipment" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>xTool P3</title>
+  <maker>xTool</maker>
+  <keyword>xTool · 80W CO₂ 레이저 커터</keyword>
+  <description>80W CO₂ 레이저와 자동화 기능을 갖춘 데스크톱 플래그십 커터입니다.</description>
+  <summary>80W CO₂ 레이저로 두꺼운 아크릴과 합판까지 자르는 xTool의 플래그십 모델입니다. 파노라마 카메라와 LiDAR 자동 초점, 자동 위치 잡기(ACS)로 재료를 올려놓고 바로 작업하는 흐름을 목표로 합니다.</summary>
+  <photo src="images/xtool-p3.webp" remote="https://www.xtool.com/cdn/shop/files/mk-p3_ca_pc_us-p3mainimage01_2330-8226.webp?v=1763462606&amp;width=800" alt="xTool P3 제조사 제품 사진"/>
+  <specs>
+    <spec name="레이저">80W CO₂ (옵션: 5W IR 모듈, CMYK 잉크젯 모듈)</spec>
+    <spec name="작업 영역">915×458 mm (36"×18")</spec>
+    <spec name="최대 속도">1,200 mm/s</spec>
+    <spec name="높이">최대 220 mm (AutoLift 베이스, 최대 하중 16 kg)</spec>
+    <spec name="카메라·초점">16MP SkyView 파노라마 + 근접 디테일 카메라(약 0.2 mm), LiDAR 자동 초점</spec>
+    <spec name="절단 예시">바스우드 20 mm, 아크릴 25 mm (공식 페이지 예시)</spec>
+    <spec name="렌즈">M 2.0" 기본 포함 / S 1.5"(정밀), L 2.5"(두꺼운 재료)는 별도</spec>
+    <spec name="공기·냉각">에어 어시스트 최대 200 kPa, 인버터 수냉기 내장</spec>
+    <spec name="안전">Class 1 레이저 안전 등급, 센서·카메라 감시, CO₂ 능동 화재 진압 내장</spec>
+    <spec name="소프트웨어">xTool Studio, Customthings, Atomm / 소재 설정 라이브러리(EasySet) 800종 이상</spec>
+    <spec name="옵션">지능형 컨베이어 피더, 로터리(RA3), IR 모듈, CMYK 모듈</spec>
+  </specs>
+  <pros>
+    <item>80W 출력으로 두꺼운 목재·투명 아크릴 절단</item>
+    <item>데스크톱에서 가장 큰 편인 915×458 mm 작업 영역</item>
+    <item>Class 1 안전 설계와 화재 진압 장치로 교실에서 쓰기 안심</item>
+    <item>스마트 배치(Smart Nesting)와 일괄 채우기로 재료 낭비와 작업 시간을 줄임</item>
+    <item>QR 코드로 재료 설정을 불러오는 EasySet</item>
+  </pros>
+  <cons>
+    <item>부피·무게가 커서 설치 공간과 전원, 배기 설비를 미리 준비해야 합니다.</item>
+    <item>컨베이어·로터리·IR·CMYK 모듈은 대부분 별도 구매입니다.</item>
+    <item>CO₂ 튜브는 소모품입니다. (공식 수명 10,000시간 기준, 출력은 점차 감소)</item>
+    <item>금속 절단은 되지 않고, 금속 각인은 IR 모듈이 필요합니다.</item>
+  </cons>
+  <uses>
+    <item>두꺼운 아크릴·합판으로 만드는 간판, 케이스, 조립 키트</item>
+    <item>학생 수만큼 같은 부품을 한 번에 절단하는 수업 키트 제작</item>
+    <item>대형 작품, 패널, 조명 작품</item>
+    <item>로터리로 컵·병 같은 원통 각인(옵션)</item>
+  </uses>
+  <tips>
+    <tip>재료 위에 바로 배치 확인이 되므로 남은 판재를 다시 활용하기 좋습니다.</tip>
+    <tip>절단 전 에어 어시스트·환기를 켜고, 작업 중 자리를 비우지 않습니다.</tip>
+    <tip>렌즈는 기본 M으로 시작하고 두꺼운 재료만 L로 바꿉니다.</tip>
+  </tips>
+  <links>
+    <link href="https://www.xtool.com/pages/xtool-p3-the-flagship-80w-co2-laser-cutter">xTool P3 공식 페이지</link>
+    <link href="https://www.xtool.com/blogs/buyer-guide/xtool-laser-comparison-x1-p3-p2s-f-series">xTool 레이저 비교 가이드</link>
+    <link href="https://support.xtool.com/">xTool 지원센터</link>
+    <link href="https://www.xtool.com/pages/xtool-laser">xTool 레이저 소개</link>
+    <link href="https://support.xtool.com/article/2553">xTool 지원 문서</link>
+  </links>
+</manual>

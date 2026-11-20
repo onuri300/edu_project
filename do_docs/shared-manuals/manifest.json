@@ -1,0 +1,170 @@
+{
+  "catalogs": {
+    "index.xml": {
+      "id": "onuri-programs",
+      "kind": "program",
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "items": 12,
+      "hash": "bd0846a329ccbaa0"
+    },
+    "ai/index.xml": {
+      "id": "onuri-ai",
+      "kind": "ai",
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "items": 4,
+      "hash": "48f310c3fed473de"
+    },
+    "equipment/index.xml": {
+      "id": "onuri-equipment",
+      "kind": "equipment",
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "items": 6,
+      "hash": "3b2e04109e4d78ca"
+    }
+  },
+  "manuals": {
+    "rdworks": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 4,
+      "hash": "a3b1d3af9c95f86a"
+    },
+    "xtool-studio": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 5,
+      "hash": "94328e1804a3e11d"
+    },
+    "inkscape": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 9,
+      "hash": "28889f9d69e4a26a"
+    },
+    "illustrator": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 5,
+      "hash": "4de4ea7634bf4754"
+    },
+    "canva": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 4,
+      "hash": "42f0655f39ced6bb"
+    },
+    "bambu-studio": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 6,
+      "hash": "62621b1ac044d06e"
+    },
+    "gdrive": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 4,
+      "hash": "a46c46946cde53ad"
+    },
+    "gslides": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 4,
+      "hash": "b9576c455df897e1"
+    },
+    "gsheets": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 4,
+      "hash": "303dd656b8cfba60"
+    },
+    "notion": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 4,
+      "hash": "899e75cbcd959a3d"
+    },
+    "vscode": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 5,
+      "hash": "1abcf8dd8733599a"
+    },
+    "github": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 5,
+      "hash": "6a3604552e9bc44b"
+    },
+    "ai/chatgpt": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "prompts": 200,
+      "hash": "ae90aef9506e16a8"
+    },
+    "ai/claude": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "prompts": 23,
+      "hash": "6bb7b3ffcdd526c0"
+    },
+    "ai/gemini": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "prompts": 19,
+      "hash": "aa8f0f521112cf2a"
+    },
+    "ai/notebooklm": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "prompts": 16,
+      "hash": "bcb0efc7e273cdcb"
+    },
+    "equipment/xtool-f2": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "hash": "224a1c282604dc9b"
+    },
+    "equipment/xtool-p3": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "hash": "af60fb74f8a2f16f"
+    },
+    "equipment/xtool-o1-omni": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "hash": "b8f6c6bc11190d59"
+    },
+    "equipment/bambu-x2d": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "hash": "0a6c51ea169d69c1"
+    },
+    "equipment/bambu-x1c": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "hash": "41412e547fc00479"
+    },
+    "equipment/bambu-h2s": {
+      "version": "1.0.0",
+      "updated": "2026-11-20",
+      "docs": 0,
+      "hash": "693115479628dad5"
+    }
+  },
+  "hash": "a99bf8f1ee1b83a1",
+  "files": 33,
+  "syncedAt": "2026-11-20T04:47:12.040Z",
+  "source": "shared-manuals"
+}

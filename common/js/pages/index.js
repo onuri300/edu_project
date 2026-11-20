@@ -98,6 +98,31 @@
       if (!groups.has(row.group_code)) groups.set(row.group_code, { name: row.group.name, items: [] });
       groups.get(row.group_code).items.push({ name: row.menu.name, url: row.page_path, subgroup: row.subgroup?.name });
     }
+    const documents = groups.get('MG_DOCUMENT')?.items;
+    if (documents) {
+      const labels = new Map([
+        ['do_docs/do_ai.html', 'AI Newsletter'],
+        ['do_docs/do_making.html', 'Making Newsletter'],
+        ['do_docs/do_equip.html', 'Equipment Manual'],
+        ['do_docs/do_program.html', 'Program Manual'],
+        ['do_docs/do_gpt.html', 'AI Manual'],
+        ['do_docs/do_dev.html', 'Dev Manual'],
+      ]);
+      if (!documents.some(item => item.url === 'do_docs/do_equip.html')) {
+        documents.push({ url: 'do_docs/do_equip.html' });
+      }
+      const equipmentIndex = documents.findIndex(item => item.url === 'do_docs/do_equip.html');
+      if (equipmentIndex >= 0 && !documents.some(item => item.url === 'do_docs/do_program.html')) {
+        documents.splice(equipmentIndex + 1, 0, { url: 'do_docs/do_program.html', subgroup: documents[equipmentIndex].subgroup });
+      }
+      const newsletters = [...labels.keys()].slice(0, 2);
+      for (const item of documents) {
+        if (labels.has(item.url)) item.name = labels.get(item.url);
+        if (newsletters.includes(item.url)) delete item.subgroup;
+      }
+      const priority = item => newsletters.includes(item.url) ? newsletters.indexOf(item.url) : newsletters.length;
+      documents.sort((left, right) => priority(left) - priority(right));
+    }
     return { cats: [...groups.values()] };
   }
 

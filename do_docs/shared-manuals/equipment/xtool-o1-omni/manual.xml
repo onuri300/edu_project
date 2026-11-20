@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  공통 장비 매뉴얼 원본 · xTool O1 Omni
+  - <photo> : src(로컬 images/ 사본, 이 manual.xml 기준 상대 경로)가 있으면 그것을, 없으면 remote(제조사 공식 이미지 주소)를 씁니다.
+    제조사 사진은 사용 조건을 확인한 뒤 images/ 에 src 이름으로 저장하세요.
+  - 작성 규칙: ../../README.md
+-->
+<manual id="xtool-o1-omni" kind="equipment" schemaVersion="2" lang="ko" version="1.0.0" updated="2026-11-20" checked="2026-11-18">
+  <title>xTool O1 Omni</title>
+  <maker>xTool</maker>
+  <keyword>xTool · 4-in-1 인쇄</keyword>
+  <description>UV, UV DTF, DTG, DTF 네 가지 방식으로 인쇄하는 프린터입니다.</description>
+  <summary>하나의 장비로 UV 직접 인쇄, UV DTF, 의류 직접 인쇄(DTG), 필름 전사(DTF)를 할 수 있는 xTool의 데스크톱 프린터입니다. 에디션에 따라 가능한 방식이 다르고, 구매 후 업그레이드는 되지 않습니다.</summary>
+  <photo src="images/xtool-o1-omni.webp" remote="https://www.xtool.com/cdn/shop/files/mk-baidituyingyong_us_pc_o1_8878-180.webp?v=1790145444&amp;width=800" alt="xTool O1 Omni 제조사 제품 사진"/>
+  <specs>
+    <spec name="인쇄 방식">UV(모든 에디션) · UV DTF(모든 에디션, LM1 라미네이터 필요) · DTG / DTF(UV + DT Fabric 에디션만)</spec>
+    <spec name="에디션">UV + DT Fabric / Dual-Head UV / Single UV</spec>
+    <spec name="프린트 헤드">Epson F1080 — UV+DT·Dual-Head 2개, Single 1개</spec>
+    <spec name="인쇄 영역">기본 330×122 mm · 대형 330×420 mm · DTG 플래튼 300×390 mm</spec>
+    <spec name="해상도·정밀도">720×1440 dpi, 위치 정확도 ±0.2 mm, 인쇄 높이 7 mm, 엠보싱 인쇄 지원</spec>
+    <spec name="본체 크기·무게">714×374×468.5 mm, 약 40.6~41.1 kg</spec>
+    <spec name="소프트웨어">xTool Studio (Windows·macOS), 원격 청소·제어 앱</spec>
+    <spec name="옵션">RF1 롤 피더, LM1 라미네이터, OR1 로터리, WonderPress(열프레스)</spec>
+  </specs>
+  <pros>
+    <item>하나의 장비로 단단한 재료와 천 모두 인쇄(에디션에 따라)</item>
+    <item>아크릴·나무·금속·유리·세라믹 등 다양한 표면에 풀컬러 인쇄</item>
+    <item>엠보싱(입체감) 인쇄 지원</item>
+    <item>백색 잉크 교반·순환 등 자동 관리 기능</item>
+  </pros>
+  <cons>
+    <item>에디션 선택이 곧 기능 범위입니다. 구매 후 업그레이드가 되지 않습니다.</item>
+    <item>UV DTF는 라미네이터, DTF는 접착 파우더와 열프레스가 따로 필요합니다.</item>
+    <item>공식 페이지에 출력 속도 수치가 나와 있지 않습니다.</item>
+    <item>공식 페이지 기준 xTool Studio 지원 장비 목록에 F 시리즈는 아직 계획 단계로 적혀 있습니다.</item>
+  </cons>
+  <uses>
+    <item>컵·텀블러·아크릴 키링에 풀컬러 인쇄</item>
+    <item>레이저로 자른 부품 위에 컬러 그림 입히기(인쇄 후 절단)</item>
+    <item>티셔츠·에코백 맞춤 제작(UV + DT Fabric 에디션)</item>
+    <item>학생 작품을 굿즈로 만드는 수업</item>
+  </uses>
+  <tips>
+    <tip>출시·배송 상태와 번들 구성은 공식 페이지에서 먼저 확인하세요.</tip>
+    <tip>레이저 작업(F2·P3)과 연결해 “자르기 + 인쇄” 수업으로 구성하면 활용도가 높습니다.</tip>
+  </tips>
+  <links>
+    <link href="https://www.xtool.com/products/the-worlds-first-4-in-1-xtool-o1-omni-printer">xTool O1 Omni 공식 페이지</link>
+    <link href="https://www.xtool.com/pages/software">xTool Studio</link>
+    <link href="https://support.xtool.com/article/3084?from=xTool+O1+Omni+Printer&amp;url=%2Fproduct%2F94">xTool 지원 문서</link>
+  </links>
+</manual>

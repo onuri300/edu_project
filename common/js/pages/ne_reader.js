@@ -14,19 +14,31 @@
     const query=$('report-search').value.toLocaleLowerCase(),period=$('report-frequency').value;const items=all().filter(r=>(!period||r.frequency===period)&&`${r.title} ${r.summary||''} ${(r.tags||[]).join(' ')} ${r.text}`.toLocaleLowerCase().includes(query));
     $('report-list').replaceChildren();$('report-count').textContent=`${items.length}개 뉴스레터`;$('report-empty').hidden=items.length>0;
     $('report-empty').textContent=all().length?'검색 결과가 없습니다.':'아직 등록된 뉴스레터가 없습니다. 다음 뉴스레터를 준비 중입니다.';
-    let previousDate=null;
+    let previousDate;
+    let dateItems;
     for(const report of items){
-      if(report.date!==previousDate){const heading=document.createElement('h2');heading.className='report-date';heading.textContent=report.date||'날짜 미지정';$('report-list').append(heading);previousDate=report.date;}
+      if (report.date !== previousDate) {
+        const branch = document.createElement("details");
+        branch.className = "document-tree-branch";
+        branch.open = Boolean(query || period);
+        const heading = document.createElement("summary");
+        heading.textContent = report.date || "날짜 미지정";
+        dateItems = document.createElement("div");
+        dateItems.className = "document-tree-items";
+        branch.append(heading, dateItems);
+        $("report-list").append(branch);
+        previousDate = report.date;
+      }
       const button=document.createElement('button');button.type='button';button.className='report-item';button.dataset.id=report.id;button.setAttribute('aria-current',String(selected===report.id));
-      const title=document.createElement('strong');title.textContent=report.title;const meta=document.createElement('small');meta.textContent=`${frequency(report)} · ${report.type.toUpperCase()} · ${Math.ceil(report.bytes/1024)} KB${report.blob?' · 브라우저 보관':''}`;button.append(title,meta);button.onclick=()=>read(report);$('report-list').append(button);
+      const title=document.createElement('strong');title.textContent=report.title;const meta=document.createElement('small');meta.textContent=`${frequency(report)} · ${report.type.toUpperCase()} · ${Math.ceil(report.bytes/1024)} KB${report.blob?' · 브라우저 보관':''}`;button.append(title,meta);button.onclick=()=>read(report);dateItems.append(button);
     }
     const wanted=requestedId();
     if(wanted&&!all().some(r=>r.id===wanted)){clearReader();$('reader-placeholder').textContent='해당 ID의 뉴스레터를 찾을 수 없습니다. 왼쪽 목록에서 다른 리포트를 선택하세요.';return;}
-    const current=items.find(r=>r.id===(wanted||selected));if(current)read(current);else if(items.length)read(items[0]);else clearReader();
+    const current=items.find(r=>r.id===(wanted||selected));if(current)read(current, false);else if(items.length)read(items[0], false);else clearReader();
   }
-  function read(report){
+  function read(report, updateHash = true){
     if(activeUrl)URL.revokeObjectURL(activeUrl);selected=report.id;
-    if(requestedId()!==report.id)history.replaceState(null,'','#report='+encodeURIComponent(report.id));
+    if(updateHash && requestedId()!==report.id)history.replaceState(null,'','#report='+encodeURIComponent(report.id));
     const blob=report.blob||new Blob([report.text],{type:report.type==='html'?'text/html;charset=utf-8':'text/plain;charset=utf-8'});
     activeUrl=report.type==='pdf'&&!report.blob?null:URL.createObjectURL(blob);
     $('reader-placeholder').hidden=true;$('reader-content').hidden=false;$('reader-title').textContent=report.title;$('reader-meta').textContent=`${channelName} · ${frequency(report)} · 발행 ${report.date||'날짜 미지정'}${report.period_start?' · 조사 '+report.period_start+' ~ '+report.period_end:''} · 예상 읽기 ${report.reading_minutes_estimate||Math.max(1,Math.round(report.text.length/500))}분`;
@@ -51,6 +63,5 @@
   }
   $('reader-download').onclick=async event=>{const report=all().find(r=>r.id===selected);if(!report||report.blob||location.protocol==='file:')return;event.preventDefault();try{const response=await fetch(new URL(report.url,window.eduAuth.root));if(!response.ok)throw Error();const url=URL.createObjectURL(await response.blob()),link=document.createElement('a');link.href=url;link.download=report.filename;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch{status('다운로드하지 못했습니다. 웹 서버에서 열었는지 확인해 주세요.');}};
   $('report-search').oninput=render;$('report-frequency').onchange=render;window.addEventListener('hashchange',render);
-  $('report-toggle').onclick=()=>{const collapsed=document.querySelector('.newsletter-workspace').classList.toggle('list-collapsed');$('report-sidebar').inert=collapsed;$('report-toggle').textContent=collapsed?'›':'‹';$('report-toggle').setAttribute('aria-expanded',String(!collapsed));$('report-toggle').setAttribute('aria-label',collapsed?'날짜 목록 펼치기':'날짜 목록 접기');};
   window.addEventListener('pagehide',()=>{if(activeUrl)URL.revokeObjectURL(activeUrl);});render();
 })();
