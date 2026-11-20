@@ -85,6 +85,7 @@
   const createLink = (id, label) => {
     const anchor = element('a', label);
     anchor.href = hrefFor(id);
+    anchor.dataset.manualEntry = id;
     return anchor;
   };
 
@@ -395,7 +396,7 @@
     }
   }
 
-  function renderPromptSet({ section, set, prompt: selected }) {
+  function renderPromptSet({ section, set, prompt: selected }, scrollToPrompt) {
     const title = element('h2', set.source.getAttribute('title'));
     title.id = 'equip-title';
     pane.replaceChildren(title);
@@ -422,7 +423,7 @@
       }
       pane.append(card);
     }
-    if (selected !== set.prompts[0]) requestAnimationFrame(() => document.getElementById(selected.getAttribute('id'))?.scrollIntoView());
+    if (scrollToPrompt && selected !== set.prompts[0]) requestAnimationFrame(() => document.getElementById(selected.getAttribute('id'))?.scrollIntoView());
   }
 
   function populateTree(groups, active, matches) {
@@ -563,7 +564,23 @@
       });
       program.addEventListener('change', updateSelection);
 
-      function render() {
+      let previousTreeKey;
+      let previousCategory;
+      function selectTreeLink(active, requested) {
+        const links = [...tree.querySelectorAll('[data-manual-entry]')];
+        const exact = links.find(link => link.dataset.manualEntry === requested);
+        const fallback = active?.set?.prompts[0]?.getAttribute('id');
+        const selected = exact || links.find(link => link.dataset.manualEntry === fallback);
+        for (const link of links) {
+          if (link === selected) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        }
+        for (let branch = selected?.closest('details'); branch; branch = branch.parentElement.closest('details')) {
+          branch.open = true;
+        }
+      }
+
+      function render(preserveViewport = false) {
         const params = new URLSearchParams(location.search);
         const hash = location.hash.slice(1);
         const requested = params.get('id') || (/^(pg|eq)-/.test(hash) ? hash : idFor(equipment ? oldEquipmentIds[hash] || hash : hash));
@@ -585,8 +602,11 @@
         }
         category.value = categoryId;
         const categoryGroups = category.value ? groups.filter(group => group.id === category.value) : groups;
-        program.replaceChildren(new Option('전체 ' + itemLabel, ''), ...categoryGroups.flatMap(group =>
-          group.programs.map(item => new Option(plain(item.manual, 'title'), item.id))));
+        if (previousCategory !== category.value) {
+          program.replaceChildren(new Option('전체 ' + itemLabel, ''), ...categoryGroups.flatMap(group =>
+            group.programs.map(item => new Option(plain(item.manual, 'title'), item.id))));
+          previousCategory = category.value;
+        }
         program.value = programId;
         const visibleGroups = program.value ? categoryGroups
           .map(group => ({ ...group, programs: group.programs.filter(item => item.id === program.value) }))
@@ -598,13 +618,18 @@
         const treeGroups = matches ? visibleGroups.map(group => ({ ...group, programs: group.programs.filter(item =>
           item.sections.some(section => section.sets.some(set => set.prompts.some(prompt => matches.has(prompt))))
         ) })) : visibleGroups;
-        populateTree(treeGroups, active, matches);
+        const treeKey = JSON.stringify([category.value, program.value, terms]);
+        if (previousTreeKey !== treeKey) {
+          populateTree(treeGroups, active, matches);
+          previousTreeKey = treeKey;
+        }
+        selectTreeLink(active, requested);
         overviewLink.removeAttribute('aria-current');
         if (hash === 'lesson-guide') {
           const title = element('h2', '교안 제작 지침과 피드백');
           title.id = 'equip-title';
           pane.replaceChildren(title, document.querySelector('#equip-manual-lesson-guide').content.cloneNode(true));
-        } else if (active?.prompt) renderPromptSet(active);
+        } else if (active?.prompt) renderPromptSet(active, !preserveViewport);
         else if (active && ai) renderAiIntro(active.program);
         else if (active?.doc) renderDocument(active.program, active.doc);
         else if (active) renderSummary(active.program);
@@ -613,7 +638,21 @@
           renderOverview(overview, visibleGroups, Boolean(category.value || program.value));
         }
       };
-      window.addEventListener('hashchange', render);
+      function openEntry(event) {
+        const link = event.target.closest('a[data-manual-entry], a[href="#lesson-guide"]');
+        if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        const destination = new URL(link.href);
+        if (destination.href !== location.href) history.pushState(null, '', destination);
+        render(true);
+      }
+      tree.closest('nav').addEventListener('click', openEntry);
+      pane.addEventListener('click', openEntry);
+      window.addEventListener('hashchange', () => render(true));
+      window.addEventListener('popstate', () => {
+        search.value = new URLSearchParams(location.search).get('q') || '';
+        render(true);
+      });
       render();
     } catch {
       const error = element('p', '공통 매뉴얼을 불러오지 못했습니다 — 원본을 다시 가져온 뒤 새로고침하세요');
