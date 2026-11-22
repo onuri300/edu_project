@@ -12,6 +12,12 @@ test('every HTML uses shared assets with valid local CSS and script paths', asyn
     for (const file of (await readdir(path.join(root, folder))).filter(file => file.endsWith('.html'))) {
       const page = path.join(root, folder, file);
       const html = await readFile(page, 'utf8');
+      const alias = html.match(/<a data-route-alias href="([^"]+)"/);
+      if (alias) {
+        await access(path.resolve(path.dirname(page), alias[1]));
+        assert.match(html, /route-redirect[.]js/);
+        continue;
+      }
       assert.match(html, /href="(?:\.\.\/)*onuri\.framework\/css\/common\.css"/, page);
       assert.match(html, /src="(?:\.\.\/)*onuri\.framework\/js\/common\.js"/, page);
       assert.match(html, /common\/data\/site-config\.js[\s\S]*onuri\.framework\/js\/auth\.js/, page);
@@ -31,7 +37,7 @@ test('every HTML uses shared assets with valid local CSS and script paths', asyn
       count++;
     }
   }
-  assert.equal(count, 27);
+  assert.equal(count, 28);
   const names = await readdir(root);
   assert.ok(names.includes('index.html'), 'Login entry page stays at index.html');
   const entry = await readFile(path.join(root, 'index.html'), 'utf8');
@@ -47,7 +53,7 @@ test('local previews contain the current layout fragments', async () => {
 });
 
 test('grouped pages and assets follow the naming convention', async () => {
-  const group = /^(?:vi|ga|cl|mo|ne|mk|ma|do|on)_[a-z][a-z0-9-]{0,6}$/;
+  const group = /^(?:vi|ga|cl|mo|ne|mk|ma|do|on|mn|bd)_[a-z][a-z0-9-]{0,6}$/;
   for (const folder of pageFolders.filter(folder => group.test(folder.split('/')[0]))) {
     assert.ok(folder.split('/').every(part => group.test(part)), folder);
     for (const name of (await readdir(path.join(root, folder))).filter(name => name.endsWith('.html'))) {
@@ -66,3 +72,4 @@ test('grouped pages and assets follow the naming convention', async () => {
 
 
 });
+

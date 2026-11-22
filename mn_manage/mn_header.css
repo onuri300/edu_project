@@ -1,0 +1,9 @@
+.resource-hero-copy {
+  min-inline-size: 0;
+}
+
+.resource-hero-copy #resource-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

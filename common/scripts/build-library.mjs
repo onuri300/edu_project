@@ -88,7 +88,7 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
   for (const name of await readdir(source)) {
     if (name.endsWith('.html')) await copyFile(path.join(source, name), path.join(output, name));
   }
-  for (const folder of ['vi_vibe', 'ga_games', 'do_docs', 'on_class']) await copyOptional(source, output, folder);
+  for (const folder of ['vi_vibe', 'ga_games', 'do_docs', 'on_class', 'bd_board', 'mn_manual', 'mn_manage', 'cl_class']) await copyOptional(source, output, folder);
   for (const relative of ['common/css', 'common/js']) {
     await cp(path.join(source, relative), path.join(output, relative), {
       recursive: true,

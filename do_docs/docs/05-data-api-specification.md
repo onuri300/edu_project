@@ -28,7 +28,7 @@
 
 게시글 기본키는 `tbl_board.board_id`이며, `author_id`는 `tbl_users.user_id`를 참조합니다. 작성 시 인증 계정이 작성자로 지정됩니다. 웹은 게시글 키로 `board_author_names`를 호출해 공개 범위에 해당하는 작성자 표시명만 가져옵니다. `tbl_users.user_id`는 Supabase `auth.users.id`를 참조합니다. 스키마와 ERD는 호환 컬럼 제거 후의 구조를 표시합니다.
 
-[공지사항 JS](../../common/js/pages/mo_notice.js)는 브라우저용 Supabase 클라이언트를 사용합니다. 공개 인터페이스는 `public.tbl_board`입니다. `public.tbl_board`에 컬럼 권한과 RLS가 적용됩니다. 아래 컬럼과 제약은 운영 Supabase의 스키마를 읽기 전용으로 조회해 확인했습니다.
+[공통 게시판 JS](../../bd_board/bd_board.js)는 브라우저용 Supabase 클라이언트를 사용합니다. 공개 인터페이스는 `public.tbl_board`입니다. `public.tbl_board`에 컬럼 권한과 RLS가 적용됩니다. 아래 컬럼과 제약은 운영 Supabase의 스키마를 읽기 전용으로 조회해 확인했습니다.
 
 | 필드 | 소스에서 확인되는 계약 |
 |---|---|

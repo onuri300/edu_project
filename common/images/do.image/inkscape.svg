@@ -146,7 +146,7 @@
 	.outline-big {stroke-width:16;stroke:none;opacity:0.1;fill:none;}
 	.outline-small {stroke-width:8;stroke:none;opacity:0.2;fill:none;}
 	.stroke-highlight {fill:none;stroke:none;opacity:0.2;}
-        .base-shadow 	{fill:black;opacity:75;}
+       	.base-shadow 	{fill:black;opacity:75;}
 	</style>
 <!-- Copyright License -->
 <metadata id="metadata49">

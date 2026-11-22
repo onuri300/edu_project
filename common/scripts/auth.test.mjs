@@ -54,22 +54,22 @@ test('living-lab handouts are public without a session on HTTPS and local files'
 });
 test('direct HTML URLs require credentials on HTTPS and file previews', () => {
   for (const base of [root, 'file:///D:/project/edu_project/']) {
-    assert.equal(load(base, 'ga_games/ga_ladder.html').redirected(), new URL('index.html?login=required', base).href);
+    assert.equal(load(base, 'cl_class/cl_ladder.html').redirected(), new URL('index.html?login=required', base).href);
   }
 });
 test('login session alone cannot authorize a manually entered path', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
-  assert.equal(load(root, 'ga_games/ga_ladder.html', { storage: entry.storage }).redirected(), root + 'index.html?login=required');
+  assert.equal(load(root, 'cl_class/cl_ladder.html', { storage: entry.storage }).redirected(), root + 'index.html?login=required');
   assert.equal(entry.storage.has('onuri-session-v1'), false);
 });
 test('a clicked internal route is permitted once and manual path editing forces reauthentication', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
-  entry.window.eduAuth.allowNavigation(root + 'ga_games/ga_ladder.html');
-  const child = load(root, 'ga_games/ga_ladder.html', { storage: entry.storage });
+  entry.window.eduAuth.allowNavigation(root + 'cl_class/cl_ladder.html');
+  const child = load(root, 'cl_class/cl_ladder.html', { storage: entry.storage });
   assert.equal(child.document.documentElement.dataset.auth, 'ready');
-  const reload = load(root, 'ga_games/ga_ladder.html', { storage: entry.storage, navigation: 'reload' });
+  const reload = load(root, 'cl_class/cl_ladder.html', { storage: entry.storage, navigation: 'reload' });
   assert.equal(reload.document.documentElement.dataset.auth, 'ready');
-  assert.equal(load(root, 'on_class/on_quiz/on_cards.html', { storage: entry.storage }).redirected(), root + 'index.html?login=required');
+  assert.equal(load(root, 'cl_class/cl_cards.html', { storage: entry.storage }).redirected(), root + 'index.html?login=required');
 });
 test('normal internal links and logo home links preserve the authenticated session', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
@@ -83,7 +83,7 @@ test('normal internal links and logo home links preserve the authenticated sessi
 });
 test('new-tab approval is tied to the exact tab and target and cannot be reused after editing the path', () => {
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
-  const target = root + 'on_class/on_quiz/on_quiz.html';
+  const target = root + 'cl_class/cl_quiz.html';
   assert.equal(entry.window.eduAuth.openPage(target), true);
   const tab = entry.opened[0]; assert.equal(tab.url, target);
   const child = load(root, target, { opener: entry.window, windowObject: tab });
@@ -94,7 +94,7 @@ test('new-tab approval is tied to the exact tab and target and cannot be reused 
   child.emit('message', { source: entry.window, data: child.posted[0] });
   assert.equal(child.document.documentElement.dataset.auth, 'ready');
   assert.equal(child.window.opener, null);
-  assert.equal(load(root, 'ga_games/ga_ladder.html', { storage: child.storage }).redirected(), root + 'index.html?login=required');
+  assert.equal(load(root, 'cl_class/cl_ladder.html', { storage: child.storage }).redirected(), root + 'index.html?login=required');
   const before = child.posted.length;
   entry.emit('message', { source: child.window, data: request });
   assert.equal(child.posted.length, before);
@@ -103,19 +103,19 @@ test('expired sessions and index login-required parameter clear the saved sessio
   const entry = load(root, 'index.html'); entry.window.eduAuth.setSession(menu);
   assert.equal(load(root, 'index.html?login=required', { storage: entry.storage }).window.eduAuth.getSession(), null);
   const invalid = new Map([['onuri-session-v1', JSON.stringify({ expiresAt: Date.now() - 1, menu })]]);
-  assert.equal(load(root, 'on_class/on_quiz/on_cards.html', { storage: invalid }).redirected(), root + 'index.html?login=required');
+  assert.equal(load(root, 'cl_class/cl_cards.html', { storage: invalid }).redirected(), root + 'index.html?login=required');
 });
 test('isolated file iframe only accepts a valid parent response with matching nonce', () => {
-  const result = load('file:///D:/project/edu_project/', 'ga_games/ga_ladder.html', { embedded: true });
+  const result = load('file:///D:/project/edu_project/', 'cl_class/cl_ladder.html', { embedded: true });
   const data = { type: 'onuri:session-response', nonce: result.posted[0].nonce, session: { expiresAt: Date.now() + 10000, menu } };
   result.emit('message', { source: {}, data }); assert.equal(result.document.documentElement.dataset.auth, 'pending');
   result.emit('message', { source: result.parent, data }); assert.equal(result.document.documentElement.dataset.auth, 'ready');
 });
 
 test('makerspace and MBTI pages open publicly without login or opener, including reloads and local files', () => {
- for(const base of [root,'file:///D:/project/edu_project/'])for(const page of ['vi_vibe/vi_knu.html','ga_games/ga_mbti-a.html','ga_games/ga_mbti-k.html']){
+ for(const base of [root,'file:///D:/project/edu_project/'])for(const page of ['vi_vibe/vi_knu.html','cl_class/cl_mbti-a.html','cl_class/cl_mbti-k.html']){
   const result=load(base,page);assert.equal(result.redirected(),undefined);assert.equal(result.document.documentElement.dataset.auth,'public');assert.equal(result.timers.length,0);assert.equal(result.window.eduAuth.openPage(new URL(page,base).href),true);
   assert.equal(load(base,page,{navigation:'reload'}).document.documentElement.dataset.auth,'public');
  }
- assert.ok(load(root,'ga_games/ga_ladder.html').redirected());
+ assert.ok(load(root,'cl_class/cl_ladder.html').redirected());
 });

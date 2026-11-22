@@ -5,32 +5,32 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 export const pageFolders = ['.', 'mng', 'do_docs',
-  'ga_games', 'on_class', 'on_class/on_quiz', 'vi_vibe', 'vi_vibe/vi_onuri', 'vi_vibe/vi_onyou'];
+  'ga_games', 'cl_class', 'mn_manual', 'mn_manage', 'bd_board', 'on_class', 'on_class/on_quiz', 'vi_vibe', 'vi_vibe/vi_onuri', 'vi_vibe/vi_onyou'];
 const region = /<!-- layout:([a-z-]+) -->\r?\n[\s\S]*?\r?\n<!-- \/layout:\1 -->/g;
 const resourceBanners = {
-  'do_equip.html': {
+  'mn_equip.html': {
     variant: 'resource-hero-compact',
-    title: '장비 매뉴얼',
+    title: "Equipment · 장비",
     description: '오누리 작업실의 용도별 장비와 사양를 확인하세요.',
     image: 'common/images/ne.image/ai-newsletter-hero.png',
   },
-  'do_program.html': {
+  'mn_program.html': {
     variant: 'resource-hero-compact',
-    title: '프로그램 매뉴얼',
+    title: "Programs · 프로그램",
     description: '오누리 작업실의 제작·AI·개발 및 배포 프로그램을 확인하세요.',
     image: 'common/images/ne.image/ai-newsletter-hero.png',
   },
-  'on_people.html': {
+  'mn_staff.html': {
     variant: 'resource-hero-compact',
-    eyebrow: 'ONURI / onuriClass',
-    title: '인사관리',
+    eyebrow: 'ONURI / MANAGEMENT',
+    title: '스태프 관리',
     description: '오누리 프로젝트 에이전트의 역할과 담당 업무를 확인하세요.',
     image: 'common/images/shared/index-hero.png',
   },
-  'do_dev.html': {
+  'mn_dev.html': {
     variant: 'resource-hero-compact',
     eyebrow: 'ONURI / DEVELOPER GUIDE',
-    title: 'Dev Manual',
+    title: "Dev · 개발 명세",
     description: '프로젝트 구조, 공통 프레임워크, API와 페이지 개발 규칙을 확인하세요.',
     image: 'common/images/ne.image/ai-newsletter-hero.png',
   },
@@ -40,55 +40,55 @@ const resourceBanners = {
     description: '수업에 필요한 교안을 미리 보고 내려받을 수 있는 리빙랩 자료실입니다.',
     image: 'common/images/shared/index-hero.png', width: 1536, height: 1024,
   },
-  'ga_idea.html': {
+  'cl_idea.html': {
     variant: 'resource-hero-compact',
-    title: 'edumaker idea card',
+    title: "Edumaker Idea Card",
     description: '세 가지 주제의 제작 사례 15개에서 아이디어를 골라 우리 팀의 프로젝트를 시작해 보세요.',
     image: 'common/images/cl.image/edumaker-idea-card-hero.png', width: 600, height: 360,
   },
-  'on_quiz.html': {
+  'cl_quiz.html': {
     variant: 'resource-hero-compact',
     eyebrow: 'ONURI / PLAY TOGETHER',
-    title: '컴퓨터 탐험 퀴즈',
+    title: "Computer Quiz",
     description: 'AI, 개인정보 보호, 코딩, 3D 프린팅까지 100문제로 디지털 세상을 탐험해 보세요.',
     image: 'common/images/ga.image/computer-quiz-hero.png',
   },
-  'on_cards.html': {
+  'cl_cards.html': {
     variant: 'resource-hero-compact',
     eyebrow: 'ONURI / PLAY TOGETHER',
-    title: 'IT 플래시카드',
+    title: "IT Flashcards",
     description: '설명을 읽고 키워드를 떠올려 보세요. 카드를 클릭하면 키워드가 나타납니다.',
     image: 'common/images/ga.image/computer-quiz-hero.png',
   },
-  'ga_ladder.html': {
+  'cl_ladder.html': {
     eyebrow: 'ONURI / PLAY TOGETHER',
-    title: '사다리 게임',
+    title: "Ladder Game",
     description: '이름과 결과를 입력하고, 각자 어떤 결과에 도착하는지 확인하세요.',
     image: 'common/images/ga.image/computer-quiz-hero.png',
   },
   'on_notice.html': {
     variant: 'resource-hero-compact',
     eyebrow: 'ONURI / NEWS & UPDATES',
-    title: 'Announcements',
+    title: 'Notice',
     description: '새로운 소식과 수업 운영 안내를 확인하세요.',
     image: 'common/images/shared/index-hero.png',
   },
-  'do_gpt.html': {
+  'mn_ai.html': {
     variant: 'resource-hero-compact',
     eyebrow: 'ONURI / PROMPT LIBRARY',
-    title: 'AI 매뉴얼',
+    title: "AI · 인공지능",
     description: 'ChatGPT, Claude, Gemini, NotebookLM의 활용법과 프롬프트를 확인하세요.',
     image: 'common/images/ne.image/ai-newsletter-hero.png',
   },
-  'ga_mbti-a.html': {
+  'cl_mbti-a.html': {
     eyebrow: 'ONURI / PLAY TOGETHER',
-    title: '나의 진짜 성격 찾기',
+    title: "Adult MBTI Test",
     description: '24개 문항으로 알아보는 심층 성격 유형 진단',
     image: 'common/images/ga.image/mbti-adult-hero.png',
   },
-  'ga_mbti-k.html': {
+  'cl_mbti-k.html': {
     eyebrow: 'ONURI / PLAY TOGETHER',
-    title: '나의 성격 탐험대 🚀',
+    title: "Kids’ MBTI Test",
     description: '질문 8개로 알아보는 나만의 동물 캐릭터!',
     image: 'common/images/ga.image/mbti-adult-hero.png',
   },
@@ -185,3 +185,4 @@ export async function buildLayoutPages(source = root, { check = false } = {}) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   await buildLayoutPages(root, { check: process.argv.includes('--check') });
 }
+

@@ -11,17 +11,17 @@
 | 메뉴 | 현재 소스와 구성 |
 |---|---|
 | Vibe Coding | `vi_vibe/` · Living Lab Library, 메이커 활동과 포트폴리오 |
-| Games | `ga_games/` · 사다리 게임, MBTI, Edumaker Idea Card |
-| Document | `do_docs/` 바로 아래에 GPT Manual, Dev Manual, Making Newsletter, AI Newsletter |
-| onuriClass | `on_class/` · Announcements → 인사관리. Quiz 하위 그룹은 `on_class/on_quiz/` |
+| Class Activities | `cl_class/` · 아이디어 카드, IT 플래시카드, 컴퓨터 퀴즈, 사다리 타기, 성인·어린이 MBTI |
+| Manual | `mn_manual/` · 장비, 프로그램, AI, 개발 명세 |
+| Mng. 관리 | `mn_manage/` · 게시판(공지사항·자료실), 스태프 관리 |
 
-- **REQ-02** 새 HTML과 하위 폴더는 소속 그룹의 접두어를 사용하세요. 예를 들어 Document는 `do_`, onuriClass는 `on_`입니다. 페이지를 이동하면 `tbl_menu.page_path`, `site-config.js`, 관련 빌드 설정을 갱신하세요. 이동 후 비어 있는 폴더와 참조가 없는 교체 파일은 확인 후 정리하세요.
+- **REQ-02** 새 HTML과 하위 폴더는 소속 그룹의 접두어를 사용하세요. 예를 들어 Document는 `do_`, Management는 `mn_`입니다. 페이지를 이동하면 `tbl_menu.page_path`, `site-config.js`, 관련 빌드 설정을 갱신하세요. 이동 후 비어 있는 폴더와 참조가 없는 교체 파일은 확인 후 정리하세요.
 - **REQ-03** `onuri.framework`의 헤더·테마·푸터를 재사용하세요. 목록과 상세가 있는 화면은 공통 reader 레이아웃을 사용하고, 본문·상단 바는 같은 최대 너비와 좌우 여백에 맞추세요. 내용이 짧으면 푸터는 화면 하단, 내용이 길면 본문 끝에 놓으세요. 축소 배너는 `resource-hero-compact`를 사용하세요. 공통 버튼은 `onuri-button`을 사용하고 페이지 전용 CSS·JS는 `common/css/pages/`, `common/js/pages/`에 두세요.
 - **REQ-04** 폼이나 탭을 추가하면 레이블과 키보드 포커스, 선택·저장·삭제 후 상태를 확인하세요. 노트북의 낮은 화면 높이에서도 로그인 시작 버튼에 접근할 수 있어야 합니다. 일반 로그인은 기존 사이트 인증을 사용하고, 관리자 체크 로그인은 Supabase 관리자 권한을 확인해 두 세션을 연결합니다. 로그인, 새 탭, 새로고침과 로그아웃은 공통 인증 흐름을 사용하세요. [프레임워크 매뉴얼](02-framework-manual.md)과 [CSS 클래스 레퍼런스](03-css-reference.md)를 참고하세요.
 
 ## 3. 데이터는 XML 우선
 
-- **REQ-05** 인사 프로필, 역할, 담당 업무, 지침서처럼 파일로 관리할 수 있는 상세 콘텐츠는 XML을 우선 사용하세요. 인사관리는 `tbl_emp.profile_file`로 직원별 XML 하나를 읽습니다. 초기 파일은 `on_class/guides/`에 있고, 브라우저에서 편집해 저장한 파일은 비공개 Supabase Storage에 있습니다. 이름·직급·미션·성향·장단점·업무는 각 태그로, 지침서는 `<prompt>`로 연결하세요. 지침서를 삭제할 때는 `<prompt>`만 제거하고 인사카드는 유지하세요. 로컬 직접 열기용 `on_xml.js`도 XML 원본에서 갱신하세요.
+- **REQ-05** 인사 프로필, 역할, 담당 업무, 지침서처럼 파일로 관리할 수 있는 상세 콘텐츠는 XML을 우선 사용하세요. 인사관리는 `tbl_emp.profile_file`로 직원별 XML 하나를 읽습니다. 초기 파일은 `mn_manage/mn_guides/`에 있고, 브라우저에서 편집해 저장한 파일은 비공개 Supabase Storage에 있습니다. 이름·직급·미션·성향·장단점·업무는 각 태그로, 지침서는 `<prompt>`로 연결하세요. 지침서를 삭제할 때는 `<prompt>`만 제거하고 인사카드는 유지하세요. 로컬 직접 열기용 `on_xml.js`도 XML 원본에서 갱신하세요.
 - **REQ-06** DB는 공통코드, 사원·부서 식별과 관계, 파일명, 업무평가, 권한, 게시글처럼 공유 저장과 접근 제어가 필요한 곳에 사용하세요. 상세 프로필이나 지침서 본문을 DB에 복제하거나 기능마다 테이블을 추가하지 마세요. `tbl_evalu.member_id`는 `tbl_emp.emp_code`를 참조합니다. 부서·게시판 표시 이름은 `tbl_comcode`에서 가져오고, 게시판은 `tbl_board` 테이블과 게시판 코드를 재사용하세요. 기존 공지사항 코드는 `notice`입니다.
 - **DB 컬럼 명명 규칙** 새 컬럼은 소문자 `snake_case`와 기존 약어를 사용하세요. 부서는 `dept`, 사원은 `emp`, 평가는 `evalu`로 통일합니다. 코드에는 `_code`, 식별자에는 `_id`, 일시에는 `_at`을 붙이세요. 예를 들어 사원 테이블의 부서코드는 `dept_code`입니다. 새 약어가 필요하면 의미가 분명한 약어를 정해 Dev Manual에 기록하고 같은 개념에는 동일한 약어를 사용하세요.
 - **REQ-07** 관리자 전용 자료는 권한이 적용된 DB나 비공개 Storage에서 읽으세요. GitHub Pages에 포함되는 XML과 JS는 URL로 조회할 수 있으므로 계정 정보, 비밀 키, 비공개 기록을 넣지 마세요. 파일이나 컬럼을 제거하기 전에 참조와 평가 기록을 확인하세요. 운영 중인 화면이 데이터를 읽는 방식을 바꿀 때는 새 화면이 작동하는 것을 확인한 뒤 구형 컬럼을 정리하세요. [DB·API 명세](05-data-api-specification.md)와 [DB 스키마](08-database-schema.md)를 참고하세요.

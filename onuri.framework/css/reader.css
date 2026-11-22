@@ -173,3 +173,30 @@ html .reading-sidebar [data-document-tree] a { display: block; padding: 3px 6px;
 html .reading-sidebar [data-document-tree] a:is(:hover,[aria-current]) { background: var(--muted-surface); color: var(--accent); }
 html .reading-sidebar [data-tree-count] { margin: 0; font-size: .8rem; color: var(--ink-soft); }
 html .reading-sidebar :is(.manual-subpages,.document-tree-items) { margin-inline-start: 10px; padding-inline-start: 0; border-inline-start: 0; }
+
+
+
+html .reading-content .manual-official-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  margin-block: 1.35rem;
+}
+html .reading-content .manual-official-links h4 { margin: 0 .25rem 0 0; font-size: .875rem; }
+html .reading-content a.manual-official-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  max-inline-size: 100%;
+  box-sizing: border-box;
+  padding: .35rem .65rem;
+  border: 1px solid var(--accent);
+  border-radius: .35rem;
+  background: var(--card);
+  color: var(--accent);
+  font: 600 .8125rem/1.4 var(--font-ui);
+  text-decoration: none;
+}
+html .reading-content a.manual-official-link:hover { background: var(--muted-surface); text-decoration: underline; }
+html .reading-content a.manual-official-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

@@ -64,8 +64,8 @@
   const pane = document.querySelector('#equip-detail');
   const equipment = document.body.dataset.manual === 'equipment';
   const ai = document.body.dataset.manual === 'ai';
-  const page = equipment ? 'do_equip.html' : ai ? 'do_gpt.html' : 'do_program.html';
-  const catalogUrl = new URL(equipment ? 'shared-manuals/equipment/index.xml' : ai ? 'shared-manuals/ai/index.xml' : 'shared-manuals/index.xml', document.baseURI);
+  const page = equipment ? 'mn_equip.html' : ai ? 'mn_ai.html' : 'mn_program.html';
+  const catalogUrl = new URL(equipment ? '../do_docs/shared-manuals/equipment/index.xml' : ai ? '../do_docs/shared-manuals/ai/index.xml' : '../do_docs/shared-manuals/index.xml', document.baseURI);
   const oldEquipmentIds = { f2: 'xtool-f2', p3: 'xtool-p3', omni: 'xtool-o1-omni', x2d: 'bambu-x2d', x1c: 'bambu-x1c', h2s: 'bambu-h2s' };
   const entries = new Map();
   const logos = {
@@ -99,20 +99,27 @@
     return xml.documentElement;
   }
 
+  function officialLink(source) {
+    const href = source.getAttribute('href');
+    if (!/^https:\/\//i.test(href ?? '')) return null;
+    const link = inline('a', source);
+    link.className = 'manual-official-link';
+    link.href = href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    const arrow = element('span', '↗');
+    arrow.setAttribute('aria-hidden', 'true');
+    link.append(arrow);
+    return link;
+  }
+
   function officialLinks(target, source) {
-    const list = element('ul');
-    for (const link of children(child(source, 'links'), 'link')) {
-      const href = link.getAttribute('href');
-      if (!href || !/^https:\/\//i.test(href)) continue;
-      const anchor = inline('a', link);
-      anchor.href = href;
-      anchor.target = '_blank';
-      anchor.rel = 'noopener noreferrer';
-      const item = element('li');
-      item.append(anchor);
-      list.append(item);
-    }
-    if (list.childElementCount) target.append(element('h3', '공식 자료'), list);
+    const links = children(child(source, 'links'), 'link').map(officialLink).filter(Boolean);
+    if (!links.length) return;
+    const row = element('section');
+    row.className = 'manual-official-links';
+    row.append(element('h4', '공식 사이트'), ...links);
+    target.append(row);
   }
 
   function heading(source, fields) {
@@ -154,9 +161,19 @@
       }
       pane.append(element('h3', '주요 사양'), list);
     }
-    for (const [tag, title] of [['usage', '기본 사용 순서'], ['pros', '장점'], ['cons', '유의할 점'], ['uses', '활용']]) {
-      appendList(pane, child(source, tag), 'item', tag === 'usage' ? 'ol' : 'ul', title);
+    appendList(pane, child(source, 'usage'), 'item', 'ol', '기본 사용 순서');
+    const notes = element('div');
+    notes.className = 'equipment-notes';
+    for (const [tag, title] of [['pros', '장점'], ['cons', '유의할 점']]) {
+      const group = child(source, tag);
+      if (!children(group, 'item').length) continue;
+      const card = element('section');
+      card.className = 'equipment-note equipment-note-' + tag;
+      notes.append(card);
+      appendList(card, group, 'item', 'ul', title);
     }
+    if (notes.childElementCount) pane.append(notes);
+    appendList(pane, child(source, 'uses'), 'item', 'ul', '활용할 수 있는 부분');
     appendList(pane, child(source, 'tips'), 'tip', 'ul', '사용 팁');
     officialLinks(pane, source);
   }
@@ -361,39 +378,98 @@
   }
 
   function renderAiIntro(program) {
-    renderSummary(program);
-    const cover = child(program.manual, 'cover');
-    if (cover) {
-      const panel = element('section');
-      panel.className = 'equip-workflow-step';
-      panel.append(element('h3', cover.getAttribute('title')));
-      appendText(panel, cover, 'tagline', 'p');
-      appendList(panel, child(cover, 'chips'), 'item', 'ul');
-      const site = child(cover, 'site');
-      const url = site?.getAttribute('href');
-      if (/^https:\/\//i.test(url ?? '')) {
-        const link = inline('a', site);
-        link.href = url;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        panel.append(link);
-      }
-      pane.querySelector('h2').after(panel);
+    const source = program.manual;
+    const cover = child(source, 'cover');
+    const article = element('div');
+    article.className = 'ai-article';
+    article.dataset.aiTool = program.id;
+    const hero = element('header');
+    hero.className = 'ai-article-hero';
+    const lead = element('div');
+    const brand = element('div');
+    brand.className = 'ai-article-brand';
+    if (logos[program.id]) {
+      const logo = element('img');
+      logo.src = '../common/images/do.image/' + logos[program.id];
+      logo.alt = '';
+      logo.width = 48;
+      logo.height = 48;
+      brand.append(logo);
     }
-    for (const [tag, title] of [['highlights', '핵심 특장점'], ['ouruse', '오누리 활용']]) {
-      const items = children(child(program.manual, tag), 'item');
-      if (!items.length) continue;
+    const identity = element('div');
+    const title = element('h2', plain(source, 'title'));
+    title.id = 'equip-title';
+    identity.append(title);
+    appendText(identity, source, 'maker', 'p');
+    brand.append(identity);
+    lead.append(brand);
+    if (cover) appendText(lead, cover, 'tagline', 'h3');
+    appendText(lead, source, child(source, 'summary') ? 'summary' : 'description', 'p');
+    const site = cover && child(cover, 'site');
+    const link = site && officialLink(site);
+    if (link) lead.append(link);
+    hero.append(lead);
+
+    const chips = cover && child(cover, 'chips');
+    if (children(chips, 'item').length) {
+      const uses = element('section');
+      uses.className = 'ai-article-chips';
+      uses.append(element('h3', '이럴 때 씁니다'));
+      appendList(uses, chips, 'item', 'ul');
+      hero.append(uses);
+    }
+    article.append(hero);
+
+    function addEntries(tag, label, itemTag, titleAttribute, className) {
+      const items = children(child(source, tag), itemTag);
+      if (!items.length) return;
+      const section = element('section');
       const list = element('dl');
-      list.className = 'equip-spec';
+      list.className = className;
       for (const item of items) {
         const row = element('div');
         const description = inline('dd', item);
         if (item.hasAttribute('scene')) description.append(element('p', item.getAttribute('scene')));
-        row.append(element('dt', item.getAttribute('title')), description);
+        row.append(element('dt', item.getAttribute(titleAttribute)), description);
         list.append(row);
       }
-      pane.append(element('h3', title), list);
+      section.append(element('h3', label), list);
+      article.append(section);
     }
+
+    addEntries('highlights', '핵심 특장점', 'item', 'title', 'ai-article-features');
+    addEntries('ouruse', '오누리에서는 이렇게 씁니다', 'item', 'title', 'ai-article-examples');
+    const notes = element('div');
+    notes.className = 'ai-article-notes';
+    for (const [tag, itemTag, label] of [
+      ['pros', 'item', '장점'], ['cons', 'item', '유의할 점'],
+      ['uses', 'item', '활용 아이디어'], ['tips', 'tip', '사용 팁'],
+    ]) {
+      const group = child(source, tag);
+      if (!children(group, itemTag).length) continue;
+      const card = element('section');
+      card.dataset.aiNote = tag;
+      card.append(element('h3', label));
+      appendList(card, group, itemTag, 'ul');
+      notes.append(card);
+    }
+    if (notes.childElementCount) article.append(notes);
+    addEntries('specs', '주요 기능', 'spec', 'name', 'equip-spec ai-article-specs');
+
+    const shortcuts = element('nav');
+    shortcuts.className = 'ai-article-shortcuts';
+    shortcuts.setAttribute('aria-label', '프롬프트 바로가기');
+    for (const section of program.sections) {
+      const first = section.sets.find(set => set.prompts.length)?.prompts[0];
+      if (first) shortcuts.append(createLink(first.getAttribute('id'), section.source.getAttribute('title') + ' →'));
+    }
+    if (shortcuts.childElementCount) {
+      const section = element('section');
+      section.append(element('h3', '프롬프트 바로가기'), shortcuts);
+      article.append(section);
+    }
+    officialLinks(article, source);
+    pane.replaceChildren(article);
   }
 
   function renderPromptSet({ section, set, prompt: selected }, scrollToPrompt) {
@@ -429,7 +505,7 @@
   function populateTree(groups, active, matches) {
     tree.replaceChildren();
     const count = document.querySelector('[data-tree-count]');
-    if (matches && count) count.textContent = '프롬프트 ' + matches.size + '개';
+    if (matches && count) count.textContent = '검색 결과 ' + matches.size + '개';
     else if (count) {
       const total = groups.reduce((sum, group) => sum + group.programs.length, 0);
       count.textContent = (equipment ? '장비 ' : ai ? 'AI 도구 ' : '프로그램 ') + total + '개';
@@ -446,7 +522,7 @@
         let parent = category.list;
         if (program.group) {
           if (!makers.has(program.group)) {
-            const maker = branch(program.group, group.programs.some(item => item.group === program.group && item === active?.program));
+            const maker = branch(program.group, group.programs.some(item => item.group === program.group && item === active?.program) || Boolean(matches));
             const holder = element('li');
             holder.append(maker.details);
             makers.set(program.group, maker.list);
@@ -462,10 +538,11 @@
           parent.append(item);
           continue;
         }
-        const part = branch(plain(program.manual, 'title'), active?.program === program);
+        const part = branch(plain(program.manual, 'title'), active?.program === program || Boolean(matches));
         const documents = [[idFor(program.id), '요약'], ...program.docs.map(doc =>
           [idFor(program.id, doc.getAttribute('id')), doc.getAttribute('nav') || plain(doc, 'title')])];
         for (const [id, label] of documents) {
+          if (matches && !matches.has(entries.get(id).doc || program.manual)) continue;
           const li = element('li');
           const link = createLink(id, label);
           if (entries.get(id) === active) link.setAttribute('aria-current', 'page');
@@ -523,21 +600,20 @@
       const program = makeFilter(itemLabel);
       category.append(new Option('전체 카테고리', ''), ...groups.map(group => new Option(group.title, group.id)));
       const search = element('input');
-      if (ai) {
-        const field = element('label', '프롬프트 검색');
-        search.type = 'search';
-        search.placeholder = '예: 교안, 요약, 슬라이드';
-        field.append(search);
-        filters.replaceChildren(field);
-        search.value = new URLSearchParams(location.search).get('q') || '';
-        search.addEventListener('input', () => {
-          const url = new URL(location.href);
-          if (search.value.trim()) url.searchParams.set('q', search.value.trim());
-          else url.searchParams.delete('q');
-          history.replaceState(null, '', url);
-          render();
-        });
-      }
+      const field = element('label', '키워드 검색');
+      search.type = 'search';
+      search.placeholder = ai ? '예: 교안, 요약, 슬라이드' : equipment ? '예: 각인, 3D 프린터' : '예: Inkscape, 오프셋';
+      field.append(search);
+      if (ai) filters.replaceChildren(field);
+      else filters.prepend(field);
+      search.value = new URLSearchParams(location.search).get('q') || '';
+      search.addEventListener('input', () => {
+        const url = new URL(location.href);
+        if (search.value.trim()) url.searchParams.set('q', search.value.trim());
+        else url.searchParams.delete('q');
+        history.replaceState(null, '', url);
+        render();
+      });
       overviewLink.before(filters);
       overviewLink.addEventListener('click', () => {
         category.value = '';
@@ -549,7 +625,7 @@
       function updateSelection() {
         const url = new URL(location.href);
         url.hash = '';
-        if (ai && !search.value) url.searchParams.delete('q');
+        if (!search.value) url.searchParams.delete('q');
         for (const [key, value] of [['category', category.value], ['program', program.value]]) {
           if (value) url.searchParams.set(key, value);
           else url.searchParams.delete(key);
@@ -584,14 +660,14 @@
         const params = new URLSearchParams(location.search);
         const hash = location.hash.slice(1);
         const requested = params.get('id') || (/^(pg|eq)-/.test(hash) ? hash : idFor(equipment ? oldEquipmentIds[hash] || hash : hash));
-        if (equipment && (requested.startsWith('pg-') || ['inkscape', 'rdworks', 'bambu-studio', 'xtool-studio', 'vscode', 'github', 'lesson-guide'].includes(hash))) {
-          const redirect = new URL('do_program.html', location.href);
+        if (equipment && (requested.startsWith('pg-') || ['inkscape', 'rdworks', 'bambu-studio', 'xtool-studio', 'vscode', 'github'].includes(hash))) {
+          const redirect = new URL('mn_program.html', location.href);
           if (requested.startsWith('pg-')) redirect.searchParams.set('id', requested);
           else redirect.hash = hash;
           location.replace(redirect);
           return;
         }
-        const active = hash === 'lesson-guide' ? undefined : entries.get(requested);
+        const active = entries.get(requested);
         let categoryId = params.get('category') || '';
         let programId = params.get('program') || '';
         if (active) {
@@ -611,13 +687,17 @@
         const visibleGroups = program.value ? categoryGroups
           .map(group => ({ ...group, programs: group.programs.filter(item => item.id === program.value) }))
           .filter(group => group.programs.length) : categoryGroups;
-        const terms = ai ? search.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean) : [];
-        const matches = terms.length ? new Set([...entries.values()].filter(entry => entry.prompt && terms.every(term =>
-          (plain(entry.program.manual, 'title') + ' ' + entry.set.source.getAttribute('title') + ' ' + entry.prompt.textContent).toLocaleLowerCase().includes(term)
-        )).map(entry => entry.prompt)) : null;
-        const treeGroups = matches ? visibleGroups.map(group => ({ ...group, programs: group.programs.filter(item =>
-          item.sections.some(section => section.sets.some(set => set.prompts.some(prompt => matches.has(prompt))))
-        ) })) : visibleGroups;
+        const terms = search.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+        const visiblePrograms = new Set(visibleGroups.flatMap(group => group.programs));
+        const matchingEntries = terms.length ? [...entries.values()].filter(entry => {
+          if (!visiblePrograms.has(entry.program) || (ai && !entry.prompt)) return false;
+          const item = entry.prompt || entry.doc || entry.program.manual;
+          const content = [plain(entry.program.manual, 'title'), entry.set?.source.getAttribute('title'), item.getAttribute('nav'), item.textContent].join(' ').toLocaleLowerCase();
+          return terms.every(term => content.includes(term));
+        }) : null;
+        const matches = matchingEntries && new Set(matchingEntries.map(entry => entry.prompt || entry.doc || entry.program.manual));
+        const matchingPrograms = matchingEntries && new Set(matchingEntries.map(entry => entry.program));
+        const treeGroups = matchingPrograms ? visibleGroups.map(group => ({ ...group, programs: group.programs.filter(item => matchingPrograms.has(item)) })).filter(group => group.programs.length) : visibleGroups;
         const treeKey = JSON.stringify([category.value, program.value, terms]);
         if (previousTreeKey !== treeKey) {
           populateTree(treeGroups, active, matches);
@@ -625,11 +705,7 @@
         }
         selectTreeLink(active, requested);
         overviewLink.removeAttribute('aria-current');
-        if (hash === 'lesson-guide') {
-          const title = element('h2', '교안 제작 지침과 피드백');
-          title.id = 'equip-title';
-          pane.replaceChildren(title, document.querySelector('#equip-manual-lesson-guide').content.cloneNode(true));
-        } else if (active?.prompt) renderPromptSet(active, !preserveViewport);
+        if (active?.prompt) renderPromptSet(active, !preserveViewport);
         else if (active && ai) renderAiIntro(active.program);
         else if (active?.doc) renderDocument(active.program, active.doc);
         else if (active) renderSummary(active.program);
@@ -639,7 +715,7 @@
         }
       };
       function openEntry(event) {
-        const link = event.target.closest('a[data-manual-entry], a[href="#lesson-guide"]');
+        const link = event.target.closest('a[data-manual-entry]');
         if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
         const destination = new URL(link.href);
@@ -662,7 +738,7 @@
     }
   }
   if (location.protocol === 'file:') {
-    const preview = new URL('/do_docs/' + page, 'http://127.0.0.1:4173');
+    const preview = new URL('/mn_manual/' + page, 'http://127.0.0.1:4173');
     preview.search = location.search;
     preview.hash = location.hash;
     location.replace(preview);
@@ -670,3 +746,8 @@
     initialize();
   }
 })();
+
+
+
+
+

@@ -79,51 +79,113 @@
   /* ---------- 메뉴 렌더링 ---------- */
   let current = null;
 
-  const categoryTitle = category => category.name;
-  const pageTitle = item => item.name;
+  function menuLabel(item) {
+    const label = document.createDocumentFragment();
+    label.append(item.name);
+    if (item.ko && item.name.trim().toLowerCase() !== item.ko.trim().toLowerCase()) {
+      const secondary = document.createElement('small');
+      secondary.className = 'menu-label-ko';
+      secondary.lang = 'ko';
+      secondary.textContent = item.ko;
+      label.append(' ', secondary);
+    }
+    return label;
+  }
+
   const siteRoot = new URL('./', document.baseURI);
 
   async function loadMenu() {
     const { data, error } = await window.eduNoticeClient.from('tbl_menu')
-      .select('group_code,group_order,menu_order,page_path,group:tbl_comcode!tbl_menu_group_code_fk(name),menu:tbl_comcode!tbl_menu_menu_code_fk(name),subgroup:tbl_comcode!tbl_menu_subgroup_code_fk(name)')
+      .select('group_code,group_order,menu_order,page_path,group:tbl_comcode!tbl_menu_group_code_fk(name),menu:tbl_comcode!tbl_menu_menu_code_fk(name)')
       .order('group_order').order('menu_order');
     if (error || !data?.length) throw Error('DB menu unavailable');
 
     const groups = new Map();
+    const management = { name: 'Mng.', ko: '관리', items: [] };
+    const board = { name: '게시판', url: 'mn_manage/mn_notice.html', order: 1, boardPaths: [
+      'mn_manage/mn_notice.html', 'mn_manage/mn_library.html',
+    ] };
+    const staff = { name: '스태프 관리', url: 'mn_manage/mn_staff.html', order: 2 };
+    const managementPages = new Map([
+      ...['on_class/on_notice.html', 'bd_board/bd_notice.html', 'vi_vibe/vi_library.html', 'bd_board/bd_library.html', ...board.boardPaths].map(url => [url, board]),
+      [staff.url, staff],
+      ['on_class/on_people.html', staff],
+    ]);
+    const managed = new Set();
+    const manual = { name: 'Mng.', ko: '매뉴얼', items: [] };
+    const manuals = [
+      { name: 'Equipment', ko: '장비', legacy: 'do_equip', file: 'mn_equip' },
+      { name: 'Programs', ko: '프로그램', legacy: 'do_program', file: 'mn_program' },
+      { name: 'AI', ko: '인공지능', legacy: 'do_gpt', file: 'mn_ai' },
+      { name: 'Dev', ko: '개발 명세', legacy: 'do_dev', file: 'mn_dev' },
+    ];
+    const manualOrder = new Map(manuals.flatMap((entry, order) => [
+      ['do_docs/' + entry.legacy + '.html', order],
+      ['mn_manual/' + entry.file + '.html', order],
+    ]));
+    const activeManuals = new Set();
+    const activities = { name: "Class.", ko: "수업 활동", items: [] };
+    const activityPages = new Map([
+      { old: "ga_games/ga_idea.html", url: "cl_class/cl_idea.html", name: "Edumaker Idea Card", ko: "메이킹 아이디어 카드", order: 0 },
+      { old: "on_class/on_quiz/on_cards.html", url: "cl_class/cl_cards.html", name: "IT Flashcards", ko: "IT 암기 카드", order: 1 },
+      { old: "on_class/on_quiz/on_quiz.html", url: "cl_class/cl_quiz.html", name: "Computer Quiz", ko: "컴퓨터 퀴즈", order: 2 },
+      { old: "ga_games/ga_ladder.html", url: "cl_class/cl_ladder.html", name: "Ladder Game", ko: "사다리 타기", order: 3 },
+      { old: "ga_games/ga_mbti-a.html", url: "cl_class/cl_mbti-a.html", name: "Adult MBTI Test", ko: "성인 MBTI", order: 4 },
+      { old: "ga_games/ga_mbti-k.html", url: "cl_class/cl_mbti-k.html", name: "Kids’ MBTI Test", ko: "어린이 MBTI", order: 5 },
+    ].flatMap(entry => [[entry.old, entry], [entry.url, entry]]));
+    const groupLabels = { MG_VIBE: 'Vibe Coding', MG_GAMES: 'Games', MG_DOCUMENT: 'Doc.' };
+    const pageLabels = {
+      'vi_vibe/vi_onuri/vi_onuri.html': 'Onuri Maker Lab',
+      'vi_vibe/vi_knu.html': 'Kyungnam University Makerspace',
+      'vi_vibe/vi_onyou/vi_onyou.html': 'Onyou Maker Card',
+    };
     for (const row of data) {
       if (!/^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*[.]html$/.test(row.page_path)) {
         throw Error('Invalid menu path');
       }
       if (!row.group?.name || !row.menu?.name) throw Error('Missing menu code name');
-      if (!groups.has(row.group_code)) groups.set(row.group_code, { name: row.group.name, items: [] });
-      groups.get(row.group_code).items.push({ name: row.menu.name, url: row.page_path, subgroup: row.subgroup?.name });
+      if (managementPages.has(row.page_path)) {
+        const item = managementPages.get(row.page_path);
+        if (!managed.has(item.url)) management.items.push(item);
+        managed.add(item.url);
+        continue;
+      }
+      if (row.group_code === 'MG_ONURI_CLASS' || row.group_code === 'MG_BOARD') continue;
+      if (activityPages.has(row.page_path)) {
+        activities.items.push(activityPages.get(row.page_path));
+        continue;
+      }
+      if (row.group_code === 'cl_') {
+        activities.items.push({ name: row.menu.name, url: row.page_path, order: row.menu_order });
+        continue;
+      }
+      if (manualOrder.has(row.page_path)) {
+        activeManuals.add(manualOrder.get(row.page_path));
+        continue;
+      }
+      if (row.group_code === 'mn_manual') {
+        manual.items.push({ name: row.menu.name, url: row.page_path });
+        continue;
+      }
+      if (!groups.has(row.group_code)) groups.set(row.group_code, { name: groupLabels[row.group_code] || row.group.name, items: [] });
+      groups.get(row.group_code).items.push({ name: pageLabels[row.page_path] || row.menu.name, url: row.page_path });
     }
-    const documents = groups.get('MG_DOCUMENT')?.items;
-    if (documents) {
-      const labels = new Map([
-        ['do_docs/do_ai.html', 'AI Newsletter'],
-        ['do_docs/do_making.html', 'Making Newsletter'],
-        ['do_docs/do_equip.html', 'Equipment Manual'],
-        ['do_docs/do_program.html', 'Program Manual'],
-        ['do_docs/do_gpt.html', 'AI Manual'],
-        ['do_docs/do_dev.html', 'Dev Manual'],
-      ]);
-      if (!documents.some(item => item.url === 'do_docs/do_equip.html')) {
-        documents.push({ url: 'do_docs/do_equip.html' });
-      }
-      const equipmentIndex = documents.findIndex(item => item.url === 'do_docs/do_equip.html');
-      if (equipmentIndex >= 0 && !documents.some(item => item.url === 'do_docs/do_program.html')) {
-        documents.splice(equipmentIndex + 1, 0, { url: 'do_docs/do_program.html', subgroup: documents[equipmentIndex].subgroup });
-      }
-      const newsletters = [...labels.keys()].slice(0, 2);
-      for (const item of documents) {
-        if (labels.has(item.url)) item.name = labels.get(item.url);
-        if (newsletters.includes(item.url)) delete item.subgroup;
-      }
-      const priority = item => newsletters.includes(item.url) ? newsletters.indexOf(item.url) : newsletters.length;
-      documents.sort((left, right) => priority(left) - priority(right));
+    if (activeManuals.has(0)) activeManuals.add(1);
+    manual.items.unshift(...manuals.flatMap((entry, index) => activeManuals.has(index)
+      ? [{ name: entry.name, ko: entry.ko, url: 'mn_manual/' + entry.file + '.html' }] : []));
+    const newsletters = groups.get('MG_DOCUMENT')?.items;
+    for (const item of newsletters ?? []) {
+      if (item.url === 'do_docs/do_ai.html') item.name = 'AI Newsletter';
+      if (item.url === 'do_docs/do_making.html') item.name = 'Making Newsletter';
     }
-    return { cats: [...groups.values()] };
+    newsletters?.sort((left, right) => Number(right.url === 'do_docs/do_ai.html') - Number(left.url === 'do_docs/do_ai.html'));
+    management.items.sort((left, right) => left.order - right.order);
+    const cats = [...groups.values()];
+    activities.items.sort((left, right) => left.order - right.order);
+    if (activities.items.length) cats.unshift(activities);
+    if (manual.items.length) cats.unshift(manual);
+    if (management.items.length) cats.unshift(management);
+    return { cats };
   }
 
   const returnPaths = new Set((window.eduSiteConfig.resumablePaths || [])
@@ -148,7 +210,7 @@
       const head = document.createElement("button");
       head.type = "button";
       head.setAttribute("aria-expanded", "false");
-      head.append(document.createTextNode(categoryTitle(cat)));
+      head.append(menuLabel(cat));
       const caret = document.createElement("span");
       caret.className = "caret"; caret.textContent = "⌄";
       head.append(caret);
@@ -161,27 +223,13 @@
 
       const sub = document.createElement("div");
       sub.className = "sub";
-      const subgroups = new Map();
       cat.items.forEach((item, ii) => {
         const b = document.createElement("button");
         b.type = "button";
-        b.textContent = pageTitle(item);
+        b.append(menuLabel(item));
         b.dataset.k = ci + "." + ii;   // 주소가 아닌 좌표만 DOM 에 남김
         b.addEventListener("click", () => open(ci, ii, b));
-        if (!item.subgroup) {
-          sub.append(b);
-          return;
-        }
-        if (!subgroups.has(item.subgroup)) {
-          const group = document.createElement('details');
-          const summary = document.createElement('summary');
-          group.className = 'menu-subgroup';
-          summary.textContent = item.subgroup;
-          group.append(summary);
-          sub.append(group);
-          subgroups.set(item.subgroup, group);
-        }
-        subgroups.get(item.subgroup).append(b);
+        sub.append(b);
       });
 
       wrap.append(head, sub);
@@ -192,14 +240,14 @@
     $('#logout').hidden = false; document.body.classList.add('portal-authenticated');
     const collection = $('#home-categories');
     collection.replaceChildren();
-    const introductions = { 'Vibe Coding': '아이디어를 웹과 디지털 경험으로 만들어보세요.', 'Games': '즐겁게 도전하며 배우는 인터랙티브 콘텐츠.', 'Document': '매뉴얼과 뉴스레터를 읽어보세요.', 'onuriClass': '수업 운영과 작업실 자료를 확인하세요.' };
+    const introductions = { 'Vibe Coding': '아이디어를 웹과 디지털 경험으로 만들어보세요.', '수업 활동': '퀴즈와 카드, 게임으로 수업에 참여해 보세요.', 'Doc.': 'AI와 메이킹 뉴스레터를 읽어보세요.', '관리': '게시판과 스태프 정보를 관리하세요.', '매뉴얼': '장비, 프로그램, AI와 개발 매뉴얼을 읽어보세요.' };
     DATA.cats.forEach((cat, ci) => {
       const card = document.createElement('article'); card.className = 'home-category-card';
       const number = document.createElement('span'); number.className = 'home-category-number'; number.textContent = String(ci + 1).padStart(2, '0');
-      const title = document.createElement('h4'); title.textContent = categoryTitle(cat);
-      const description = document.createElement('p'); description.textContent = introductions[cat.name] || '관심 있는 콘텐츠를 골라 살펴보세요.';
+      const title = document.createElement('h4'); title.append(menuLabel(cat));
+      const description = document.createElement('p'); description.textContent = introductions[cat.ko ?? cat.name] || '관심 있는 콘텐츠를 골라 살펴보세요.';
       const links = document.createElement('div'); links.className = 'home-category-links';
-      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.textContent = (item.subgroup ? item.subgroup + ' · ' : '') + pageTitle(item) + ' ↗'; link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); const subgroup = navButton.closest('.menu-subgroup'); if (subgroup) subgroup.open = true; navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
+      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.append(menuLabel(item), ' ↗'); link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
       card.append(number, title, description, links); collection.append(card);
     });
     gate.remove();
@@ -234,13 +282,13 @@
     document.querySelectorAll('.sub button[aria-current]').forEach(b => b.removeAttribute("aria-current"));
     el.setAttribute("aria-current", "true");
     const pageUrl = destination || new URL(item.url, document.baseURI);
-    if (pageUrl.pathname.endsWith('/on_class/on_quiz/on_cards.html') && !pageUrl.searchParams.has('v')) {
+    if (pageUrl.pathname.endsWith('/cl_class/cl_cards.html') && !pageUrl.searchParams.has('v')) {
       pageUrl.searchParams.set('v', 'study-clean');
     }
     current = { ...item, url: pageUrl.href };
 
-    $("#crumbTitle").textContent = pageTitle(item);
-    $("#crumbSub").textContent = categoryTitle(DATA.cats[ci]);
+    $("#crumbTitle").replaceChildren(menuLabel(item));
+    $("#crumbSub").replaceChildren(menuLabel(DATA.cats[ci]));
     $("#openNew").hidden = false;
     $("#welcome").style.display = "none";
 
@@ -277,8 +325,15 @@
   window.addEventListener('onuri:home', home);
   window.addEventListener('message', event => {
     if (event.source !== $('#frame').contentWindow) return;
+    if (event.origin === location.origin && event.data?.type === 'onuri:board-page' && current?.boardPaths) {
+      const page = current.boardPaths.find(path => new URL(path, siteRoot).pathname === event.data.path);
+      if (page) {
+        current.url = new URL(page, siteRoot).href;
+        $('#frame').setAttribute('sandbox', window.eduResourcePolicy.sandboxFor(page, document.baseURI));
+      }
+    }
     if (event.data?.type === 'onuri:staff-login-tab' && current
-      && new URL(current.url, siteRoot).href === new URL('on_class/on_people.html', siteRoot).href) {
+      && new URL(current.url, siteRoot).href === new URL('mn_manage/mn_staff.html', siteRoot).href) {
       $('#openNew').click();
     }
     if (event.data?.type === 'onuri:home') home();
@@ -324,3 +379,5 @@
     }).finally(() => { btn.disabled = false; });
   }
 })();
+
+

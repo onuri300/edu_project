@@ -31,11 +31,11 @@
 
 ## 3. 인사카드 XML 경로와 이름 규칙
 
-`on_class/on_people.html`은 `on_people.js`를 통해 `tbl_emp.profile_file`에 등록된 파일을 읽습니다. **직원별 XML 하나에 인사카드 내용과 지침서를 함께 둡니다.** 예를 들어 전체 총괄 오누리의 사원코드는 `HQ_001`이며 초기 파일은 `on_class/guides/HQ_001.profile.xml`입니다.
+`on_class/on_people.html`은 `on_people.js`를 통해 `tbl_emp.profile_file`에 등록된 파일을 읽습니다. **직원별 XML 하나에 인사카드 내용과 지침서를 함께 둡니다.** 예를 들어 전체 총괄 오누리의 사원코드는 `HQ_001`이며 초기 파일은 `mn_manage/mn_guides/HQ_001.profile.xml`입니다.
 
 | 항목 | 규칙 |
 |---|---|
-| 초기 XML | `on_class/guides/<사원코드>.profile.xml`로 저장하고 `tbl_emp.profile_file`에는 파일명만 등록합니다. |
+| 초기 XML | `mn_manage/mn_guides/<사원코드>.profile.xml`로 저장하고 `tbl_emp.profile_file`에는 파일명만 등록합니다. |
 | 화면에서 저장한 XML | 비공개 Supabase Storage의 `staff-guides` 버킷에 `<사원코드>/<UUID>.xml`로 저장합니다. DB 파일명은 이 경로로 갱신합니다. |
 | XML 기본 구조 | UTF-8, 루트는 `<employee>`입니다. 이름, 직급 순위, 역할, 소개, 이미지 파일은 `<name>`, `<rank>`, `<role>`, `<identity>`, `<image>`를 사용합니다. |
 | 화면 상세 바인딩 | 핵심 미션은 `<mission>`, 담당 업무는 `<duties><duty>…</duty></duties>`, 책임 산출물은 `<deliverable>`을 사용합니다. 핵심 성향·장점·보완점은 각각 `<personality>`, `<strengths>`, `<review>`입니다. |

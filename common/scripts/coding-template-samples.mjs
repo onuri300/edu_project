@@ -26,7 +26,7 @@ export const templateSamples = [
     description: '자료가 많고 사용자가 검색해서 한 건씩 읽는 화면에 사용합니다.',
     areas: [
       ['hero', '매뉴얼 소개', ['Coding Manual', '구조와 개발 규칙을 찾아보세요.'], '매뉴얼의 범위를 짧게 안내합니다. 공통 배너 설정에서 편집합니다.', 'common/images/ne.image/ai-newsletter-hero.png'],
-      ['controls', '검색과 분류', ['키워드 검색', '카테고리 ▾'], '검색어와 카테고리를 함께 적용합니다. GPT·Coding Manual은 mo_manual.js의 검색 동작을 공유합니다.'],
+      ['controls', '검색과 분류', ['키워드 검색', '카테고리 ▾'], '검색어와 카테고리를 함께 적용합니다. AI 매뉴얼은 mn_xml.js로, 개발 명세는 mn_dev.js로 검색과 목록을 표시합니다.'],
       ['sidebar', '문서 목록', ['시스템 개발명세서', '공통 프레임워크', '메뉴와 템플릿'], '검색 결과가 나타나는 곳입니다. 선택하면 오른쪽 문서가 바뀝니다.'],
       ['body', '상세 본문', ['메뉴와 템플릿', '공통과 페이지 전용의 범위를 확인합니다.', '본문 복사'], 'Coding Manual은 docs 원본에서 본문을 생성합니다. 설명을 고칠 때는 원본 Markdown을 편집합니다.'],
     ],
