@@ -23,7 +23,7 @@ const resourceBanners = {
   'mn_staff.html': {
     variant: 'resource-hero-compact',
     eyebrow: 'ONURI / MANAGEMENT',
-    title: '스태프 관리',
+    title: 'Agent Management',
     description: '오누리 프로젝트 에이전트의 역할과 담당 업무를 확인하세요.',
     image: 'common/images/shared/index-hero.png',
   },
@@ -72,6 +72,15 @@ const resourceBanners = {
     title: 'Notice',
     description: '새로운 소식과 수업 운영 안내를 확인하세요.',
     image: 'common/images/shared/index-hero.png',
+  },
+  'do_books.html': {
+    variant: 'resource-hero-compact',
+    eyebrow: 'ONURI / BOOKS',
+    title: 'Books · 읽을거리',
+    description: '북코너에서 완성한 책 이야기를 그림과 함께 동화책처럼 읽고, 수업과 독서모임에 가져가세요.',
+    image: 'common/images/do.image/books-hero.png', width: 1200, height: 720,
+    imageAlt: '창가 의자에 앉아 계절이 바뀌는 것을 바라보는 사람을 그린 수채 느낌의 창작 그림',
+    topics: ['그림책·동화', '에세이', '함께 나눌 질문'],
   },
   'mn_ai.html': {
     variant: 'resource-hero-compact',

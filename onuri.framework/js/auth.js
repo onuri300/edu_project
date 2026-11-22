@@ -75,6 +75,32 @@
       event.preventDefault(); openPage(link.href);
     } else allowNavigation(link.href);
   });
+  const adminFolders = resolvePaths(config.adminFolders);
+  const adminLogin = config.adminLoginPath ? new URL(config.adminLoginPath, root) : null;
+  if (adminLogin && location.pathname !== adminLogin.pathname && location.pathname.endsWith('.html')
+    && adminFolders.some(folder => location.pathname.startsWith(folder))) {
+    document.documentElement.dataset.auth = 'pending';
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const dbScript = file => new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = new URL('onuri.framework/db_connect/browser/' + file, root).href;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.append(script);
+        });
+        if (!window.eduDbAdmin) {
+          if (!window.supabase) await dbScript('supabase-2.119.0.js');
+          await dbScript('notice-client.js');
+        }
+        await window.eduDbAdmin();
+        document.documentElement.dataset.auth = 'ready';
+      } catch {
+        location.replace(adminLogin.href);
+      }
+    }, { once: true });
+    return;
+  }
   const localPageAllowed = location.protocol === 'file:' && resolvePaths(config.localPaths).includes(location.pathname);
   if (localPageAllowed || isPublicPage(location.href)) { document.documentElement.dataset.auth = 'public'; return; }
   let grant = null;

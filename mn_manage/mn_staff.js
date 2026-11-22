@@ -43,7 +43,7 @@
       const auth = await client.auth.signInWithPassword({
         email: fields.get('username').trim(), password: fields.get('password'),
       });
-      if (auth.error) throw Error('관리자 이메일과 비밀번호를 확인해 주세요.');
+      if (auth.error) throw Error('아이디와 비밀번호를 확인해 주세요.');
       await window.eduDbAdmin();
       authorized = true;
       await openWorkspace();
@@ -90,6 +90,7 @@
   }
 
   async function openWorkspace() {
+    get('staff-world').hidden = false;
     const { data, error } = await client.from('tbl_emp')
       .select('emp_code, profile_file, tbl_dept(tbl_comcode(name))').order('sort_order');
     if (error) throw Error('DB에서 팀원 목록을 불러올 수 없습니다.');

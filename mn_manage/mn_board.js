@@ -6,7 +6,7 @@ const $ = selector => document.querySelector(selector);
 $('#bd-app').innerHTML = window.eduBoardTemplate;
 const boardType = document.body.dataset.boardCode;
 const boardLabels = { notice: 'Notice 공지사항', library: 'Library 자료실' };
-const boardTitles = { notice: '공지사항', library: '자료실' };
+const boardTitles = { notice: 'Notice', library: '자료실' };
 const list = $('#notices');
 const status = $('#notice-status');
 const fields = 'board_id,title,content,published,created_at,updated_at,attachment_paths,view_count';

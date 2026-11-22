@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>스태프 관리</title>
+  <title>Agent Management</title>
   <link rel="stylesheet" href="../onuri.framework/css/common.css">
   <link rel="stylesheet" href="../common/css/pages/ne_reader.css">
   <link rel="stylesheet" href="../onuri.framework/css/reader.css">
@@ -24,14 +24,14 @@
 <section class="resource-hero resource-hero-compact" aria-labelledby="resource-title">
   <div class="resource-hero-copy">
     <p class="resource-hero-kicker">ONURI / MANAGEMENT</p>
-    <h1 id="resource-title">스태프 관리</h1>
+    <h1 id="resource-title">Agent Management</h1>
     <p class="resource-hero-description">오누리 프로젝트 에이전트의 역할과 담당 업무를 확인하세요.</p>
   </div>
   <img class="page-art resource-hero-image" data-page-image src="../common/images/shared/index-hero.png" width="1536" height="1024" decoding="async" alt="">
 </section>
 <!-- /layout:resource-hero -->
     <div class="newsletter reading-page">
-      <section class="staff-world" aria-labelledby="staff-world-title">
+      <section id="staff-world" class="staff-world" aria-labelledby="staff-world-title" hidden>
         <h2 id="staff-world-title">오누리 작업실</h2>
         <p>동네에서 발견한 소재를 누구나 손으로 만들어 볼 수 있는 수업으로 바꿉니다.</p>
         <details>
@@ -48,7 +48,7 @@
         </details>
       </section>
       <form id="staff-db-login" class="staff-evaluation-form" method="post" autocomplete="on">
-        <label for="staff-username">아이디 (관리자 이메일)
+        <label for="staff-username">아이디
           <input id="staff-username" name="username" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" required>
         </label>
         <label for="staff-password">비밀번호

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Books · Onuri.</title><link rel="stylesheet" href="../onuri.framework/css/common.css"><link rel="stylesheet" href="../onuri.framework/css/reader.css"><link rel="stylesheet" href="../common/css/pages/do_books.css"><script src="../common/data/site-config.js"></script><script src="../onuri.framework/js/auth.js"></script><script src="../onuri.framework/js/common.js"></script><script src="../common/data/books-data.js" defer></script><script src="../common/js/pages/do_books.js" defer></script><script src="../common/js/pages/do_reader.js" defer></script>
+</head>
+<body class="resource-page" data-site-family="portal"><main>
+<!-- layout:resource-hero -->
+<section class="resource-hero resource-hero-compact" aria-labelledby="resource-title">
+  <div class="resource-hero-copy">
+    <p class="resource-hero-kicker">ONURI / BOOKS</p>
+    <h1 id="resource-title">Books · 읽을거리</h1>
+    <p class="resource-hero-description">북코너에서 완성한 책 이야기를 그림과 함께 동화책처럼 읽고, 수업과 독서모임에 가져가세요.</p>
+    <ul class="resource-hero-topics" aria-label="다루는 주제" role="list"><li>그림책·동화</li><li>에세이</li><li>함께 나눌 질문</li></ul>
+  </div>
+  <img class="page-art resource-hero-image" data-page-image src="../common/images/do.image/books-hero.png" width="1200" height="720" decoding="async" alt="창가 의자에 앉아 계절이 바뀌는 것을 바라보는 사람을 그린 수채 느낌의 창작 그림">
+</section>
+<!-- /layout:resource-hero -->
+<div class="books reading-page"><p id="book-status" role="status"></p><div class="books-workspace reading-layout document-reader"><aside id="book-sidebar" class="reading-sidebar" aria-label="읽을거리 목록"><label class="report-search-label">키워드 검색<input id="book-search" type="search" placeholder="제목·저자·내용 검색"></label><label class="report-search-label">분류<select id="book-category"><option value="">전체</option></select></label><p id="report-count" aria-live="polite"></p><nav id="book-list" data-document-tree aria-label="읽을거리 분류별 목록"></nav><p id="book-empty" hidden>등록된 읽을거리가 없습니다.</p></aside><div class="reading-divider"><button id="book-toggle" class="document-sidebar-toggle" data-document-sidebar-toggle type="button" aria-controls="book-sidebar" aria-expanded="true" aria-label="목록 접기">‹</button></div><section id="book-reader" class="reading-content" aria-label="선택한 읽을거리"><p id="book-placeholder">왼쪽 목록에서 읽을거리를 선택하세요.</p><div id="book-content" hidden><header class="reader-heading"><p id="reader-meta"></p><h2 id="reader-title"></h2><p id="reader-summary"></p><div id="book-tags" class="book-tags"></div><a id="book-open" class="book-open" target="_blank" rel="noopener">새 창으로 크게 읽기 ↗</a></header><iframe id="book-frame" class="book-frame" title="읽을거리 본문" sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy"></iframe></div></section></div></div></main></body></html>

@@ -49,7 +49,7 @@
       }
       authenticated = true;
       $("#upw").value = "";
-      DATA = await loadMenu();
+      DATA = await loadMenu(dbLogin);
       window.eduAuth.setSession(DATA);
       start();
     } catch (e) {
@@ -94,18 +94,19 @@
 
   const siteRoot = new URL('./', document.baseURI);
 
-  async function loadMenu() {
+  async function loadMenu(isAdmin) {
     const { data, error } = await window.eduNoticeClient.from('tbl_menu')
       .select('group_code,group_order,menu_order,page_path,group:tbl_comcode!tbl_menu_group_code_fk(name),menu:tbl_comcode!tbl_menu_menu_code_fk(name)')
       .order('group_order').order('menu_order');
     if (error || !data?.length) throw Error('DB menu unavailable');
 
     const groups = new Map();
+    const books = { name: 'Books', ko: '읽을거리', url: 'do_docs/do_books.html' };
     const management = { name: 'Mng.', ko: '관리', items: [] };
-    const board = { name: '게시판', url: 'mn_manage/mn_notice.html', order: 1, boardPaths: [
+    const board = { name: 'Board', ko: '게시판', siteMapName: 'Notice', url: 'mn_manage/mn_notice.html', order: 1, boardPaths: [
       'mn_manage/mn_notice.html', 'mn_manage/mn_library.html',
     ] };
-    const staff = { name: '스태프 관리', url: 'mn_manage/mn_staff.html', order: 2 };
+    const staff = { name: 'Agent Mng.', ko: '에이전트 관리', siteMapName: 'Agent Management', url: 'mn_manage/mn_staff.html', order: 2 };
     const managementPages = new Map([
       ...board.boardPaths.map(url => [url, board]),
       [staff.url, staff],
@@ -149,7 +150,7 @@
         managed.add(item.url);
         continue;
       }
-      if (row.group_code === 'MG_ONURI_CLASS' || row.group_code === 'MG_BOARD') continue;
+      if (row.group_code === 'MG_ONURI_CLASS' || row.group_code === 'MG_BOARD' || row.page_path === books.url) continue;
       if (activityPages.has(row.page_path)) {
         activities.items.push(activityPages.get(row.page_path));
         continue;
@@ -178,12 +179,15 @@
       if (item.url === 'do_docs/do_making.html') item.name = 'Making Newsletter';
     }
     newsletters?.sort((left, right) => Number(right.url === 'do_docs/do_ai.html') - Number(left.url === 'do_docs/do_ai.html'));
+    if (!groups.has('MG_DOCUMENT')) groups.set('MG_DOCUMENT', { name: groupLabels.MG_DOCUMENT, items: [] });
+    groups.get('MG_DOCUMENT').items.push(books);
     management.items.sort((left, right) => left.order - right.order);
+    if (!isAdmin) groups.delete('MG_DOCUMENT');
     const cats = [...groups.values()];
     activities.items.sort((left, right) => left.order - right.order);
     if (activities.items.length) cats.unshift(activities);
-    if (manual.items.length) cats.unshift(manual);
-    if (management.items.length) cats.unshift(management);
+    if (isAdmin && manual.items.length) cats.unshift(manual);
+    if (isAdmin && management.items.length) cats.unshift(management);
     return { cats };
   }
 
@@ -209,7 +213,7 @@
       const head = document.createElement("button");
       head.type = "button";
       head.setAttribute("aria-expanded", "false");
-      head.append(menuLabel(cat));
+      head.append(cat.name);
       const caret = document.createElement("span");
       caret.className = "caret"; caret.textContent = "⌄";
       head.append(caret);
@@ -239,14 +243,14 @@
     $('#logout').hidden = false; document.body.classList.add('portal-authenticated');
     const collection = $('#home-categories');
     collection.replaceChildren();
-    const introductions = { 'Vibe Coding': '아이디어를 웹과 디지털 경험으로 만들어보세요.', '수업 활동': '퀴즈와 카드, 게임으로 수업에 참여해 보세요.', 'Doc.': 'AI와 메이킹 뉴스레터를 읽어보세요.', '관리': '게시판과 스태프 정보를 관리하세요.', '매뉴얼': '장비, 프로그램, AI와 개발 매뉴얼을 읽어보세요.' };
+    const introductions = { 'Vibe Coding': '아이디어를 웹과 디지털 경험으로 만들어보세요.', '수업 활동': '퀴즈와 카드, 게임으로 수업에 참여해 보세요.', 'Doc.': 'AI·메이킹 뉴스레터와 책 이야기를 읽어보세요.', '관리': '게시판과 에이전트 정보를 관리하세요.', '매뉴얼': '장비, 프로그램, AI와 개발 매뉴얼을 읽어보세요.' };
     DATA.cats.forEach((cat, ci) => {
       const card = document.createElement('article'); card.className = 'home-category-card';
       const number = document.createElement('span'); number.className = 'home-category-number'; number.textContent = String(ci + 1).padStart(2, '0');
       const title = document.createElement('h4'); title.append(menuLabel(cat));
       const description = document.createElement('p'); description.textContent = introductions[cat.ko ?? cat.name] || '관심 있는 콘텐츠를 골라 살펴보세요.';
       const links = document.createElement('div'); links.className = 'home-category-links';
-      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.append(menuLabel(item), ' ↗'); link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
+      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.append(item.siteMapName || menuLabel(item), ' ↗'); link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
       card.append(number, title, description, links); collection.append(card);
     });
     gate.remove();
@@ -369,7 +373,7 @@
   const restored = window.eduAuth.getSession();
   if (restored) {
     btn.disabled = true;
-    loadMenu().then(menu => {
+    window.eduDbAdmin().then(Boolean, () => false).then(loadMenu).then(menu => {
       DATA = menu;
       window.eduAuth.setSession(DATA, restored.expiresAt);
       start();

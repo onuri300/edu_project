@@ -1,0 +1,13 @@
+/* Books(읽을거리): Document 리더(reader.css) 위에 본문 iframe·태그만 더한다. */
+.books [hidden] { display: none !important; }
+.books .report-item strong, .books .report-item small { display: block; }
+.books .report-search-label + .report-search-label { margin-top: 14px; }
+.book-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+.book-tags span { padding: 3px 9px; border-radius: 20px; background: var(--lavender); color: var(--accent); font-size: 12px; }
+.reading-content .book-open { display: inline-block; margin-top: 4px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--accent); font-size: 13px; text-decoration: none; }
+.reading-content .book-open:hover { border-color: var(--accent); }
+.book-frame { display: block; width: 100%; min-height: 70vh; border: 1px solid var(--line); border-radius: 12px; background: #FBF7F0; }
+@media (max-width: 576px) {
+  .book-frame { min-height: 60vh; border-radius: 8px; }
+  .reading-content .book-open { display: block; text-align: center; }
+}

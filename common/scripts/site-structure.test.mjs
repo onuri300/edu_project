@@ -37,7 +37,7 @@ test('every HTML uses shared assets with valid local CSS and script paths', asyn
       count++;
     }
   }
-  assert.equal(count, 28);
+  assert.equal(count, 29);
   const names = await readdir(root);
   assert.ok(names.includes('index.html'), 'Login entry page stays at index.html');
   const entry = await readFile(path.join(root, 'index.html'), 'utf8');

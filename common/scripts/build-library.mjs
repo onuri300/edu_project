@@ -95,11 +95,11 @@ export async function buildLibrary(source = root, output = path.join(root, '_sit
     });
   }
   for (const relative of ['onuri.framework/css', 'onuri.framework/js', 'onuri.framework/images',
-    'onuri.framework/db_connect/browser', 'common/file/browser', 'common/file/vi.file', 'common/data/site-config.js']) {
+    'onuri.framework/db_connect/browser', 'common/file/browser', 'common/file/vi.file', 'common/file/do.file', 'common/data/site-config.js']) {
     await copyOptional(source, output, relative);
   }
   await copyOptional(source, output, 'common/file/vi.file', 'vi_vibe/vi_onyou/downloads');
-  for (const relative of ['common/images', 'common/data/computer-quiz', 'common/data/gpt-making-manual.json', 'common/data/data.enc.js', 'common/data/library-data.js', 'CNAME', '.nojekyll', '404.html', 'favicon.ico', 'robots.txt']) await copyOptional(source, output, relative);
+  for (const relative of ['common/images', 'common/data/computer-quiz', 'common/data/gpt-making-manual.json', 'common/data/data.enc.js', 'common/data/library-data.js', 'common/data/books-data.js', 'CNAME', '.nojekyll', '404.html', 'favicon.ico', 'robots.txt']) await copyOptional(source, output, relative);
   await copyOptional(source, output, 'common/data/coding-manual.js');
   await copyOptional(source, output, 'common/data/gpt-making-manual.js');
   for (const item of items) {

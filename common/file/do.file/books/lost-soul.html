@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>북코너 | 잃어버린 영혼 — 영혼이 따라올 때까지, 천천히</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root { --paper:#FBF7F0; --card:#FFFFFF; --ink:#2F2A26; --soft:#6E645B; --line:#E9E0D2; --sage:#6E8F7A; --rose:#C9705A; --tint:#F3ECE0;
+  --fs-body: clamp(1rem, .95rem + .3vw, 1.125rem); --fs-h1: clamp(1.9rem, 1.3rem + 2.6vw, 3rem); --fs-h2: clamp(1.25rem, 1.05rem + .9vw, 1.6rem); }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 var(--fs-body)/1.85 'Noto Sans KR', system-ui, sans-serif; word-break: keep-all; }
+a { color: var(--sage); }
+.wrap { width: min(100% - 2rem, 760px); margin-inline: auto; }
+header.top { border-bottom: 1px solid var(--line); background: var(--card); }
+header.top .wrap { display: flex; justify-content: space-between; align-items: center; padding: .8rem 0; font-size: .875rem; color: var(--soft); }
+header.top b { color: var(--ink); letter-spacing: .02em; }
+.hero { padding: clamp(2rem, 5vw, 3.5rem) 0 1rem; text-align: center; }
+.eyebrow { display: inline-block; font-size: .8rem; letter-spacing: .18em; color: var(--rose); font-weight: 700; }
+h1 { font-family: 'Gowun Batang', serif; font-size: var(--fs-h1); line-height: 1.3; margin: .4rem 0 .6rem; }
+.biblio { color: var(--soft); font-size: .95rem; margin: 0; }
+.meta { color: var(--soft); font-size: .85rem; margin-top: .4rem; }
+figure.ill { margin: 1.6rem 0; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: .6rem; box-shadow: 0 8px 24px rgba(80, 60, 40, .08); }
+figure.ill svg { display: block; width: 100%; height: auto; border-radius: 12px; }
+figure.ill figcaption { font-size: .85rem; color: var(--soft); text-align: center; padding: .5rem .5rem .2rem; }
+.lead { font-family: 'Gowun Batang', serif; font-size: clamp(1.15rem, 1rem + .7vw, 1.4rem); line-height: 1.7; text-align: center; margin: 2rem auto; max-width: 34em; color: var(--ink); }
+.lead::before, .lead::after { content: '“'; color: var(--rose); font-size: 1.6em; line-height: 0; vertical-align: -.3em; margin-right: .1em; }
+.lead::after { content: '”'; margin: 0 0 0 .1em; }
+main section { margin: 2.8rem 0; }
+h2 { font-family: 'Gowun Batang', serif; font-size: var(--fs-h2); margin: 0 0 1rem; display: flex; align-items: center; gap: .6rem; }
+h2::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: var(--sage); flex: none; }
+.themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; list-style: none; padding: 0; margin: 0; }
+.themes li { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 1.1rem 1.1rem 1rem; box-shadow: 0 2px 10px rgba(80, 60, 40, .05); }
+.themes b { display: block; font-family: 'Gowun Batang', serif; font-size: 1.1rem; margin-bottom: .3rem; color: var(--sage); }
+.themes p { margin: 0; font-size: .95rem; color: var(--soft); line-height: 1.7; }
+.story p { margin: 0 0 1.2rem; }
+.story .chap { margin: 1.4rem 0 .2rem; display: block; font-family: 'Gowun Batang', serif; font-weight: 700; color: var(--rose); font-size: .95rem; letter-spacing: .04em; margin-bottom: .15rem; }
+.story p.first::first-letter { font-family: 'Gowun Batang', serif; float: left; font-size: 3.2em; line-height: .9; padding: .1em .12em 0 0; color: var(--sage); }
+.spoiler { font-size: .82rem; color: var(--soft); background: var(--tint); border-radius: 999px; padding: .15rem .7rem; display: inline-block; margin-bottom: 1rem; }
+.note { background: var(--tint); border-radius: 16px; padding: 1.2rem 1.3rem; }
+.note p { margin: 0; }
+.for { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+.for li { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: .7rem 1rem; }
+.for li::before { content: '✦'; color: var(--rose); margin-right: .5rem; }
+.qs { counter-reset: q; list-style: none; padding: 0; margin: 0; display: grid; gap: .7rem; }
+.qs li { counter-increment: q; display: flex; gap: .8rem; align-items: baseline; }
+.qs li::before { content: counter(q); flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--sage); color: #fff; display: grid; place-items: center; font-size: .85rem; font-weight: 700; }
+blockquote.review { margin: 0; background: var(--card); border-left: 5px solid var(--rose); border-radius: 0 16px 16px 0; padding: 1.2rem 1.4rem; font-family: 'Gowun Batang', serif; font-size: 1.1rem; line-height: 1.8; box-shadow: 0 2px 10px rgba(80, 60, 40, .05); }
+.sources { font-size: .85rem; color: var(--soft); padding-left: 1.1rem; }
+footer { border-top: 1px solid var(--line); margin-top: 3rem; padding: 1.4rem 0 2.4rem; font-size: .8rem; color: var(--soft); text-align: center; }
+@media (max-width: 768px) { .themes { grid-template-columns: 1fr; } }
+@media (max-width: 576px) { figure.ill { border-radius: 14px; padding: .4rem; } .note, blockquote.review { padding: 1rem; } }
+@media (min-width: 1200px) { .wrap { width: 780px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><b>오누리 북코너</b><span>그림책 · 성인 독서</span></div></header>
+<main class="wrap">
+ <section class="hero" aria-labelledby="ttl" style="margin:0">
+  <span class="eyebrow">BOOK CORNER</span>
+  <h1 id="ttl">잃어버린 영혼</h1>
+  <p class="biblio">올가 토카르추크 글 · 요안나 콘세이요 그림 · 사계절(Dear 그림책) · 원제 <i>Zgubiona dusza</i>(폴란드, 2017)</p>
+  <p class="meta">2026.11.22 · 오누리 북코너 · 스포일러 있음</p>
+ </section>
+
+ <figure class="ill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="t1">
+<title id="t1">창가 의자에 앉아 계절이 바뀌는 것을 바라보며 기다리는 남자 (오누리 북코너 창작 일러스트)</title>
+<defs>
+ <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="7" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feGaussianBlur in="d" stdDeviation="0.8"/>
+ </filter>
+ <filter id="paper" x="0" y="0" width="100%" height="100%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="t"/>
+  <feColorMatrix in="t" type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.38  0 0 0 0 0.3  0 0 0 0.10 0"/>
+  <feComposite in2="SourceGraphic" operator="in"/>
+ </filter>
+ <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+ <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFF4D6" stop-opacity=".95"/><stop offset="1" stop-color="#FFF4D6" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="720" fill="#F6EEDF"/>
+<rect width="1200" height="720" fill="#F6EEDF" filter="url(#paper)"/>
+<!-- 벽과 바닥 -->
+<g filter="url(#wc)">
+ <path d="M0 520 Q600 500 1200 525 L1200 720 L0 720Z" fill="#E3C9A4" opacity=".85"/>
+ <path d="M40 540 Q600 525 1160 548" stroke="#C9A77D" stroke-width="5" fill="none" opacity=".6"/>
+</g>
+<!-- 창문: 네 칸에 네 계절 -->
+<g transform="translate(560 90)">
+ <ellipse cx="260" cy="190" rx="330" ry="260" fill="url(#sun)" filter="url(#soft)"/>
+ <g filter="url(#wc)">
+  <rect x="0" y="0" width="520" height="360" rx="10" fill="#FBF7EE" stroke="#9C7B5B" stroke-width="12"/>
+  <rect x="14" y="14" width="238" height="160" fill="#F9D9DF"/>
+  <rect x="268" y="14" width="238" height="160" fill="#CFE6C1"/>
+  <rect x="14" y="186" width="238" height="160" fill="#F4C99A"/>
+  <rect x="268" y="186" width="238" height="160" fill="#E4ECF2"/>
+  <!-- 봄 -->
+  <path d="M70 174 Q80 110 120 80" stroke="#7A5A43" stroke-width="7" fill="none"/>
+  <circle cx="120" cy="78" r="30" fill="#F2A7B6"/><circle cx="160" cy="98" r="22" fill="#F7BFCA"/><circle cx="92" cy="105" r="20" fill="#F7BFCA"/>
+  <!-- 여름 -->
+  <path d="M380 174 L380 90" stroke="#7A5A43" stroke-width="8"/>
+  <circle cx="380" cy="70" r="46" fill="#8DBF6E"/><circle cx="420" cy="96" r="30" fill="#A3CF84"/><circle cx="342" cy="98" r="28" fill="#79AE5B"/>
+  <!-- 가을 -->
+  <path d="M120 346 L120 262" stroke="#7A5A43" stroke-width="8"/>
+  <circle cx="120" cy="244" r="40" fill="#E08A3C"/><circle cx="160" cy="268" r="24" fill="#D9682E"/>
+  <ellipse cx="60" cy="330" rx="12" ry="6" fill="#D9682E"/><ellipse cx="200" cy="322" rx="10" ry="5" fill="#E9A04A"/>
+  <!-- 겨울 -->
+  <path d="M390 346 L390 262 M390 290 L360 262 M390 280 L418 252" stroke="#7A5A43" stroke-width="7" fill="none"/>
+  <circle cx="310" cy="220" r="5" fill="#fff"/><circle cx="450" cy="230" r="6" fill="#fff"/><circle cx="350" cy="300" r="5" fill="#fff"/><circle cx="470" cy="300" r="4" fill="#fff"/><circle cx="420" cy="210" r="4" fill="#fff"/>
+  <rect x="268" y="320" width="238" height="26" fill="#fff"/>
+  <!-- 창살 -->
+  <rect x="252" y="0" width="16" height="360" fill="#9C7B5B"/><rect x="0" y="174" width="520" height="12" fill="#9C7B5B"/>
+ </g>
+</g>
+<!-- 의자와 남자 -->
+<g filter="url(#wc)" transform="translate(180 210)">
+ <ellipse cx="190" cy="415" rx="210" ry="26" fill="#C9A77D" opacity=".55"/>
+ <!-- 의자 등받이 -->
+ <path d="M60 60 Q40 230 70 330 L300 330 Q330 230 300 60 Q180 20 60 60Z" fill="#7E9C8A"/>
+ <!-- 몸 -->
+ <path d="M120 170 Q180 140 240 170 L262 330 L100 330Z" fill="#E8D9C2"/>
+ <!-- 머리 + 긴 머리카락·수염 -->
+ <path d="M140 70 Q180 30 222 70 Q240 140 228 205 Q180 228 132 205 Q120 140 140 70Z" fill="#8B6A55"/>
+ <ellipse cx="181" cy="112" rx="38" ry="44" fill="#F1D3BA"/>
+ <path d="M150 128 Q181 210 212 128 Q200 168 181 172 Q162 168 150 128Z" fill="#9A7A64"/>
+ <path d="M165 108 q6 -4 12 0 M187 108 q6 -4 12 0" stroke="#5B4636" stroke-width="3" fill="none"/>
+ <!-- 팔걸이·다리 -->
+ <path d="M30 250 Q30 200 80 210 L90 330 L40 330Z" fill="#6D8B79"/>
+ <path d="M330 250 Q330 200 280 210 L270 330 L320 330Z" fill="#6D8B79"/>
+ <path d="M110 330 L120 400 M250 330 L240 400" stroke="#5E4636" stroke-width="12" stroke-linecap="round"/>
+ <path d="M70 330 L60 400 M290 330 L300 400" stroke="#5E4636" stroke-width="10" stroke-linecap="round"/>
+ <!-- 무릎 위 손 -->
+ <ellipse cx="150" cy="280" rx="20" ry="13" fill="#F1D3BA"/><ellipse cx="212" cy="280" rx="20" ry="13" fill="#F1D3BA"/>
+</g>
+<!-- 작은 탁자와 찻잔 -->
+<g filter="url(#wc)" transform="translate(70 470)">
+ <ellipse cx="60" cy="0" rx="70" ry="14" fill="#B8926A"/>
+ <path d="M60 10 L60 140" stroke="#8F6E4F" stroke-width="10"/>
+ <path d="M42 -24 L78 -24 L74 -2 L46 -2Z" fill="#F7F1E6" stroke="#B8926A" stroke-width="3"/>
+ <path d="M54 -36 q6 -12 0 -22 M64 -36 q6 -12 0 -22" stroke="#C7B8A3" stroke-width="3" fill="none"/>
+</g>
+<!-- 바닥의 화분 -->
+<g filter="url(#wc)" transform="translate(1000 520)">
+ <path d="M0 0 L80 0 L68 70 L12 70Z" fill="#C97B4E"/>
+ <path d="M40 0 Q20 -60 -10 -80 M40 0 Q50 -70 80 -96 M40 0 Q70 -40 100 -40" stroke="#6E9B5B" stroke-width="8" fill="none" stroke-linecap="round"/>
+</g>
+</svg>
+
+  <figcaption>창가 의자에서 계절이 바뀌는 것을 바라보며 기다리는 얀 — 오누리 북코너 창작 그림(책 속 그림이 아니에요)</figcaption>
+ </figure>
+
+ <p class="lead">너무 빨리 달리느라 영혼을 두고 온 남자가, 한자리에 머물러 기다리는 법을 배우며 자기 자신을 되찾는 이야기.</p>
+
+ <section aria-labelledby="h-theme">
+  <h2 id="h-theme">이 책이 건네는 세 가지</h2>
+  <ul class="themes">
+   <li><b>속도와 상실</b><p>쉼 없이 일하고 움직이는 동안 우리는 무언가를 잃고도 알아차리지 못한다. 책은 그것을 영혼이라 부른다.</p></li>
+   <li><b>기다림과 머무름</b><p>답은 더 빨리 찾아 나서는 데 있지 않다. 멈추어 한자리에서 기다리는 것. 영혼은 몸보다 느리니까.</p></li>
+   <li><b>나다움의 회복</b><p>영혼과 다시 만난 뒤의 삶은 성취가 아니라 천천히, 함께 사는 시간으로 그려진다.</p></li>
+  </ul>
+ </section>
+
+ <section class="story" aria-labelledby="h-story">
+  <h2 id="h-story">이야기 따라 읽기</h2>
+  <span class="spoiler">결말까지 담았어요</span>
+  <h3 class="chap">하나 · 영혼 없이도 괜찮던 남자</h3><p class="first">옛날에 아주 열심히, 아주 빠르게 일하는 남자 얀이 살았다. 그는 오래전에 영혼을 멀리 두고 왔지만, 먹고 자고 일하고 운전하고 테니스도 치며 그럭저럭 지냈다. 다만 가끔 세상이 모눈종이처럼 납작하게 느껴질 뿐이었다.</p>
+  <h3 class="chap">둘 · 이름을 잃은 밤</h3><p>출장 중 어느 호텔 방에서 한밤중에 깬 얀은 숨이 막힌다. 자기가 어디에 있는지, 왜 여기 있는지, 심지어 자기 이름조차 떠오르지 않는다.</p>
+  <h3 class="chap">셋 · 늙은 의사의 처방</h3><p>얀이 찾아간 나이 지긋한 의사는 위에서 내려다본 세상 이야기를 들려준다. 사람들은 땀 흘리며 바삐 뛰어다니고, 그 뒤를 영혼들이 쫓아가지만 따라잡지 못한다고. 처방은 단 하나, 자기만의 장소를 찾아 편히 앉아 영혼이 돌아올 때까지 기다리라는 것이었다.</p>
+  <h3 class="chap">넷 · 기다림</h3><p>얀은 도시 변두리의 작은 집에 머물며 의자에 앉아 하루하루를 보낸다. 머리카락과 수염이 자라고 계절이 몇 번이고 바뀐다. 그 사이 그는 지나온 삶과 어린 시절을 천천히 되짚는다.</p>
+  <h3 class="chap">다섯 · 영혼의 귀환</h3><p>마침내 어느 오후, 지치고 더러워지고 무릎이 긁힌 작은 소녀의 모습으로 영혼이 문 앞에 도착한다.</p>
+  <figure class="ill"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="t2">
+<title id="t2">작은 집 정원에서 남자와 작은 소녀 모습의 영혼이 천천히 걷고, 묻어 둔 시계 자리에 꽃이 핀 장면 (오누리 북코너 창작 일러스트)</title>
+<defs>
+ <filter id="wc2" x="-10%" y="-10%" width="120%" height="120%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="7" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="9" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feGaussianBlur in="d" stdDeviation="0.8"/>
+ </filter>
+ <filter id="paper2" x="0" y="0" width="100%" height="100%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="t"/>
+  <feColorMatrix in="t" type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.38  0 0 0 0 0.3  0 0 0 0.10 0"/>
+  <feComposite in2="SourceGraphic" operator="in"/>
+ </filter>
+ <filter id="soft2"><feGaussianBlur stdDeviation="14"/></filter>
+ <radialGradient id="sun2" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFF4D6" stop-opacity=".95"/><stop offset="1" stop-color="#FFF4D6" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="720" fill="#EAF1E4"/>
+<rect width="1200" height="720" fill="#F3EBDC" filter="url(#paper2)"/>
+<circle cx="1010" cy="130" r="150" fill="url(#sun2)" filter="url(#soft2)"/>
+<g filter="url(#wc2)">
+ <circle cx="1010" cy="130" r="54" fill="#F7D98B"/>
+ <!-- 언덕 -->
+ <path d="M0 420 Q300 330 620 410 T1200 390 L1200 720 L0 720Z" fill="#B9D39C"/>
+ <path d="M0 520 Q400 450 800 520 T1200 500 L1200 720 L0 720Z" fill="#9CC17E"/>
+ <!-- 작은 집 -->
+ <rect x="110" y="270" width="230" height="180" fill="#F5E6CC"/>
+ <path d="M90 280 L225 170 L360 280Z" fill="#C46A4A"/>
+ <rect x="200" y="350" width="52" height="100" rx="4" fill="#8B6A55"/>
+ <rect x="130" y="310" width="50" height="44" fill="#CFE3EE" stroke="#8B6A55" stroke-width="5"/>
+ <rect x="270" y="310" width="50" height="44" fill="#CFE3EE" stroke="#8B6A55" stroke-width="5"/>
+ <!-- 길 -->
+ <path d="M226 450 Q300 540 520 580 Q760 620 900 720 L760 720 Q640 640 470 610 Q260 570 200 450Z" fill="#E9D7B4"/>
+ <!-- 나무 -->
+ <path d="M1060 520 L1060 360" stroke="#7A5A43" stroke-width="16"/>
+ <circle cx="1060" cy="330" r="80" fill="#7FAE62"/><circle cx="1010" cy="370" r="50" fill="#8DBF6E"/><circle cx="1110" cy="372" r="50" fill="#6FA355"/>
+</g>
+<!-- 꽃밭: 묻어 둔 시계와 가방 자리 -->
+<g filter="url(#wc2)" transform="translate(760 520)">
+ <ellipse cx="80" cy="40" rx="130" ry="30" fill="#8A6A4E" opacity=".55"/>
+ <circle cx="60" cy="38" r="22" fill="#F4F0E6" stroke="#A88A63" stroke-width="5"/>
+ <path d="M60 38 L60 24 M60 38 L70 42" stroke="#7A5A43" stroke-width="3"/>
+ <g stroke="#5E8F4A" stroke-width="5" stroke-linecap="round">
+  <path d="M20 30 L14 -40"/><path d="M100 30 L110 -60"/><path d="M150 34 L160 -30"/><path d="M-20 34 L-34 -20"/><path d="M60 16 L58 -70"/>
+ </g>
+ <circle cx="14" cy="-46" r="16" fill="#F2A7B6"/><circle cx="110" cy="-66" r="18" fill="#F7D07A"/><circle cx="160" cy="-36" r="14" fill="#C9A6E0"/><circle cx="-34" cy="-26" r="14" fill="#F7D07A"/><circle cx="58" cy="-78" r="17" fill="#F28B6B"/>
+</g>
+<!-- 남자와 작은 소녀(영혼) 손잡고 걷기 -->
+<g filter="url(#wc2)" transform="translate(470 330)">
+ <ellipse cx="90" cy="252" rx="130" ry="16" fill="#6E9B5B" opacity=".45"/>
+ <!-- 남자 -->
+ <path d="M30 80 Q60 60 92 80 L104 200 L20 200Z" fill="#E8D9C2"/>
+ <path d="M38 200 L34 250 M84 200 L90 250" stroke="#5E4636" stroke-width="12" stroke-linecap="round"/>
+ <circle cx="61" cy="46" r="30" fill="#F1D3BA"/>
+ <path d="M29 50 Q26 8 61 10 Q96 8 93 50 Q88 30 61 28 Q34 30 29 50Z" fill="#7A5A46"/>
+ <path d="M44 62 Q61 96 78 62 Q70 80 61 82 Q52 80 44 62Z" fill="#9A7A64"/>
+ <path d="M96 100 Q120 130 138 150" stroke="#E8D9C2" stroke-width="16" stroke-linecap="round"/>
+ <!-- 소녀 -->
+ <path d="M140 150 Q160 138 180 150 L190 222 L130 222Z" fill="#F2B8A2"/>
+ <path d="M146 222 L144 252 M174 222 L178 252" stroke="#5E4636" stroke-width="8" stroke-linecap="round"/>
+ <circle cx="160" cy="126" r="22" fill="#F1D3BA"/>
+ <path d="M136 124 Q160 92 184 124 Q186 150 176 156 L176 128 Q160 112 144 128 L144 156 Q134 150 136 124Z" fill="#6B4B3A"/>
+ <circle cx="152" cy="236" r="4" fill="#C9705A"/>
+</g>
+<!-- 날아가는 새 -->
+<path d="M560 150 q14 -12 28 0 q14 -12 28 0 M640 110 q10 -8 20 0 q10 -8 20 0" stroke="#7A6A5A" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>
+
+   <figcaption>이제는 서두르지 않는 둘, 그리고 묻어 둔 시계 자리에 핀 꽃 — 오누리 북코너 창작 그림(책 속 그림이 아니에요)</figcaption>
+  </figure>
+  <h3 class="chap">여섯 · 그 후의 삶</h3><p>얀과 영혼은 이제 서두르지 않고 함께 산다. 얀은 시계와 여행 가방을 정원에 묻고, 그 자리에서는 꽃과 식물이 자라난다. 무엇을 하든 영혼이 따라올 수 있도록, 천천히.</p>
+ </section>
+
+ <section aria-labelledby="h-pic">
+  <h2 id="h-pic">그림으로 읽는 두 번째 이야기</h2>
+  <div class="note"><p>글은 짧고 그림은 길다. 콘세이요는 연필로 섬세하게, 글이 말하지 않는 장면을 따로 이어 간다. 글 없이 그림만 흘러가는 여러 장에서 독자는 얀과 함께 영혼이 지나오는 길과 계절의 변화를 기다리게 된다. 처음의 빽빽한 군중과 모눈 칸이 뒤로 갈수록 숲과 정원으로 바뀌는 흐름 자체가 이 책의 메시지다. 글을 다 읽고 나면 그림만 따라 한 번 더 넘겨 보기를 권한다.</p></div>
+ </section>
+
+ <section aria-labelledby="h-for">
+  <h2 id="h-for">이런 분께 추천해요</h2>
+  <ul class="for">
+   <li>바쁜 일상에 지쳐 내가 무엇을 놓치고 사는지 돌아보고 싶은 어른</li>
+   <li>그림책이 처음인 성인 독서모임 — 15분이면 읽고 한 시간을 이야기할 수 있다</li>
+   <li>초등 고학년 이상 아이와 기다림, 나다움을 주제로 대화하고 싶은 부모·교사</li>
+  </ul>
+ </section>
+
+ <section aria-labelledby="h-q">
+  <h2 id="h-q">함께 나눌 질문</h2>
+  <ol class="qs">
+   <li>요즘 나는 무엇을 너무 빨리 지나쳐 왔을까?</li>
+   <li>나에게 편히 앉아 기다릴 수 있는 장소는 어디인가?</li>
+   <li>얀이 정원에 시계를 묻었다면, 나는 무엇을 묻고 싶은가?</li>
+  </ol>
+ </section>
+
+ <section aria-labelledby="h-rv">
+  <h2 id="h-rv">한 줄 리뷰</h2>
+  <blockquote class="review">빨리 가는 법만 배운 우리에게, 멈추는 것도 용기라고 말해 주는 책.</blockquote>
+ </section>
+
+ <section aria-labelledby="h-src">
+  <h2 id="h-src">출처</h2>
+  <ul class="sources">
+   <li><a href="https://www.sevenstories.com/books/4275-the-lost-soul">Seven Stories Press — The Lost Soul (영어판 출판사 소개)</a></li>
+   <li><a href="https://en.wikipedia.org/wiki/The_Lost_Soul">Wikipedia — The Lost Soul (원작 정보 · 2017년 Wydawnictwo Format 출간)</a></li>
+   <li><a href="https://www.marieclairekorea.com/?p=381060">마리끌레르 코리아 — 어른을 위한 그림책 3권 (사계절 국내판 소개)</a></li>
+  </ul>
+ </section>
+</main>
+<footer><div class="wrap">오누리 메이킹 수업연구소 · 북코너 — 이 글의 그림 두 장은 이야기 분위기를 살리려고 새로 그린 창작 그림이며 책 속 그림과 다릅니다.</div></footer>
+</body>
+</html>
