@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" href="onuri.framework/images/onuri-logo.png">
 ~~~
 
-하위 페이지를 새 탭으로 열 때도 같은 아이콘을 표시하려면 해당 HTML의 `<head>`에 로고 경로를 연결합니다. `on_class/on_people.html`처럼 한 단계 아래에 있으면 `../onuri.framework/images/onuri-logo.png`를 사용합니다. GitHub Pages 빌드는 공용 이미지 폴더를 배포본에 복사합니다. 로고를 교체한 뒤 예전 아이콘이 보이면 브라우저 캐시를 확인합니다.
+하위 페이지를 새 탭으로 열 때도 같은 아이콘을 표시하려면 해당 HTML의 `<head>`에 로고 경로를 연결합니다. `mn_manage/mn_staff.html`처럼 한 단계 아래에 있으면 `../onuri.framework/images/onuri-logo.png`를 사용합니다. GitHub Pages 빌드는 공용 이미지 폴더를 배포본에 복사합니다. 로고를 교체한 뒤 예전 아이콘이 보이면 브라우저 캐시를 확인합니다.
 
 ## 헤더·본문·푸터
 

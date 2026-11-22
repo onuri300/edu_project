@@ -44,15 +44,9 @@ async function loadBoardMenu() {
       .select('page_path,menu:tbl_comcode!tbl_menu_menu_code_fk(name)')
       .eq('group_code', 'mn_').order('menu_order');
     if (error || !data?.length) return;
-    const legacy = {
-      'on_class/on_notice.html': 'mn_manage/mn_notice.html',
-      'bd_board/bd_notice.html': 'mn_manage/mn_notice.html',
-      'bd_board/bd_library.html': 'mn_manage/mn_library.html',
-      'vi_vibe/vi_library.html': 'mn_manage/mn_library.html',
-    };
     const links = [];
     for (const row of data) {
-      const path = legacy[row.page_path] || row.page_path;
+      const path = row.page_path;
       if (!row.menu?.name || !/^mn_manage\/mn_(notice|library)\.html$/.test(path)) continue;
       const key = path.match(/mn_([a-z0-9_-]+)[.]html$/i)?.[1];
       const link = element('a', boardLabels[key] || row.menu.name);
@@ -99,7 +93,7 @@ const dateLabel = value => dates.format(new Date(value)).replace(/[.\s]+/g, '-')
 
 function attachment(path) {
   const parts = path.split('/');
-  if (!/^(?:mn_manage\/mn_files\/|bd_board\/bd_files\/|common\/file\/cl\.file\/)/.test(path) ||
+  if (!/^(?:mn_manage\/mn_files\/|common\/file\/cl\.file\/)/.test(path) ||
       parts.some(part => !part || part === '.' || part === '..' || /[\\%?#:\x00-\x1f]/.test(part))) return null;
   const link = element('a', parts.at(-1));
   link.href = '../' + parts.map(encodeURIComponent).join('/');

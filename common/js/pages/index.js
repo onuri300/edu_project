@@ -107,9 +107,8 @@
     ] };
     const staff = { name: '스태프 관리', url: 'mn_manage/mn_staff.html', order: 2 };
     const managementPages = new Map([
-      ...['on_class/on_notice.html', 'bd_board/bd_notice.html', 'vi_vibe/vi_library.html', 'bd_board/bd_library.html', ...board.boardPaths].map(url => [url, board]),
+      ...board.boardPaths.map(url => [url, board]),
       [staff.url, staff],
-      ['on_class/on_people.html', staff],
     ]);
     const managed = new Set();
     const manual = { name: 'Mng.', ko: '매뉴얼', items: [] };
@@ -127,12 +126,12 @@
     const activities = { name: "Class.", ko: "수업 활동", items: [] };
     const activityPages = new Map([
       { old: "ga_games/ga_idea.html", url: "cl_class/cl_idea.html", name: "Edumaker Idea Card", ko: "메이킹 아이디어 카드", order: 0 },
-      { old: "on_class/on_quiz/on_cards.html", url: "cl_class/cl_cards.html", name: "IT Flashcards", ko: "IT 암기 카드", order: 1 },
-      { old: "on_class/on_quiz/on_quiz.html", url: "cl_class/cl_quiz.html", name: "Computer Quiz", ko: "컴퓨터 퀴즈", order: 2 },
+      { url: "cl_class/cl_cards.html", name: "IT Flashcards", ko: "IT 암기 카드", order: 1 },
+      { url: "cl_class/cl_quiz.html", name: "Computer Quiz", ko: "컴퓨터 퀴즈", order: 2 },
       { old: "ga_games/ga_ladder.html", url: "cl_class/cl_ladder.html", name: "Ladder Game", ko: "사다리 타기", order: 3 },
       { old: "ga_games/ga_mbti-a.html", url: "cl_class/cl_mbti-a.html", name: "Adult MBTI Test", ko: "성인 MBTI", order: 4 },
       { old: "ga_games/ga_mbti-k.html", url: "cl_class/cl_mbti-k.html", name: "Kids’ MBTI Test", ko: "어린이 MBTI", order: 5 },
-    ].flatMap(entry => [[entry.old, entry], [entry.url, entry]]));
+    ].flatMap(entry => [[entry.url, entry], ...(entry.old ? [[entry.old, entry]] : [])]));
     const groupLabels = { MG_VIBE: 'Vibe Coding', MG_GAMES: 'Games', MG_DOCUMENT: 'Doc.' };
     const pageLabels = {
       'vi_vibe/vi_onuri/vi_onuri.html': 'Onuri Maker Lab',

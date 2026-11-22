@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 export const pageFolders = ['.', 'mng', 'do_docs',
-  'ga_games', 'cl_class', 'mn_manual', 'mn_manage', 'bd_board', 'on_class', 'on_class/on_quiz', 'vi_vibe', 'vi_vibe/vi_onuri', 'vi_vibe/vi_onyou'];
+  'ga_games', 'cl_class', 'mn_manual', 'mn_manage', 'vi_vibe', 'vi_vibe/vi_onuri', 'vi_vibe/vi_onyou'];
 const region = /<!-- layout:([a-z-]+) -->\r?\n[\s\S]*?\r?\n<!-- \/layout:\1 -->/g;
 const resourceBanners = {
   'mn_equip.html': {
