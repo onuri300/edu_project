@@ -12,14 +12,22 @@
     const option = document.createElement('option'); option.value = category; option.textContent = category; $('book-category').append(option);
   }
 
-  // iframe 높이를 글 길이에 맞춘다(같은 사이트 파일이라 문서 높이를 읽을 수 있다).
+  // Measure the article body independently of the iframe viewport.
   const frame = $('book-frame');
-  const fit = () => { try { const doc = frame.contentDocument; if (doc?.documentElement) frame.style.height = doc.documentElement.scrollHeight + 8 + 'px'; } catch { /* 기본 높이 유지 */ } };
+  frame.setAttribute('scrolling', 'no');
+  let articleObserver;
   frame.addEventListener('load', () => {
-    fit(); setTimeout(fit, 500);
-    try { new ResizeObserver(fit).observe(frame.contentDocument.body); } catch { /* 지원 안 함 */ }
+    articleObserver?.disconnect();
+    const body = frame.contentDocument?.body;
+    if (!body) return;
+    const fit = () => {
+      const height = Math.ceil(body.getBoundingClientRect().bottom);
+      if (height > 0) frame.style.height = height + 'px';
+    };
+    articleObserver = new ResizeObserver(fit);
+    articleObserver.observe(body);
+    fit();
   });
-  window.addEventListener('resize', fit);
 
   function read(book, updateHash = true) {
     selected = book.id;
@@ -31,7 +39,12 @@
     $('reader-summary').textContent = book.summary || '';
     $('book-tags').replaceChildren(...(book.tags || []).map(tag => { const span = document.createElement('span'); span.textContent = tag; return span; }));
     $('book-open').href = url;
-    if (frame.dataset.src !== url) { frame.dataset.src = url; frame.style.height = ''; frame.src = url; }
+    if (frame.dataset.src !== url) {
+      articleObserver?.disconnect();
+      frame.dataset.src = url;
+      frame.style.height = '';
+      frame.src = url;
+    }
     $('book-list').querySelectorAll('[data-id]').forEach(button => button.setAttribute('aria-current', String(button.dataset.id === book.id)));
   }
 
