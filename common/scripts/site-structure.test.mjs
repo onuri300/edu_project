@@ -37,7 +37,7 @@ test('every HTML uses shared assets with valid local CSS and script paths', asyn
       count++;
     }
   }
-  assert.equal(count, 29);
+  assert.equal(count, 30);
   const names = await readdir(root);
   assert.ok(names.includes('index.html'), 'Login entry page stays at index.html');
   const entry = await readFile(path.join(root, 'index.html'), 'utf8');
@@ -57,6 +57,8 @@ test('grouped pages and assets follow the naming convention', async () => {
   for (const folder of pageFolders.filter(folder => group.test(folder.split('/')[0]))) {
     assert.ok(folder.split('/').every(part => group.test(part)), folder);
     for (const name of (await readdir(path.join(root, folder))).filter(name => name.endsWith('.html'))) {
+      // Preserve the original activity link as a redirect to the Class page.
+      if (folder === 'ga_games' && name === 'ga_sequence.html') continue;
       assert.match(path.parse(name).name, group, folder + '/' + name);
       assert.equal(name.slice(0, 2), folder.slice(0, 2));
     }

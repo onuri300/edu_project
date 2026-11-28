@@ -178,6 +178,15 @@
 
   function initPageControls() {
     document.querySelectorAll('[data-hash-tabs]').forEach(bindHashTabs);
+    document.querySelectorAll('[data-score-toggle]').forEach(toggle => {
+      const panel = document.getElementById(toggle.getAttribute('aria-controls'));
+      if (!panel) return;
+      toggle.addEventListener('click', () => {
+        panel.hidden = !panel.hidden;
+        toggle.setAttribute('aria-expanded', String(!panel.hidden));
+        toggle.textContent = panel.hidden ? '학습 결과 보이기' : '학습 결과 숨기기';
+      });
+    });
     initPrintViews();
     const button = document.querySelector('[data-menu-toggle]');
     const menu = document.querySelector('[data-mobile-menu]');

@@ -5,7 +5,7 @@ const client = window.eduNoticeClient;
 const $ = selector => document.querySelector(selector);
 $('#bd-app').innerHTML = window.eduBoardTemplate;
 const boardType = document.body.dataset.boardCode;
-const boardLabels = { notice: 'Notice 공지사항', library: 'Library 자료실' };
+const boardLabels = { notice: 'Notice', library: 'Library' };
 const boardTitles = { notice: 'Notice', library: '자료실' };
 const list = $('#notices');
 const status = $('#notice-status');

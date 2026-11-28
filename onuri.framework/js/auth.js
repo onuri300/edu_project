@@ -75,9 +75,10 @@
       event.preventDefault(); openPage(link.href);
     } else allowNavigation(link.href);
   });
+  const localPageAllowed = location.protocol === 'file:' && resolvePaths(config.localPaths).includes(location.pathname);
   const adminFolders = resolvePaths(config.adminFolders);
   const adminLogin = config.adminLoginPath ? new URL(config.adminLoginPath, root) : null;
-  if (adminLogin && location.pathname !== adminLogin.pathname && location.pathname.endsWith('.html')
+  if (!localPageAllowed && adminLogin && location.pathname !== adminLogin.pathname && location.pathname.endsWith('.html')
     && adminFolders.some(folder => location.pathname.startsWith(folder))) {
     document.documentElement.dataset.auth = 'pending';
     document.addEventListener('DOMContentLoaded', async () => {
@@ -101,7 +102,6 @@
     }, { once: true });
     return;
   }
-  const localPageAllowed = location.protocol === 'file:' && resolvePaths(config.localPaths).includes(location.pathname);
   if (localPageAllowed || isPublicPage(location.href)) { document.documentElement.dataset.auth = 'public'; return; }
   let grant = null;
   try { grant = JSON.parse(read(grantKey)); } catch {}

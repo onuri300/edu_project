@@ -2,8 +2,8 @@ window.eduBoardTemplate = `<div class="bd-layout document-reader reading-page">
 <div class="bd-board-column bd-pane"><nav id="bd-board-pane" class="bd-nav reading-sidebar" aria-label="Board list">
   <h2>Boards</h2>
   <div id="bd-navigation">
-  <a href="./mn_notice.html" data-board-key="notice">Notice 공지사항</a>
-  <a href="./mn_library.html" data-board-key="library">Library 자료실</a>
+  <a href="./mn_notice.html" data-board-key="notice">Notice</a>
+  <a href="./mn_library.html" data-board-key="library">Library</a>
   </div>
 </nav><div class="reading-divider"><button type="button" class="document-sidebar-toggle" data-bd-toggle="boards" aria-controls="bd-board-pane" aria-expanded="true" aria-label="Collapse boards">‹</button></div></div>
 <div class="bd-post-column bd-pane"><section id="bd-post-pane" class="bd-list reading-sidebar" aria-label="Post list">

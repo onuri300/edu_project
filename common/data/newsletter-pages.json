@@ -2,7 +2,7 @@
   {
     "channel": "ai",
     "variant": "resource-hero-compact",
-    "title": "AI Newsletter",
+    "title": "AI 뉴스레터",
     "eyebrow": "ONURI / AI LETTER",
     "description": "AI의 변화와 교육·일상 속 활용을 살펴보고, 다음 수업의 영감을 발견하세요.",
     "topics": [
@@ -16,7 +16,7 @@
   {
     "channel": "making",
     "variant": "resource-hero-compact",
-    "title": "Making Newsletter",
+    "title": "메이킹 뉴스레터",
     "eyebrow": "ONURI / MAKING LETTER",
     "description": "디지털 도구와 재료, 제작 사례를 살펴보고 다음 수업의 만들기 아이디어를 찾아보세요.",
     "topics": [

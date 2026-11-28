@@ -103,7 +103,7 @@
     const groups = new Map();
     const books = { name: 'Books', ko: '읽을거리', url: 'do_docs/do_books.html' };
     const management = { name: 'Mng.', ko: '관리', items: [] };
-    const board = { name: 'Board', ko: '게시판', siteMapName: 'Notice', url: 'mn_manage/mn_notice.html', order: 1, boardPaths: [
+    const board = { name: 'Board', ko: '게시판', siteMapName: 'Notice', siteMapKo: '공지사항', url: 'mn_manage/mn_notice.html', order: 1, boardPaths: [
       'mn_manage/mn_notice.html', 'mn_manage/mn_library.html',
     ] };
     const staff = { name: 'Agent Mng.', ko: '에이전트 관리', siteMapName: 'Agent Management', url: 'mn_manage/mn_staff.html', order: 2 };
@@ -125,6 +125,7 @@
     ]));
     const activeManuals = new Set();
     const activities = { name: "Class.", ko: "수업 활동", items: [] };
+    const sequence = { url: "cl_class/cl_proc.html", name: "Procedural Thinking", ko: "절차적 사고" };
     const activityPages = new Map([
       { old: "ga_games/ga_idea.html", url: "cl_class/cl_idea.html", name: "Edumaker Idea Card", ko: "메이킹 아이디어 카드", order: 0 },
       { url: "cl_class/cl_cards.html", name: "IT Flashcards", ko: "IT 암기 카드", order: 1 },
@@ -133,11 +134,19 @@
       { old: "ga_games/ga_mbti-a.html", url: "cl_class/cl_mbti-a.html", name: "Adult MBTI Test", ko: "성인 MBTI", order: 4 },
       { old: "ga_games/ga_mbti-k.html", url: "cl_class/cl_mbti-k.html", name: "Kids’ MBTI Test", ko: "어린이 MBTI", order: 5 },
     ].flatMap(entry => [[entry.url, entry], ...(entry.old ? [[entry.old, entry]] : [])]));
-    const groupLabels = { MG_VIBE: 'Vibe Coding', MG_GAMES: 'Games', MG_DOCUMENT: 'Doc.' };
+    const groupLabels = {
+      MG_VIBE: { name: 'Vibe Coding', ko: '바이브 코딩' },
+      MG_GAMES: { name: 'Games', ko: '게임' },
+      MG_DOCUMENT: { name: 'Doc.', ko: '문서' },
+      MG_QUIZ: { name: 'Quiz', ko: '퀴즈' },
+    };
     const pageLabels = {
-      'vi_vibe/vi_onuri/vi_onuri.html': 'Onuri Maker Lab',
-      'vi_vibe/vi_knu.html': 'Kyungnam University Makerspace',
-      'vi_vibe/vi_onyou/vi_onyou.html': 'Onyou Maker Card',
+      'vi_vibe/vi_onuri/vi_onuri.html': { name: 'Onuri Maker Lab', ko: '오누리 메이커랩' },
+      'vi_vibe/vi_knu.html': { name: 'Kyungnam University Makerspace', ko: '경남대학교 메이커스페이스' },
+      'vi_vibe/vi_onyou/vi_onyou.html': { name: 'Onyou Maker Card', ko: '온유 메이커 카드' },
+      'vi_vibe/vi_library.html': { name: 'Living Lab Library', ko: '리빙랩 자료실' },
+      'do_docs/do_ai.html': { name: 'AI Newsletter', ko: 'AI 뉴스레터' },
+      'do_docs/do_making.html': { name: 'Making Newsletter', ko: '메이킹 뉴스레터' },
     };
     for (const row of data) {
       if (!/^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*[.]html$/.test(row.page_path)) {
@@ -151,6 +160,7 @@
         continue;
       }
       if (row.group_code === 'MG_ONURI_CLASS' || row.group_code === 'MG_BOARD' || row.page_path === books.url) continue;
+      if (row.page_path === sequence.url || row.page_path === 'ga_games/ga_sequence.html') continue;
       if (activityPages.has(row.page_path)) {
         activities.items.push(activityPages.get(row.page_path));
         continue;
@@ -167,25 +177,22 @@
         manual.items.push({ name: row.menu.name, url: row.page_path });
         continue;
       }
-      if (!groups.has(row.group_code)) groups.set(row.group_code, { name: groupLabels[row.group_code] || row.group.name, items: [] });
-      groups.get(row.group_code).items.push({ name: pageLabels[row.page_path] || row.menu.name, url: row.page_path });
+      if (!groups.has(row.group_code)) groups.set(row.group_code, { name: row.group.name, ...groupLabels[row.group_code], items: [] });
+      groups.get(row.group_code).items.push({ name: row.menu.name, ...pageLabels[row.page_path], url: row.page_path });
     }
     if (activeManuals.has(0)) activeManuals.add(1);
     manual.items.unshift(...manuals.flatMap((entry, index) => activeManuals.has(index)
       ? [{ name: entry.name, ko: entry.ko, url: 'mn_manual/' + entry.file + '.html' }] : []));
     const newsletters = groups.get('MG_DOCUMENT')?.items;
-    for (const item of newsletters ?? []) {
-      if (item.url === 'do_docs/do_ai.html') item.name = 'AI Newsletter';
-      if (item.url === 'do_docs/do_making.html') item.name = 'Making Newsletter';
-    }
     newsletters?.sort((left, right) => Number(right.url === 'do_docs/do_ai.html') - Number(left.url === 'do_docs/do_ai.html'));
-    if (!groups.has('MG_DOCUMENT')) groups.set('MG_DOCUMENT', { name: groupLabels.MG_DOCUMENT, items: [] });
+    if (!groups.has('MG_DOCUMENT')) groups.set('MG_DOCUMENT', { ...groupLabels.MG_DOCUMENT, items: [] });
     groups.get('MG_DOCUMENT').items.push(books);
     management.items.sort((left, right) => left.order - right.order);
     if (!isAdmin) groups.delete('MG_DOCUMENT');
     const cats = [...groups.values()];
     activities.items.sort((left, right) => left.order - right.order);
-    if (activities.items.length) cats.unshift(activities);
+    activities.items.push(sequence);
+    cats.unshift(activities);
     if (isAdmin && manual.items.length) cats.unshift(manual);
     if (isAdmin && management.items.length) cats.unshift(management);
     return { cats };
@@ -213,7 +220,9 @@
       const head = document.createElement("button");
       head.type = "button";
       head.setAttribute("aria-expanded", "false");
-      head.append(cat.name);
+      const categoryLabel = document.createElement('span');
+      categoryLabel.append(menuLabel(cat));
+      head.append(categoryLabel);
       const caret = document.createElement("span");
       caret.className = "caret"; caret.textContent = "⌄";
       head.append(caret);
@@ -239,18 +248,24 @@
       nav.append(wrap);
     });
 
-    const overview = document.createElement('button'); overview.type = 'button'; overview.className = 'all-menu-link'; overview.textContent = 'Site Map'; overview.addEventListener('click', home); nav.append(overview);
+    const makerPark = document.createElement('a');
+    makerPark.className = 'all-menu-link maker-park-link';
+    makerPark.href = new URL('makerpark/index.html#map', siteRoot).href;
+    makerPark.append(menuLabel({ name: 'Onuri Maker Park', ko: '오누리 메이커파크' }));
+    nav.append(makerPark);
+
+    const overview = document.createElement('button'); overview.type = 'button'; overview.className = 'all-menu-link'; overview.append(menuLabel({ name: 'Site Map', ko: '전체 메뉴' })); overview.addEventListener('click', home); nav.append(overview);
     $('#logout').hidden = false; document.body.classList.add('portal-authenticated');
     const collection = $('#home-categories');
     collection.replaceChildren();
-    const introductions = { 'Vibe Coding': '아이디어를 웹과 디지털 경험으로 만들어보세요.', '수업 활동': '퀴즈와 카드, 게임으로 수업에 참여해 보세요.', 'Doc.': 'AI·메이킹 뉴스레터와 책 이야기를 읽어보세요.', '관리': '게시판과 에이전트 정보를 관리하세요.', '매뉴얼': '장비, 프로그램, AI와 개발 매뉴얼을 읽어보세요.' };
+    const introductions = { '바이브 코딩': '아이디어를 웹과 디지털 경험으로 만들어보세요.', '수업 활동': '퀴즈와 카드, 게임으로 수업에 참여해 보세요.', '문서': 'AI·메이킹 뉴스레터와 책 이야기를 읽어보세요.', '관리': '게시판과 에이전트 정보를 관리하세요.', '매뉴얼': '장비, 프로그램, AI와 개발 매뉴얼을 읽어보세요.' };
     DATA.cats.forEach((cat, ci) => {
       const card = document.createElement('article'); card.className = 'home-category-card';
       const number = document.createElement('span'); number.className = 'home-category-number'; number.textContent = String(ci + 1).padStart(2, '0');
       const title = document.createElement('h4'); title.append(menuLabel(cat));
       const description = document.createElement('p'); description.textContent = introductions[cat.ko ?? cat.name] || '관심 있는 콘텐츠를 골라 살펴보세요.';
       const links = document.createElement('div'); links.className = 'home-category-links';
-      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.append(item.siteMapName || menuLabel(item), ' ↗'); link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
+      cat.items.forEach((item, ii) => { const link = document.createElement('button'); link.type = 'button'; link.append(menuLabel({ name: item.siteMapName ?? item.name, ko: item.siteMapKo ?? item.ko }), ' ↗'); link.addEventListener('click', () => { const navButton = document.querySelector('[data-k="' + ci + '.' + ii + '"]'); navButton.closest('.cat').classList.add('open'); navButton.closest('.cat').querySelector('button').setAttribute('aria-expanded', 'true'); open(ci, ii, navButton); }); links.append(link); });
       card.append(number, title, description, links); collection.append(card);
     });
     gate.remove();

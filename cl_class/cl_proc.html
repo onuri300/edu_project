@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>절차적 사고 | Onuri</title>
+  <link rel="stylesheet" href="../onuri.framework/css/common.css">
+  <link rel="stylesheet" href="../common/css/pages/cl_proc.css">
+  <script src="../common/data/site-config.js"></script>
+  <script src="../onuri.framework/js/auth.js"></script>
+  <script src="../onuri.framework/js/common.js"></script>
+  <script src="../common/js/pages/cl_proc.js" defer></script>
+</head>
+<body class="resource-page" data-site-family="game">
+  <main>
+    <!-- layout:resource-hero -->
+<section class="resource-hero" aria-labelledby="resource-title">
+  <div class="resource-hero-copy">
+    <p class="resource-hero-kicker">ONURI / PLAY TOGETHER</p>
+    <h1 id="resource-title">절차적 사고</h1>
+    <p class="resource-hero-description">무엇을 먼저 하고, 그다음엔 무엇을 할까요? 그림 카드로 일상생활의 순서를 맞춰 보세요.</p>
+  </div>
+  <div class="resource-hero-art resource-hero-art-strip">
+    <img class="page-art resource-hero-image" data-page-image src="../common/images/ga.image/sequence/brushing-2.jpg" width="619" height="619" decoding="async" alt="">
+    <img class="page-art resource-hero-image" data-page-image src="../common/images/ga.image/sequence/pizza-3.jpg" width="619" height="619" decoding="async" alt="">
+    <img class="page-art resource-hero-image" data-page-image src="../common/images/ga.image/sequence/ramen-3.jpg" width="619" height="619" decoding="async" alt="">
+  </div>
+</section>
+<!-- /layout:resource-hero -->
+    <div class="game-shell sequence-game">
+      <nav id="topics" aria-label="활동 고르기"></nav>
+      <section class="surface-panel" aria-labelledby="title">
+        <h2 id="title"></h2>
+        <p>그림 카드를 번호 칸으로 끌어 놓거나, 카드와 번호 칸을 차례로 눌러 보세요.</p>
+        <h3>그림 카드</h3>
+        <div class="grid" id="cards" role="group" aria-label="그림 카드"></div>
+        <h3>순서 칸</h3>
+        <div class="grid" id="slots" role="group" aria-label="순서 칸"></div>
+        <div class="actions">
+          <button class="primary" id="check" type="button">정답 확인</button>
+          <button id="reset" type="button">다시 섞기</button>
+          <button id="next" type="button" hidden>다음 활동</button>
+        </div>
+        <p id="feedback" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

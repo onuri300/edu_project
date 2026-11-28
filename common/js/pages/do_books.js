@@ -12,21 +12,13 @@
     const option = document.createElement('option'); option.value = category; option.textContent = category; $('book-category').append(option);
   }
 
-  // Measure the article body independently of the iframe viewport.
   const frame = $('book-frame');
-  frame.setAttribute('scrolling', 'no');
-  let articleObserver;
-  frame.addEventListener('load', () => {
-    articleObserver?.disconnect();
-    const body = frame.contentDocument?.body;
-    if (!body) return;
-    const fit = () => {
-      const height = Math.ceil(body.getBoundingClientRect().bottom);
-      if (height > 0) frame.style.height = height + 'px';
-    };
-    articleObserver = new ResizeObserver(fit);
-    articleObserver.observe(body);
-    fit();
+  window.addEventListener('message', event => {
+    const size = event.data;
+    if (event.source !== frame.contentWindow || size?.type !== 'onuri:book-height') return;
+    if (!Number.isFinite(size.height) || size.height <= 0) return;
+    frame.style.height = Math.ceil(size.height) + 'px';
+    frame.setAttribute('scrolling', 'no');
   });
 
   function read(book, updateHash = true) {
@@ -40,7 +32,7 @@
     $('book-tags').replaceChildren(...(book.tags || []).map(tag => { const span = document.createElement('span'); span.textContent = tag; return span; }));
     $('book-open').href = url;
     if (frame.dataset.src !== url) {
-      articleObserver?.disconnect();
+      frame.removeAttribute('scrolling');
       frame.dataset.src = url;
       frame.style.height = '';
       frame.src = url;

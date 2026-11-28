@@ -12,18 +12,32 @@
 <section class="resource-hero resource-hero-compact" aria-labelledby="resource-title">
   <div class="resource-hero-copy">
     <p class="resource-hero-kicker">ONURI / PLAY TOGETHER</p>
-    <h1 id="resource-title">Computer Quiz</h1>
-    <p class="resource-hero-description">AI, 개인정보 보호, 코딩, 3D 프린팅까지 100문제로 디지털 세상을 탐험해 보세요.</p>
+    <h1 id="resource-title">컴퓨터 퀴즈</h1>
+    <p class="resource-hero-description">컴퓨터 그림 짝짓기부터 AI, 개인정보 보호, 코딩, 3D 프린팅까지 즐겨 보세요.</p>
   </div>
-  <img class="page-art resource-hero-image" data-page-image src="../common/images/ga.image/computer-quiz-hero.png" width="1536" height="1024" decoding="async" alt="">
+  <div class="resource-hero-art">
+    <img class="page-art resource-hero-image" data-page-image src="../common/images/ga.image/computer-quiz-hero.png" width="1536" height="1024" decoding="async" alt="">
+  </div>
 </section>
 <!-- /layout:resource-hero -->
 <div class="quiz-content">
 <section id="home" class="screen active">
-<div class="grid"><div class="card setup"><small>QUIZ SETUP</small><h2>오늘의 퀴즈 설정</h2><label>난이도</label><div class="levels"><label><input type="radio" name="difficulty" value="전체" checked><span><b>전체</b><em>100문제</em></span></label><label><input type="radio" name="difficulty" value="하" ><span><b>하</b><em>50문제</em></span></label><label><input type="radio" name="difficulty" value="중" ><span><b>중</b><em>30문제</em></span></label><label><input type="radio" name="difficulty" value="상" ><span><b>상</b><em>20문제</em></span></label></div><div class="countrow"><label for="countInput">출제할 문제 수</label><input id="countInput" type="number" min="1" max="100" value="10"> <span>문제</span></div><p id="limitNote"></p><button id="startBtn" class="primary">🚀 퀴즈 시작하기</button></div>
+<div class="grid"><div class="card setup"><small>QUIZ SETUP</small><h2>오늘의 퀴즈 설정</h2><label for="quizGrade">학교급과 학년</label>
+<select id="quizGrade" required><option value="">학교급과 학년을 선택하세요</option><optgroup label="초등학교"><option value="E1">초등학교 1학년</option><option value="E2">초등학교 2학년</option><option value="E3">초등학교 3학년</option><option value="E4">초등학교 4학년</option><option value="E5">초등학교 5학년</option><option value="E6">초등학교 6학년</option></optgroup><optgroup label="중학교"><option value="M1">중학교 1학년</option><option value="M2">중학교 2학년</option><option value="M3">중학교 3학년</option></optgroup><optgroup label="고등학교"><option value="H1">고등학교 1학년</option><option value="H2">고등학교 2학년</option><option value="H3">고등학교 3학년</option></optgroup></select>
+<label>난이도</label><div class="levels"><label><input type="radio" name="difficulty" value="전체"><span><b>전체</b><em>64문제</em></span></label><label><input type="radio" name="difficulty" value="1" checked><span><b>1단계</b><em>그림 짝짓기 · 14문제</em></span></label><label><input type="radio" name="difficulty" value="2"><span><b>2단계</b><em>30문제</em></span></label><label><input type="radio" name="difficulty" value="3"><span><b>3단계</b><em>20문제</em></span></label></div><div class="countrow"><label for="countInput">출제할 문제 수</label><input id="countInput" type="number" required min="1" max="64" value="10"> <span>문제</span></div><p id="limitNote" role="status"></p>
+<details id="quizHistory" hidden><summary id="historySummary">문항 이력</summary><ul id="historyList"></ul></details><button id="startBtn" class="primary">🚀 퀴즈 시작하기</button></div>
 <div class="features"><div class="mini"><img src="../common/images/ga.image/computer_quiz_100-computer.svg"><b>컴퓨터 기초</b><small>하드웨어 · 인터넷 · 소프트웨어</small></div><div class="mini"><img src="../common/images/ga.image/computer_quiz_100-security.svg"><b>디지털 안전</b><small>개인정보 · 피싱 · 보안 습관</small></div><div class="mini"><img src="../common/images/ga.image/computer_quiz_100-robot.svg"><b>AI & 메이킹</b><small>AI · 코딩 · 3D 프린팅 · 레이저</small></div></div></div></section>
-<section id="quiz" class="screen"><div class="game-study-layout"><div class="game-study-main"><div class="progress-row"><span id="progress">1 / 10</span><div class="progress-bar"><div class="progress-fill" id="bar"></div></div></div><article class="card question"><div><span id="badge" class="badge"></span><span id="qid"></span></div><h1 id="question"></h1><div id="options" class="options"></div><div class="tools"><button id="hintBtn" class="ghost">💡 힌트 보기</button><button id="nextBtn" class="primary small" disabled>다음 문제 →</button></div><div id="hint" class="hint hidden"></div><div id="feedback" class="feedback hidden"></div></article></div><aside class="game-score-panel" aria-label="학습 결과"><h2>학습 결과</h2><dl aria-live="polite"><div><dt>정답</dt><dd id="score">0</dd></div><div><dt>오답</dt><dd id="scoreWrong">0</dd></div><div><dt>정답률</dt><dd id="scorePercent">0%</dd></div></dl></aside></div></section>
-<section id="result" class="screen"><div class="card result"><div>🎉</div><small>QUIZ COMPLETE</small><h1>탐험 완료!</h1><p id="resultMsg"></p><strong id="finalScore">0</strong><span>점</span><div class="stats"><div><b id="correct">0</b><small>정답</small></div><div><b id="total">0</b><small>전체</small></div><div><b id="percent">0%</b><small>정답률</small></div></div><button id="retry" class="primary">🔄 다시 풀기</button><button id="resultHome" class="ghost full">처음으로</button></div></section>
+<section id="quiz" class="screen"><div class="game-study-layout game-study-with-toggle">
+    <button type="button" class="game-score-toggle" data-score-toggle aria-controls="quizScorePanel" aria-expanded="true">학습 결과 숨기기</button><div class="game-study-main"><div class="progress-row"><span id="progress">1 / 10</span><div class="progress-bar"><div class="progress-fill" id="bar"></div></div></div><article class="card question"><div><span id="badge" class="badge"></span><span id="qid"></span></div><h1 id="question"></h1><div id="options" class="options"></div>
+<div id="matching" hidden>
+  <p id="matchStatus" role="status"></p>
+  <div class="match-board">
+    <div id="matchWords" class="match-words" role="group" aria-label="낱말"></div>
+    <svg id="matchLines" class="match-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div id="matchPictures" class="match-pictures" role="group" aria-label="그림"></div>
+  </div>
+</div><div class="tools"><button id="hintBtn" class="ghost">💡 힌트 보기</button><button id="nextBtn" class="primary small" disabled>다음 문제 →</button></div><div id="hint" class="hint hidden"></div><div id="feedback" class="feedback hidden"></div></article></div><aside id="quizScorePanel" class="game-score-panel" aria-label="학습 결과"><h2>학습 결과</h2><dl aria-live="polite"><div><dt>정답</dt><dd id="score">0</dd></div><div><dt>오답</dt><dd id="scoreWrong">0</dd></div><div><dt>정답률</dt><dd id="scorePercent">0%</dd></div></dl></aside></div></section>
+<section id="result" class="screen"><div class="card result"><div>🎉</div><small>QUIZ COMPLETE</small><h1>탐험 완료!</h1><p id="resultMsg"></p><strong id="finalScore">0</strong><span>점</span><div class="stats"><div><b id="correct">0</b><small>정답</small></div><div><b id="total">0</b><small>전체</small></div><div><b id="percent">0%</b><small>정답률</small></div></div><p id="retryNote"></p><button id="retry" class="primary">남은 문제 풀기</button><button id="resultHome" class="ghost full">처음으로</button></div></section>
 </div>
 </main>
 <dialog id="modal" class="game-admin-dialog" aria-label="Admin Mode">
@@ -36,5 +50,5 @@
       <p id="error" role="alert" hidden>비밀번호가 올바르지 않습니다.</p>
       <button type="submit" class="game-admin-action">로그인</button>
     </form>
-<div id="panel" hidden><small>ADMIN SETTINGS</small><h2>퀴즈 관리</h2><div class="adminstats"><div><b id="st"></b><small>전체</small></div><div><b id="se"></b><small>하</small></div><div><b id="sm"></b><small>중</small></div><div><b id="sh"></b><small>상</small></div></div><label>기본 출제 문제 수</label><input id="adminCount" type="number" min="1" max="100"><label>기본 난이도</label><select id="adminDifficulty"><option>전체</option><option>하</option><option>중</option><option>상</option></select><button id="saveAdmin" class="primary">설정 저장</button><button data-admin-lock class="ghost full">관리자 로그아웃</button><p id="saved" class="success hidden">설정이 저장되었습니다.</p></div></dialog>
-<script src="../common/data/computer-quiz/questions.js"></script><script src="../common/js/pages/cl_quiz.js"></script></body></html>
+<div id="panel" hidden><small>ADMIN SETTINGS</small><h2>퀴즈 관리</h2><div class="adminstats"><div><b id="st"></b><small>전체</small></div><div><b id="se"></b><small>1단계</small></div><div><b id="sm"></b><small>2단계</small></div><div><b id="sh"></b><small>3단계</small></div></div><label>기본 출제 문제 수</label><input id="adminCount" type="number" min="1" max="64"><label>기본 난이도</label><select id="adminDifficulty"><option>전체</option><option value="1">1단계</option><option value="2">2단계</option><option value="3">3단계</option></select><button id="saveAdmin" class="primary">설정 저장</button><button data-admin-lock class="ghost full">관리자 로그아웃</button><p id="saved" class="success hidden">설정이 저장되었습니다.</p></div></dialog>
+<script src="../common/data/computer-quiz/level-one.js"></script><script src="../common/data/computer-quiz/questions.js"></script><script src="../common/js/pages/cl_quiz.js"></script></body></html>

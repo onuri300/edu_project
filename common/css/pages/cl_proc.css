@@ -1,0 +1,73 @@
+.sequence-game { padding-block: 0 48px; }
+.sequence-game h2 { margin: 0 0 4px; font-size: 1.5rem; }
+.sequence-game h3 { margin: 20px 0 8px; font-size: 1.05rem; }
+.sequence-game p { margin: 6px 0; }
+.sequence-game #topics, .sequence-game .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+.sequence-game button {
+  min-height: 44px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+}
+.sequence-game #topics button, .sequence-game .actions button {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 14px;
+}
+.sequence-game #topics button[aria-pressed="true"] {
+  background: var(--lavender);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.sequence-game .actions .primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.sequence-game .grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.sequence-game .card, .sequence-game .slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  text-align: center;
+  word-break: keep-all;
+}
+.sequence-game .slot {
+  min-height: 112px;
+  border: 2px dashed var(--line);
+  background: var(--muted-surface);
+}
+.sequence-game .slot.filled { border-style: solid; }
+.sequence-game .slot.correct { border-color: var(--success); background: var(--success-light); }
+.sequence-game .slot.retry { border-color: var(--danger); background: var(--danger-light); }
+.sequence-game .selected, .sequence-game .target { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sequence-game .number { color: var(--ink-soft); font-size: .875rem; }
+.sequence-game .sequence-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.sequence-game #feedback { min-height: 3em; font-weight: 700; }
+@media (max-width: 620px) {
+  .sequence-game .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

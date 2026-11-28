@@ -7,7 +7,7 @@
 | Vibe Coding | `vi_vibe/` | 오누리메이커랩, 온유 메이커 카드, 경남대 창의공작센터, Living Lab Library | 작품·프로필 데이터, 갤러리, 센터 소개와 링크 |
 | Class Activities | `cl_class/` | 아이디어 카드, IT 플래시카드, 컴퓨터 퀴즈, 사다리 타기, 성인·어린이 MBTI | 문제 데이터와 활동 화면 |
 | Manual | `mn_manual/` | 장비, 프로그램, AI, 개발 명세 | 매뉴얼의 화면과 데이터 |
-| Document | `do_docs/` | AI 뉴스레터, 메이킹 뉴스레터 | `common/file/ne.file/`의 원본, 채널 정보, 뉴스레터 템플릿 |
+| Document | `do_docs/` | AI 뉴스레터, 메이킹 뉴스레터, Books(읽을거리) | `common/file/ne.file/`의 원본, 채널 정보, 뉴스레터 템플릿 / Books는 `common/data/books-data.js`와 `common/file/do.file/books/` |
 | Mng. 관리 | `mn_manage/` | 게시판(공지사항·자료실), 스태프 관리 | 게시글, 수업 자료, 스태프 정보 |
 
 루트의 `index.html`은 로그인과 그룹 메뉴, 홈 화면을 담당합니다. 메뉴를 이동할 때는 `tbl_menu.page_path`를 갱신합니다.
@@ -41,6 +41,7 @@
 | 포털형 | `index.html` | 로그인, 그룹 메뉴, 홈 카드, 콘텐츠 iframe. 공통 푸터는 `onuri.framework/templates/layout/portal-footer.html`에서 편집 |
 | 배너·본문형 | 수업 자료, 게임, 공지·도구, 포트폴리오 일부 | `resource-hero.html`이 전체 너비 소개 영역을 생성. 버튼·목록·게임 화면은 페이지 본문에서 편집 |
 | 검색·목록·상세형 | GPT Making Manual, Coding Manual | 검색과 카테고리, 왼쪽 목록, 오른쪽 본문. 두 매뉴얼이 스타일과 화면 동작을 공유하며 데이터는 각각 관리 |
+| Books(읽을거리)형 | `do_docs/do_books.html` | Document 리더와 같은 왼쪽 목록(검색·분류) + 오른쪽 본문. 본문은 오누리 ERP 북코너에서 완성(모든 단계 승인)된 블로그 HTML을 iframe으로 표시. 새 글은 HTML을 `common/file/do.file/books/<id>.html`에 넣고 `common/data/books-data.js` 맨 위에 한 줄 추가 |
 | 뉴스레터형 | `do_docs/do_ai.html`, `do_docs/do_making.html` | 채널 배너와 태그, 검색·발행 주기·목록, 리포트 뷰어. `common/templates/newsletter.html`과 채널 데이터에서 생성 |
 | 포트폴리오·갤러리형 | `vi_vibe/vi_onuri/`, `vi_vibe/vi_onyou/` | 전용 메뉴와 작품 카드·상세 화면. 오누리메이커랩 메뉴·푸터는 `common/templates/layout/`, 온유 메이커 카드 화면은 전용 스크립트에서 관리 |
 | 기관 소개형 | `vi_vibe/vi_knu.html` | 기관 로고와 전용 메뉴, 소개·교육·장비·방문 안내. 페이지 HTML과 전용 CSS에서 편집 |

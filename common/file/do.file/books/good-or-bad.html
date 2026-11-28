@@ -298,5 +298,16 @@ footer { border-top: 1px solid var(--line); margin-top: 3rem; padding: 1.4rem 0 
  </section>
 </main>
 <footer><div class="wrap">오누리 메이킹 수업연구소 · 북코너 — 이 글의 그림 두 장은 이야기 분위기를 살리려고 새로 그린 창작 그림이며 책 속 그림과 다릅니다.</div></footer>
+<script>
+(() => {
+  if (window.parent === window) return;
+  const sendHeight = () => {
+    const height = Math.ceil(document.body.getBoundingClientRect().bottom);
+    window.parent.postMessage({ type: 'onuri:book-height', height }, '*');
+  };
+  new ResizeObserver(sendHeight).observe(document.body);
+  sendHeight();
+})();
+</script>
 </body>
 </html>

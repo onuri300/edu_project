@@ -7,6 +7,7 @@
     overscroll-behavior:none;
   }
   button{font:inherit;color:inherit}
+  #nav .maker-park-link{text-decoration:none}
   :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
 
   /* ---------- 로그인 ---------- */
